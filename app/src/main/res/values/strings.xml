@@ -7,4 +7,6 @@
     <string name="cooperative_solutions">Soluciones cooperativas</string>
     <string name="welfare">Bienestar/Minfulness</string>
     <string name="leisure">Ocio y tiempo libre</string>
+    <string name="stress_detection">Detección de estrés</string>
+    <string name="remainders">Recordatorios</string>
 </resources>

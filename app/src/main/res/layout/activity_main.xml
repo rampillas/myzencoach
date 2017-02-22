@@ -1,35 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    android:id="@+id/drawer_layout"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.unir.grupo2.myzeancoach.MainActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <!--- ActionBar -->
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:id="@+id/toolbar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="@string/app_name" />
 
-        <TextView
-            android:text="Main Layout"
-            android:id="@+id/textView"
+    <!-- Side menu. This consists os a FrameLayour and the NavigationView -->
+    <android.support.v4.widget.DrawerLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/drawer_layout">
+
+        <!-- It will change depending on the item is clicked on the NavigationView -->
+        <!-- fragments -->
+        <FrameLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textAlignment="center"
-            android:textSize="24sp"/>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:id="@+id/container_view">
+        </FrameLayout>
 
-    <android.support.design.widget.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:menu="@menu/navigation_menu"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header_layout">
-    </android.support.design.widget.NavigationView>
+        <android.support.design.widget.NavigationView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            android:id="@+id/navigation_view"
+            app:itemTextColor="@color/black"
+            app:menu="@menu/navigation_menu"/>
+    </android.support.v4.widget.DrawerLayout>
 
-
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>
