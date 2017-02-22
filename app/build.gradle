@@ -49,4 +49,8 @@ dependencies {
 
     //Sidebar Navigation Drawer and other features
     compile 'com.android.support:design:25.0.0'
+
+    //Cards
+    compile 'com.android.support:cardview-v7:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
 }
