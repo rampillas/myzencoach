@@ -9,4 +9,15 @@
     <string name="leisure">Ocio y tiempo libre</string>
     <string name="stress_detection">Detección de estrés</string>
     <string name="remainders">Recordatorios</string>
+    <string name="videos">Videos</string>
+    <string name="tests">Tests</string>
+    <string name="ranking">Ranking</string>
+    <string name="my_dilemmas">Mis dilemas</string>
+    <string name="homepage">Muro</string>
+    <string name="coach">Coach</string>
+    <string name="current_plan">Plan Actual</string>
+    <string name="weekly_exercise">Ejercicio semanal</string>
+    <string name="rate">Valoración</string>
+    <string name="public_homepage">Muro público</string>
+    <string name="set_up_your_interests">Configura tus intereses</string>
 </resources>

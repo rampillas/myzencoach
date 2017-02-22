@@ -11,8 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.TabFragment;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
+import com.unir.grupo2.myzeancoach.ui.MWelfare.MWelfareFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
         /**
          * Lets inflate the very first fragment
-         * Here , we are inflating the TabFragment as the first Fragment
+         * Here , we are inflating the MCustomizeFragment as the first Fragment
          */
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container_view,new TabFragment()).commit();
+        fragmentTransaction.replace(R.id.container_view,new MCustomizeFragment()).commit();
 
 
         //Setup click events on the Navigation View Items.
@@ -48,13 +51,28 @@ public class MainActivity extends AppCompatActivity {
 
                 if (menuItem.getItemId() == R.id.nav_customise) {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.container_view,new TabFragment()).commit();
+                    fragmentTransaction.replace(R.id.container_view,new MCustomizeFragment()).commit();
 
                 }
 
                 if (menuItem.getItemId() == R.id.nav_essential_information) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.container_view,new MEssentialInfoFragment()).commit();
+                }
+
+                if (menuItem.getItemId() == R.id.nav_cooperative_solutions) {
+                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.container_view,new MCooperativeSolFragment()).commit();
+                }
+
+                if (menuItem.getItemId() == R.id.nav_welfare) {
+                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.container_view,new MWelfareFragment()).commit();
+                }
+
+                if (menuItem.getItemId() == R.id.nav_leisure) {
+                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.container_view,new MLeisureFragment()).commit();
                 }
 
                 return false;
