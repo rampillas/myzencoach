@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_customise"
+          android:title="@string/customize"
+        android:icon="@mipmap/ic_today_black_24dp"></item>
+
+    <item android:id="@+id/nav_essential_information"
+          android:title="@string/essential_information"
+          android:icon="@mipmap/ic_local_movies_black_24dp"></item>
+
+    <item android:id="@+id/nav_cooperative_solutions"
+          android:title="@string/cooperative_solutions"
+        android:icon="@mipmap/ic_chat_black_24dp"></item>
+
+    <item android:id="@+id/nav_welfare"
+          android:title="@string/welfare"
+        android:icon="@mipmap/ic_music_note_black_24dp"></item>
+
+    <item android:id="@+id/nav_leisure"
+          android:title="@string/leisure"
+        android:icon="@mipmap/ic_directions_bike_black_24dp"></item>
+</menu>
