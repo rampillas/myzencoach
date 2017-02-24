@@ -20,4 +20,5 @@
     <string name="rate">Valoración</string>
     <string name="public_homepage">Muro público</string>
     <string name="set_up_your_interests">Configura tus intereses</string>
+    <string name="score_info">%1$d puntos</string>
 </resources>

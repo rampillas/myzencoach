@@ -12,8 +12,8 @@
 
         <ImageButton
             android:id="@+id/position_imageView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -35,8 +35,8 @@
                 android:id="@+id/nick_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ceokin"
-                android:textSize="36sp"/>
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/score_textView"
@@ -44,8 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/nick_textView"
                 android:layout_marginTop="15dp"
-                android:text="500 puntos"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="@color/greenApp"/>
         </LinearLayout>
 
     </RelativeLayout>
