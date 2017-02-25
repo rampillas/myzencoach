@@ -60,7 +60,6 @@ public class RankingFragment extends Fragment {
         rankingItemList.add(rankingItem5);
         rankingItemList.add(rankingItem6);
 
-        //RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.ranking_recycler_view);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);

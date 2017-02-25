@@ -21,4 +21,6 @@
     <string name="public_homepage">Muro público</string>
     <string name="set_up_your_interests">Configura tus intereses</string>
     <string name="score_info">%1$d puntos</string>
+    <string name="completed">Completado</string>
+    <string name="uncompleted">Pendiente</string>
 </resources>
