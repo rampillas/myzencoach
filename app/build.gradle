@@ -26,16 +26,15 @@ dependencies {
     })
 
     //Butterknife
-    
 
     //Retrofit
-    
+
     //RxJava, RxAndroid and Retrofit as reactivate
-    
+
     //Dagger 2
-    
+
     //Sidebar Navigation Drawer and other features
-    
+
     //Cards
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.jakewharton:butterknife:8.4.0'

@@ -24,6 +24,26 @@
     <string name="completed">Completado</string>
     <string name="uncompleted">Pendiente</string>
 
+
+    <!-- LOGIN -->
+    <string name="LOGIN_TEXT_USER">Usuario</string>
+    <string name="LOGIN_TEXT_PASSWORD">Contraseña</string>
+    <string name="LOGIN_TEXT_LOGIN">Iniciar Sesión</string>
+    <string name="LOGIN_REMEMBER_PASSWORD">He olvidado mi contraseña</string>
+    <string name="LOGIN_CREATE_ACCOUNT">¿No tienes cuenta?</string>
+    <string name="LOGIN_CREATE_ACCOUNT_BUTTON">Registrate</string>
+
+    <!-- SIGNUP -->
+    <string name="SIGNUP_NAME">Nombre</string>
+    <string name="SIGNUP_BIRD_DATE">F. Nac</string>
+    <string name="SIGNUP_SEXO">Sexo</string>
+    <string name="SIGNUP_COUNTRY">País</string>
+    <string name="SIGNUP_CITY">Ciudad</string>
+    <string name="SIGNUP_URBAN_RURAL">Zona de Residencia</string>
+    <string name="SIGNUP_CHANGE_COUNTRY">¿Has cambiado de país en los últimos 5 años?</string>
+    <string name="SIGNUP_ESTUDIOS">Nivel de Estudios</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
