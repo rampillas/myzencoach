@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.testList.TestItem;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.testList.TestListAdapter;
+import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.testList.TesttListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +24,10 @@ import butterknife.ButterKnife;
  * Created by Cesar on 22/02/2017.
  */
 
-public class TestsFragment extends Fragment implements TestListAdapter.OnItemClickListener{
+public class TestsFragment extends Fragment implements TesttListAdapter.OnItemClickListener{
 
     List<TestItem> testItemList;
-    TestListAdapter testsListAdapter;
+    TesttListAdapter testsListAdapter;
     @BindView(R.id.test_recycler_view) RecyclerView recyclerView;
 
     OnItemSelectedListener onItemSelectedListener;
@@ -71,7 +71,7 @@ public class TestsFragment extends Fragment implements TestListAdapter.OnItemCli
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        testsListAdapter = new TestListAdapter(getContext(), testItemList, this);
+        testsListAdapter = new TesttListAdapter(getContext(), testItemList, this);
         recyclerView.setAdapter(testsListAdapter);
 
         return view;

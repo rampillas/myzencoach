@@ -1,6 +1,7 @@
 package com.unir.grupo2.myzeancoach.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -14,13 +15,15 @@ import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
+import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestActivity;
+import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.MWelfareFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener{
 
     // ui
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -92,4 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Test item has been clicked
+    @Override
+    public void onItemSelected(String videoName) {
+        Intent intent = new Intent(this, TestActivity.class);
+        intent.putExtra("video_name",videoName);
+        startActivity(intent);
+    }
 }
