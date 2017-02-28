@@ -5,4 +5,5 @@
     <dimen name="letra_grande">36dp</dimen>
     <dimen name="letra_mediana">18dp</dimen>
     <dimen name="letra_pequeña">12dp</dimen>
+    <dimen name="letra_extra_pequeña">8dp</dimen>
 </resources>

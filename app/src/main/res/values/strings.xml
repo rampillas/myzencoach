@@ -54,6 +54,15 @@
     <string name="SIGNUP_URBAN_RURAL">Zona de Residencia</string>
     <string name="SIGNUP_CHANGE_COUNTRY">¿Has cambiado de país en los últimos 5 años?</string>
     <string name="SIGNUP_ESTUDIOS">Nivel de Estudios</string>
+    <string name="SIGNUP_MAN">Hombre</string>
+    <string name="SIGNUP_WOMAN">Mujer</string>
+    <string name="SIGNUP_SELECT">Selecciona</string>
+    <string name="SIGNUP_YES">Si</string>
+    <string name="SIGNUP_NO">No</string>
+    <string name="SIGNUP_RURAL">Rural</string>
+    <string name="SIGNUP_URBAN">Urbana</string>
+    <string name="SIGNUP_OK">Ok</string>
+    <string name="SIGNUP_EMAIL">email</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

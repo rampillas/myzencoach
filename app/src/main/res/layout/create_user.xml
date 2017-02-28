@@ -137,6 +137,47 @@
                     android:layout_height="match_parent"
                     android:layout_weight="5" />
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="30"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:text="@string/SIGNUP_EMAIL"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="@dimen/letra_pequeña"
+                    android:gravity="center"
+                    tools:textColor="@color/colorPrimary"/>
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:ems="10"
+                    android:inputType="textEmailAddress"
+                    android:textSize="@dimen/letra_pequeña"/>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5" />
+            </LinearLayout>
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -154,18 +195,18 @@
                     android:layout_weight="5" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView14"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text="@string/LOGIN_TEXT_USER"
+                    android:text="@string/SIGNUP_NAME"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/letra_pequeña"
                     android:gravity="center"
                     tools:textColor="@color/colorPrimary"/>
 
                 <EditText
-                    android:id="@+id/UsuarioSingUp"
+                    android:id="@+id/UNombreSingUp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
@@ -194,25 +235,26 @@
                     android:layout_height="match_parent"
                     android:layout_weight="5" />
 
+
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView15"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text="@string/LOGIN_TEXT_USER"
+                    android:text="@string/SIGNUP_BIRD_DATE"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/letra_pequeña"
                     android:gravity="center"
                     tools:textColor="@color/colorPrimary"/>
 
                 <EditText
-                    android:id="@+id/UsuarioLogin"
+                    android:id="@+id/datePickerText"
+                    android:inputType="date"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="@string/LOGIN_TEXT_USER" />
+                    />
 
                 <Space
                     android:layout_width="0dp"
@@ -236,24 +278,44 @@
                     android:layout_weight="5" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView16"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text="@string/LOGIN_TEXT_USER"
+                    android:text="@string/SIGNUP_SEXO"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/letra_pequeña"
                     android:gravity="center"
                     tools:textColor="@color/colorPrimary"/>
 
-                <EditText
-                    android:id="@+id/UsuarioLogin"
+
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="@string/LOGIN_TEXT_USER" />
+                    android:orientation="horizontal">
+
+                    <RadioButton android:id="@+id/radio_man"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/SIGNUP_MAN"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center_vertical"
+                        android:textSize="@dimen/letra_pequeña"
+                        android:onClick="onRadioButtonClicked"/>
+
+                    <RadioButton android:id="@+id/radio_woman"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/SIGNUP_WOMAN"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:textSize="@dimen/letra_pequeña"
+                        android:onClick="onRadioButtonClicked"/>
+                </RadioGroup>
 
                 <Space
                     android:layout_width="0dp"
@@ -277,24 +339,25 @@
                     android:layout_weight="5" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView17"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text="@string/LOGIN_TEXT_USER"
+                    android:text="@string/SIGNUP_COUNTRY"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/letra_pequeña"
                     android:gravity="center"
                     tools:textColor="@color/colorPrimary"/>
 
-                <EditText
-                    android:id="@+id/UsuarioLogin"
+                <Button
+                    android:id="@+id/PaisList"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="@string/LOGIN_TEXT_USER" />
+                    android:text="@string/SIGNUP_SELECT" />
+
 
                 <Space
                     android:layout_width="0dp"
@@ -318,24 +381,23 @@
                     android:layout_weight="5" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView18"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text="@string/LOGIN_TEXT_USER"
+                    android:text="@string/SIGNUP_CITY"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/letra_pequeña"
                     android:gravity="center"
                     tools:textColor="@color/colorPrimary"/>
 
                 <EditText
-                    android:id="@+id/UsuarioLogin"
+                    android:id="@+id/ciudad"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="@string/LOGIN_TEXT_USER" />
+                    android:inputType="textPersonName"/>
 
                 <Space
                     android:layout_width="0dp"
@@ -359,28 +421,114 @@
                     android:layout_weight="5" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView19"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text="@string/LOGIN_TEXT_USER"
+                    android:text="@string/SIGNUP_URBAN_RURAL"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/letra_pequeña"
                     android:gravity="center"
                     tools:textColor="@color/colorPrimary"/>
 
-                <EditText
-                    android:id="@+id/UsuarioLogin"
+
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="@string/LOGIN_TEXT_USER" />
+                    android:orientation="horizontal">
+
+                    <RadioButton android:id="@+id/radio_rural"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/SIGNUP_RURAL"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center_vertical"
+                        android:textSize="@dimen/letra_pequeña"
+                        android:onClick="onRadioButtonClicked"/>
+
+                    <RadioButton android:id="@+id/radio_urbana"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/SIGNUP_URBAN"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:textSize="@dimen/letra_pequeña"
+                        android:onClick="onRadioButtonClicked"/>
+                </RadioGroup>
+
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="5" />
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="30"
+                android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="40"
+                    android:text="@string/SIGNUP_CHANGE_COUNTRY"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="@dimen/letra_pequeña"
+                    android:gravity="center"
+                    tools:textColor="@color/colorPrimary"/>
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="70"
+                    android:orientation="horizontal">
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <RadioButton android:id="@+id/radio_si"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:text="@string/SIGNUP_YES"
+
+                        android:textSize="@dimen/letra_pequeña"
+                        android:onClick="onRadioButtonClicked"/>
+
+                    <RadioButton android:id="@+id/radio_no"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:text="@string/SIGNUP_NO"
+
+                        android:textSize="@dimen/letra_pequeña"
+                        android:onClick="onRadioButtonClicked"/>
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+                </RadioGroup>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="5" />
             </LinearLayout>
             <Space
@@ -400,82 +548,41 @@
                     android:layout_weight="5" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textView21"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text="@string/LOGIN_TEXT_USER"
+                    android:text="@string/SIGNUP_ESTUDIOS"
                     android:layout_centerHorizontal="true"
                     android:textSize="@dimen/letra_pequeña"
                     android:gravity="center"
                     tools:textColor="@color/colorPrimary"/>
 
-                <EditText
-                    android:id="@+id/UsuarioLogin"
+                <Button
+                    android:id="@+id/StudyList"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="@string/LOGIN_TEXT_USER" />
+                    android:text="@string/SIGNUP_SELECT" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="5" />
             </LinearLayout>
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="30"
-                android:orientation="horizontal">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5" />
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="40"
-                    android:text="@string/LOGIN_TEXT_USER"
-                    android:layout_centerHorizontal="true"
-                    android:textSize="@dimen/letra_pequeña"
-                    android:gravity="center"
-                    tools:textColor="@color/colorPrimary"/>
-
-                <EditText
-                    android:id="@+id/UsuarioLogin"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="70"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="@string/LOGIN_TEXT_USER" />
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5" />
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="20"
                 android:orientation="horizontal">
 
                 <Space
@@ -484,11 +591,11 @@
                     android:layout_weight="20" />
 
                 <Button
-                    android:id="@+id/LoginButton"
+                    android:id="@+id/okButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="90"
-                    android:text="@string/LOGIN_TEXT_LOGIN" />
+                    android:text="@string/OK" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -510,6 +617,7 @@
 
 
     </LinearLayout>
+
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
