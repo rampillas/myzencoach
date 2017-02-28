@@ -45,6 +45,7 @@
     <string name="LOGIN_REMEMBER_PASSWORD">He olvidado mi contraseña</string>
     <string name="LOGIN_CREATE_ACCOUNT">¿No tienes cuenta?</string>
     <string name="LOGIN_CREATE_ACCOUNT_BUTTON">Registrate</string>
+    <string name="LOGIN_BAD_LOGIN">Usuario o contraseña incorrectos</string>
 
     <!-- SIGNUP -->
     <string name="SIGNUP_NAME">Nombre</string>
@@ -64,9 +65,19 @@
     <string name="SIGNUP_URBAN">Urbana</string>
     <string name="SIGNUP_OK">Ok</string>
     <string name="SIGNUP_EMAIL">email</string>
+    <string-array name="SIGNUP_STUDY_LEVELS">
+        <item>Seleccione</item>
+        <item>Nada</item>
+        <item>Primaria</item>
+        <item>Secundaria</item>
+        <item>Bachiller</item>
+        <item>Ciclo Formativo</item>
+        <item>Carrera Universitaria</item>
+        <item>Doctorado</item>
+    </string-array>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="LOGIN_BAD_LOGIN">Usuario o contraseña incorrectos</string>
+
 </resources>
