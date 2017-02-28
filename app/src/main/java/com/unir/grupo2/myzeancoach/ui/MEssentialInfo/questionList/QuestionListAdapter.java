@@ -31,10 +31,18 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     boolean isFooter = false;
     boolean isHeader = false;
 
-    public QuestionListAdapter(Context context,List<QuestionItem> quesionItemList, String videoName){
+    public interface OnButtonClickListener{
+        public void onButtonClick(int testRate);
+    }
+
+    private final QuestionListAdapter.OnButtonClickListener listener;
+
+    public QuestionListAdapter(Context context,List<QuestionItem> quesionItemList, String videoName,
+                               OnButtonClickListener listener){
         this.context = context;
         this.questionItemList = quesionItemList;
         this.videoName = videoName;
+        this.listener = listener;
     }
 
     @Override
@@ -65,7 +73,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             footerHolder.videoNameButton.setOnClickListener (new View.OnClickListener () {
                 @Override
                 public void onClick (View view) {
-                    Toast.makeText (context, "Clicked Footer", Toast.LENGTH_SHORT).show ();
+                   listener.onButtonClick(4);
                 }
             });
         } else if(holder instanceof QuestionItemViewHolder) {

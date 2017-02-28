@@ -1,6 +1,8 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.questionList.QuestionItem;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.questionList.QuestionListAdapter;
+import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.questionList.QuestionTestCompletedDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +18,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TestActivity extends AppCompatActivity {
+public class TestActivity extends AppCompatActivity implements QuestionListAdapter.OnButtonClickListener,
+        QuestionTestCompletedDialog.OnStopLister{
 
-    @BindView(R.id.test_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.test_recycler_view)
+    RecyclerView recyclerView;
     private List<QuestionItem> questionItemList;
     private QuestionListAdapter questionListAdapter;
 
@@ -50,8 +55,28 @@ public class TestActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        questionListAdapter = new QuestionListAdapter(this, questionItemList,videoName);
+        questionListAdapter = new QuestionListAdapter(this, questionItemList, videoName, this);
         recyclerView.setAdapter(questionListAdapter);
 
+    }
+
+    @Override
+    public void onButtonClick(int testRate) {
+        // close existing dialog fragments
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment frag = manager.findFragmentByTag("fragment_dialog");
+        if (frag != null) {
+            manager.beginTransaction().remove(frag).commit();
+        }
+        QuestionTestCompletedDialog questionTestCompletedDialog = new QuestionTestCompletedDialog();
+        Bundle args = new Bundle();
+        args.putInt("RATE", testRate);
+        questionTestCompletedDialog.setArguments(args);
+        questionTestCompletedDialog.show(manager, "fragment_dialog");
+    }
+
+    @Override
+    public void onStopDialog() {
+        finish();
     }
 }
