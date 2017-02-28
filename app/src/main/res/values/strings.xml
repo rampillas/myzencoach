@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MyZeanCoach</string>
+    <string name="OK">OK</string>
+
+    <!-- DrawerMenu and SwipeTabs -->
     <string name="open">Abierto</string>
     <string name="close">Cerrado</string>
     <string name="customize">Personalización</string>
@@ -20,9 +23,18 @@
     <string name="rate">Valoración</string>
     <string name="public_homepage">Muro público</string>
     <string name="set_up_your_interests">Configura tus intereses</string>
+    <string name="test_completed_dialog">El test se ha guardado y enviado correctamente. Recuerde que
+    podrá volver a realizar el test tantas veces como desee</string>
+    <string name="puntuaction">Puntuación</string>
+
+
+    <!-- essential_information-->
     <string name="score_info">%1$d puntos</string>
     <string name="completed">Completado</string>
     <string name="uncompleted">Pendiente</string>
+    <string name="question_number">Pregunta %1$d de %2$d</string>
+    <string name="test_name">Test: %1sd</string>
+    <string name="send_to_rate">Enviar para calificar</string>
 
 
     <!-- LOGIN -->
