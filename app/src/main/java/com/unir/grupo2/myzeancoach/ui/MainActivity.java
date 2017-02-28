@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
@@ -76,6 +77,10 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                 if (menuItem.getItemId() == R.id.nav_leisure) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.container_view,new MLeisureFragment()).commit();
+                }
+                if (menuItem.getItemId() == R.id.nav_login) {
+                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.container_view,new LoginFragment()).commit();
                 }
 
                 return false;

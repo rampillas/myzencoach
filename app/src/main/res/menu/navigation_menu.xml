@@ -20,4 +20,7 @@
     <item android:id="@+id/nav_leisure"
           android:title="@string/leisure"
         android:icon="@mipmap/ic_directions_bike_black_24dp"></item>
+    <item android:id="@+id/nav_login"
+        android:title="@string/login"
+        android:icon="@mipmap/ic_directions_bike_black_24dp"></item>
 </menu>

@@ -1,85 +1,60 @@
 package com.unir.grupo2.myzeancoach.ui.LoginAndUserData;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class LoginFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @BindView(R.id.UsuarioLogin)
+    EditText UsuarioLogin;
+    @BindView(R.id.Password)
+    EditText Password;
+    @BindView(R.id.LoginButton)
+    Button LoginButton;
+    @BindView(R.id.CreateAccount)
+    Button CreateAccount;
+    @BindView(R.id.ForgotPassword)
+    TextView ForgotPassword;
+    @BindView(R.id.LoginFalse)
+    TextView LoginFalse;
 
-    private OnFragmentInteractionListener mListener;
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    @OnClick(R.id.LoginButton)
+    public void Login() {
+        //checkear campos rellenos llamando al controlador
+        LoginChecker loginChecker = new LoginChecker();
+        if (!loginChecker.UserAndPassWordFilled(UsuarioLogin.getText().toString(), Password.getText().toString())) {
+            loginChecker.Login(UsuarioLogin.getText().toString(), Password.getText().toString()));
+        }else{
+            LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
+            LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
         }
+
     }
 
+    @OnClick(R.id.ForgotPassword)
+    public void ForgotPassword() {
+        // llamar al adaptador para cambiar la vista
+    }
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.login, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.login, null);
     }
 
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

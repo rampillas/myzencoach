@@ -26,6 +26,7 @@
     <string name="test_completed_dialog">El test se ha guardado y enviado correctamente. Recuerde que
     podrá volver a realizar el test tantas veces como desee</string>
     <string name="puntuaction">Puntuación</string>
+    <string name="login">Login</string>
 
 
     <!-- essential_information-->
@@ -67,4 +68,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="LOGIN_BAD_LOGIN">Usuario o contraseña incorrectos</string>
 </resources>
