@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Created by Cesar on 24/02/2017.
- */
+ **/
 
 
 public class TesttListAdapter extends RecyclerView.Adapter<TestItemViewHolder>{
