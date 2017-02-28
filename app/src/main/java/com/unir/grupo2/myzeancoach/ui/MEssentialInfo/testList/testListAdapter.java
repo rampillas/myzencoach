@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
 
@@ -18,26 +17,42 @@ import java.util.List;
 
 public class TestListAdapter extends RecyclerView.Adapter<TestItemViewHolder>{
 
-
     private Context context;
     private List<TestItem> testItemList;
     private TestListAdapter thisAdapter = this;
 
-    public TestListAdapter(Context context, List<TestItem> testItemList){
+    public interface OnItemClickListener{
+        public void onItemClick(TestItem testItem);
+    }
+
+    private final OnItemClickListener listener;
+
+    public TestListAdapter(Context context, List<TestItem> testItemList, OnItemClickListener listener){
         this.context = context;
         this.testItemList = testItemList;
+        this.listener = listener;
     }
 
     //We create the viewHolder
     @Override
     public TestItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_video_item_card_layout, parent, false);
-        TestItemViewHolder testItemViewHolder = new TestItemViewHolder(view);
+        final TestItemViewHolder testItemViewHolder = new TestItemViewHolder(view);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Nueva actividad", Toast.LENGTH_SHORT).show();
+                String videoName = testItemViewHolder.videoName.getText().toString();
+                boolean isCOmpleted;
+                if (testItemViewHolder.isCOmpleted.getText().toString().equals(context.getString(R.string.completed))){
+                    isCOmpleted = true;
+                }else{
+                    isCOmpleted = false;
+                }
+
+                int score = (int) testItemViewHolder.scoreRatingBar.getRating();
+                TestItem testItem = new TestItem(videoName,isCOmpleted,score);
+                listener.onItemClick(testItem);
             }
         });
 
