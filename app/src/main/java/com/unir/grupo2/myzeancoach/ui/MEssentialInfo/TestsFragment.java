@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,16 +24,32 @@ import butterknife.ButterKnife;
  * Created by Cesar on 22/02/2017.
  */
 
-public class TestsFragment extends Fragment {
+public class TestsFragment extends Fragment implements TestListAdapter.OnItemClickListener{
 
     List<TestItem> testItemList;
     TestListAdapter testsListAdapter;
     @BindView(R.id.test_recycler_view) RecyclerView recyclerView;
 
+    OnItemSelectedListener onItemSelectedListener;
+
+    public interface OnItemSelectedListener{
+        void onItemSelected(String videoName);
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if (context instanceof OnItemSelectedListener){
+            onItemSelectedListener = (OnItemSelectedListener) context;
+        }else{
+            throw new ClassCastException(context.toString() + " must implements TestListAdapter.onItemSelectedListener");
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.test_layout,null);
+        View view = inflater.inflate(R.layout.tests_layout,null);
         ButterKnife.bind(this, view);
         testItemList = new ArrayList<>();
 
@@ -54,9 +71,14 @@ public class TestsFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        testsListAdapter = new TestListAdapter(getContext(), testItemList);
+        testsListAdapter = new TestListAdapter(getContext(), testItemList, this);
         recyclerView.setAdapter(testsListAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onItemClick(TestItem testItem) {
+        onItemSelectedListener.onItemSelected(testItem.getVideoName());
     }
 }
