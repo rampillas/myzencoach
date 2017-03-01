@@ -58,7 +58,7 @@ public class LoginChecker {
                         if (userObject.getExiste() == 1) {
                             //llamar a la ACTIVITY que gestiona los fragments para que cambie de fragment
                         } else {
-                            LoginFragment.showIncorrectPassword();
+                           // LoginFragment.showIncorrectPassword();
                         }
                     }
 

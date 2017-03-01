@@ -37,7 +37,7 @@ public class LoginFragment extends Fragment {
         //checkear campos rellenos llamando al controlador
         LoginChecker loginChecker = new LoginChecker();
         if (!loginChecker.UserAndPassWordFilled(UsuarioLogin.getText().toString(), Password.getText().toString())) {
-            loginChecker.Login(UsuarioLogin.getText().toString(), Password.getText().toString());
+            //loginChecker.Login(UsuarioLogin.getText().toString(), Password.getText().toString());
         }else{
             LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
             LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
