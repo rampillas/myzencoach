@@ -18,13 +18,16 @@ import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
+import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideoYoutubeActivity;
+import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.MWelfareFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
+        VideosFragment.OnItemVideoSelectedListener{
 
     // ui
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -105,6 +108,14 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     public void onItemSelected(String videoName) {
         Intent intent = new Intent(this, TestActivity.class);
         intent.putExtra("video_name",videoName);
+        startActivity(intent);
+    }
+
+    //Video item has been clicked
+    @Override
+    public void onItemVideoSelected(String urlName) {
+        Intent intent = new Intent(this, VideoYoutubeActivity.class);
+        intent.putExtra("URL",urlName);
         startActivity(intent);
     }
 }
