@@ -68,7 +68,6 @@
     <string name="SIGNUP_EMAIL">email</string>
     <string-array name="SIGNUP_STUDY_LEVELS">
         <item>Seleccione</item>
-        <item>Nada</item>
         <item>Primaria</item>
         <item>Secundaria</item>
         <item>Bachiller</item>
@@ -80,6 +79,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="SIGNUP_INCORRECT_DATA">Faltan valores por añadir o son incorrectos, por favor reviselos.</string>
+    <string name="SIGNUP_USER_EXITS">El usuario ya existe en la base de datos</string>
+    <string name="SIGNUP_INSERT_DATE">introduzca fecha</string>
 
 
 </resources>

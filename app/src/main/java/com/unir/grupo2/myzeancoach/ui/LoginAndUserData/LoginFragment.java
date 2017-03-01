@@ -3,6 +3,7 @@ package com.unir.grupo2.myzeancoach.ui.LoginAndUserData;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,11 @@ public class LoginFragment extends Fragment {
     @OnClick(R.id.ForgotPassword)
     public void ForgotPassword() {
         // llamar al adaptador para cambiar la vista
+    }
+    @OnClick(R.id.CreateAccount)public void AbrirFragmentNewUser(){
+        FragmentTransaction xfragmentTransaction = this.getFragmentManager().beginTransaction();
+        xfragmentTransaction.replace(R.id.container_view,new CreateUserFragment()).commit();
+
     }
 
     @Nullable

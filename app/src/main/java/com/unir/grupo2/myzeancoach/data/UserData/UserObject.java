@@ -6,167 +6,181 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class UserObject{
+public class UserObject {
 
-	@SerializedName("cambio_trabajo")
-	@Expose
-	private int cambioTrabajo;
+    @SerializedName("cambio_trabajo")
+    @Expose
+    private int cambioTrabajo;
 
-	@SerializedName("emoticono")
-	@Expose
-	private String emoticono;
+    @SerializedName("sexo")
+    @Expose
+    private String sexo;
 
-	@SerializedName("fecha_nacimiento")
-	@Expose
-	private String fechaNacimiento;
+    @SerializedName("emoticono")
+    @Expose
+    private String emoticono;
 
-	@SerializedName("zona_residencia")
-	@Expose
-	private String zonaResidencia;
+    @SerializedName("fecha_nacimiento")
+    @Expose
+    private String fechaNacimiento;
 
-	@SerializedName("nivel_de_estudios")
-	@Expose
-	private String nivelDeEstudios;
+    @SerializedName("zona_residencia")
+    @Expose
+    private String zonaResidencia;
 
-	@SerializedName("usuario")
-	@Expose
-	private String usuario;
+    @SerializedName("nivel_de_estudios")
+    @Expose
+    private String nivelDeEstudios;
 
-	@SerializedName("contrasena")
-	@Expose
-	private String contrasena;
+    @SerializedName("usuario")
+    @Expose
+    private String usuario;
 
-	@SerializedName("pais_nacimiento")
-	@Expose
-	private String paisNacimiento;
+    @SerializedName("contrasena")
+    @Expose
+    private String contrasena;
 
-	@SerializedName("existe")
-	@Expose
-	private int existe;
+    @SerializedName("pais_nacimiento")
+    @Expose
+    private String paisNacimiento;
 
-	@SerializedName("nombre")
-	@Expose
-	private String nombre;
+    @SerializedName("existe")
+    @Expose
+    private int existe;
 
-	@SerializedName("email")
-	@Expose
-	private String email;
+    @SerializedName("nombre")
+    @Expose
+    private String nombre;
 
-	@SerializedName("ciudad_nacimiento")
-	@Expose
-	private String ciudadNacimiento;
+    @SerializedName("email")
+    @Expose
+    private String email;
 
-	public void setCambioTrabajo(int cambioTrabajo){
-		this.cambioTrabajo = cambioTrabajo;
-	}
+    @SerializedName("ciudad_nacimiento")
+    @Expose
+    private String ciudadNacimiento;
 
-	public int getCambioTrabajo(){
-		return cambioTrabajo;
-	}
+    public void setCambioTrabajo(int cambioTrabajo) {
+        this.cambioTrabajo = cambioTrabajo;
+    }
 
-	public void setEmoticono(String emoticono){
-		this.emoticono = emoticono;
-	}
+    public int getCambioTrabajo() {
+        return cambioTrabajo;
+    }
 
-	public String getEmoticono(){
-		return emoticono;
-	}
+    public void setEmoticono(String emoticono) {
+        this.emoticono = emoticono;
+    }
 
-	public void setFechaNacimiento(String fechaNacimiento){
-		this.fechaNacimiento = fechaNacimiento;
-	}
+    public String getEmoticono() {
+        return emoticono;
+    }
 
-	public String getFechaNacimiento(){
-		return fechaNacimiento;
-	}
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
-	public void setZonaResidencia(String zonaResidencia){
-		this.zonaResidencia = zonaResidencia;
-	}
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
 
-	public String getZonaResidencia(){
-		return zonaResidencia;
-	}
+    public void setZonaResidencia(String zonaResidencia) {
+        this.zonaResidencia = zonaResidencia;
+    }
 
-	public void setNivelDeEstudios(String nivelDeEstudios){
-		this.nivelDeEstudios = nivelDeEstudios;
-	}
+    public String getZonaResidencia() {
+        return zonaResidencia;
+    }
 
-	public String getNivelDeEstudios(){
-		return nivelDeEstudios;
-	}
+    public void setNivelDeEstudios(String nivelDeEstudios) {
+        this.nivelDeEstudios = nivelDeEstudios;
+    }
 
-	public void setUsuario(String usuario){
-		this.usuario = usuario;
-	}
+    public String getNivelDeEstudios() {
+        return nivelDeEstudios;
+    }
 
-	public String getUsuario(){
-		return usuario;
-	}
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
-	public void setContrasena(String contrasena){
-		this.contrasena = contrasena;
-	}
+    public String getUsuario() {
+        return usuario;
+    }
 
-	public String getContrasena(){
-		return contrasena;
-	}
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
 
-	public void setPaisNacimiento(String paisNacimiento){
-		this.paisNacimiento = paisNacimiento;
-	}
+    public String getContrasena() {
+        return contrasena;
+    }
 
-	public String getPaisNacimiento(){
-		return paisNacimiento;
-	}
+    public void setPaisNacimiento(String paisNacimiento) {
+        this.paisNacimiento = paisNacimiento;
+    }
 
-	public void setExiste(int existe){
-		this.existe = existe;
-	}
+    public String getPaisNacimiento() {
+        return paisNacimiento;
+    }
 
-	public int getExiste(){
-		return existe;
-	}
+    public void setExiste(int existe) {
+        this.existe = existe;
+    }
 
-	public void setNombre(String nombre){
-		this.nombre = nombre;
-	}
+    public int getExiste() {
+        return existe;
+    }
 
-	public String getNombre(){
-		return nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setEmail(String email){
-		this.email = email;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public String getEmail(){
-		return email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setCiudadNacimiento(String ciudadNacimiento){
-		this.ciudadNacimiento = ciudadNacimiento;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getCiudadNacimiento(){
-		return ciudadNacimiento;
-	}
+    public void setCiudadNacimiento(String ciudadNacimiento) {
+        this.ciudadNacimiento = ciudadNacimiento;
+    }
 
-	@Override
-	public String toString() {
-		return "UserObject{" +
-				"cambioTrabajo=" + cambioTrabajo +
-				", emoticono='" + emoticono + '\'' +
-				", fechaNacimiento='" + fechaNacimiento + '\'' +
-				", zonaResidencia='" + zonaResidencia + '\'' +
-				", nivelDeEstudios='" + nivelDeEstudios + '\'' +
-				", usuario='" + usuario + '\'' +
-				", contrasena='" + contrasena + '\'' +
-				", paisNacimiento='" + paisNacimiento + '\'' +
-				", existe=" + existe +
-				", nombre='" + nombre + '\'' +
-				", email='" + email + '\'' +
-				", ciudadNacimiento='" + ciudadNacimiento + '\'' +
-				'}';
-	}
+    public String getCiudadNacimiento() {
+        return ciudadNacimiento;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getSexo() {
+
+        return sexo;
+    }
+
+    @Override
+    public String toString() {
+        return "UserObject{" +
+                "cambioTrabajo=" + cambioTrabajo +
+                ", emoticono='" + emoticono + '\'' +
+                ", fechaNacimiento='" + fechaNacimiento + '\'' +
+                ", zonaResidencia='" + zonaResidencia + '\'' +
+                ", sexo='" + sexo + '\'' +
+                ", nivelDeEstudios='" + nivelDeEstudios + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", paisNacimiento='" + paisNacimiento + '\'' +
+                ", existe=" + existe +
+                ", nombre='" + nombre + '\'' +
+                ", email='" + email + '\'' +
+                ", ciudadNacimiento='" + ciudadNacimiento + '\'' +
+                '}';
+    }
 }

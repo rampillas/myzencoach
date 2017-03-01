@@ -12,14 +12,25 @@ import rx.Observable;
  */
 
 
-    public interface MetodosRetrofitLlamadaAPI {
+public interface MetodosRetrofitLlamadaAPI {
 
-        @POST("/login")
-        @FormUrlEncoded
-        Observable<UserObject> loginUser(@Field("usuario") String Usuario,
-                                        @Field("contrasena") String Contrasena);
+    @POST("/login")
+    @FormUrlEncoded
+    Observable<UserObject> loginUser(@Field("usuario") String Usuario,
+                                     @Field("contrasena") String Contrasena);
+
     @POST("/createuser")
     @FormUrlEncoded
     Observable<UserObject> createUser(@Field("usuario") String Usuario,
-                                    @Field("contrasena") String Contrasena);
-    }
+                                      @Field("contrasena") String Contrasena,
+                                      @Field("email") String Email,
+                                      @Field("nombre") String Nombre,
+                                      @Field("fecha_nacimiento") String Nacimiento,
+                                      @Field("sexo") String Sexo,
+                                      @Field("pais_nacimiento") String Pais,
+                                      @Field("ciudad_nacimiento") String Ciudad,
+                                      @Field("zona_residencia") String Zona,
+                                      @Field("cambio_trabajo") String CambioTrabajo,
+                                      @Field("nivel_de_estudios") String Estudios
+    );
+}
