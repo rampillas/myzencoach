@@ -14,6 +14,7 @@ import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
@@ -34,10 +35,11 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.LoginButton)
     public void Login() {
+
         //checkear campos rellenos llamando al controlador
         LoginChecker loginChecker = new LoginChecker();
-        if (!loginChecker.UserAndPassWordFilled(UsuarioLogin.getText().toString(), Password.getText().toString())) {
-            //loginChecker.Login(UsuarioLogin.getText().toString(), Password.getText().toString());
+        if (loginChecker.UserAndPassWordFilled(UsuarioLogin.getText().toString(), Password.getText().toString())) {
+            loginChecker.Login(UsuarioLogin.getText().toString(), Password.getText().toString(),this);
         }else{
             LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
             LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
@@ -53,8 +55,13 @@ public class LoginFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.login, null);
+        View view = inflater.inflate(R.layout.login,null);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
-
+    public void showIncorrectPassword(){
+        LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
+        LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
+    }
 }

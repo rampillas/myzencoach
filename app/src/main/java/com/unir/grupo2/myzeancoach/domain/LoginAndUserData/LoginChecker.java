@@ -1,14 +1,17 @@
 package com.unir.grupo2.myzeancoach.domain.LoginAndUserData;
 
+import android.util.Log;
+
 import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.MetodosRetrofitLlamadaAPI;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitCliente;
 
-import retrofit2.http.Field;
-import rx.Observable;
+import retrofit2.Retrofit;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
 
 /**
  * Created by andres on 28/02/2017.
@@ -25,40 +28,40 @@ public class LoginChecker {
         }
     }
 
-    public boolean Login(String User, String Password,LoginFragment LoginFragment){
+    public void Login(String User, String Password,LoginFragment LoginFragment){
         ValidarUsuario(User,Password, LoginFragment);
-        //llamar a servidor
-        return true;
+        Log.d("Login process", "iniciando "+User+" "+Password);
+
     }
 
-    MetodosRetrofitLlamadaAPI conexionAPI = new MetodosRetrofitLlamadaAPI() {
-        @Override
-        public Observable<UserObject> savePost(@Field("usuario") String Usuario, @Field("contrasena") String Contrasena) {
-            return null;
-        }
-    };
+    RetrofitCliente conexionAPIretrofit = new RetrofitCliente();
+    Retrofit retrofit =conexionAPIretrofit.getClient("http://proto-fep.com:16913/");
+    MetodosRetrofitLlamadaAPI conexioAPI=retrofit.create(MetodosRetrofitLlamadaAPI.class);
+
 
     public void ValidarUsuario(String Usuario, String Contrasena, final LoginFragment LoginFragment) {
 
         // RxJava
-        conexionAPI.savePost(Usuario, Contrasena).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        conexioAPI.savePost(Usuario, Contrasena).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserObject>() {
                     @Override
                     public void onCompleted() {
-
+                        Log.d("Login process", "completado");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d("Login process", "error "+e);
                     }
 
                     @Override
                     public void onNext(UserObject userObject) {
                         if (userObject.getExiste() == 1) {
+                            Log.d("Login process", "okLogin");
                             //llamar a la ACTIVITY que gestiona los fragments para que cambie de fragment
                         } else {
-                           // LoginFragment.showIncorrectPassword();
+                            Log.d("Login process", "incorrectpass");
+                           LoginFragment.showIncorrectPassword();
                         }
                     }
 
