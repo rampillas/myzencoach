@@ -16,6 +16,10 @@ import rx.Observable;
 
         @POST("/login")
         @FormUrlEncoded
-        Observable<UserObject> savePost(@Field("usuario") String Usuario,
+        Observable<UserObject> loginUser(@Field("usuario") String Usuario,
                                         @Field("contrasena") String Contrasena);
+    @POST("/createuser")
+    @FormUrlEncoded
+    Observable<UserObject> createUser(@Field("usuario") String Usuario,
+                                    @Field("contrasena") String Contrasena);
     }

@@ -47,4 +47,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     provided 'javax.annotation:jsr250-api:1.0'
     compile files('libs/YouTubeAndroidPlayerApi.jar')
+
+    //page loader
+    compile 'id.arieridwan:pageloader:0.0.2'
 }

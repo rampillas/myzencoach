@@ -46,6 +46,7 @@
     <string name="LOGIN_CREATE_ACCOUNT">¿No tienes cuenta?</string>
     <string name="LOGIN_CREATE_ACCOUNT_BUTTON">Registrate</string>
     <string name="LOGIN_BAD_LOGIN">Usuario o contraseña incorrectos</string>
+    <string name="LOGIN_ERROR_SERVER">Error al conectar con el servidor :(</string>
 
     <!-- SIGNUP -->
     <string name="SIGNUP_NAME">Nombre</string>
@@ -79,5 +80,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

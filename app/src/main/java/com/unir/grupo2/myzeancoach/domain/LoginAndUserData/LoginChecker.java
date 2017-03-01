@@ -1,11 +1,15 @@
 package com.unir.grupo2.myzeancoach.domain.LoginAndUserData;
 
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 
+import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.MetodosRetrofitLlamadaAPI;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitCliente;
+import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 
 import retrofit2.Retrofit;
 import rx.Subscriber;
@@ -40,9 +44,10 @@ public class LoginChecker {
 
 
     public void ValidarUsuario(String Usuario, String Contrasena, final LoginFragment LoginFragment) {
-
+        LoginFragment.pageLoader.startProgress();
+        LoginFragment.pageLoader.setVisibility(View.VISIBLE);
         // RxJava
-        conexioAPI.savePost(Usuario, Contrasena).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        conexioAPI.loginUser(Usuario, Contrasena).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserObject>() {
                     @Override
                     public void onCompleted() {
@@ -52,16 +57,24 @@ public class LoginChecker {
                     @Override
                     public void onError(Throwable e) {
                         Log.d("Login process", "error "+e);
+                        LoginFragment.pageLoader.stopProgressAndFailed();
+                        LoginFragment.pageLoader.setVisibility(View.GONE);
+                        LoginFragment.errorServer();
                     }
 
                     @Override
                     public void onNext(UserObject userObject) {
                         if (userObject.getExiste() == 1) {
                             Log.d("Login process", "okLogin");
-                            //llamar a la ACTIVITY que gestiona los fragments para que cambie de fragment
+                            LoginFragment.pageLoader.stopProgress();
+                            LoginFragment.pageLoader.setVisibility(View.GONE);
+                            FragmentTransaction xfragmentTransaction = LoginFragment.getFragmentManager().beginTransaction();
+                            xfragmentTransaction.replace(R.id.container_view,new MEssentialInfoFragment()).commit();
                         } else {
                             Log.d("Login process", "incorrectpass");
-                           LoginFragment.showIncorrectPassword();
+                            LoginFragment.pageLoader.stopProgress();
+                            LoginFragment.showIncorrectPassword();
+                            LoginFragment.pageLoader.setVisibility(View.GONE);
                         }
                     }
 

@@ -16,6 +16,7 @@ import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import id.arieridwan.lib.PageLoader;
 
 
 public class LoginFragment extends Fragment {
@@ -32,8 +33,12 @@ public class LoginFragment extends Fragment {
     TextView ForgotPassword;
     @BindView(R.id.LoginFalse)
     TextView LoginFalse;
+    @BindView(R.id.pageloader)
+    public
+    PageLoader pageLoader;
 
     @OnClick(R.id.LoginButton)
+
     public void Login() {
 
         //checkear campos rellenos llamando al controlador
@@ -64,4 +69,9 @@ public class LoginFragment extends Fragment {
         LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
         LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
     }
+    public void errorServer(){
+        LoginFalse.setText(getResources().getString(R.string.LOGIN_ERROR_SERVER));
+        LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
+    }
+
 }
