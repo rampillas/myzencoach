@@ -31,6 +31,8 @@ public interface MetodosRetrofitLlamadaAPI {
                                       @Field("ciudad_nacimiento") String Ciudad,
                                       @Field("zona_residencia") String Zona,
                                       @Field("cambio_trabajo") String CambioTrabajo,
-                                      @Field("nivel_de_estudios") String Estudios
+                                      @Field("nivel_de_estudios") String Estudios,
+                                      @Field("editar") String Editar
+
     );
 }

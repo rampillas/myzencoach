@@ -95,7 +95,7 @@
                     android:layout_weight="70"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="@string/LOGIN_TEXT_USER" />
+                    android:hint="@string/LOGIN_TEXT_USER" />
 
                 <Space
                     android:layout_width="0dp"
@@ -133,7 +133,7 @@
                     android:layout_weight="70"
                     android:ems="10"
                     android:inputType="textPassword"
-                    android:text="@string/LOGIN_TEXT_PASSWORD"/>
+                    android:hint="@string/LOGIN_TEXT_PASSWORD"/>
 
                 <Space
                     android:layout_width="0dp"

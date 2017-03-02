@@ -1,9 +1,12 @@
 package com.unir.grupo2.myzeancoach.ui.LoginAndUserData;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +22,9 @@ import android.widget.Toast;
 import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.CreateUserServer;
+import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,13 +107,14 @@ public class CreateUserFragment extends Fragment {
     public void nada6() {
     }
 
-
-
+    //Editar para cuando se viene de la pantalla anterior
+    String Editar="No";
     //datetimePicker
-    DatePickerDialog elegirFecha=null;
+    DatePickerDialog elegirFecha = null;
+
     @OnClick(R.id.datePickerText)
     public void ElegirFechaNacimiento() {
-        elegirFecha=new DatePickerDialog(getContext(), datePickerDialog, 2017,1,1);
+        elegirFecha = new DatePickerDialog(getContext(), datePickerDialog, 2017, 1, 1);
         elegirFecha.show();
     }
 
@@ -116,13 +122,10 @@ public class CreateUserFragment extends Fragment {
     DatePickerDialog.OnDateSetListener datePickerDialog = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int i, int i1, int i2) {
-            Nacimiento.setText(i+":"+i1+":"+i2);
+            Nacimiento.setText(i + ":" + i1 + ":" + i2);
             elegirFecha.dismiss();
         }
     };
-
-
-
 
 
     @OnClick(R.id.okButton)
@@ -139,7 +142,7 @@ public class CreateUserFragment extends Fragment {
             else SexoValor = "Mujer";
             PaisValor = Pais;
             CiudadValor = Ciudad.getText().toString();
-            if (Rural.isChecked()) ZonaValor = "Rulal";
+            if (Rural.isChecked()) ZonaValor = "Rural";
             else ZonaValor = "Urbana";
             if (Si.isChecked()) SiNoValor = "Si";
             else SiNoValor = "No";
@@ -164,7 +167,7 @@ public class CreateUserFragment extends Fragment {
                     break;
             }
             CreateUserServer RegisterUser = new CreateUserServer();
-            RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor, this);
+            RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor,Editar, this);
         } else {
             Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_INCORRECT_DATA), Toast.LENGTH_LONG).show();
 
@@ -207,6 +210,15 @@ public class CreateUserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //en funcion de si el usuario esta logueado o no se muestran sus datosen pantalla o los campos vacios
+        Context context = getActivity();
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String nombreDeUsuario = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+        String claveDeUsuario = sharedPref.getString(getString(R.string.PREFERENCES_PASSWORD), null);
+
+        //iniciadores de vistas y spinner
         View view = inflater.inflate(R.layout.create_user, null);
         ButterKnife.bind(this, view);
         // Inflate the layout for this fragment
@@ -219,7 +231,61 @@ public class CreateUserFragment extends Fragment {
 // Apply the adapter to the spinner
         Estudios.setAdapter(adapter);
 
-        return view;
+        //comprobamos logueo
+        if (nombreDeUsuario == null) {
+            //mostrar pantalla de creacion
+
+
+            return view;
+        } else {
+            //mostrar pantalla rellena de datos qque hay que obtener de la db
+            Log.d("usuario checkeado", "esta logeado el usuario " + nombreDeUsuario);
+            LoginChecker loginChecker = new LoginChecker();
+            loginChecker.Login(nombreDeUsuario, claveDeUsuario, this);
+            return view;
+        }
+
+    }
+
+    public void ponerNombresEnCasilleros(UserObject userObject) {
+        Nombre.setText(userObject.getNombre());
+        Usuario.setText(userObject.getUsuario());
+        Usuario.setEnabled(false);
+        Password.setText(userObject.getContrasena());
+        Email.setText(userObject.getEmail());
+        Nacimiento.setText(userObject.getFechaNacimiento());
+        ListaPaises.setText(userObject.getPaisNacimiento());
+        Pais = userObject.getPaisNacimiento();
+        Ciudad.setText(userObject.getCiudadNacimiento());
+        if (userObject.getSexo() == "Hombre") Hombre.setChecked(true);
+        else Mujer.setChecked(true);
+        if (userObject.getCambioTrabajo() == "Si") Si.setChecked(true);
+        else No.setChecked(true);
+        if (userObject.getZonaResidencia() == "Rural") Rural.setChecked(true);
+        else Urbana.setChecked(true);
+
+        switch (userObject.getNivelDeEstudios()) {
+            case "Primaria":
+                Estudios.setSelection(1);
+                break;
+            case "Secundaria":
+                Estudios.setSelection(2);
+                break;
+            case "Bachiller":
+                Estudios.setSelection(3);
+                break;
+            case "Ciclo Formativo":
+                Estudios.setSelection(4);
+                break;
+            case "Carrera Universitaria":
+                Estudios.setSelection(5);
+                break;
+            case "Doctorado":
+                Estudios.setSelection(6);
+                break;
+        }
+        Editar="Si";
+
     }
 
 }

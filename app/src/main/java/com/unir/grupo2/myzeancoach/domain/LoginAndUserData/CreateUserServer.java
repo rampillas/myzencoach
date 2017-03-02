@@ -24,11 +24,11 @@ public class CreateUserServer {
     RetrofitCliente conexionAPIretrofit = new RetrofitCliente();
     Retrofit retrofit =conexionAPIretrofit.getClient("http://proto-fep.com:16913/");
     MetodosRetrofitLlamadaAPI conexioAPI=retrofit.create(MetodosRetrofitLlamadaAPI.class);
-    public void NewUser(String UsuarioValor, String PasswordValor, String EmailValor, String NombreValor, String NacimientoValor, String SexoValor, String PaisValor, String CiudadValor, String ZonaValor, String SiNoValor, String EstudiosValor, final CreateUserFragment createUserFragment) {
+    public void NewUser(String UsuarioValor, String PasswordValor, String EmailValor, String NombreValor, String NacimientoValor, String SexoValor, String PaisValor, String CiudadValor, String ZonaValor, String SiNoValor, String EstudiosValor, String Editar, final CreateUserFragment createUserFragment) {
         createUserFragment.pageLoader.startProgress();
         createUserFragment.pageLoader.setVisibility(View.VISIBLE);
         // RxJava
-        conexioAPI.createUser(UsuarioValor,PasswordValor,EmailValor,NombreValor,NacimientoValor,SexoValor,PaisValor,CiudadValor,ZonaValor,SiNoValor,EstudiosValor).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        conexioAPI.createUser(UsuarioValor,PasswordValor,EmailValor,NombreValor,NacimientoValor,SexoValor,PaisValor,CiudadValor,ZonaValor,SiNoValor,EstudiosValor,Editar).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<UserObject>() {
                     @Override
                     public void onCompleted() {

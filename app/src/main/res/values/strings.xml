@@ -49,6 +49,9 @@
     <string name="LOGIN_ERROR_SERVER">Error al conectar con el servidor :(</string>
 
     <!-- SIGNUP -->
+    <string name="SIGNUP_INCORRECT_DATA">Faltan valores por añadir o son incorrectos, por favor reviselos.</string>
+    <string name="SIGNUP_USER_EXITS">El usuario ya existe en la base de datos</string>
+    <string name="SIGNUP_INSERT_DATE">introduzca fecha</string>
     <string name="SIGNUP_NAME">Nombre</string>
     <string name="SIGNUP_BIRD_DATE">F. Nac</string>
     <string name="SIGNUP_SEXO">Sexo</string>
@@ -79,9 +82,17 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="SIGNUP_INCORRECT_DATA">Faltan valores por añadir o son incorrectos, por favor reviselos.</string>
-    <string name="SIGNUP_USER_EXITS">El usuario ya existe en la base de datos</string>
-    <string name="SIGNUP_INSERT_DATE">introduzca fecha</string>
+
+
+    <!-- Preferencias -->
+    <string name="preference_file_key">archivo_preferencias_no_traducir</string>
+    <string name="PREFERENCES_USER">usuario_preferencias</string>
+    <string name="PREFERENCES_PASSWORD">contrasena_de_registro_en_preferencias</string>
+
+    <!-- Logout pantalla-->
+    <string name="LOGOUT_LOGOUT">Salir</string>
+    <string name="LOGOUT_EDIT">Editar</string>
+    <string name="LOGOUT_WELCOME">Bienvenido</string>
 
 
 </resources>

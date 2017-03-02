@@ -10,7 +10,7 @@ public class UserObject {
 
     @SerializedName("cambio_trabajo")
     @Expose
-    private int cambioTrabajo;
+    private String cambioTrabajo;
 
     @SerializedName("sexo")
     @Expose
@@ -60,11 +60,11 @@ public class UserObject {
     @Expose
     private String ciudadNacimiento;
 
-    public void setCambioTrabajo(int cambioTrabajo) {
+    public void setCambioTrabajo(String cambioTrabajo) {
         this.cambioTrabajo = cambioTrabajo;
     }
 
-    public int getCambioTrabajo() {
+    public String getCambioTrabajo() {
         return cambioTrabajo;
     }
 
