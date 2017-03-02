@@ -14,4 +14,11 @@
         android:textColor="@color/colorAccent"
         android:text="@string/current_plan"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mensajePlan"
+        android:text="Hello"
+        />
+
 </RelativeLayout>
