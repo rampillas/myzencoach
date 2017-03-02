@@ -100,6 +100,8 @@ public class LoginChecker {
 
                 });
     }
+
+    //recreamos la clase para ser llamada desde la pantalla de Crear Usuario
     public void ValidarUsuario(String Usuario, String Contrasena, final CreateUserFragment LoginFragment) {
 
         LoginFragment.pageLoader.startProgress();
