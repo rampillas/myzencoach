@@ -93,6 +93,15 @@
     <string name="LOGOUT_LOGOUT">Salir</string>
     <string name="LOGOUT_EDIT">Editar</string>
     <string name="LOGOUT_WELCOME">Bienvenido</string>
+    <string name="SIGNUP_ERROR_FIELDS">Error en la longitud/formato del email y/o el usuario</string>
+    <string name="SIGNUP_ERROR_EMAIL">Emailde formato invalido</string>
+    <string name="SIGNUP_ERROR_EMAIL_NULL">El campo Email no puede estar vacío</string>
+    <string name="SIGNUP_ERROR_PASSWORD">Formato de contraseña no admitido</string>
+    <string name="SIGNUP_ERROR_PASSWORD_LEN">La clave debe estar entre 6 y 20 caracteres</string>
+    <string name="SIGNUP_ERROR_PASSWORD_NULL">Rellene el campo de clave</string>
+    <string name="SIGNUP_ERROR_USERNAME_NULL">Rellene el campo de usuario</string>
+    <string name="SIGNUP_ERROR_USERNAME">El formato del campo usuario es incorrecto</string>
+    <string name="SIGNUP_ERROR_USERNAME_LEN">La longitud del usuario debe de estar entre 3 y 25 caracteres</string>
 
 
 </resources>

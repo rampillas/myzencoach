@@ -19,6 +19,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.UserValidator;
+import com.example.exceptions.email.InvalidEmailFormatException;
+import com.example.exceptions.email.NullEmailException;
+import com.example.exceptions.password.InvalidPasswordException;
+import com.example.exceptions.password.InvalidPasswordFormatException;
+import com.example.exceptions.password.InvalidPasswordLengthException;
+import com.example.exceptions.password.NullPasswordException;
+import com.example.exceptions.username.InvalidUsernameFormatException;
+import com.example.exceptions.username.InvalidUsernameLengthException;
+import com.example.exceptions.username.UsernameIsNullException;
 import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
 import com.unir.grupo2.myzeancoach.Encryption.Security;
@@ -134,6 +144,7 @@ public class CreateUserFragment extends Fragment {
         // TODO comprobar que loscampos estan rellenos
         if (Usuario.getText().length() > 0 && Password.getText().length() > 0 && Email.getText().length() > 0 && Nombre.getText().length() > 0 && Nacimiento.getText().length() > 0
                 && Pais.length() > 0 && Ciudad.getText().length() > 0 && EstudiosPersona > 0) {
+            UserValidator validator = UserValidator.builder().build();
             UsuarioValor = Usuario.getText().toString();
             //encriptar la clave
             Security encriptador=new Security();
@@ -170,8 +181,39 @@ public class CreateUserFragment extends Fragment {
                     EstudiosValor = "Doctorado";
                     break;
             }
-            CreateUserServer RegisterUser = new CreateUserServer();
-            RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor,Editar, this);
+            //validacion de campos
+            UserValidator.builder().usernamePattern("").build();
+            try {
+                if (validator.validateUsername(UsuarioValor) &&
+                        validator.validateEmail(EmailValor) &&
+                        validator.validatePassword(UsuarioValor, PasswordValor)) {
+                    CreateUserServer RegisterUser = new CreateUserServer();
+                    RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor,Editar, this);
+
+                }
+            } catch (InvalidEmailFormatException e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_EMAIL),Toast.LENGTH_LONG).show();
+            }catch (NullEmailException e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_EMAIL_NULL),Toast.LENGTH_LONG).show();
+            }catch (InvalidPasswordException e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_PASSWORD),Toast.LENGTH_LONG).show();
+            }catch (InvalidPasswordFormatException e) { // Catch all exceptions you're interested to handle
+                CreateUserServer RegisterUser = new CreateUserServer();
+                RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor,Editar, this);
+
+            }catch (InvalidPasswordLengthException e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_LEN),Toast.LENGTH_LONG).show();
+            }catch (NullPasswordException e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_NULL),Toast.LENGTH_LONG).show();
+            }catch (UsernameIsNullException e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_USERNAME_NULL),Toast.LENGTH_LONG).show();
+            }catch (InvalidUsernameFormatException e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_USERNAME),Toast.LENGTH_LONG).show();
+            }catch (InvalidUsernameLengthException e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_USERNAME_LEN),Toast.LENGTH_LONG).show();
+            }catch (Exception e) { // Catch all exceptions you're interested to handle
+                Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_FIELDS),Toast.LENGTH_LONG).show();
+            }
         } else {
             Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_INCORRECT_DATA), Toast.LENGTH_LONG).show();
 

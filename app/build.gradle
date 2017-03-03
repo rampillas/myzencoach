@@ -54,5 +54,7 @@ dependencies {
     //Calendar
     compile 'com.squareup:android-times-square:1.6.5@aar'
 
-    //encriptar claves
+    //email
+    compile 'com.danialgoodwin.android:email-input-view:1.0'
+    compile 'com.shootr:user-validator:1.0.0'
 }
