@@ -50,4 +50,7 @@ dependencies {
 
     //page loader
     compile 'id.arieridwan:pageloader:0.0.2'
+
+    //Calendar
+    compile 'com.squareup:android-times-square:1.6.5@aar'
 }
