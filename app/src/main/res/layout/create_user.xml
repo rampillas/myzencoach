@@ -130,6 +130,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="70"
                     android:ems="10"
+                    android:inputType="textPassword"
                     android:textSize="@dimen/letra_pequeña" />
 
                 <Space

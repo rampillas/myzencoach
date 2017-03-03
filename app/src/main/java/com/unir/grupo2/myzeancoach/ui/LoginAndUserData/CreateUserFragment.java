@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
+import com.unir.grupo2.myzeancoach.Encryption.Security;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.CreateUserServer;
@@ -134,7 +135,10 @@ public class CreateUserFragment extends Fragment {
         if (Usuario.getText().length() > 0 && Password.getText().length() > 0 && Email.getText().length() > 0 && Nombre.getText().length() > 0 && Nacimiento.getText().length() > 0
                 && Pais.length() > 0 && Ciudad.getText().length() > 0 && EstudiosPersona > 0) {
             UsuarioValor = Usuario.getText().toString();
-            PasswordValor = Password.getText().toString();
+            //encriptar la clave
+            Security encriptador=new Security();
+            String claveEncriptada=encriptador.encrypt(Password.getText().toString());
+            PasswordValor = claveEncriptada;
             EmailValor = Email.getText().toString();
             NombreValor = Nombre.getText().toString();
             NacimientoValor = Nacimiento.getText().toString();
@@ -251,7 +255,10 @@ public class CreateUserFragment extends Fragment {
         Nombre.setText(userObject.getNombre());
         Usuario.setText(userObject.getUsuario());
         Usuario.setEnabled(false);
-        Password.setText(userObject.getContrasena());
+        //se muestra la clave
+        Security encriptador=new Security();
+        String claveDesencriptada=encriptador.decrypt(userObject.getContrasena());
+        Password.setText(claveDesencriptada);
         Email.setText(userObject.getEmail());
         Nacimiento.setText(userObject.getFechaNacimiento());
         ListaPaises.setText(userObject.getPaisNacimiento());

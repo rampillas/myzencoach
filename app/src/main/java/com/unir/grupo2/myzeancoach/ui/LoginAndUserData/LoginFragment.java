@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.unir.grupo2.myzeancoach.Encryption.Security;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
 
@@ -57,7 +58,9 @@ public class LoginFragment extends Fragment {
         //checkear campos rellenos llamando al controlador
         LoginChecker loginChecker = new LoginChecker();
         if (loginChecker.UserAndPassWordFilled(UsuarioLogin.getText().toString(), Password.getText().toString())) {
-            loginChecker.Login(UsuarioLogin.getText().toString(), Password.getText().toString(),this);
+            Security encriptador=new Security();
+            String claveEncriptada=encriptador.encrypt(Password.getText().toString());
+            loginChecker.Login(UsuarioLogin.getText().toString(), claveEncriptada,this);
         }else{
             LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
             LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
