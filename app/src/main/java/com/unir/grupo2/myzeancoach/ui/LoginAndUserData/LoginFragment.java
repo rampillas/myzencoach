@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
@@ -68,7 +69,8 @@ public class LoginFragment extends Fragment {
     @Optional
     @OnClick(R.id.ForgotPassword)
     public void ForgotPassword() {
-        // llamar al adaptador para cambiar la vista
+        FragmentTransaction xfragmentTransaction = this.getFragmentManager().beginTransaction();
+        xfragmentTransaction.replace(R.id.container_view,new RecoveryPasswordFragment()).commit();
     }
     @Nullable
     @Optional
@@ -152,4 +154,7 @@ public class LoginFragment extends Fragment {
         LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
     }
 
+    public void passEmailSend() {
+        Toast.makeText(getContext(),getResources().getString(R.string.LOGIN_EMAIL_SEND),Toast.LENGTH_LONG).show();
+    }
 }

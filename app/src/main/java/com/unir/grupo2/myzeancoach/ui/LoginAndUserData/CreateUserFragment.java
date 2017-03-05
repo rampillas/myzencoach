@@ -300,11 +300,11 @@ public class CreateUserFragment extends Fragment {
         ListaPaises.setText(userObject.getPaisNacimiento());
         Pais = userObject.getPaisNacimiento();
         Ciudad.setText(userObject.getCiudadNacimiento());
-        if (userObject.getSexo() == "Hombre") Hombre.setChecked(true);
+        if (userObject.getSexo().equalsIgnoreCase("Hombre")) Hombre.setChecked(true);
         else Mujer.setChecked(true);
-        if (userObject.getCambioTrabajo() == "Si") Si.setChecked(true);
+        if (userObject.getCambioTrabajo().equalsIgnoreCase("Si")) Si.setChecked(true);
         else No.setChecked(true);
-        if (userObject.getZonaResidencia() == "Rural") Rural.setChecked(true);
+        if (userObject.getZonaResidencia().equalsIgnoreCase("Rural")) Rural.setChecked(true);
         else Urbana.setChecked(true);
 
         switch (userObject.getNivelDeEstudios()) {

@@ -18,6 +18,9 @@ public interface MetodosRetrofitLlamadaAPI {
     @FormUrlEncoded
     Observable<UserObject> loginUser(@Field("usuario") String Usuario,
                                      @Field("contrasena") String Contrasena);
+    @POST("/passolvidada")
+    @FormUrlEncoded
+    Observable<UserObject> passOlvidada(@Field("usuario") String Usuario);
 
     @POST("/createuser")
     @FormUrlEncoded
