@@ -31,7 +31,6 @@ import com.example.exceptions.username.InvalidUsernameLengthException;
 import com.example.exceptions.username.UsernameIsNullException;
 import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
-import com.unir.grupo2.myzeancoach.Encryption.Security;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.CreateUserServer;
@@ -147,9 +146,7 @@ public class CreateUserFragment extends Fragment {
             UserValidator validator = UserValidator.builder().build();
             UsuarioValor = Usuario.getText().toString();
             //encriptar la clave
-            Security encriptador=new Security();
-            String claveEncriptada=encriptador.encrypt(Password.getText().toString());
-            PasswordValor = claveEncriptada;
+            PasswordValor = Password.getText().toString();
             EmailValor = Email.getText().toString();
             NombreValor = Nombre.getText().toString();
             NacimientoValor = Nacimiento.getText().toString();
@@ -200,7 +197,6 @@ public class CreateUserFragment extends Fragment {
             }catch (InvalidPasswordFormatException e) { // Catch all exceptions you're interested to handle
                 CreateUserServer RegisterUser = new CreateUserServer();
                 RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor,Editar, this);
-
             }catch (InvalidPasswordLengthException e) { // Catch all exceptions you're interested to handle
                 Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_LEN),Toast.LENGTH_LONG).show();
             }catch (NullPasswordException e) { // Catch all exceptions you're interested to handle
@@ -298,9 +294,7 @@ public class CreateUserFragment extends Fragment {
         Usuario.setText(userObject.getUsuario());
         Usuario.setEnabled(false);
         //se muestra la clave
-        Security encriptador=new Security();
-        String claveDesencriptada=encriptador.decrypt(userObject.getContrasena());
-        Password.setText(claveDesencriptada);
+        Password.setText(userObject.getContrasena());
         Email.setText(userObject.getEmail());
         Nacimiento.setText(userObject.getFechaNacimiento());
         ListaPaises.setText(userObject.getPaisNacimiento());
