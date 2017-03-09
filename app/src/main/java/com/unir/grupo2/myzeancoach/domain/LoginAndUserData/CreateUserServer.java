@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
+import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.MetodosRetrofitLlamadaAPI;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitCliente;
@@ -21,15 +21,22 @@ import rx.schedulers.Schedulers;
  */
 
 public class CreateUserServer {
+
     RetrofitCliente conexionAPIretrofit = new RetrofitCliente();
-    Retrofit retrofit =conexionAPIretrofit.getClient("http://proto-fep.com:16913/");
+    Retrofit retrofit =conexionAPIretrofit.getClient("http://demendezr.pythonanywhere.com/");
     MetodosRetrofitLlamadaAPI conexioAPI=retrofit.create(MetodosRetrofitLlamadaAPI.class);
-    public void NewUser(String UsuarioValor, String PasswordValor, String EmailValor, String NombreValor, String NacimientoValor, String SexoValor, String PaisValor, String CiudadValor, String ZonaValor, String SiNoValor, String EstudiosValor, String Editar, final CreateUserFragment createUserFragment) {
+    public void NewUser(String UsuarioValor, String EmailValor, String NombreValor, String ApellidoValor,
+                        String PasswordValor, String NacimientoValor, String SexoValor, String PaisValor,
+                        String CiudadValor, String DescripcionValor, String ZonaValor, String CambioPaisValor,
+                        String EstudiosValor, final CreateUserFragment createUserFragment) {
+
         createUserFragment.pageLoader.startProgress();
         createUserFragment.pageLoader.setVisibility(View.VISIBLE);
         // RxJava
-        conexioAPI.createUser(UsuarioValor,PasswordValor,EmailValor,NombreValor,NacimientoValor,SexoValor,PaisValor,CiudadValor,ZonaValor,SiNoValor,EstudiosValor,Editar).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<UserObject>() {
+        conexioAPI.createUser(UsuarioValor, EmailValor, NombreValor, ApellidoValor,PasswordValor,NacimientoValor,
+                SexoValor,PaisValor,CiudadValor,DescripcionValor,ZonaValor,CambioPaisValor,EstudiosValor).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
                         Log.d("Create process", "completado");
@@ -44,8 +51,8 @@ public class CreateUserServer {
                     }
 
                     @Override
-                    public void onNext(UserObject userObject) {
-                        if (userObject.getExiste() == 1) {
+                    public void onNext(User userObject) {
+                        if (userObject.getIsActive()) {
                             Log.d("Create process", "ok creado");
                             createUserFragment.pageLoader.stopProgress();
                             createUserFragment.pageLoader.setVisibility(View.GONE);
@@ -58,8 +65,6 @@ public class CreateUserServer {
                             createUserFragment.pageLoader.setVisibility(View.GONE);
                         }
                     }
-
-
                 });
     }
 }

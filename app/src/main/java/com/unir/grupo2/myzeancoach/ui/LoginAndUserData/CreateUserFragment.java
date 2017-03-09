@@ -32,9 +32,9 @@ import com.example.exceptions.username.UsernameIsNullException;
 import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.CreateUserServer;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
+import com.unir.grupo2.myzeancoach.domain.model.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +56,9 @@ public class CreateUserFragment extends Fragment {
     EditText Email;
     String EmailValor;
     @BindView(R.id.UNombreSingUp)
+    EditText Apellido;
+    String ApellidoValor;
+    @BindView(R.id.ApellidoSingUp)
     EditText Nombre;
     String NombreValor;
     @BindView(R.id.datePickerText)
@@ -132,7 +135,7 @@ public class CreateUserFragment extends Fragment {
     DatePickerDialog.OnDateSetListener datePickerDialog = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int i, int i1, int i2) {
-            Nacimiento.setText(i + ":" + i1 + ":" + i2);
+            Nacimiento.setText(i + "-" + i1 + "-" + i2);
             elegirFecha.dismiss();
         }
     };
@@ -149,15 +152,16 @@ public class CreateUserFragment extends Fragment {
             PasswordValor = Password.getText().toString();
             EmailValor = Email.getText().toString();
             NombreValor = Nombre.getText().toString();
+            ApellidoValor = Apellido.getText().toString();
             NacimientoValor = Nacimiento.getText().toString();
-            if (Hombre.isChecked()) SexoValor = "Hombre";
-            else SexoValor = "Mujer";
+            if (Hombre.isChecked()) SexoValor = "H";
+            else SexoValor = "M";
             PaisValor = Pais;
             CiudadValor = Ciudad.getText().toString();
             if (Rural.isChecked()) ZonaValor = "Rural";
             else ZonaValor = "Urbana";
-            if (Si.isChecked()) SiNoValor = "Si";
-            else SiNoValor = "No";
+            if (Si.isChecked()) SiNoValor = "SI";
+            else SiNoValor = "NO";
             switch (EstudiosPersona) {
                 case 1:
                     EstudiosValor = "Primaria";
@@ -185,7 +189,9 @@ public class CreateUserFragment extends Fragment {
                         validator.validateEmail(EmailValor) &&
                         validator.validatePassword(UsuarioValor, PasswordValor)) {
                     CreateUserServer RegisterUser = new CreateUserServer();
-                    RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor,Editar, this);
+
+                    RegisterUser.NewUser(UsuarioValor, EmailValor, NombreValor, ApellidoValor, PasswordValor,
+                            NacimientoValor, SexoValor, PaisValor, CiudadValor, "empleado", ZonaValor, SiNoValor, EstudiosValor, this);
 
                 }
             } catch (InvalidEmailFormatException e) { // Catch all exceptions you're interested to handle
@@ -196,7 +202,7 @@ public class CreateUserFragment extends Fragment {
                 Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_PASSWORD),Toast.LENGTH_LONG).show();
             }catch (InvalidPasswordFormatException e) { // Catch all exceptions you're interested to handle
                 CreateUserServer RegisterUser = new CreateUserServer();
-                RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor,Editar, this);
+                RegisterUser.NewUser(UsuarioValor, PasswordValor, EmailValor, NombreValor, ApellidoValor,NacimientoValor, SexoValor, PaisValor, CiudadValor, ZonaValor, SiNoValor, EstudiosValor,Editar, this);
             }catch (InvalidPasswordLengthException e) { // Catch all exceptions you're interested to handle
                 Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_LEN),Toast.LENGTH_LONG).show();
             }catch (NullPasswordException e) { // Catch all exceptions you're interested to handle
@@ -283,31 +289,32 @@ public class CreateUserFragment extends Fragment {
             //mostrar pantalla rellena de datos qque hay que obtener de la db
             Log.d("usuario checkeado", "esta logeado el usuario " + nombreDeUsuario);
             LoginChecker loginChecker = new LoginChecker();
-            loginChecker.Login(nombreDeUsuario, claveDeUsuario, this);
+            loginChecker.Login("clientweb2231", "secretweb2231", nombreDeUsuario, claveDeUsuario,"password", "read+write", this);
             return view;
         }
 
     }
 
-    public void ponerNombresEnCasilleros(UserObject userObject) {
-        Nombre.setText(userObject.getNombre());
-        Usuario.setText(userObject.getUsuario());
+    public void ponerNombresEnCasilleros(User userObject) {
+        Nombre.setText(userObject.getFirstName());
+        Apellido.setText(userObject.getLastName());
+        Usuario.setText(userObject.getUsername());
         Usuario.setEnabled(false);
         //se muestra la clave
-        Password.setText(userObject.getContrasena());
+        Password.setText(userObject.getPassword());
         Email.setText(userObject.getEmail());
-        Nacimiento.setText(userObject.getFechaNacimiento());
-        ListaPaises.setText(userObject.getPaisNacimiento());
-        Pais = userObject.getPaisNacimiento();
-        Ciudad.setText(userObject.getCiudadNacimiento());
-        if (userObject.getSexo().equalsIgnoreCase("Hombre")) Hombre.setChecked(true);
+        Nacimiento.setText(userObject.getProfile().getBirthday());
+        ListaPaises.setText(userObject.getProfile().getCountry());
+        Pais = userObject.getProfile().getCountry();
+        Ciudad.setText(userObject.getProfile().getCity());
+        if (userObject.getProfile().getGender().equalsIgnoreCase("Hombre")) Hombre.setChecked(true);
         else Mujer.setChecked(true);
-        if (userObject.getCambioTrabajo().equalsIgnoreCase("Si")) Si.setChecked(true);
+        if (userObject.getProfile().getChangeCountry().equalsIgnoreCase("SI")) Si.setChecked(true);
         else No.setChecked(true);
-        if (userObject.getZonaResidencia().equalsIgnoreCase("Rural")) Rural.setChecked(true);
+        if (userObject.getProfile().getRuralZone().equalsIgnoreCase("Rural")) Rural.setChecked(true);
         else Urbana.setChecked(true);
 
-        switch (userObject.getNivelDeEstudios()) {
+        switch (userObject.getProfile().getLevelStudies()) {
             case "Primaria":
                 Estudios.setSelection(1);
                 break;

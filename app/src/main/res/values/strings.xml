@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyZeanCoach</string>
+    <string name="app_name">MyZenCoach</string>
     <string name="OK">OK</string>
 
     <!-- DrawerMenu and SwipeTabs -->
@@ -39,7 +39,7 @@
 
 
     <!-- LOGIN -->
-    <string name="LOGIN_TEXT_USER">Usuario</string>
+    <string name="LOGIN_TEXT_USER">Nombre de usuario</string>
     <string name="LOGIN_TEXT_PASSWORD">Contraseña</string>
     <string name="LOGIN_TEXT_LOGIN">Iniciar Sesión</string>
     <string name="LOGIN_REMEMBER_PASSWORD">He olvidado mi contraseña</string>
@@ -53,6 +53,7 @@
     <string name="SIGNUP_USER_EXITS">El usuario ya existe en la base de datos</string>
     <string name="SIGNUP_INSERT_DATE">introduzca fecha</string>
     <string name="SIGNUP_NAME">Nombre</string>
+    <string name="SIGNUP_LAST_NAME">Apellido</string>
     <string name="SIGNUP_BIRD_DATE">F. Nac</string>
     <string name="SIGNUP_SEXO">Sexo</string>
     <string name="SIGNUP_COUNTRY">País</string>

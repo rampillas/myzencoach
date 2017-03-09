@@ -58,7 +58,7 @@ public class LoginFragment extends Fragment {
         //checkear campos rellenos llamando al controlador
         LoginChecker loginChecker = new LoginChecker();
         if (loginChecker.UserAndPassWordFilled(UsuarioLogin.getText().toString(), Password.getText().toString())) {
-            loginChecker.Login(UsuarioLogin.getText().toString(), Password.getText().toString(),this);
+            loginChecker.Login("clientweb2231", "secretweb2231", UsuarioLogin.getText().toString(), Password.getText().toString(), "password", "read+write",this);
         }else{
             LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
             LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
@@ -83,8 +83,8 @@ public class LoginFragment extends Fragment {
 
     //deslogueo
     @Nullable
-    @BindView(R.id.Usuario_actual)
-    TextView UsuarioActual;
+    @BindView(R.id.Usuario_actual) TextView UsuarioActual;
+
     @Nullable
     @BindView(R.id.Logout)
     Button Logout;

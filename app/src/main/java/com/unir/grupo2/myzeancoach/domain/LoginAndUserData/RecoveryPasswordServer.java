@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
+import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.MetodosRetrofitLlamadaAPI;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitCliente;
@@ -30,7 +30,7 @@ public class RecoveryPasswordServer {
         LoginFragment.pageLoader.setVisibility(View.VISIBLE);
         // RxJava
         conexioAPI.passOlvidada(Usuario).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<UserObject>() {
+                .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
                         Log.d("Login process", "completado");
@@ -45,8 +45,8 @@ public class RecoveryPasswordServer {
                     }
 
                     @Override
-                    public void onNext(UserObject userObject) {
-                        if (userObject.getExiste() == 1) {
+                    public void onNext(User userObject) {
+                        if (userObject.getIsActive()) {
                             Log.d("Recovery process", "okRecovery");
                             LoginFragment.pageLoader.stopProgress();
                             // se muestra un toast de correcto

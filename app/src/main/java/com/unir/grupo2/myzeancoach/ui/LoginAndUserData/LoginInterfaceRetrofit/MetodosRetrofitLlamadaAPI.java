@@ -1,6 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit;
 
-import com.unir.grupo2.myzeancoach.data.UserData.UserObject;
+import com.unir.grupo2.myzeancoach.domain.model.User;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -14,28 +14,34 @@ import rx.Observable;
 
 public interface MetodosRetrofitLlamadaAPI {
 
-    @POST("/login")
     @FormUrlEncoded
-    Observable<UserObject> loginUser(@Field("usuario") String Usuario,
-                                     @Field("contrasena") String Contrasena);
+    @POST("/oauth/token")
+    Observable<User> loginUser(@Field("client_id") String IdFijo,
+                               @Field("client_secret") String SecretFijo,
+                               @Field("username") String Usuario,
+                               @Field("password") String Contrasena,
+                               @Field("grant_type") String TipoFijo,
+                               @Field("scope") String ScopeFijo);
+            /*(@Field("usuario") String Usuario,
+                               @Field("contrasena") String Contrasena);*/
     @POST("/passolvidada")
     @FormUrlEncoded
-    Observable<UserObject> passOlvidada(@Field("usuario") String Usuario);
+    Observable<User> passOlvidada(@Field("usuario") String Usuario);
 
-    @POST("/createuser")
+    @POST("/users/")
     @FormUrlEncoded
-    Observable<UserObject> createUser(@Field("usuario") String Usuario,
-                                      @Field("contrasena") String Contrasena,
-                                      @Field("email") String Email,
-                                      @Field("nombre") String Nombre,
-                                      @Field("fecha_nacimiento") String Nacimiento,
-                                      @Field("sexo") String Sexo,
-                                      @Field("pais_nacimiento") String Pais,
-                                      @Field("ciudad_nacimiento") String Ciudad,
-                                      @Field("zona_residencia") String Zona,
-                                      @Field("cambio_trabajo") String CambioTrabajo,
-                                      @Field("nivel_de_estudios") String Estudios,
-                                      @Field("editar") String Editar
-
+    Observable<User> createUser(@Field("username") String Usuario,
+                                @Field("email") String Email,
+                                @Field("first_name") String Nombre,
+                                @Field("last_name") String Apellido,
+                                @Field("password") String Contrasena,
+                                @Field("birthday") String Nacimiento,
+                                @Field("gender") String Sexo,
+                                @Field("country") String Pais,
+                                @Field("city") String Ciudad,
+                                @Field("description") String Descripcion,
+                                @Field("rural_zone") String Zona,
+                                @Field("change_country") String CambioPais,
+                                @Field("level_studies") String Estudios
     );
 }
