@@ -79,7 +79,7 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
 
     private void updateData() {
         showLoading();
-        //we must pass a real token
+        //we must pass a real token**
         new VideosUseCase("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK").execute(new VideosSubscriber());
     }
 
