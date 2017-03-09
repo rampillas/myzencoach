@@ -2,6 +2,11 @@
     <string name="app_name">MyZenCoach</string>
     <string name="OK">OK</string>
 
+    <!-- General -->
+    <string name="loading_message">Cargando …</string>
+    <string name="error_message">Error en la carga de datos</string>
+    <string name="error_icon_description">Ha ocurrido un error</string>
+
     <!-- DrawerMenu and SwipeTabs -->
     <string name="open">Abierto</string>
     <string name="close">Cerrado</string>

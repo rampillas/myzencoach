@@ -24,7 +24,7 @@ public interface ApiCallsForLogin {
                                @Field("scope") String ScopeFijo);
             /*(@Field("usuario") String Usuario,
                                @Field("contrasena") String Contrasena);*/
-    @POST("/passolvidada")
+    @POST("/users/")
     @FormUrlEncoded
     Observable<User> forgetPass(@Field("usuario") String Usuario);
 

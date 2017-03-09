@@ -11,16 +11,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.videoList.VideoItem;
+import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.VideosUseCase;
+import com.unir.grupo2.myzeancoach.domain.UseCase;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.videoList.VideoListAdapter;
+import com.unir.grupo2.myzeancoach.ui.model.VideoUI;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
 
 /**
  * Created by Cesar on 22/02/2017.
@@ -28,9 +31,14 @@ import butterknife.ButterKnife;
 
 public class VideosFragment extends Fragment implements VideoListAdapter.OnItemVideoClickListener{
 
-    List<VideoItem> videoItemList;
+    List<VideoUI> videoItemList;
     VideoListAdapter videoListAdapter;
+    private UseCase useCase;
+
     @BindView(R.id.video_recycler_view) RecyclerView videoListRecyclerView;
+    @BindView(R.id.loading_layout) LinearLayout loadingLayout;
+    @BindView(R.id.error_layout) LinearLayout errorLayout;
+
 
     VideosFragment.OnItemVideoSelectedListener onItemVideoSelectedListener;
 
@@ -55,33 +63,11 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
         View view = inflater.inflate(R.layout.video_layout,null);
         ButterKnife.bind(this, view);
 
+        updateData();
+
         videoListRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(),2);
         videoListRecyclerView.setLayoutManager(layoutManager);
-
-        videoItemList = new ArrayList<>();
-        VideoItem videoItem1 = new VideoItem(getContext().getDrawable(R.mipmap.film1), true, "https://www.youtube.com/watch?v=jgKnhss6j2Q");
-        VideoItem videoItem2 = new VideoItem(getContext().getDrawable(R.mipmap.film2), true, "https://www.youtube.com/watch?v=X69Di5dY0Eo");
-        VideoItem videoItem3 = new VideoItem(getContext().getDrawable(R.mipmap.film3), false, "https://www.yhttps://www.youtube.com/watch?v=X69Di5dY0Eooutube.com/watch?v=X69Di5dY0Eo");
-        VideoItem videoItem4 = new VideoItem(getContext().getDrawable(R.mipmap.film4), true, "https://www.youtube.com/watch?v=X69Di5dY0Eo");
-        VideoItem videoItem5 = new VideoItem(getContext().getDrawable(R.mipmap.film5), false, "https://www.youtube.com/watch?v=X69Di5dY0Eo");
-        VideoItem videoItem6 = new VideoItem(getContext().getDrawable(R.mipmap.film6), true, "https://www.youtube.com/watch?v=X69Di5dY0Eo");
-        VideoItem videoItem7 = new VideoItem(getContext().getDrawable(R.mipmap.film7), true, "https://www.youtube.com/watch?v=X69Di5dY0Eo");
-        VideoItem videoItem8 = new VideoItem(getContext().getDrawable(R.mipmap.film8), true, "https://www.youtube.com/watch?v=X69Di5dY0Eo");
-        VideoItem videoItem9 = new VideoItem(getContext().getDrawable(R.mipmap.film9), false, "https://www.youtube.com/watch?v=X69Di5dY0Eo");
-
-        videoItemList.add(videoItem1);
-        videoItemList.add(videoItem2);
-        videoItemList.add(videoItem3);
-        videoItemList.add(videoItem4);
-        videoItemList.add(videoItem5);
-        videoItemList.add(videoItem6);
-        videoItemList.add(videoItem7);
-        videoItemList.add(videoItem8);
-        videoItemList.add(videoItem9);
-
-        videoListAdapter = new VideoListAdapter(getContext(),videoItemList, this);
-        videoListRecyclerView.setAdapter(videoListAdapter);
 
         return view;
     }
@@ -89,5 +75,65 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
     @Override
     public void onItemVideoClick(String urlVideo) {
         onItemVideoSelectedListener.onItemVideoSelected(urlVideo);
+    }
+
+    private void updateData() {
+        showLoading();
+        //we must pass a real token
+        new VideosUseCase("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK").execute(new VideosSubscriber());
+    }
+
+    /**
+     * Method used to show error view
+     */
+    public void showError() {
+        videoListRecyclerView.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Method used to show the loading view
+     */
+    public void showLoading() {
+        loadingLayout.setVisibility(View.VISIBLE);
+        videoListRecyclerView.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method used to show the listView
+     */
+    public void showContent() {
+        videoListRecyclerView.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+    }
+
+
+    private void updateList(List<VideoUI> videoList){
+        videoItemList = videoList;
+        videoListAdapter = new VideoListAdapter(getContext(),videoItemList, this);
+        videoListRecyclerView.setAdapter(videoListAdapter);
+    }
+
+    private final class VideosSubscriber extends Subscriber<List<VideoUI>> {
+        //3 callbacks
+
+        //Show the listView
+        @Override public void onCompleted() {
+            showContent();
+        }
+
+        //Show the error
+        @Override public void onError(Throwable e) {
+            showError();
+        }
+
+        //Update listview datas
+        @Override
+        public void onNext(List<VideoUI> videoList) {
+            updateList(videoList);
+        }
     }
 }

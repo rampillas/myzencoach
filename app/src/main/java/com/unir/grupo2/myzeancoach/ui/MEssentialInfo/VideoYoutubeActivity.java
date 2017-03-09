@@ -27,7 +27,9 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        url = intent.getStringExtra("URL");
+        String fullUrl = intent.getStringExtra("URL");
+        int inicio = fullUrl.indexOf("watch?v") + 8;
+        url = fullUrl.substring(inicio);
 
         onInitializedListener = new YouTubePlayer.OnInitializedListener(){
 

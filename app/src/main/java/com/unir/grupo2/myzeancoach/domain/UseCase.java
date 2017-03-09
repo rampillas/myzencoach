@@ -15,11 +15,11 @@ public abstract class UseCase {
 
     private Subscription subscription = Subscriptions.empty();
 
-    protected abstract Observable buildUseCaseObservable(String[] args);
+    protected  abstract Observable buildUseCaseObservable();
 
     @SuppressWarnings("unchecked")
-    public void execute(Subscriber useCaseSubscriber, String... args) {
-        this.subscription = this.buildUseCaseObservable(args)
+    public void execute(Subscriber useCaseSubscriber) {
+        this.subscription = this.buildUseCaseObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(useCaseSubscriber);
