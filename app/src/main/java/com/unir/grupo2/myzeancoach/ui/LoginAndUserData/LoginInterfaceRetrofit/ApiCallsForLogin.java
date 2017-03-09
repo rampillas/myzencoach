@@ -12,7 +12,7 @@ import rx.Observable;
  */
 
 
-public interface MetodosRetrofitLlamadaAPI {
+public interface ApiCallsForLogin {
 
     @FormUrlEncoded
     @POST("/oauth/token")
@@ -26,7 +26,7 @@ public interface MetodosRetrofitLlamadaAPI {
                                @Field("contrasena") String Contrasena);*/
     @POST("/passolvidada")
     @FormUrlEncoded
-    Observable<User> passOlvidada(@Field("usuario") String Usuario);
+    Observable<User> forgetPass(@Field("usuario") String Usuario);
 
     @POST("/users/")
     @FormUrlEncoded

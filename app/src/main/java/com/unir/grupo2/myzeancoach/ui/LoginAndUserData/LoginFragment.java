@@ -28,22 +28,22 @@ import id.arieridwan.lib.PageLoader;
 public class LoginFragment extends Fragment {
     @Nullable
     @BindView(R.id.UsuarioLogin)
-    EditText UsuarioLogin;
+    EditText usuarioLogin;
     @Nullable
     @BindView(R.id.Password)
-    EditText Password;
+    EditText password;
     @Nullable
     @BindView(R.id.LoginButton)
-    Button LoginButton;
+    Button loginButton;
     @Nullable
     @BindView(R.id.CreateAccount)
-    Button CreateAccount;
+    Button createAccount;
     @Nullable
     @BindView(R.id.ForgotPassword)
-    TextView ForgotPassword;
+    TextView forgotPassword;
     @Nullable
     @BindView(R.id.LoginFalse)
-    TextView LoginFalse;
+    TextView loginFalse;
     @Nullable
     @BindView(R.id.pageloader)
     public
@@ -53,28 +53,28 @@ public class LoginFragment extends Fragment {
     @Optional
     @OnClick(R.id.LoginButton)
 
-    public void Login() {
+    public void login() {
 
         //checkear campos rellenos llamando al controlador
         LoginChecker loginChecker = new LoginChecker();
-        if (loginChecker.UserAndPassWordFilled(UsuarioLogin.getText().toString(), Password.getText().toString())) {
-            loginChecker.Login("clientweb2231", "secretweb2231", UsuarioLogin.getText().toString(), Password.getText().toString(), "password", "read+write",this);
+        if (loginChecker.UserAndPassWordFilled(usuarioLogin.getText().toString(), password.getText().toString())) {
+            loginChecker.Login("clientweb2231", "secretweb2231", usuarioLogin.getText().toString(), password.getText().toString(), "password", "read+write",this);
         }else{
-            LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
-            LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
+            loginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
+            loginFalse.setTextColor(getResources().getColor(R.color.redApp));
         }
 
     }
     @Nullable
     @Optional
     @OnClick(R.id.ForgotPassword)
-    public void ForgotPassword() {
+    public void forgotPassword() {
         FragmentTransaction xfragmentTransaction = this.getFragmentManager().beginTransaction();
         xfragmentTransaction.replace(R.id.container_view,new RecoveryPasswordFragment()).commit();
     }
     @Nullable
     @Optional
-    @OnClick(R.id.CreateAccount)public void AbrirFragmentNewUser(){
+    @OnClick(R.id.CreateAccount)public void openNewUserFragment(){
         FragmentTransaction xfragmentTransaction = this.getFragmentManager().beginTransaction();
         xfragmentTransaction.replace(R.id.container_view,new CreateUserFragment()).commit();
 
@@ -83,18 +83,18 @@ public class LoginFragment extends Fragment {
 
     //deslogueo
     @Nullable
-    @BindView(R.id.Usuario_actual) TextView UsuarioActual;
+    @BindView(R.id.Usuario_actual) TextView usuarioActual;
 
     @Nullable
     @BindView(R.id.Logout)
-    Button Logout;
+    Button logout;
     @Nullable
     @BindView(R.id.Edit)
-    Button Edit;
+    Button edit;
     @Nullable
     @Optional
     @OnClick(R.id.Logout)
-    public void Logout(){
+    public void logout(){
         //se limpian las preferencias
         Context context = getActivity();
         SharedPreferences sharedPref = context.getSharedPreferences(
@@ -109,7 +109,7 @@ public class LoginFragment extends Fragment {
     @Optional
     @Nullable
     @OnClick (R.id.Edit)
-    public void EditarUsuario(){
+    public void editUser(){
         //ir a la pantalla de crear usuario, la cual se auto rellenará con los datos de este
         FragmentTransaction xfragmentTransaction = getFragmentManager().beginTransaction();
         xfragmentTransaction.replace(R.id.container_view,new CreateUserFragment()).commit();
@@ -139,19 +139,20 @@ public class LoginFragment extends Fragment {
             Log.d("usuario checkeado", "esta logeado el usuario "+ nombreDeUsuario);
             View view = inflater.inflate(R.layout.user_logout_and_edit_button,null);
             ButterKnife.bind(this, view);
-            UsuarioActual.setText(getString(R.string.LOGOUT_WELCOME)+" "+nombreDeUsuario+"!");
+            usuarioActual.setText(getString(R.string.LOGOUT_WELCOME)+" "+nombreDeUsuario+"!");
             return view;
         }
 
     }
 
     public void showIncorrectPassword(){
-        LoginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
-        LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
+        loginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
+        loginFalse.setTextColor(getResources().getColor(R.color.redApp));
     }
+
     public void errorServer(){
-        LoginFalse.setText(getResources().getString(R.string.LOGIN_ERROR_SERVER));
-        LoginFalse.setTextColor(getResources().getColor(R.color.redApp));
+        loginFalse.setText(getResources().getString(R.string.LOGIN_ERROR_SERVER));
+        loginFalse.setTextColor(getResources().getColor(R.color.redApp));
     }
 
     public void passEmailSend() {

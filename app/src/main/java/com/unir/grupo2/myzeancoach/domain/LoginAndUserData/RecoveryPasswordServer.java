@@ -7,8 +7,8 @@ import android.view.View;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.MetodosRetrofitLlamadaAPI;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitCliente;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.ApiCallsForLogin;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitClient;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.RecoveryPasswordFragment;
 
 import retrofit2.Retrofit;
@@ -21,15 +21,15 @@ import rx.schedulers.Schedulers;
  */
 
 public class RecoveryPasswordServer {
-    RetrofitCliente conexionAPIretrofit = new RetrofitCliente();
-    Retrofit retrofit =conexionAPIretrofit.getClient("http://proto-fep.com:16913/");
-    MetodosRetrofitLlamadaAPI conexioAPI=retrofit.create(MetodosRetrofitLlamadaAPI.class);
-    public void RecoveryPass(String Usuario,  final RecoveryPasswordFragment LoginFragment) {
+    RetrofitClient apiRetrofitConexion = new RetrofitClient();
+    Retrofit retrofit = apiRetrofitConexion.getClient("http://proto-fep.com:16913/");
+    ApiCallsForLogin apiConexion =retrofit.create(ApiCallsForLogin.class);
+    public void recoveryPass(String usuario, final RecoveryPasswordFragment recoveryPasswordFragment) {
 
-        LoginFragment.pageLoader.startProgress();
-        LoginFragment.pageLoader.setVisibility(View.VISIBLE);
+        recoveryPasswordFragment.pageLoader.startProgress();
+        recoveryPasswordFragment.pageLoader.setVisibility(View.VISIBLE);
         // RxJava
-        conexioAPI.passOlvidada(Usuario).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        apiConexion.forgetPass(usuario).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
@@ -39,25 +39,25 @@ public class RecoveryPasswordServer {
                     @Override
                     public void onError(Throwable e) {
                         Log.d("Login process", "error "+e);
-                        LoginFragment.pageLoader.stopProgressAndFailed();
-                        LoginFragment.pageLoader.setVisibility(View.GONE);
-                        LoginFragment.errorServer();
+                        recoveryPasswordFragment.pageLoader.stopProgressAndFailed();
+                        recoveryPasswordFragment.pageLoader.setVisibility(View.GONE);
+                        recoveryPasswordFragment.errorServer();
                     }
 
                     @Override
                     public void onNext(User userObject) {
                         if (userObject.getIsActive()) {
                             Log.d("Recovery process", "okRecovery");
-                            LoginFragment.pageLoader.stopProgress();
+                            recoveryPasswordFragment.pageLoader.stopProgress();
                             // se muestra un toast de correcto
-                            LoginFragment.passEmailSend();
-                            FragmentTransaction xfragmentTransaction = LoginFragment.getFragmentManager().beginTransaction();
+                            recoveryPasswordFragment.passEmailSend();
+                            FragmentTransaction xfragmentTransaction = recoveryPasswordFragment.getFragmentManager().beginTransaction();
                             xfragmentTransaction.replace(R.id.container_view,new LoginFragment()).commit();
                         } else {
                             Log.d("Recovery process", "user not exits");
-                            LoginFragment.pageLoader.stopProgress();
-                            LoginFragment.userNotExits();
-                            LoginFragment.pageLoader.setVisibility(View.GONE);
+                            recoveryPasswordFragment.pageLoader.stopProgress();
+                            recoveryPasswordFragment.userNotExits();
+                            recoveryPasswordFragment.pageLoader.setVisibility(View.GONE);
                         }
                     }
 

@@ -22,7 +22,7 @@ import id.arieridwan.lib.PageLoader;
 public class RecoveryPasswordFragment extends Fragment {
 
     @BindView(R.id.Usuario)
-    EditText Usuario;
+    EditText usuario;
     @BindView(R.id.okButton)
     Button okButton;
     @Nullable
@@ -32,10 +32,10 @@ public class RecoveryPasswordFragment extends Fragment {
     @OnClick(R.id.okButton)
 
     public void recoveryPass(){
-        String User=Usuario.getText().toString();
-        if (User.length()>0){
+        String user=usuario.getText().toString();
+        if (user.length()>0){
             RecoveryPasswordServer recoveryPasswordServer=new RecoveryPasswordServer();
-            recoveryPasswordServer.RecoveryPass(User,this);
+            recoveryPasswordServer.recoveryPass(user,this);
         }else Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_USERNAME_LEN),Toast.LENGTH_LONG).show();
     }
     @Override

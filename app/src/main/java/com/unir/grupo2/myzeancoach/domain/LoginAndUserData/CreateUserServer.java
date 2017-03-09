@@ -7,8 +7,8 @@ import android.view.View;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.MetodosRetrofitLlamadaAPI;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitCliente;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.ApiCallsForLogin;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitClient;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 
 import retrofit2.Retrofit;
@@ -22,19 +22,20 @@ import rx.schedulers.Schedulers;
 
 public class CreateUserServer {
 
-    RetrofitCliente conexionAPIretrofit = new RetrofitCliente();
-    Retrofit retrofit =conexionAPIretrofit.getClient("http://demendezr.pythonanywhere.com/");
-    MetodosRetrofitLlamadaAPI conexioAPI=retrofit.create(MetodosRetrofitLlamadaAPI.class);
-    public void NewUser(String UsuarioValor, String EmailValor, String NombreValor, String ApellidoValor,
-                        String PasswordValor, String NacimientoValor, String SexoValor, String PaisValor,
-                        String CiudadValor, String DescripcionValor, String ZonaValor, String CambioPaisValor,
-                        String EstudiosValor, final CreateUserFragment createUserFragment) {
+    RetrofitClient conexionAPIretrofit = new RetrofitClient();
+    Retrofit retrofit = conexionAPIretrofit.getClient("http://demendezr.pythonanywhere.com/");
+    ApiCallsForLogin conexioAPI = retrofit.create(ApiCallsForLogin.class);
+
+    public void newUser(String usuarioValor, String emailValor, String nombreValor, String apellidoValor,
+                        String passwordValor, String nacimientoValor, String sexoValor, String paisValor,
+                        String ciudadValor, String descripcionValor, String zonaValor, String cambioPaisValor,
+                        String estudiosValor, final CreateUserFragment createUserFragment) {
 
         createUserFragment.pageLoader.startProgress();
         createUserFragment.pageLoader.setVisibility(View.VISIBLE);
         // RxJava
-        conexioAPI.createUser(UsuarioValor, EmailValor, NombreValor, ApellidoValor,PasswordValor,NacimientoValor,
-                SexoValor,PaisValor,CiudadValor,DescripcionValor,ZonaValor,CambioPaisValor,EstudiosValor).subscribeOn(Schedulers.io())
+        conexioAPI.createUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor, nacimientoValor,
+                sexoValor, paisValor, ciudadValor, descripcionValor, zonaValor, cambioPaisValor, estudiosValor).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<User>() {
                     @Override
@@ -44,7 +45,7 @@ public class CreateUserServer {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("Create process", "error "+e);
+                        Log.d("Create process", "error " + e);
                         createUserFragment.pageLoader.stopProgressAndFailed();
                         createUserFragment.pageLoader.setVisibility(View.GONE);
                         createUserFragment.errorServer();
@@ -57,7 +58,7 @@ public class CreateUserServer {
                             createUserFragment.pageLoader.stopProgress();
                             createUserFragment.pageLoader.setVisibility(View.GONE);
                             FragmentTransaction xfragmentTransaction = createUserFragment.getFragmentManager().beginTransaction();
-                            xfragmentTransaction.replace(R.id.container_view,new MEssentialInfoFragment()).commit();
+                            xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
                         } else {
                             Log.d("Create process", "incorrect usser exits");
                             createUserFragment.pageLoader.stopProgress();

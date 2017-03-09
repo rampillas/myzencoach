@@ -10,8 +10,8 @@ import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.MetodosRetrofitLlamadaAPI;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitCliente;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.ApiCallsForLogin;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitClient;
 
 import retrofit2.Retrofit;
 import rx.Subscriber;
@@ -24,38 +24,39 @@ import rx.schedulers.Schedulers;
  */
 
 public class LoginChecker {
-    public static User UserObject;
+    public static User userObject;
 
-    public boolean UserAndPassWordFilled(String User, String Password){
-        if (User.length()==0 || Password.length()==0){
+    public boolean UserAndPassWordFilled(String user, String password) {
+        if (user.length() == 0 || password.length() == 0) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
 
-    public void Login(String IdFijo, String SecretFijo, String User, String Password,String TipoFijo, String ScopeFijo,LoginFragment LoginFragment){
-        ValidarUsuario(IdFijo,SecretFijo,User,Password, TipoFijo, ScopeFijo, LoginFragment);
-        Log.d("Login process", "iniciando "+User+" "+Password);
-
-    }
-    public void Login(String IdFijo, String SecretFijo, String User, String Password,String TipoFijo, String ScopeFijo,CreateUserFragment LoginFragment){
-        ValidarUsuario(IdFijo,SecretFijo,User,Password, TipoFijo, ScopeFijo,LoginFragment);
-        Log.d("Login process", "iniciando "+User+" "+Password);
+    public void Login(String idFijo, String secretFijo, String user, String password, String tipoFijo, String scopeFijo, LoginFragment loginFragment) {
+        validateUser(idFijo, secretFijo, user, password, tipoFijo, scopeFijo, loginFragment);
+        Log.d("Login process", "iniciando " + user + " " + password);
 
     }
 
-    RetrofitCliente conexionAPIretrofit = new RetrofitCliente();
-    Retrofit retrofit =conexionAPIretrofit.getClient("http://demendezr.pythonanywhere.com/");
-    MetodosRetrofitLlamadaAPI conexioAPI=retrofit.create(MetodosRetrofitLlamadaAPI.class);
+    public void Login(String idFijo, String secretFijo, String user, String Password, String tipoFijo, String scopeFijo, CreateUserFragment createUserFragment) {
+        validateUser(idFijo, secretFijo, user, Password, tipoFijo, scopeFijo, createUserFragment);
+        Log.d("Login process", "iniciando " + user + " " + Password);
+
+    }
+
+    RetrofitClient conexionAPIretrofit = new RetrofitClient();
+    Retrofit retrofit = conexionAPIretrofit.getClient("http://demendezr.pythonanywhere.com/");
+    ApiCallsForLogin apiConexion = retrofit.create(ApiCallsForLogin.class);
 
 
-    public void ValidarUsuario(String IdFijo, String SecretFijo,String Usuario, String Contrasena,String TipoFijo, String ScopeFijo, final LoginFragment LoginFragment) {
+    public void validateUser(String idFijo, String secretFijo, String usuario, String contrasena, String tipoFijo, String scopeFijo, final LoginFragment loginFragment) {
 
-        LoginFragment.pageLoader.startProgress();
-        LoginFragment.pageLoader.setVisibility(View.VISIBLE);
+        loginFragment.pageLoader.startProgress();
+        loginFragment.pageLoader.setVisibility(View.VISIBLE);
         // RxJava
-        conexioAPI.loginUser(IdFijo,SecretFijo,Usuario, Contrasena, TipoFijo, ScopeFijo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        apiConexion.loginUser(idFijo, secretFijo, usuario, contrasena, tipoFijo, scopeFijo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
@@ -64,36 +65,36 @@ public class LoginChecker {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("Login process", "error "+e);
-                        LoginFragment.pageLoader.stopProgressAndFailed();
-                        LoginFragment.pageLoader.setVisibility(View.GONE);
-                        LoginFragment.errorServer();
+                        Log.d("Login process", "error " + e);
+                        loginFragment.pageLoader.stopProgressAndFailed();
+                        loginFragment.pageLoader.setVisibility(View.GONE);
+                        loginFragment.errorServer();
                     }
 
                     @Override
                     public void onNext(User userObject) {
                         if (userObject.getIsActive()) {
                             Log.d("Login process", "okLogin");
-                            LoginFragment.pageLoader.stopProgress();
+                            loginFragment.pageLoader.stopProgress();
 
                             //se guarda el usuario y clave para mantener la sesion
-                            Context context = LoginFragment.getActivity();
+                            Context context = loginFragment.getActivity();
                             SharedPreferences sharedPref = context.getSharedPreferences(
-                                    LoginFragment.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                                    loginFragment.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString(LoginFragment.getString(R.string.PREFERENCES_USER),userObject.getUsername());
-                            editor.putString(LoginFragment.getString(R.string.PREFERENCES_PASSWORD),userObject.getPassword());
+                            editor.putString(loginFragment.getString(R.string.PREFERENCES_USER), userObject.getUsername());
+                            editor.putString(loginFragment.getString(R.string.PREFERENCES_PASSWORD), userObject.getPassword());
                             editor.commit();
 
                             //se cambia la vista
-                            LoginFragment.pageLoader.setVisibility(View.GONE);
-                            FragmentTransaction xfragmentTransaction = LoginFragment.getFragmentManager().beginTransaction();
-                            xfragmentTransaction.replace(R.id.container_view,new LoginFragment()).commit();
+                            loginFragment.pageLoader.setVisibility(View.GONE);
+                            FragmentTransaction xfragmentTransaction = loginFragment.getFragmentManager().beginTransaction();
+                            xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
                         } else {
                             Log.d("Login process", "incorrectpass");
-                            LoginFragment.pageLoader.stopProgress();
-                            LoginFragment.showIncorrectPassword();
-                            LoginFragment.pageLoader.setVisibility(View.GONE);
+                            loginFragment.pageLoader.stopProgress();
+                            loginFragment.showIncorrectPassword();
+                            loginFragment.pageLoader.setVisibility(View.GONE);
                         }
                     }
 
@@ -103,12 +104,12 @@ public class LoginChecker {
 
 
     //recreamos la clase para ser llamada desde la pantalla de Crear Usuario
-    public void ValidarUsuario(String IdFijo, String SecretFijo,String Usuario, String Contrasena, String TipoFijo, String ScopeFijo,final CreateUserFragment LoginFragment) {
+    public void validateUser(String idFijo, String secretFijo, String usuarioo, String contrasena, String tipoFijo, String scopeFijo, final CreateUserFragment createUserFragment) {
 
-        LoginFragment.pageLoader.startProgress();
-        LoginFragment.pageLoader.setVisibility(View.VISIBLE);
+        createUserFragment.pageLoader.startProgress();
+        createUserFragment.pageLoader.setVisibility(View.VISIBLE);
         // RxJava
-        conexioAPI.loginUser(IdFijo, SecretFijo,Usuario, Contrasena,TipoFijo, ScopeFijo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        apiConexion.loginUser(idFijo, secretFijo, usuarioo, contrasena, tipoFijo, scopeFijo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
@@ -117,32 +118,31 @@ public class LoginChecker {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("Login process", "error "+e);
-                        LoginFragment.pageLoader.stopProgressAndFailed();
-                        LoginFragment.pageLoader.setVisibility(View.GONE);
-                        LoginFragment.errorServer();
+                        Log.d("Login process", "error " + e);
+                        createUserFragment.pageLoader.stopProgressAndFailed();
+                        createUserFragment.pageLoader.setVisibility(View.GONE);
+                        createUserFragment.errorServer();
                     }
 
                     @Override
                     public void onNext(User userObject) {
                         if (userObject.getIsActive()) {
                             Log.d("Login process", "okLogin");
-                            LoginFragment.pageLoader.stopProgress();
-                            LoginFragment.ponerNombresEnCasilleros(userObject);
+                            createUserFragment.pageLoader.stopProgress();
+                            createUserFragment.showFieldsIntoCases(userObject);
                             //se cambia la vista
-                            LoginFragment.pageLoader.setVisibility(View.GONE);
+                            createUserFragment.pageLoader.setVisibility(View.GONE);
 
                         } else {
                             Log.d("Login process", "incorrectpass");
-                            LoginFragment.pageLoader.stopProgress();
-                            LoginFragment.pageLoader.setVisibility(View.GONE);
+                            createUserFragment.pageLoader.stopProgress();
+                            createUserFragment.pageLoader.setVisibility(View.GONE);
                         }
                     }
 
 
                 });
     }
-
 
 
 }
