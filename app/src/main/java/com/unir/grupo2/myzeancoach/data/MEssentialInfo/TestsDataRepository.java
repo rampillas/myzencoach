@@ -1,6 +1,6 @@
 package com.unir.grupo2.myzeancoach.data.MEssentialInfo;
 
-import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
+import com.unir.grupo2.myzeancoach.domain.model.TestListPojo;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,20 +11,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
 /**
- * Created by Cesar on 09/03/2017.
+ * Created by Cesar on 10/03/2017.
  */
 
-public class VideosDataRepository implements VideosRepository {
+public class TestsDataRepository implements TestsRepository{
 
-    VideosAPIService service;
+    TestsAPIService service;
 
-    private static final VideosDataRepository INSTANCE = new VideosDataRepository();
+    private static final TestsDataRepository INSTANCE = new TestsDataRepository();
 
-    public static VideosRepository getInstance() {
+    public static TestsRepository getInstance() {
         return INSTANCE;
     }
 
-    private VideosDataRepository() {
+    private TestsDataRepository() {
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -37,12 +37,12 @@ public class VideosDataRepository implements VideosRepository {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
-        service = retrofit.create(VideosAPIService.class);
+        service = retrofit.create(TestsAPIService.class);
     }
 
 
     @Override
-    public Observable<VideoListPojo> videos(String token) {
-        return service.getVideos(token);
+    public Observable<TestListPojo> tests(String token) {
+        return service.getTest(token);
     }
 }

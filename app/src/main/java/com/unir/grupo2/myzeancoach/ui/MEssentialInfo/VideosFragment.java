@@ -16,8 +16,8 @@ import android.widget.LinearLayout;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.VideosUseCase;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
+import com.unir.grupo2.myzeancoach.domain.model.Video;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.videoList.VideoListAdapter;
-import com.unir.grupo2.myzeancoach.ui.model.VideoUI;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ import rx.Subscriber;
 
 public class VideosFragment extends Fragment implements VideoListAdapter.OnItemVideoClickListener{
 
-    List<VideoUI> videoItemList;
+    List<Video> videoItemList;
     VideoListAdapter videoListAdapter;
     private UseCase useCase;
 
@@ -111,13 +111,13 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
     }
 
 
-    private void updateList(List<VideoUI> videoList){
+    private void updateList(List<Video> videoList){
         videoItemList = videoList;
         videoListAdapter = new VideoListAdapter(getContext(),videoItemList, this);
         videoListRecyclerView.setAdapter(videoListAdapter);
     }
 
-    private final class VideosSubscriber extends Subscriber<List<VideoUI>> {
+    private final class VideosSubscriber extends Subscriber<List<Video>> {
         //3 callbacks
 
         //Show the listView
@@ -132,7 +132,7 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
 
         //Update listview datas
         @Override
-        public void onNext(List<VideoUI> videoList) {
+        public void onNext(List<Video> videoList) {
             updateList(videoList);
         }
     }

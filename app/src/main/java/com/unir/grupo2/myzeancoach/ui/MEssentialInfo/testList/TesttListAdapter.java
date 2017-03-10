@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Test;
 
 import java.util.List;
 
@@ -18,16 +19,16 @@ import java.util.List;
 public class TesttListAdapter extends RecyclerView.Adapter<TestItemViewHolder>{
 
     private Context context;
-    private List<TestItem> testItemList;
+    private List<Test> testItemList;
     private TesttListAdapter thisAdapter = this;
 
     public interface OnItemClickListener{
-        public void onItemClick(TestItem testItem);
+        public void onItemClick(Test testItem);
     }
 
     private final OnItemClickListener listener;
 
-    public TesttListAdapter(Context context, List<TestItem> testItemList, OnItemClickListener listener){
+    public TesttListAdapter(Context context, List<Test> testItemList, OnItemClickListener listener){
         this.context = context;
         this.testItemList = testItemList;
         this.listener = listener;
@@ -39,7 +40,7 @@ public class TesttListAdapter extends RecyclerView.Adapter<TestItemViewHolder>{
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_video_item_card_layout, parent, false);
         final TestItemViewHolder testItemViewHolder = new TestItemViewHolder(view);
 
-        view.setOnClickListener(new View.OnClickListener() {
+       /* view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String videoName = testItemViewHolder.videoName.getText().toString();
@@ -51,26 +52,18 @@ public class TesttListAdapter extends RecyclerView.Adapter<TestItemViewHolder>{
                 }
 
                 int score = (int) testItemViewHolder.scoreRatingBar.getRating();
-                TestItem testItem = new TestItem(videoName,isCOmpleted,score);
+                TestUI testItem = new TestUI(videoName,isCOmpleted,score);
                 listener.onItemClick(testItem);
             }
-        });
+        });*/
 
         return testItemViewHolder;
     }
 
     @Override
     public void onBindViewHolder(TestItemViewHolder testItemViewHolder, int position) {
-        final TestItem testItem = testItemList.get(position);
-        testItemViewHolder.videoName.setText(testItem.getVideoName());
-        if (testItem.isCompleted()){
-            testItemViewHolder.isCOmpleted.setTextColor(context.getResources().getColor(R.color.greenApp));
-            testItemViewHolder.isCOmpleted.setText(R.string.completed);
-            testItemViewHolder.scoreRatingBar.setVisibility(View.VISIBLE);
-        }else{
-            testItemViewHolder.isCOmpleted.setText(R.string.uncompleted);
-        }
-        testItemViewHolder.scoreRatingBar.setRating(testItem.getScore());
+        final Test testItem = testItemList.get(position);
+        testItemViewHolder.bind(testItemList.get(position),listener);
     }
 
     @Override

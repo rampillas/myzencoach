@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,11 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.questionList.QuestionItem;
+import com.unir.grupo2.myzeancoach.domain.model.Question;
+import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.questionList.QuestionListAdapter;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.questionList.QuestionTestCompletedDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -23,7 +24,7 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
 
     @BindView(R.id.test_recycler_view)
     RecyclerView recyclerView;
-    private List<QuestionItem> questionItemList;
+    private List<Question> questionItemList;
     private QuestionListAdapter questionListAdapter;
 
     @Override
@@ -32,9 +33,14 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         setContentView(R.layout.test_activity);
         ButterKnife.bind(this);
 
-        String videoName = getIntent().getStringExtra("video_name");
+        //Test test = getIntent().getExtras().getParcelable("TEST");
 
-        QuestionItem questionItem1 = new QuestionItem(1, "¿Como sería la vida del protagonista en tu ciudad?",
+        Intent i = getIntent();
+        Test test = (Test) i.getParcelableExtra("TEST");
+
+        questionItemList = test.getQuestions();
+
+        /*QuestionItem questionItem1 = new QuestionItem(1, "¿Como sería la vida del protagonista en tu ciudad?",
                 "mejor", "peor", "igual");
         QuestionItem questionItem2 = new QuestionItem(12, "¿Como se llama el hijo pequeño?",
                 "Carlos", "Sergio", "Rodrigo");
@@ -45,19 +51,18 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         QuestionItem questionItem5 = new QuestionItem(5, "¿En que año se narra la historia?",
                 "1998", "1852", "2001");
 
-        questionItemList = new ArrayList<>();
+
 
         questionItemList.add(questionItem1);
         questionItemList.add(questionItem2);
         questionItemList.add(questionItem3);
         questionItemList.add(questionItem4);
-        questionItemList.add(questionItem5);
+        questionItemList.add(questionItem5);*/
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        questionListAdapter = new QuestionListAdapter(this, questionItemList, videoName, this);
+        questionListAdapter = new QuestionListAdapter(this, questionItemList, test.getDescription(), this);
         recyclerView.setAdapter(questionListAdapter);
-
     }
 
     @Override

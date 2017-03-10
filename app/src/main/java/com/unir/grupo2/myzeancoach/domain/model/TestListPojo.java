@@ -1,12 +1,12 @@
 
-package com.unir.grupo2.myzeancoach.data.pojo;
+package com.unir.grupo2.myzeancoach.domain.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class VideoListPojo {
+public class TestListPojo {
 
     @SerializedName("count")
     @Expose
@@ -19,7 +19,7 @@ public class VideoListPojo {
     private Object previous;
     @SerializedName("results")
     @Expose
-    private List<VideoPojo> videos = null;
+    private List<Test> results = null;
 
     public Integer getCount() {
         return count;
@@ -45,12 +45,12 @@ public class VideoListPojo {
         this.previous = previous;
     }
 
-    public List<VideoPojo> getResults() {
-        return videos;
+    public List<Test> getResults() {
+        return results;
     }
 
-    public void setResults(List<VideoPojo> results) {
-        this.videos = results;
+    public void setResults(List<Test> results) {
+        this.results = results;
     }
 
 }

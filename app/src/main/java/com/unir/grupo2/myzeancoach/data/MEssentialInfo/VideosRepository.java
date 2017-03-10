@@ -1,6 +1,6 @@
 package com.unir.grupo2.myzeancoach.data.MEssentialInfo;
 
-import com.unir.grupo2.myzeancoach.data.pojo.VideoListPojo;
+import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
 
 import rx.Observable;
 

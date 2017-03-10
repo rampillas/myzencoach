@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.ui.model.VideoUI;
+import com.unir.grupo2.myzeancoach.domain.model.Video;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +25,8 @@ public class VideoItemViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-    public void bind(final VideoUI videoItem, final VideoListAdapter.OnItemVideoClickListener listener) {
-        Picasso.with(itemView.getContext()).load(videoItem.getCoverUrl()).resize(700, 700).into(videoImageView);
+    public void bind(final Video videoItem, final VideoListAdapter.OnItemVideoClickListener listener) {
+        Picasso.with(itemView.getContext()).load(videoItem.getPhotoUrl()).resize(700, 700).into(videoImageView);
 
         isCompletedImageView.setVisibility(View.VISIBLE);
         if (videoItem.getIsWatched()){
@@ -37,7 +37,7 @@ public class VideoItemViewHolder extends RecyclerView.ViewHolder {
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                listener.onItemVideoClick(videoItem.getUrlVideo());
+                listener.onItemVideoClick(videoItem.getUrl());
             }
         });
     }

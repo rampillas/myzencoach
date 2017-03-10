@@ -2,10 +2,9 @@ package com.unir.grupo2.myzeancoach.domain.MEssentialInfo;
 
 import com.unir.grupo2.myzeancoach.data.MEssentialInfo.VideosDataRepository;
 import com.unir.grupo2.myzeancoach.data.MEssentialInfo.VideosRepository;
-import com.unir.grupo2.myzeancoach.data.pojo.VideoListPojo;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
-import com.unir.grupo2.myzeancoach.domain.utils.ModeMapper;
-import com.unir.grupo2.myzeancoach.ui.model.VideoUI;
+import com.unir.grupo2.myzeancoach.domain.model.Video;
+import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +23,14 @@ public class VideosUseCase extends UseCase {
     @Override
     protected Observable buildUseCaseObservable() {
         VideosRepository repo = VideosDataRepository.getInstance();
-        return repo.videos(token).map(new Func1<VideoListPojo, List<VideoUI>>() {
+        return repo.videos(token).map(new Func1<VideoListPojo, List<Video>>() {
             @Override
-            public List<VideoUI> call(VideoListPojo videoListPojo) {
+            public List<Video> call(VideoListPojo videoListPojo) {
 
-                List<VideoUI> videoList = new ArrayList<VideoUI>();
+                List<Video> videoList = new ArrayList<Video>();
 
                 for(int i = 0; i < videoListPojo.getCount(); i++){
-                    videoList.add(ModeMapper.videoConverter(videoListPojo.getResults().get(i)));
+                    videoList.add(videoListPojo.getResults().get(i));
                 }
                 return videoList;
             }

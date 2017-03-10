@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
@@ -105,9 +106,9 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     //Test item has been clicked
     @Override
-    public void onItemSelected(String videoName) {
+    public void onItemSelected(Test test) {
         Intent intent = new Intent(this, TestActivity.class);
-        intent.putExtra("video_name",videoName);
+        intent.putExtra("TEST", test);
         startActivity(intent);
     }
 

@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Question;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<QuestionItem> questionItemList;
+    private List<Question> questionItemList;
     private String videoName;
 
     private class VIEWS_TYPES{
@@ -37,7 +38,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private final QuestionListAdapter.OnButtonClickListener listener;
 
-    public QuestionListAdapter(Context context,List<QuestionItem> quesionItemList, String videoName,
+    public QuestionListAdapter(Context context,List<Question> quesionItemList, String videoName,
                                OnButtonClickListener listener){
         this.context = context;
         this.questionItemList = quesionItemList;
@@ -77,14 +78,20 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             });
         } else if(holder instanceof QuestionItemViewHolder) {
-            final QuestionItem questionItem = questionItemList.get(position - 1);
+            final Question questionItem = questionItemList.get(position - 1);
             QuestionItemViewHolder itemHolder = (QuestionItemViewHolder) holder;
             itemHolder.questionNumberTextView.setText(String.format(context.getString(R.string.question_number),
-                    questionItem.getNumber(), questionItemList.size()));
-            itemHolder.questionTextView.setText(questionItem.getQuestion());
-            itemHolder.answer1Radio.setText(questionItem.getAnswer1());
-            itemHolder.answer2Radio.setText(questionItem.getAnswer2());
-            itemHolder.answer3Radio.setText(questionItem.getAnswer3());
+                    position, questionItemList.size()));
+            itemHolder.questionTextView.setText(questionItem.getDescription());
+            if (questionItem.getAnswers().size() > 0){
+                itemHolder.answer1Radio.setText(questionItem.getAnswers().get(0).getDescription());
+                if (questionItem.getAnswers().size() > 1){
+                    itemHolder.answer2Radio.setText(questionItem.getAnswers().get(1).getDescription());
+                }
+                if (questionItem.getAnswers().size() > 2){
+                    itemHolder.answer3Radio.setText(questionItem.getAnswers().get(2).getDescription());
+                }
+            }
             itemHolder.answerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
