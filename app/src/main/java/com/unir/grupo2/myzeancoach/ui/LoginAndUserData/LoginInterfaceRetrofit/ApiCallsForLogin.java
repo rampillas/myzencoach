@@ -4,6 +4,7 @@ import com.unir.grupo2.myzeancoach.domain.model.User;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -24,9 +25,10 @@ public interface ApiCallsForLogin {
                                @Field("scope") String ScopeFijo);
             /*(@Field("usuario") String Usuario,
                                @Field("contrasena") String Contrasena);*/
-    @POST("/users/")
+    @POST("/password-recovery/")
     @FormUrlEncoded
-    Observable<User> forgetPass(@Field("usuario") String Usuario);
+    Observable<User> forgetPass(@Header("Content-Type") String contentType,
+                                @Field("username") String usuario);
 
     @POST("/users/")
     @FormUrlEncoded
