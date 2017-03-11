@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
@@ -22,13 +23,15 @@ import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideoYoutubeActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.PublicHomepageFragment;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.MWelfareFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener{
+        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnItemPostSelectedListener{
 
     // ui
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -118,5 +121,14 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         Intent intent = new Intent(this, VideoYoutubeActivity.class);
         intent.putExtra("URL",urlName);
         startActivity(intent);
+    }
+
+    //Video item has been clicked
+    @Override
+    public void onItemPostSelected(PostItem post) {
+        Toast.makeText(this, "item has been clicked", Toast.LENGTH_LONG).show();
+        /*Intent intent = new Intent(this, VideoYoutubeActivity.class);
+        intent.putExtra("URL",urlName);
+        startActivity(intent);*/
     }
 }
