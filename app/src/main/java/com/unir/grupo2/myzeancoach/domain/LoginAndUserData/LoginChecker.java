@@ -22,7 +22,7 @@ import rx.schedulers.Schedulers;
  * Created by andres on 28/02/2017.
  */
 
-public class LoginChecker {
+public class LoginChecker{
     public static User userObject;
 
     public boolean UserAndPassWordFilled(String user, String password) {
@@ -136,6 +136,7 @@ public class LoginChecker {
 
                 });
     }
+
 
 
 }

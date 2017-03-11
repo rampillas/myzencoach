@@ -11,9 +11,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private static Retrofit retrofit = null;
+    private static final RetrofitClient INSTANCE = new RetrofitClient();
+
+    public RetrofitClient getInstancia() {
+        return this.INSTANCE;
+    }
 
     public static Retrofit getClient(String baseUrl) {
-        if (retrofit==null) {
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
@@ -22,5 +27,7 @@ public class RetrofitClient {
         }
         return retrofit;
     }
+
+
 
 }

@@ -29,7 +29,7 @@ public class VideosUseCase extends UseCase {
 
                 List<Video> videoList = new ArrayList<Video>();
 
-                for(int i = 0; i < videoListPojo.getCount(); i++){
+                for (int i = 0; i < videoListPojo.getCount(); i++) {
                     videoList.add(videoListPojo.getResults().get(i));
                 }
                 return videoList;
