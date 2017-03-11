@@ -77,6 +77,11 @@
         android:textColor="@color/greenApp"
         android:textSize="@dimen/letra_mediana" />
 
+    <View android:background="@color/grey"
+        android:layout_width = "match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"/>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -108,8 +113,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/border"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    >
 
                 </LinearLayout>
 

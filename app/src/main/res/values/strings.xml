@@ -125,5 +125,6 @@
     <string name="REMAINDERS_HELLO_USER">Hola</string>
     <string name="REMAINDERS_TASK_REMAIN">Tareas para pasar de nivel</string>
     <string name="REMAINDERS_YOUR_TASK">Tus tareas</string>
+    <string name="REMAINDERS_MASK_AS_DONE">Marcar como completa</string>
 
 </resources>
