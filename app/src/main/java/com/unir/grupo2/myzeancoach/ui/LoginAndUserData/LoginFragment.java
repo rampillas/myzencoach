@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class LoginFragment extends Fragment {
     @Nullable
     @BindView(R.id.loginLayout)
     public
-    LinearLayout loginLayout;
+    ScrollView loginLayout;
     @Nullable
     @BindView(R.id.loading_layout)
     LinearLayout loadingLayout;

@@ -12,10 +12,10 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/createUserLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/createUserLayout">
+            android:orientation="vertical">
 
             <Space
                 android:layout_width="match_parent"
@@ -395,14 +395,14 @@
 
                         <Button
                             android:id="@+id/PaisList"
-                            android:background="@color/colorAccent"
-                            android:textColor="@color/white"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="70"
+                            android:background="@color/colorAccent"
                             android:ems="10"
                             android:inputType="textPersonName"
-                            android:text="@string/SIGNUP_SELECT" />
+                            android:text="@string/SIGNUP_SELECT"
+                            android:textColor="@color/white" />
 
 
                         <Space
@@ -639,12 +639,12 @@
 
                         <Button
                             android:id="@+id/okButton"
-                            android:background="@color/colorAccent"
-                            android:textColor="@color/white"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="90"
-                            android:text="@string/OK" />
+                            android:background="@color/colorAccent"
+                            android:text="@string/OK"
+                            android:textColor="@color/white" />
 
                         <Space
                             android:layout_width="wrap_content"
@@ -674,14 +674,17 @@
 
     <LinearLayout
         android:id="@+id/loading_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -691,26 +694,29 @@
 
     <LinearLayout
         android:id="@+id/error_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:clickable="true"
+        android:gravity="center"
         android:orientation="vertical"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_gravity="center"
-            android:tint="#c3c3c3"
+            android:contentDescription="@string/error_icon_description"
             android:src="@drawable/ic_error_black_24px"
-            android:contentDescription="@string/error_icon_description" />
+            android:tint="#c3c3c3" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="@string/error_message"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="@string/error_message" />
+            android:textStyle="bold" />
     </LinearLayout>
 
 

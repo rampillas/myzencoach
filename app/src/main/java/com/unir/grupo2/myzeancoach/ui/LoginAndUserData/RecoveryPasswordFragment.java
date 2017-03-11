@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
@@ -28,7 +29,7 @@ public class RecoveryPasswordFragment extends Fragment {
     @Nullable
     @BindView(R.id.recoveryLayout)
     public
-    LinearLayout recoveryLayout;
+    ScrollView recoveryLayout;
     @Nullable
     @BindView(R.id.loading_layout)
     LinearLayout loadingLayout;
