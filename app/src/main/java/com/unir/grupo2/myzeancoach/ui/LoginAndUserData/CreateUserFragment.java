@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -40,7 +41,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
-import id.arieridwan.lib.PageLoader;
 
 
 public class CreateUserFragment extends Fragment {
@@ -91,9 +91,12 @@ public class CreateUserFragment extends Fragment {
     @BindView(R.id.okButton)
     Button okButton;
     //validacion del formulario
-    @BindView(R.id.pageloader)
-    public
-    PageLoader pageLoader;
+    @BindView(R.id.loading_layout)
+    LinearLayout loadingLayout;
+    @BindView(R.id.error_layout)
+    LinearLayout errorLayout;
+    @BindView(R.id.createUserLayout)
+    LinearLayout createUserLayout;
 
     //iniciamos los radio buttons
     @OnClick(R.id.radio_si)
@@ -337,6 +340,33 @@ public class CreateUserFragment extends Fragment {
         }
         editar = "Si";
 
+    }
+
+    /**
+     * Method used to show error view
+     */
+    public void showError() {
+        createUserLayout.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Method used to show the loading view
+     */
+    public void showLoading() {
+        loadingLayout.setVisibility(View.VISIBLE);
+        createUserLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method used to show the listView
+     */
+    public void showContent() {
+        createUserLayout.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
     }
 
 }

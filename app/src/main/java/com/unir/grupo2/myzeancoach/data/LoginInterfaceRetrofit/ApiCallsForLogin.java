@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit;
+package com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit;
 
 import com.unir.grupo2.myzeancoach.domain.model.User;
 

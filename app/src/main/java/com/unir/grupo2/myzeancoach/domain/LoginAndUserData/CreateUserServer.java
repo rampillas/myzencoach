@@ -2,13 +2,12 @@ package com.unir.grupo2.myzeancoach.domain.LoginAndUserData;
 
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.ApiCallsForLogin;
+import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RetrofitClient;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.ApiCallsForLogin;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitClient;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 
 import retrofit2.Retrofit;
@@ -31,8 +30,7 @@ public class CreateUserServer {
                         String ciudadValor, String descripcionValor, String zonaValor, String cambioPaisValor,
                         String estudiosValor, final CreateUserFragment createUserFragment) {
 
-        createUserFragment.pageLoader.startProgress();
-        createUserFragment.pageLoader.setVisibility(View.VISIBLE);
+        createUserFragment.showLoading();
         // RxJava
         conexioAPI.createUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor, nacimientoValor,
                 sexoValor, paisValor, ciudadValor, descripcionValor, zonaValor, cambioPaisValor, estudiosValor).subscribeOn(Schedulers.io())
@@ -46,8 +44,7 @@ public class CreateUserServer {
                     @Override
                     public void onError(Throwable e) {
                         Log.d("Create process", "error " + e);
-                        createUserFragment.pageLoader.stopProgressAndFailed();
-                        createUserFragment.pageLoader.setVisibility(View.GONE);
+                        createUserFragment.showError();
                         createUserFragment.errorServer();
                     }
 
@@ -55,15 +52,13 @@ public class CreateUserServer {
                     public void onNext(User userObject) {
                         if (userObject.getIsActive()) {
                             Log.d("Create process", "ok creado");
-                            createUserFragment.pageLoader.stopProgress();
-                            createUserFragment.pageLoader.setVisibility(View.GONE);
+                            createUserFragment.showContent();
                             FragmentTransaction xfragmentTransaction = createUserFragment.getFragmentManager().beginTransaction();
                             xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
                         } else {
                             Log.d("Create process", "incorrect usser exits");
-                            createUserFragment.pageLoader.stopProgress();
                             createUserFragment.userExits();
-                            createUserFragment.pageLoader.setVisibility(View.GONE);
+                            createUserFragment.showContent();
                         }
                     }
                 });

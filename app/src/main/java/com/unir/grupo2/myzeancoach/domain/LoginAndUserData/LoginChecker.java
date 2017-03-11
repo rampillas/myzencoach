@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.ApiCallsForLogin;
+import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RetrofitClient;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.ApiCallsForLogin;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginInterfaceRetrofit.RetrofitClient;
 
 import retrofit2.Retrofit;
 import rx.Subscriber;
@@ -53,8 +52,7 @@ public class LoginChecker {
 
     public void validateUser(String idFijo, String secretFijo, String usuario, String contrasena, String tipoFijo, String scopeFijo, final LoginFragment loginFragment) {
 
-        loginFragment.pageLoader.startProgress();
-        loginFragment.pageLoader.setVisibility(View.VISIBLE);
+        loginFragment.showLoading();
         // RxJava
         apiConexion.loginUser(idFijo, secretFijo, usuario, contrasena, tipoFijo, scopeFijo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<User>() {
@@ -66,8 +64,7 @@ public class LoginChecker {
                     @Override
                     public void onError(Throwable e) {
                         Log.d("Login process", "error " + e);
-                        loginFragment.pageLoader.stopProgressAndFailed();
-                        loginFragment.pageLoader.setVisibility(View.GONE);
+                        loginFragment.showError();
                         loginFragment.errorServer();
                     }
 
@@ -75,7 +72,7 @@ public class LoginChecker {
                     public void onNext(User userObject) {
                         if (userObject.getIsActive()) {
                             Log.d("Login process", "okLogin");
-                            loginFragment.pageLoader.stopProgress();
+                            loginFragment.showContent();
 
                             //se guarda el usuario y clave para mantener la sesion
                             Context context = loginFragment.getActivity();
@@ -87,14 +84,14 @@ public class LoginChecker {
                             editor.commit();
 
                             //se cambia la vista
-                            loginFragment.pageLoader.setVisibility(View.GONE);
+                            loginFragment.showContent();
                             FragmentTransaction xfragmentTransaction = loginFragment.getFragmentManager().beginTransaction();
                             xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
                         } else {
                             Log.d("Login process", "incorrectpass");
-                            loginFragment.pageLoader.stopProgress();
+                            loginFragment.showError();
                             loginFragment.showIncorrectPassword();
-                            loginFragment.pageLoader.setVisibility(View.GONE);
+                            loginFragment.showContent();
                         }
                     }
 
@@ -106,8 +103,7 @@ public class LoginChecker {
     //recreamos la clase para ser llamada desde la pantalla de Crear Usuario
     public void validateUser(String idFijo, String secretFijo, String usuarioo, String contrasena, String tipoFijo, String scopeFijo, final CreateUserFragment createUserFragment) {
 
-        createUserFragment.pageLoader.startProgress();
-        createUserFragment.pageLoader.setVisibility(View.VISIBLE);
+        createUserFragment.showLoading();
         // RxJava
         apiConexion.loginUser(idFijo, secretFijo, usuarioo, contrasena, tipoFijo, scopeFijo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<User>() {
@@ -119,8 +115,7 @@ public class LoginChecker {
                     @Override
                     public void onError(Throwable e) {
                         Log.d("Login process", "error " + e);
-                        createUserFragment.pageLoader.stopProgressAndFailed();
-                        createUserFragment.pageLoader.setVisibility(View.GONE);
+                        createUserFragment.showError();
                         createUserFragment.errorServer();
                     }
 
@@ -128,15 +123,13 @@ public class LoginChecker {
                     public void onNext(User userObject) {
                         if (userObject.getIsActive()) {
                             Log.d("Login process", "okLogin");
-                            createUserFragment.pageLoader.stopProgress();
+                            createUserFragment.showContent();
                             createUserFragment.showFieldsIntoCases(userObject);
-                            //se cambia la vista
-                            createUserFragment.pageLoader.setVisibility(View.GONE);
 
                         } else {
                             Log.d("Login process", "incorrectpass");
-                            createUserFragment.pageLoader.stopProgress();
-                            createUserFragment.pageLoader.setVisibility(View.GONE);
+                            createUserFragment.showContent();
+                            createUserFragment.userExits();
                         }
                     }
 

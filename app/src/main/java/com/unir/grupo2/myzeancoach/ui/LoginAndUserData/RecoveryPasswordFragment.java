@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
@@ -16,7 +17,6 @@ import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.RecoveryPasswordServe
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import id.arieridwan.lib.PageLoader;
 
 
 public class RecoveryPasswordFragment extends Fragment {
@@ -26,8 +26,15 @@ public class RecoveryPasswordFragment extends Fragment {
     @BindView(R.id.okButton)
     Button okButton;
     @Nullable
-    @BindView(R.id.pageloader)
-    public PageLoader pageLoader;
+    @BindView(R.id.recoveryLayout)
+    public
+    LinearLayout recoveryLayout;
+    @Nullable
+    @BindView(R.id.loading_layout)
+    LinearLayout loadingLayout;
+    @Nullable
+    @BindView(R.id.error_layout)
+    LinearLayout errorLayout;
 
     @OnClick(R.id.okButton)
 
@@ -53,6 +60,32 @@ public class RecoveryPasswordFragment extends Fragment {
     }
     public void passEmailSend() {
         Toast.makeText(getContext(),getResources().getString(R.string.LOGIN_EMAIL_SEND),Toast.LENGTH_LONG).show();
+    }
+    /**
+     * Method used to show error view
+     */
+    public void showError() {
+        recoveryLayout.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Method used to show the loading view
+     */
+    public void showLoading() {
+        loadingLayout.setVisibility(View.VISIBLE);
+        recoveryLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method used to show the listView
+     */
+    public void showContent() {
+        recoveryLayout.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
     }
 
 }

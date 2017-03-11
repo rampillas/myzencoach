@@ -9,13 +9,16 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
         <LinearLayout
+            android:id="@+id/loginLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp" />
@@ -37,7 +40,6 @@
                     tools:textColor="@color/colorPrimary" />
 
 
-
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
@@ -50,6 +52,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="5" />
             </LinearLayout>
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp" />
@@ -97,8 +100,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="70"
-                            android:gravity="center_vertical"
                             android:ems="10"
+                            android:gravity="center_vertical"
                             android:hint="@string/LOGIN_TEXT_USER"
                             android:inputType="textPersonName" />
 
@@ -135,8 +138,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="70"
                             android:ems="10"
-                            android:hint="@string/LOGIN_TEXT_PASSWORD"
                             android:gravity="center_vertical"
+                            android:hint="@string/LOGIN_TEXT_PASSWORD"
                             android:inputType="textPassword" />
 
                         <Space
@@ -162,13 +165,13 @@
 
                         <Button
                             android:id="@+id/LoginButton"
-                            android:background="@color/colorAccent"
-                            android:textColor="@color/white"
-                            android:padding="15dip"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="90"
-                            android:text="@string/LOGIN_TEXT_LOGIN" />
+                            android:background="@color/colorAccent"
+                            android:padding="15dip"
+                            android:text="@string/LOGIN_TEXT_LOGIN"
+                            android:textColor="@color/white" />
 
                         <Space
                             android:layout_width="wrap_content"
@@ -215,6 +218,7 @@
 
 
             </LinearLayout>
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp" />
@@ -255,14 +259,14 @@
 
                     <Button
                         android:id="@+id/CreateAccount"
-                        android:background="@color/colorAccent"
-                        android:textColor="@color/white"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="10"
-                        android:textSize="@dimen/letra_pequeña"
+                        android:background="@color/colorAccent"
                         android:color="@color/colorAccent"
-                        android:text="@string/LOGIN_CREATE_ACCOUNT_BUTTON" />
+                        android:text="@string/LOGIN_CREATE_ACCOUNT_BUTTON"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/letra_pequeña" />
 
                     <Space
                         android:layout_width="0dp"
@@ -276,17 +280,59 @@
                     android:layout_weight="10" />
 
             </LinearLayout>
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp" />
         </LinearLayout>
     </ScrollView>
 
-    <id.arieridwan.lib.PageLoader
-        android:id="@+id/pageloader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+    <LinearLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravisty="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/loading_message" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/error_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/error_icon_description"
+            android:src="@drawable/ic_error_black_24px"
+            android:tint="#c3c3c3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/error_message"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>
 
 
