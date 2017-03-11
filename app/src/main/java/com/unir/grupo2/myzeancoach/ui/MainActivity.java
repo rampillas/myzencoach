@@ -22,6 +22,7 @@ import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideoYoutubeActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.AddPostActivity;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.PublicHomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
@@ -31,7 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnItemPostSelectedListener{
+        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener{
 
     // ui
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -123,12 +124,20 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         startActivity(intent);
     }
 
-    //Video item has been clicked
+    /*****Homepage*****/
+    //Post item has been clicked
     @Override
     public void onItemPostSelected(PostItem post) {
         Toast.makeText(this, "item has been clicked", Toast.LENGTH_LONG).show();
         /*Intent intent = new Intent(this, VideoYoutubeActivity.class);
         intent.putExtra("URL",urlName);
         startActivity(intent);*/
+    }
+
+    //Add post button has been clicked
+    @Override
+    public void onAddPostSelected() {
+        Intent intent = new Intent(this, AddPostActivity.class);
+        startActivity(intent);
     }
 }

@@ -91,7 +91,7 @@ public class MLeisureFragment extends Fragment {
                 case 0 :
                     return getString(R.string.public_homepage);
                 case 1 :
-                    return getString(R.string.set_up_your_interests);
+                    return getString(R.string.interests);
             }
             return null;
         }

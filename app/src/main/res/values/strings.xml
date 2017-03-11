@@ -26,12 +26,11 @@
     <string name="current_plan">Plan Actual</string>
     <string name="weekly_exercise">Ejercicio semanal</string>
     <string name="rate">Valoración</string>
-    <string name="public_homepage">Muro público</string>
-    <string name="set_up_your_interests">Configura tus intereses</string>
     <string name="test_completed_dialog">El test se ha guardado y enviado correctamente. Recuerde que
     podrá volver a realizar el test tantas veces como desee</string>
     <string name="puntuaction">Puntuación</string>
     <string name="login">Login</string>
+    <string name="interests">Intereses</string>
 
 
     <!-- essential_information-->
@@ -111,5 +110,15 @@
     <string name="LOGIN_EMAIL_SEND">Email con la clave enviado</string>
     <string name="SIGNUP_USER_NOT_EXITS">El usuario no esta registrado</string>
 
+    <!--Leisure -->
+    <string name="like">Me gusta</string>
+    <string name="comment">Comentar</string>
+    <string name="title">Título</string>
+    <string name="description">Descripción. ¿Qué estás pensando?</string>
+    <string name="category">Elige una categoría</string>
+    <string name="post">Publicar</string>
+    <string name="public_homepage">Muro público</string>
+    <string name="set_up_your_interests">Selecciona los intereses que sean de tu preferencia</string>
+    <string name="save_interests">Guardar intereses</string>
 
 </resources>

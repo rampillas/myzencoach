@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Cesar on 22/02/2017.
@@ -38,21 +40,23 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
     @BindView(R.id.post_recycler_view) RecyclerView postListRecyclerView;
     @BindView(R.id.loading_layout) LinearLayout loadingLayout;
     @BindView(R.id.error_layout) LinearLayout errorLayout;
+    @BindView(R.id.floating_action_button) FloatingActionButton floatingActionButton;
 
 
-    PublicHomepageFragment.OnItemPostSelectedListener onItemPostSelectedListener;
+    PublicHomepageFragment.OnPostListener postListener;
 
-    public interface OnItemPostSelectedListener{
+    public interface OnPostListener{
         void onItemPostSelected(PostItem post);
+        void onAddPostSelected();
     }
 
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        if (context instanceof PublicHomepageFragment.OnItemPostSelectedListener){
-            onItemPostSelectedListener = (PublicHomepageFragment.OnItemPostSelectedListener) context;
+        if (context instanceof PublicHomepageFragment.OnPostListener){
+            postListener = (PublicHomepageFragment.OnPostListener) context;
         }else{
-            throw new ClassCastException(context.toString() + " must implements PublicHomepageFragment.OnItemPostSelectedListener");
+            throw new ClassCastException(context.toString() + " must implements PublicHomepageFragment.OnPostListener");
         }
     }
 
@@ -93,8 +97,16 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
 
     @Override
     public void onItemPostClick(PostItem post) {
-        onItemPostSelectedListener.onItemPostSelected(post);
+        postListener.onItemPostSelected(post);
     }
+
+
+    @OnClick(R.id.floating_action_button)
+    void addPost(View view) {
+        postListener.onAddPostSelected();
+    }
+
+
 /*
     private void updateData() {
         showLoading();

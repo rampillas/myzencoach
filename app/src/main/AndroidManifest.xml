@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".ui.MEssentialInfo.TestActivity"></activity>
         <activity android:name=".ui.MEssentialInfo.VideoYoutubeActivity"></activity>
+        <activity android:name=".ui.MLeisure.AddPostActivity"></activity>
     </application>
 
 </manifest>
