@@ -19,13 +19,17 @@ public class PostListAdapter  extends RecyclerView.Adapter<PostItemViewHolder>  
     private List<PostItem> postItemList;
     private Context context;
 
-    public interface OnItemPostClickListener{
+    public interface OnPostClickListener{
         public void onItemPostClick(PostItem post);
+        public void onAddCommentPostClick(PostItem post);
+        public void onNumberCommentPostClick(PostItem post);
+        public void onLikePostClick(PostItem post);
+        public void onNumberLikePostClick(PostItem post);
     }
 
-    PostListAdapter.OnItemPostClickListener listener;
+    PostListAdapter.OnPostClickListener listener;
 
-    public PostListAdapter(Context context, List<PostItem> postItemList, PostListAdapter.OnItemPostClickListener listener) {
+    public PostListAdapter(Context context, List<PostItem> postItemList, PostListAdapter.OnPostClickListener listener) {
         this.context = context;
         this.postItemList = postItemList;
         this.listener = listener;

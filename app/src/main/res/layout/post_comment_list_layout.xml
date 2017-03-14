@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/comment_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/add_comment_editText"/>
+
+    <EditText
+        android:id="@+id/add_comment_editText"
+        android:layout_width="match_parent"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:drawableRight="@mipmap/ic_send_black_24dp"
+        android:drawablePadding="5dp"
+        android:hint="@string/write_comment"/>
 
     <LinearLayout
         android:id="@+id/loading_layout"
@@ -54,4 +70,4 @@
             android:text="@string/error_message" />
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

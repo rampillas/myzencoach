@@ -121,11 +121,13 @@
     <string name="set_up_your_interests">Selecciona los intereses que sean de tu preferencia</string>
     <string name="save_interests">Guardar intereses</string>
     <string name="write_comment">Escribe un commentario...</string>
+    <string name="number_comments">%1$d comentarios</string>
 
     <!--Remainders -->
     <string name="REMAINDERS_HELLO_USER">Hola</string>
     <string name="REMAINDERS_TASK_REMAIN">Tareas para pasar de nivel</string>
     <string name="REMAINDERS_YOUR_TASK">Tus tareas</string>
     <string name="REMAINDERS_MASK_AS_DONE">Marcar como completa</string>
+
 
 </resources>

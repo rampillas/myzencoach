@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 
 public class PostItemViewHolder extends RecyclerView.ViewHolder {
 
+    @BindView(R.id.date_textView) TextView dateTextView;
     @BindView(R.id.title_textView) TextView titleTextView;
     @BindView(R.id.category_textView) TextView categoryTextView;
     @BindView(R.id.description_textView) TextView descriptionTextView;
@@ -30,13 +31,28 @@ public class PostItemViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-    public void bind(final PostItem postItem, final PostListAdapter.OnItemPostClickListener listener) {
+    public void bind(final PostItem postItem, final PostListAdapter.OnPostClickListener listener) {
 
+        dateTextView.setText(postItem.getDate());
         titleTextView.setText(postItem.getTitle());
         categoryTextView.setText(postItem.getCategory());
         descriptionTextView.setText(postItem.getDescription());
         likeNumberTextView.setText(Integer.toString(postItem.getLikeNumber()));
-        commentNumberTextView.setText(Integer.toString(postItem.getCommentNumber()));
+        commentNumberTextView.setText(String.format(itemView.getContext().getString(R.string.number_comments), postItem.getCommentNumber()));
+
+        commentNumberTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onNumberCommentPostClick(postItem);
+            }
+        });
+
+        commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onAddCommentPostClick(postItem);
+            }
+        });
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {

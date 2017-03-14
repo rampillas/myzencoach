@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostListAdapter;
 
@@ -30,7 +31,7 @@ import butterknife.OnClick;
  * Created by Cesar on 22/02/2017.
  */
 
-public class PublicHomepageFragment extends Fragment implements PostListAdapter.OnItemPostClickListener{
+public class PublicHomepageFragment extends Fragment implements PostListAdapter.OnPostClickListener{
 
 
     List<PostItem> postItemList;
@@ -48,6 +49,10 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
     public interface OnPostListener{
         void onItemPostSelected(PostItem post);
         void onAddPostSelected();
+        void onLikePostSelected(PostItem post);
+        void onNumberLikePostSelected(PostItem post);
+        void onCommentPostSelected(PostItem post);
+        void onNumberCommentPostSelected(PostItem post);
     }
 
     @Override
@@ -73,13 +78,33 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         postListRecyclerView.setLayoutManager(linearLayoutManager);
 
+        CommentItem commentItem1 = new CommentItem("12-12-2016", "primer comentario de prueba");
+        CommentItem commentItem2 = new CommentItem("05-10-2012", "segundo comentario de prueba");
+        CommentItem commentItem3 = new CommentItem("12-12-2016", "terceo comentario de prueba");
+        CommentItem commentItem4 = new CommentItem("12-12-2016", "cuarto comentario de prueba");
+        CommentItem commentItem5 = new CommentItem("12-12-2016", "quinto comentario de prueba");
+        CommentItem commentItem6 = new CommentItem("12-12-2016", "sexto comentario de prueba");
+        CommentItem commentItem7 = new CommentItem("12-12-2016", "septimo comentario de prueba");
+
+        ArrayList<CommentItem> commentList = new ArrayList<CommentItem>();
+        commentList.add(commentItem1);
+        commentList.add(commentItem2);
+        commentList.add(commentItem3);
+        commentList.add(commentItem4);
+        commentList.add(commentItem5);
+        commentList.add(commentItem6);
+        commentList.add(commentItem7);
+        commentList.add(commentItem7);
+        commentList.add(commentItem7);
+
         postItemList = new ArrayList<PostItem>();
-        PostItem post1 = new PostItem("Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", 4, 6);
-        PostItem post2 = new PostItem("Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion",52, 10);
-        PostItem post3 = new PostItem("Me voy a casar","eventos", "¿Que iglesia me recomendais?", 70, 30);
-        PostItem post4 = new PostItem("Aun no se con quien me voy a casar", "eventos", "Vladimir Kokorev, presunto testaferro de Teodoro Obiang, presidente de Guinea Ecuatorial, encarcelado por supuesto delito fiscal y blanqueo de capitales, contrató por 140.000 euros a una empresa de comunicación para limpiar la imagen de su familia e investigar a un abogado y a dos periodistas, uno de ellos de EL PAÍS, según se desprende de la documentación intervenida por la Policía en el registro de su domicilio en la madrileña calle Ferraz. La investigación sobre la familia Kokorev se inició hace 12 años al detectarse que había recibido más de 30 millones procedentes de la Tesorería General de Guinea Ecuatorial", 100, 3);
-        PostItem post5 = new PostItem("Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?",54565, 123);
-        PostItem post6 = new PostItem("voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", 0, 0);
+        PostItem post1 = new PostItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", 4, 6,commentList);
+        PostItem post2 = new PostItem("31-05-2017","Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion",52, 10,commentList);
+        PostItem post3 = new PostItem("2-05-2016","Me voy a casar","eventos", "¿Que iglesia me recomendais?", 70, 30, commentList);
+        PostItem post4 = new PostItem("2-05-2016","Aun no se con quien me voy a casar", "eventos", "Vladimir Kokorev, presunto testaferro de Teodoro Obiang, presidente de Guinea " +
+                "Ecuatorial, encarcelado por supuesto delito fiscal y blanqueo de capitales, contrató por 140.000 euros a una empresa de comunicación para limpiar la imagen de su familia e investigar a un abogado y a dos periodistas, uno de ellos de EL PAÍS, según se desprende de la documentación intervenida por la Policía en el registro de su domicilio en la madrileña calle Ferraz. La investigación sobre la familia Kokorev se inició hace 12 años al detectarse que había recibido más de 30 millones procedentes de la Tesorería General de Guinea Ecuatorial", 100, 3,commentList);
+        PostItem post5 = new PostItem("2-05-2016","Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?",54565, 123,null);
+        PostItem post6 = new PostItem("2-05-2016","voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", 0, 0,null);
         postItemList.add(post1);
         postItemList.add(post2);
         postItemList.add(post3);
@@ -98,6 +123,26 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
     @Override
     public void onItemPostClick(PostItem post) {
         postListener.onItemPostSelected(post);
+    }
+
+    @Override
+    public void onAddCommentPostClick(PostItem post) {
+        postListener.onCommentPostSelected(post);
+    }
+
+    @Override
+    public void onNumberCommentPostClick(PostItem post) {
+        postListener.onNumberCommentPostSelected(post);
+    }
+
+    @Override
+    public void onLikePostClick(PostItem post) {
+        postListener.onLikePostSelected(post);
+    }
+
+    @Override
+    public void onNumberLikePostClick(PostItem post) {
+        postListener.onNumberLikePostSelected(post);
     }
 
 

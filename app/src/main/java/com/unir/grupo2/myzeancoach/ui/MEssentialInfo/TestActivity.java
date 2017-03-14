@@ -35,8 +35,8 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
 
         //Test test = getIntent().getExtras().getParcelable("TEST");
 
-        Intent i = getIntent();
-        Test test = (Test) i.getParcelableExtra("TEST");
+        Intent intent = getIntent();
+        Test test = (Test) intent.getParcelableExtra("TEST");
 
         questionItemList = test.getQuestions();
 

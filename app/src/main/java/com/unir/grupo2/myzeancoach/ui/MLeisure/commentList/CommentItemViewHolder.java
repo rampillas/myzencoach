@@ -17,14 +17,10 @@ public class CommentItemViewHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.date_comment_textView) TextView dateTextView;
     @BindView(R.id.description_comment_textView) TextView descriptionTextView;
+    @BindView(R.id.line_view) View lineView;
 
     public CommentItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
-    }
-
-    public void bind(final CommentItem commentItem) {
-
-
     }
 }

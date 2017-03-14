@@ -23,6 +23,7 @@ import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideoYoutubeActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.AddPostActivity;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.CommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.PublicHomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
@@ -138,6 +139,30 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     @Override
     public void onAddPostSelected() {
         Intent intent = new Intent(this, AddPostActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onLikePostSelected(PostItem post) {
+
+    }
+
+    @Override
+    public void onNumberLikePostSelected(PostItem post) {
+
+    }
+
+    @Override
+    public void onCommentPostSelected(PostItem post) {
+        Intent intent = new Intent(this, CommentActivity.class);
+        intent.putExtra("POST", post);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onNumberCommentPostSelected(PostItem post) {
+        Intent intent = new Intent(this, CommentActivity.class);
+        intent.putExtra("POST", post);
         startActivity(intent);
     }
 }

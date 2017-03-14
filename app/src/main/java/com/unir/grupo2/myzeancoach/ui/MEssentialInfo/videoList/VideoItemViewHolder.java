@@ -26,18 +26,26 @@ public class VideoItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(final Video videoItem, final VideoListAdapter.OnItemVideoClickListener listener) {
-        Picasso.with(itemView.getContext()).load(videoItem.getPhotoUrl()).resize(700, 700).into(videoImageView);
+        Picasso.with(itemView.getContext()).load(videoItem.getPhotoUrl()).resize(700, 700).into(videoImageView,new com.squareup.picasso.Callback() {
+            @Override
+            public void onSuccess() {
+                isCompletedImageView.setVisibility(View.VISIBLE);
+                if (videoItem.getIsWatched()){
+                    isCompletedImageView.setImageResource(R.mipmap.checked);
+                }else{
+                    isCompletedImageView.setImageResource(R.mipmap.checked_no);
+                }
 
-        isCompletedImageView.setVisibility(View.VISIBLE);
-        if (videoItem.getIsWatched()){
-            isCompletedImageView.setImageResource(R.mipmap.checked);
-        }else{
-            isCompletedImageView.setImageResource(R.mipmap.checked_no);
-        }
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                        listener.onItemVideoClick(videoItem.getUrl());
+                    }
+                });
+            }
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                listener.onItemVideoClick(videoItem.getUrl());
+            @Override
+            public void onError() {
+
             }
         });
     }

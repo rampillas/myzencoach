@@ -18,7 +18,6 @@
         android:layout_height="40dp"
         android:layout_margin="10dp"
         android:visibility="gone"
-        android:layout_gravity="bottom|right"
-        app:srcCompat="@mipmap/checked_no"/>
+        android:layout_gravity="bottom|right"/>
 
 </FrameLayout>
