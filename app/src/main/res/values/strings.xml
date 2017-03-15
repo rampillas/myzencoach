@@ -128,6 +128,9 @@
     <string name="REMAINDERS_TASK_REMAIN">Tareas para pasar de nivel</string>
     <string name="REMAINDERS_YOUR_TASK">Tus tareas</string>
     <string name="REMAINDERS_MASK_AS_DONE">Marcar como completa</string>
+    <string name="hello_world">messagePlan</string>
 
+    <!--MWelfare -->
+    <string name="week_info">semana: %1$d</string>
 
 </resources>
