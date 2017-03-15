@@ -43,7 +43,7 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
     VideosFragment.OnItemVideoSelectedListener onItemVideoSelectedListener;
 
     public interface OnItemVideoSelectedListener{
-        void onItemVideoSelected(String urlVideo);
+        void onItemVideoSelected(String urlVideo, String videoName);
     }
 
     @Override
@@ -73,8 +73,8 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
     }
 
     @Override
-    public void onItemVideoClick(String urlVideo) {
-        onItemVideoSelectedListener.onItemVideoSelected(urlVideo);
+    public void onItemVideoClick(String urlVideo, String videoName) {
+        onItemVideoSelectedListener.onItemVideoSelected(urlVideo, videoName);
     }
 
     private void updateData() {

@@ -1,7 +1,7 @@
 package com.unir.grupo2.myzeancoach.domain.MEssentialInfo;
 
-import com.unir.grupo2.myzeancoach.data.MEssentialInfo.TestsDataRepository;
-import com.unir.grupo2.myzeancoach.data.MEssentialInfo.TestsRepository;
+import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialDataRepository;
+import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialRepository;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.domain.model.TestListPojo;
@@ -26,7 +26,7 @@ public class TestsUseCase extends UseCase{
 
     @Override
     protected Observable buildUseCaseObservable() {
-        TestsRepository repo = TestsDataRepository.getInstance();
+        EssentialRepository repo = EssentialDataRepository.getInstance();
         return repo.tests(token).map(new Func1<TestListPojo, List<Test>>() {
             @Override
             public List<Test> call(TestListPojo testListPojo) {

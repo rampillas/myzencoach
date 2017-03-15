@@ -1,7 +1,10 @@
 package com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit;
 
+import com.unir.grupo2.myzeancoach.domain.model.Token;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
@@ -15,20 +18,13 @@ import rx.Observable;
 
 public interface ApiCallsForLogin {
 
-    @FormUrlEncoded
-    @POST("/oauth/token")
-    Observable<User> loginUser(@Field("client_id") String IdFijo,
-                               @Field("client_secret") String SecretFijo,
-                               @Field("username") String Usuario,
-                               @Field("password") String Contrasena,
-                               @Field("grant_type") String TipoFijo,
-                               @Field("scope") String ScopeFijo);
-            /*(@Field("usuario") String Usuario,
-                               @Field("contrasena") String Contrasena);*/
+    @POST("/login/")
+    Observable<Token> loginUser(@Header("Content-Type") String contentType,
+                                @Body RequestBody body);
+
     @POST("/password-recovery/")
     @FormUrlEncoded
-    Observable<User> forgetPass(@Header("Content-Type") String contentType,
-                                @Field("username") String usuario);
+    Observable<User> forgetPass(@Field("username") String usuario);
 
     @POST("/users/")
     @FormUrlEncoded
@@ -46,4 +42,12 @@ public interface ApiCallsForLogin {
                                 @Field("change_country") String CambioPais,
                                 @Field("level_studies") String Estudios
     );
+
+
+                       /*@Field("client_id") String IdFijo,
+                               @Field("client_secret") String SecretFijo,
+                               @Field("username") String Usuario,
+                               @Field("password") String Contrasena,
+                               @Field("grant_type") String TipoFijo,
+                               @Field("scope") String ScopeFijo);*/
 }

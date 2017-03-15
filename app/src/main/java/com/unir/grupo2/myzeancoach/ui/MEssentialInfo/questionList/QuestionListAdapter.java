@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Question;
@@ -22,6 +21,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context context;
     private List<Question> questionItemList;
     private String videoName;
+    private boolean[] userAnswers;
 
     private class VIEWS_TYPES{
         public static final int Header = 1;
@@ -44,6 +44,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.questionItemList = quesionItemList;
         this.videoName = videoName;
         this.listener = listener;
+        this.userAnswers = new boolean[questionItemList.size()];
     }
 
     @Override
@@ -63,7 +64,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
         if(holder instanceof QuestionHeaderViewHolder) {
             QuestionHeaderViewHolder headerHolder = (QuestionHeaderViewHolder) holder;
@@ -74,7 +75,13 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             footerHolder.videoNameButton.setOnClickListener (new View.OnClickListener () {
                 @Override
                 public void onClick (View view) {
-                   listener.onButtonClick(4);
+                    int score = 0;
+                    for (int i = 0; i < userAnswers.length; i++){
+                        if (userAnswers[i] == true){
+                            score ++;
+                        }
+                    }
+                   listener.onButtonClick(score);
                 }
             });
         } else if(holder instanceof QuestionItemViewHolder) {
@@ -96,11 +103,11 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                     if (checkedId == R.id.answer1_radio){
-                        Toast.makeText(context, "1",Toast.LENGTH_SHORT).show();
+                        userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(0).getIsRight();
                     }else if (checkedId == R.id.answer2_radio){
-                        Toast.makeText(context, "2",Toast.LENGTH_SHORT).show();
+                        userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(1).getIsRight();
                     }else if (checkedId == R.id.answer3_radio){
-                        Toast.makeText(context, "3",Toast.LENGTH_SHORT).show();
+                        userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(2).getIsRight();
                     }
                 }
             });

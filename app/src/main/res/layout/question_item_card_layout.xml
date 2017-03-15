@@ -4,23 +4,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
-
+    android:layout_margin="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/question_number_textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"/>
 
         <TextView
             android:id="@+id/question_textView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/letra_mediana"
+            android:layout_marginBottom="8dp"/>
 
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"

@@ -38,7 +38,7 @@ public class VideoItemViewHolder extends RecyclerView.ViewHolder {
 
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
-                        listener.onItemVideoClick(videoItem.getUrl());
+                        listener.onItemVideoClick(videoItem.getUrl(), videoItem.getName());
                     }
                 });
             }

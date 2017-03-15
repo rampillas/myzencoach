@@ -35,6 +35,28 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingItemViewHold
     @Override
     public void onBindViewHolder(RankingItemViewHolder rankingItemViewHolder, final int position) {
         final RankingItem rankingItem = rankingItemList.get(position);
+        if (position != 0){
+            rankingItemViewHolder.winnerView.setVisibility(View.GONE);
+        }
+        switch(position) {
+            case 0 :
+                rankingItemViewHolder.positionImageButton.setImageResource(R.mipmap.ic_one);
+                break;
+            case 1 :
+                rankingItemViewHolder.positionImageButton.setImageResource(R.mipmap.ic_two);
+                break;
+            case 2 :
+                rankingItemViewHolder.positionImageButton.setImageResource(R.mipmap.ic_three);
+                break;
+            case 3 :
+                rankingItemViewHolder.positionImageButton.setImageResource(R.mipmap.ic_four);
+                break;
+            case 4 :
+                rankingItemViewHolder.positionImageButton.setImageResource(R.mipmap.ic_five);
+                break;
+
+            default :
+        }
         rankingItemViewHolder.nickTextView.setText(rankingItem.getNick());
         rankingItemViewHolder.scoreTextView.setText(String.format(context.getString(R.string.score_info), rankingItem.getScore()));
     }

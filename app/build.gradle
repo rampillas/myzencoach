@@ -58,4 +58,5 @@ dependencies {
     compile 'com.danialgoodwin.android:email-input-view:1.0'
     compile 'com.shootr:user-validator:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+
 }

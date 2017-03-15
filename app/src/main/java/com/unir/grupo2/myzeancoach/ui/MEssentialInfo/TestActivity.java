@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Question;
@@ -22,10 +24,14 @@ import butterknife.ButterKnife;
 public class TestActivity extends AppCompatActivity implements QuestionListAdapter.OnButtonClickListener,
         QuestionTestCompletedDialog.OnStopLister{
 
-    @BindView(R.id.test_recycler_view)
-    RecyclerView recyclerView;
+    @BindView(R.id.test_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.loading_layout) LinearLayout loadingLayout;
+    @BindView(R.id.error_layout) LinearLayout errorLayout;
+
     private List<Question> questionItemList;
     private QuestionListAdapter questionListAdapter;
+    private Test test;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,37 +42,59 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         //Test test = getIntent().getExtras().getParcelable("TEST");
 
         Intent intent = getIntent();
-        Test test = (Test) intent.getParcelableExtra("TEST");
+        test = (Test) intent.getParcelableExtra("TEST");
 
         questionItemList = test.getQuestions();
-
-        /*QuestionItem questionItem1 = new QuestionItem(1, "¿Como sería la vida del protagonista en tu ciudad?",
-                "mejor", "peor", "igual");
-        QuestionItem questionItem2 = new QuestionItem(12, "¿Como se llama el hijo pequeño?",
-                "Carlos", "Sergio", "Rodrigo");
-        QuestionItem questionItem3 = new QuestionItem(3, "¿Como se llama su ciudad?",
-                "Murcia", "Paris", "Granada");
-        QuestionItem questionItem4 = new QuestionItem(4, "¿Tiene algun temos el protagonista?",
-                "Si", "No", "No, pero si su padre");
-        QuestionItem questionItem5 = new QuestionItem(5, "¿En que año se narra la historia?",
-                "1998", "1852", "2001");
-
-
-
-        questionItemList.add(questionItem1);
-        questionItemList.add(questionItem2);
-        questionItemList.add(questionItem3);
-        questionItemList.add(questionItem4);
-        questionItemList.add(questionItem5);*/
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         questionListAdapter = new QuestionListAdapter(this, questionItemList, test.getDescription(), this);
         recyclerView.setAdapter(questionListAdapter);
+
+        showContent();
     }
 
     @Override
     public void onButtonClick(int testRate) {
+        score = testRate;
+        showLoading();
+       /* new UpdateTestUseCase("application/json",  "Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK", test.getDescription(), score)
+                .execute(new UpdateTestSubscriber());*/
+    }
+
+    @Override
+    public void onStopDialog() {
+        finish();
+    }
+
+    /**
+     * Method used to show error view
+     */
+    public void showError() {
+        recyclerView.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Method used to show the loading view
+     */
+    public void showLoading() {
+        loadingLayout.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method used to show the listView
+     */
+    public void showContent() {
+        recyclerView.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+    }
+
+    private void showScoreDialog(){
         // close existing dialog fragments
         FragmentManager manager = getSupportFragmentManager();
         Fragment frag = manager.findFragmentByTag("fragment_dialog");
@@ -75,13 +103,31 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         }
         QuestionTestCompletedDialog questionTestCompletedDialog = new QuestionTestCompletedDialog();
         Bundle args = new Bundle();
-        args.putInt("RATE", testRate);
+        args.putInt("RATE", score);
         questionTestCompletedDialog.setArguments(args);
         questionTestCompletedDialog.show(manager, "fragment_dialog");
     }
 
-    @Override
-    public void onStopDialog() {
-        finish();
-    }
+    /*private final class UpdateTestSubscriber extends Subscriber<Void> {
+        //3 callbacks
+
+        //Show the listView
+        @Override public void onCompleted() {
+            showContent();
+        }
+
+        //Show the error
+        @Override public void onError(Throwable e) {
+            showError();
+        }
+
+        @Override
+        public void onNext(Void aVoid) {
+            Toast.makeText(getBaseContext(), "asdasd", Toast.LENGTH_LONG).show();
+        }
+
+
+    }*/
+
+
 }

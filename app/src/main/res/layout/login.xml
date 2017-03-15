@@ -250,6 +250,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center"
                     android:text="@string/LOGIN_CREATE_ACCOUNT"
                     android:textColor="@color/colorPrimary"

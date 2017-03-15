@@ -1,7 +1,7 @@
 package com.unir.grupo2.myzeancoach.domain.MEssentialInfo;
 
-import com.unir.grupo2.myzeancoach.data.MEssentialInfo.VideosDataRepository;
-import com.unir.grupo2.myzeancoach.data.MEssentialInfo.VideosRepository;
+import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialDataRepository;
+import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialRepository;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Video;
 import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
@@ -22,7 +22,7 @@ public class VideosUseCase extends UseCase {
 
     @Override
     protected Observable buildUseCaseObservable() {
-        VideosRepository repo = VideosDataRepository.getInstance();
+        EssentialRepository repo = EssentialDataRepository.getInstance();
         return repo.videos(token).map(new Func1<VideoListPojo, List<Video>>() {
             @Override
             public List<Video> call(VideoListPojo videoListPojo) {

@@ -8,6 +8,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/videoName_textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:textSize="@dimen/letra_grande"
+        android:textColor="@color/colorAccent"/>
 
 </RelativeLayout>

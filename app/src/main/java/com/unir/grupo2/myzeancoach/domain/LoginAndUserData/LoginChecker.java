@@ -1,17 +1,15 @@
 package com.unir.grupo2.myzeancoach.domain.LoginAndUserData;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
-import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.ApiCallsForLogin;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RetrofitClient;
+import com.unir.grupo2.myzeancoach.domain.model.Token;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 
+import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,16 +31,12 @@ public class LoginChecker{
         }
     }
 
-    public void Login(String idFijo, String secretFijo, String user, String password, String tipoFijo, String scopeFijo, LoginFragment loginFragment) {
-        validateUser(idFijo, secretFijo, user, password, tipoFijo, scopeFijo, loginFragment);
-        Log.d("Login process", "iniciando " + user + " " + password);
-
+    public void Login(String contentType, RequestBody body, LoginFragment loginFragment) {
+        validateUser(contentType, body, loginFragment);
     }
 
-    public void Login(String idFijo, String secretFijo, String user, String Password, String tipoFijo, String scopeFijo, CreateUserFragment createUserFragment) {
-        validateUser(idFijo, secretFijo, user, Password, tipoFijo, scopeFijo, createUserFragment);
-        Log.d("Login process", "iniciando " + user + " " + Password);
-
+    public void Login(String contentType,RequestBody body, CreateUserFragment createUserFragment) {
+        validateUser(contentType, body, createUserFragment);
     }
 
     RetrofitClient conexionAPIretrofit = new RetrofitClient();
@@ -50,12 +44,12 @@ public class LoginChecker{
     ApiCallsForLogin apiConexion = retrofit.create(ApiCallsForLogin.class);
 
 
-    public void validateUser(String idFijo, String secretFijo, String usuario, String contrasena, String tipoFijo, String scopeFijo, final LoginFragment loginFragment) {
+    public void validateUser(String contentType,RequestBody body, final LoginFragment loginFragment) {
 
         loginFragment.showLoading();
         // RxJava
-        apiConexion.loginUser(idFijo, secretFijo, usuario, contrasena, tipoFijo, scopeFijo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<User>() {
+        apiConexion.loginUser(contentType, body).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Token>() {
                     @Override
                     public void onCompleted() {
                         Log.d("Login process", "completado");
@@ -69,10 +63,10 @@ public class LoginChecker{
                     }
 
                     @Override
-                    public void onNext(User userObject) {
+                    public void onNext(Token token) {
                         if (userObject.getIsActive()) {
                             Log.d("Login process", "okLogin");
-                            loginFragment.showContent();
+                            /*loginFragment.showContent();
 
                             //se guarda el usuario y clave para mantener la sesion
                             Context context = loginFragment.getActivity();
@@ -86,7 +80,7 @@ public class LoginChecker{
                             //se cambia la vista
                             loginFragment.showContent();
                             FragmentTransaction xfragmentTransaction = loginFragment.getFragmentManager().beginTransaction();
-                            xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
+                            xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();*/
                         } else {
                             Log.d("Login process", "incorrectpass");
                             loginFragment.showError();
@@ -101,12 +95,12 @@ public class LoginChecker{
 
 
     //recreamos la clase para ser llamada desde la pantalla de Crear Usuario
-    public void validateUser(String idFijo, String secretFijo, String usuarioo, String contrasena, String tipoFijo, String scopeFijo, final CreateUserFragment createUserFragment) {
+    public void validateUser(String contentType, RequestBody body, final CreateUserFragment createUserFragment) {
 
         createUserFragment.showLoading();
         // RxJava
-        apiConexion.loginUser(idFijo, secretFijo, usuarioo, contrasena, tipoFijo, scopeFijo).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<User>() {
+        apiConexion.loginUser(contentType, body).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Token>() {
                     @Override
                     public void onCompleted() {
                         Log.d("Login process", "completado");
@@ -120,8 +114,9 @@ public class LoginChecker{
                     }
 
                     @Override
-                    public void onNext(User userObject) {
-                        if (userObject.getIsActive()) {
+                    public void onNext(Token token) {
+                        Log.d("Login process", "okLogin");
+                       /* if (userObject.getIsActive()) {
                             Log.d("Login process", "okLogin");
                             createUserFragment.showContent();
                             createUserFragment.showFieldsIntoCases(userObject);
@@ -130,7 +125,7 @@ public class LoginChecker{
                             Log.d("Login process", "incorrectpass");
                             createUserFragment.showContent();
                             createUserFragment.userExits();
-                        }
+                        }*/
                     }
 
 

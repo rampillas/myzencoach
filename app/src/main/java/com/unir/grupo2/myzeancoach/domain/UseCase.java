@@ -1,10 +1,6 @@
 package com.unir.grupo2.myzeancoach.domain;
 
 
-import com.unir.grupo2.myzeancoach.domain.model.Test;
-
-import java.util.List;
-
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -20,7 +16,7 @@ public abstract class UseCase {
 
     private Subscription subscription = Subscriptions.empty();
 
-    protected  abstract Observable<List<Test>> buildUseCaseObservable();
+    protected  abstract Observable buildUseCaseObservable();
 
     @SuppressWarnings("unchecked")
     public void execute(Subscriber useCaseSubscriber) {

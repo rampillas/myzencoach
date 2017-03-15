@@ -47,7 +47,7 @@ public class RankingFragment extends Fragment {
         rankingItemList = new ArrayList<>();
 
         RankingItem rankingItem1 = new RankingItem("Ceokin", 300);
-        RankingItem rankingItem2 = new RankingItem("Carles", 220);
+        RankingItem rankingItem2 = new RankingItem("Carles Puyol Sant de las cases minguez galvan", 220);
         RankingItem rankingItem3 = new RankingItem("Merlu", 200);
         RankingItem rankingItem4 = new RankingItem("Armin", 100);
         RankingItem rankingItem5 = new RankingItem("Merlu", 89);

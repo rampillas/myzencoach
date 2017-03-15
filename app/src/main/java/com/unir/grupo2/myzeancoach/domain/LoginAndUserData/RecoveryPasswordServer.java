@@ -23,11 +23,11 @@ public class RecoveryPasswordServer {
     RetrofitClient apiRetrofitConexion = new RetrofitClient();
     Retrofit retrofit = apiRetrofitConexion.getClient("http://demendezr.pythonanywhere.com/");
     ApiCallsForLogin apiConexion =retrofit.create(ApiCallsForLogin.class);
-    public void recoveryPass(String contentType, String usuario, final RecoveryPasswordFragment recoveryPasswordFragment) {
+    public void recoveryPass(String usuario, final RecoveryPasswordFragment recoveryPasswordFragment) {
 
         recoveryPasswordFragment.showLoading();
         // RxJava
-        apiConexion.forgetPass(contentType,usuario).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        apiConexion.forgetPass(usuario).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {

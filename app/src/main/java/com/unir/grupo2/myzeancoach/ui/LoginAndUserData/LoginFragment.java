@@ -24,6 +24,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 
 public class LoginFragment extends Fragment {
@@ -65,7 +67,19 @@ public class LoginFragment extends Fragment {
         //checkear campos rellenos llamando al controlador
         LoginChecker loginChecker = new LoginChecker();
         if (loginChecker.UserAndPassWordFilled(usuarioLogin.getText().toString(), password.getText().toString())) {
-            loginChecker.Login("clientweb2231", "secretweb2231", usuarioLogin.getText().toString(), password.getText().toString(), "password", "read+write",this);
+
+            String bodyString = "{\n" +
+                    "\t\"client_id\": \"clientweb2231\",\n" +
+                    "\t\"client_secret\": secretweb2231\n" +
+                    "\t\"username\": "+ usuarioLogin.getText().toString() + "\n" +
+                    "\t\"password\": "+ password.getText().toString() + "\n" +
+                    "\t\"grant_type\": password\n" +
+                    "\t\"scope\": read+write\n" +
+                    "}";
+            RequestBody body =
+                    RequestBody.create(MediaType.parse("text/plain"), bodyString);
+
+            loginChecker.Login("application/json",body,this);
         }else{
             loginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
             loginFalse.setTextColor(getResources().getColor(R.color.redApp));

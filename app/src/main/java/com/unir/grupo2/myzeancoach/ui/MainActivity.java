@@ -119,9 +119,10 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     //Video item has been clicked
     @Override
-    public void onItemVideoSelected(String urlName) {
+    public void onItemVideoSelected(String urlName, String videoName) {
         Intent intent = new Intent(this, VideoYoutubeActivity.class);
         intent.putExtra("URL",urlName);
+        intent.putExtra("VIDEO_NAME",videoName);
         startActivity(intent);
     }
 

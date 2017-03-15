@@ -292,7 +292,7 @@ public class CreateUserFragment extends Fragment {
             //mostrar pantalla rellena de datos qque hay que obtener de la db
             Log.d("usuario checkeado", "esta logeado el usuario " + nombreDeUsuario);
             LoginChecker loginChecker = new LoginChecker();
-            loginChecker.Login("clientweb2231", "secretweb2231", nombreDeUsuario, claveDeUsuario, "password", "read+write", this);
+            //loginChecker.Login("application/json","clientweb2231", "secretweb2231", nombreDeUsuario, claveDeUsuario, "password", "read+write", this);
             return view;
         }
 

@@ -43,7 +43,7 @@ public class RecoveryPasswordFragment extends Fragment {
         String user=usuario.getText().toString();
         if (user.length()>0){
             RecoveryPasswordServer recoveryPasswordServer=new RecoveryPasswordServer();
-            recoveryPasswordServer.recoveryPass("application/json", user, this);
+            recoveryPasswordServer.recoveryPass(user, this);
         }else Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_USERNAME_LEN),Toast.LENGTH_LONG).show();
     }
     @Override

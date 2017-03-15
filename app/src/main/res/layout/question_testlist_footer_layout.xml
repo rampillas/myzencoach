@@ -8,6 +8,7 @@
         android:text="@string/send_to_rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@color/colorAccent"
         android:id="@+id/send_to_rate_button"/>
 </RelativeLayout>
