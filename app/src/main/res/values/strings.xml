@@ -135,5 +135,13 @@
 
     <!--MWelfare -->
     <string name="week_info">semana: %1$d</string>
+    <string name="remainders_add">Nuevo Recordatorio</string>
+    <string name="REMAINDERS_ADD_TITLE">Título</string>
+    <string name="REMAINDERS_ADD_DESCRIPTION">Descripción del recordatorio</string>
+    <string name="REMAINDERS_ADD_WHEN">fecha del recordatorio</string>
+    <string name="REMAINDERS_ADD_INSERT_DATE">Introduce fecha</string>
+    <string name="REMAINDERS_ADD_WHEN_HOUR">Hora del recordatorio</string>
+    <string name="REMAINDERS_ADD_INSERT_TIME">introduce hora</string>
+    <string name="SAVE">Guardar</string>
 
 </resources>

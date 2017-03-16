@@ -1,15 +1,15 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo.testList;
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+        import android.content.Context;
+        import android.support.v7.widget.RecyclerView;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
 
-import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.model.Test;
+        import com.unir.grupo2.myzeancoach.R;
+        import com.unir.grupo2.myzeancoach.domain.model.Test;
 
-import java.util.List;
+        import java.util.List;
 
 /**
  * Created by Cesar on 24/02/2017.
