@@ -1,7 +1,10 @@
 package com.unir.grupo2.myzeancoach.data.MEssentialInfo;
 
+import com.unir.grupo2.myzeancoach.domain.model.Ranking;
 import com.unir.grupo2.myzeancoach.domain.model.TestListPojo;
 import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -22,16 +25,17 @@ public interface EssentialAPIService {
     @GET("essential_information/survey")
     Observable<TestListPojo> getTest(@Header("Authorization") String token);
 
-   /* @FormUrlEncoded
-    @PUT("essential_information/survey")
+    @PUT("/essential_information/survey/")
     Observable<Void> putTest(@Header("Content-Type") String contentType,
-                                        @Header("Authorization") String token,
-                                        @Field("description") String descriptionTest,
-                                        @Field("score") int score);*/
+                             @Header("Authorization") String token,
+                             @Body RequestBody body);
 
     @PUT("/essential_information/videos/")
     Observable<Void> putVideo(@Header("Content-Type") String contentType,
                               @Header("Authorization") String token,
                               @Body RequestBody body);
+
+    @GET("/essential_information/survey/{username}/ranking/")
+    Observable<List<Ranking>> getRanking(@Header("Authorization") String token);
 
 }

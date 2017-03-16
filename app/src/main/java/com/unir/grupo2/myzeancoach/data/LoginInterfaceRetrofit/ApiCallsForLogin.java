@@ -3,11 +3,9 @@ package com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit;
 import com.unir.grupo2.myzeancoach.domain.model.Token;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -18,9 +16,16 @@ import rx.Observable;
 
 public interface ApiCallsForLogin {
 
-    @POST("/login/")
-    Observable<Token> loginUser(@Header("Content-Type") String contentType,
-                                @Body RequestBody body);
+    @Headers("Content-Type: application/json")
+    @POST("login/")
+    @FormUrlEncoded
+    Observable<Token> loginUser(@Field("client_id") String IdFijo,
+                                @Field("client_secret") String SecretFijo,
+                                @Field("username") String Usuario,
+                                @Field("password") String Contrasena,
+                                @Field("grant_type") String TipoFijo,
+                                @Field("scope") String ScopeFijo);
+   //Observable<Token> loginUser(@Body RequestBody body);
 
     @POST("/password-recovery/")
     @FormUrlEncoded

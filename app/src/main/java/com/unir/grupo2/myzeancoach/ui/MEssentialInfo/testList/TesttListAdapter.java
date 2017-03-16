@@ -40,23 +40,6 @@ public class TesttListAdapter extends RecyclerView.Adapter<TestItemViewHolder>{
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_video_item_card_layout, parent, false);
         final TestItemViewHolder testItemViewHolder = new TestItemViewHolder(view);
 
-       /* view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String videoName = testItemViewHolder.videoName.getText().toString();
-                boolean isCOmpleted;
-                if (testItemViewHolder.isCOmpleted.getText().toString().equals(context.getString(R.string.completed))){
-                    isCOmpleted = true;
-                }else{
-                    isCOmpleted = false;
-                }
-
-                int score = (int) testItemViewHolder.scoreRatingBar.getRating();
-                TestUI testItem = new TestUI(videoName,isCOmpleted,score);
-                listener.onItemClick(testItem);
-            }
-        });*/
-
         return testItemViewHolder;
     }
 

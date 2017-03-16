@@ -31,7 +31,7 @@ public class Video {
     private String photoUrl;
     @SerializedName("survey")
     @Expose
-    private List<Object> survey = null;
+    private List<Test> survey = null;
 
     public String getUser() {
         return user;
@@ -89,11 +89,11 @@ public class Video {
         this.photoUrl = photoUrl;
     }
 
-    public List<Object> getSurvey() {
+    public List<Test> getSurvey() {
         return survey;
     }
 
-    public void setSurvey(List<Object> survey) {
+    public void setSurvey(List<Test> survey) {
         this.survey = survey;
     }
 

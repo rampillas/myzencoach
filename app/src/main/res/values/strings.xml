@@ -40,7 +40,9 @@
     <string name="question_number">Pregunta %1$d de %2$d</string>
     <string name="test_name">Test: %1sd</string>
     <string name="send_to_rate">Enviar para calificar</string>
-
+    <string name="no_available_test">No hay ningún test disponible. Para acceder al test de un video,
+    debe ver el video correspondiente por completo.</string>
+    <string name="error_update_video">Error al actualizar el video</string>
 
     <!-- LOGIN -->
     <string name="LOGIN_TEXT_USER">Nombre de usuario</string>
@@ -93,6 +95,7 @@
     <string name="preference_file_key">archivo_preferencias_no_traducir</string>
     <string name="PREFERENCES_USER">usuario_preferencias</string>
     <string name="PREFERENCES_PASSWORD">contrasena_de_registro_en_preferencias</string>
+    <string name="PREFERENCES_VIDEOS">videos_en_preferencias</string>
 
     <!-- Logout pantalla-->
     <string name="LOGOUT_LOGOUT">Salir</string>

@@ -22,10 +22,8 @@ import butterknife.OnClick;
 
 public class QuestionTestCompletedDialog extends DialogFragment {
 
-    @BindView(R.id.ok_button)
-    Button okButton;
-    @BindView(R.id.score_ratingBar)
-    RatingBar scoreRatingBar;
+    @BindView(R.id.ok_button) Button okButton;
+    @BindView(R.id.score_ratingBar) RatingBar scoreRatingBar;
 
     public interface OnStopLister {
         public void onStopDialog();
@@ -48,10 +46,15 @@ public class QuestionTestCompletedDialog extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.questions_test_completed_dialog_layout, container);
         ButterKnife.bind(this, view);
+
+        Bundle bundle = getArguments();
+        int rate = bundle.getInt("RATE");
+
+        scoreRatingBar.setRating(rate);
+
         return view;
     }
 

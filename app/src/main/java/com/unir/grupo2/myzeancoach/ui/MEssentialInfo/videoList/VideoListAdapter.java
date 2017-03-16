@@ -24,7 +24,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoItemViewHolder> 
     private Context context;
 
     public interface OnItemVideoClickListener{
-        public void onItemVideoClick(String urlVideo, String videoName);
+        public void onItemVideoClick(String urlVideo, String videoName, boolean isWatched);
     }
 
     VideoListAdapter.OnItemVideoClickListener listener;

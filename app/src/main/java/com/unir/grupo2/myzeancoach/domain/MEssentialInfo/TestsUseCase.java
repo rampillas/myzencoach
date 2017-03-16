@@ -18,16 +18,13 @@ import rx.functions.Func1;
 
 public class TestsUseCase extends UseCase{
 
-    private String token;
-
-    public TestsUseCase(String token) {
-        this.token = token;
+    public TestsUseCase() {
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
         EssentialRepository repo = EssentialDataRepository.getInstance();
-        return repo.tests(token).map(new Func1<TestListPojo, List<Test>>() {
+        return repo.tests().map(new Func1<TestListPojo, List<Test>>() {
             @Override
             public List<Test> call(TestListPojo testListPojo) {
 

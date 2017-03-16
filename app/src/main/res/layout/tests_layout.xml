@@ -53,5 +53,20 @@
             android:textStyle="bold"
             android:text="@string/error_message" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/no_tests_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@string/no_available_test" />
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -1,7 +1,10 @@
 package com.unir.grupo2.myzeancoach.data.MEssentialInfo;
 
+import com.unir.grupo2.myzeancoach.domain.model.Ranking;
 import com.unir.grupo2.myzeancoach.domain.model.TestListPojo;
 import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import rx.Observable;
@@ -12,9 +15,10 @@ import rx.Observable;
 
 
 public interface EssentialRepository {
-    Observable<VideoListPojo> videos(String token);
-    Observable<TestListPojo> tests(String token);
-    //Observable<Void> updateTest(String contentType, String token, String descriptionTest, int score);
-    Observable<Void> updateVideo(String contentType, String token, RequestBody body);
+    Observable<VideoListPojo> videos();
+    Observable<TestListPojo> tests();
+    Observable<Void> updateTest(RequestBody body);
+    Observable<Void> updateVideo(RequestBody body);
+    Observable<List<Ranking>> ranking();
 }
 

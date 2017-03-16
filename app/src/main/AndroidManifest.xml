@@ -20,10 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MEssentialInfo.TestActivity"></activity>
-        <activity android:name=".ui.MEssentialInfo.VideoYoutubeActivity"></activity>
-        <activity android:name=".ui.MLeisure.AddPostActivity"></activity>
-        <activity android:name=".ui.MLeisure.CommentActivity"></activity>
+        <activity android:name=".ui.MEssentialInfo.TestActivity"
+                  android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.MEssentialInfo.VideoYoutubeActivity"
+                  android:screenOrientation="landscape"></activity>
+        <activity android:name=".ui.MLeisure.AddPostActivity"
+                  android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.MLeisure.CommentActivity"
+                  android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

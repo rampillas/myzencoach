@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.UpdateTestUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Question;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.questionList.QuestionListAdapter;
@@ -20,6 +22,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import rx.Subscriber;
 
 public class TestActivity extends AppCompatActivity implements QuestionListAdapter.OnButtonClickListener,
         QuestionTestCompletedDialog.OnStopLister{
@@ -32,6 +37,7 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
     private QuestionListAdapter questionListAdapter;
     private Test test;
     private int score;
+    private boolean isUpdated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +45,14 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         setContentView(R.layout.test_activity);
         ButterKnife.bind(this);
 
-        //Test test = getIntent().getExtras().getParcelable("TEST");
-
         Intent intent = getIntent();
         test = (Test) intent.getParcelableExtra("TEST");
 
         questionItemList = test.getQuestions();
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
         questionListAdapter = new QuestionListAdapter(this, questionItemList, test.getDescription(), this);
         recyclerView.setAdapter(questionListAdapter);
 
@@ -58,13 +63,34 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
     public void onButtonClick(int testRate) {
         score = testRate;
         showLoading();
-       /* new UpdateTestUseCase("application/json",  "Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK", test.getDescription(), score)
-                .execute(new UpdateTestSubscriber());*/
+
+        String text = "{\n" +
+                "\t\"description\":\""+ test.getDescription() +"\",\n" +
+                "\"score\":" + score +"\n" +
+                "}\n";
+
+        RequestBody body =
+                RequestBody.create(MediaType.parse("text/plain"), text);
+
+        new UpdateTestUseCase(body)
+                .execute(new UpdateTestSubscriber());
     }
 
     @Override
     public void onStopDialog() {
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        setReturnData();
+        finish();
+    }
+
+    private void setReturnData(){
+        Intent resultData = new Intent();
+        resultData.putExtra("IS_UPDATED", isUpdated);
+        setResult(Activity.RESULT_OK, resultData);
     }
 
     /**
@@ -106,9 +132,10 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         args.putInt("RATE", score);
         questionTestCompletedDialog.setArguments(args);
         questionTestCompletedDialog.show(manager, "fragment_dialog");
+
     }
 
-    /*private final class UpdateTestSubscriber extends Subscriber<Void> {
+    private final class UpdateTestSubscriber extends Subscriber<Void> {
         //3 callbacks
 
         //Show the listView
@@ -123,11 +150,9 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
 
         @Override
         public void onNext(Void aVoid) {
-            Toast.makeText(getBaseContext(), "asdasd", Toast.LENGTH_LONG).show();
+            isUpdated = true;
+            setReturnData();
+            showScoreDialog();
         }
-
-
-    }*/
-
-
+    }
 }

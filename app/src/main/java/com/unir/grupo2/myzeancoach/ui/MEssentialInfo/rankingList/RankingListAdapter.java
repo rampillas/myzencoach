@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Ranking;
 
 import java.util.List;
 
@@ -17,10 +18,10 @@ import java.util.List;
 public class RankingListAdapter extends RecyclerView.Adapter<RankingItemViewHolder> {
 
     Context context;
-    List<RankingItem> rankingItemList;
+    List<Ranking> rankingItemList;
     RankingListAdapter thisAdapter = this;
 
-    public RankingListAdapter(Context context, List<RankingItem> rankingItemList) {
+    public RankingListAdapter(Context context, List<Ranking> rankingItemList) {
         this.context = context;
         this.rankingItemList = rankingItemList;
     }
@@ -34,7 +35,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingItemViewHold
 
     @Override
     public void onBindViewHolder(RankingItemViewHolder rankingItemViewHolder, final int position) {
-        final RankingItem rankingItem = rankingItemList.get(position);
+        final Ranking rankingItem = rankingItemList.get(position);
         if (position != 0){
             rankingItemViewHolder.winnerView.setVisibility(View.GONE);
         }
@@ -57,7 +58,7 @@ public class RankingListAdapter extends RecyclerView.Adapter<RankingItemViewHold
 
             default :
         }
-        rankingItemViewHolder.nickTextView.setText(rankingItem.getNick());
+        rankingItemViewHolder.nickTextView.setText(rankingItem.getUsername());
         rankingItemViewHolder.scoreTextView.setText(String.format(context.getString(R.string.score_info), rankingItem.getScore()));
     }
 

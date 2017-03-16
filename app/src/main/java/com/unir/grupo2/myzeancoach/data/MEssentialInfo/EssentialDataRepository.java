@@ -1,8 +1,10 @@
 package com.unir.grupo2.myzeancoach.data.MEssentialInfo;
 
+import com.unir.grupo2.myzeancoach.domain.model.Ranking;
 import com.unir.grupo2.myzeancoach.domain.model.TestListPojo;
 import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -48,24 +50,28 @@ public class EssentialDataRepository implements EssentialRepository {
         service = retrofit.create(EssentialAPIService.class);
     }
 
-
     @Override
-    public Observable<VideoListPojo> videos(String token) {
-        return service.getVideos(token);
+    public Observable<VideoListPojo> videos() {
+        return service.getVideos("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK");
     }
 
     @Override
-    public Observable<TestListPojo> tests(String token) {
-        return service.getTest(token);
+    public Observable<TestListPojo> tests() {
+        return service.getTest("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK");
     }
 
-  /*  @Override
-    public Observable updateTest(String contentType, String token, String descriptionTest, int score) {
-        return service.putTest(contentType,token, descriptionTest, score);
-    }*/
+   @Override
+    public Observable<Void> updateTest(RequestBody body) {
+        return service.putTest("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK", body);
+    }
 
     @Override
-    public Observable<Void> updateVideo(String contentType, String token, RequestBody body) {
-        return service.putVideo(contentType, token, body);
+    public Observable<Void> updateVideo(RequestBody body) {
+        return service.putVideo("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK", body);
+    }
+
+    @Override
+    public Observable<List<Ranking>> ranking() {
+        return service.getRanking("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK");
     }
 }

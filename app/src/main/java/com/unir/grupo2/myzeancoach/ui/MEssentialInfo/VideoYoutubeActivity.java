@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -25,6 +26,8 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
     private static final String YOUTUBE_KEY = "AIzaSyA5x5UI2cPPfivQWeY4bT7gdB-6Er1aO2Q";
     String url;
     String videoName;
+    boolean isWatched;
+    boolean isUpdated = false;
     String log = "";
 
     private MyPlayerStateChangeListener myPlayerStateChangeListener;
@@ -38,6 +41,7 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
         Intent intent = getIntent();
         String fullUrl = intent.getStringExtra("URL");
         videoName = intent.getStringExtra("VIDEO_NAME");
+        isWatched = intent.getBooleanExtra("IS_WATCHED", false);
 
         int inicio = fullUrl.indexOf("watch?v") + 8;
         url = fullUrl.substring(inicio);
@@ -49,10 +53,6 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
                 youTubePlayer.loadVideo(url);
-
-                Toast.makeText(getApplicationContext(),
-                        "YouTubePlayer.onInitializationSuccess()",
-                        Toast.LENGTH_LONG).show();
 
                 youTubePlayer.setPlayerStateChangeListener(myPlayerStateChangeListener);
             }
@@ -69,7 +69,7 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
     private final class MyPlayerStateChangeListener implements YouTubePlayer.PlayerStateChangeListener {
 
         private void updateLog(String prompt){
-            log +=  "MyPlayerStateChangeListener" + "\n" +
+            log +=  "Video player " + "\n" +
                     prompt + "\n\n=====";
             Toast.makeText(getApplicationContext(),
                     log,
@@ -78,7 +78,7 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
 
         @Override
         public void onAdStarted() {
-           // updateLog("onAdStarted()");
+
         }
 
         @Override
@@ -89,31 +89,47 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
 
         @Override
         public void onLoaded(String arg0) {
-            //updateLog("onLoaded(): " + arg0);
+
         }
 
         @Override
         public void onLoading() {
-            //updateLog("onLoading()");
         }
 
         @Override
         public void onVideoEnded() {
             updateLog("onVideoEnded()");
-            String text = "{\n" +
-                    "\t\"name\": \"Talco\",\n" +
-                    "\t\"is_watched\": true\n" +
-                    "}";
-            RequestBody body =
-                    RequestBody.create(MediaType.parse("text/plain"), text);
+            if (!isWatched){
+                String text = "{\n" +
+                        "\t\"name\": \""+ videoName + "\",\n" +
+                        "\t\"is_watched\": true\n" +
+                        "}";
+                RequestBody body =
+                        RequestBody.create(MediaType.parse("text/plain"), text);
 
-            new UpdateVideoUseCase("application/json", "Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK",body).execute(new UpdateVideoSubscriber());
+                new UpdateVideoUseCase(body).execute(new UpdateVideoSubscriber());
+            }else{
+                setReturnData();
+                finish();
+            }
         }
 
         @Override
         public void onVideoStarted() {
-            updateLog("onVideoStarted()");
+
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setReturnData();
+        finish();
+    }
+
+    private void setReturnData(){
+        Intent resultData = new Intent();
+        resultData.putExtra("IS_UPDATED", isUpdated);
+        setResult(Activity.RESULT_OK, resultData);
     }
 
     private final class UpdateVideoSubscriber extends Subscriber<Void> {
@@ -121,25 +137,21 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
 
         //Show the listView
         @Override public void onCompleted() {
-            Toast.makeText(getApplicationContext(),
-                    "onCompleted",
-                    Toast.LENGTH_SHORT).show();
         }
 
         //Show the error
         @Override public void onError(Throwable e) {
             Toast.makeText(getApplicationContext(),
-                    "onError",
+                    getString(R.string.error_update_video),
                     Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onNext(Void aVoid) {
-            Toast.makeText(getApplicationContext(),
-                    "onNext",
-                    Toast.LENGTH_SHORT).show();
+            isUpdated = true;
+            setReturnData();
+            finish();
         }
-
     }
 
 }

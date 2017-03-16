@@ -33,7 +33,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener{
+        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener {
+
+    static final int VIDEO_YOUTUBE_REQUEST = 1;
+    static final int VIDEO_TEST_REQUEST = 2;
 
     // ui
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
          */
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container_view,new MCustomizeFragment()).commit();
+        fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
 
 
         //Setup click events on the Navigation View Items.
@@ -64,32 +67,32 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
                 if (menuItem.getItemId() == R.id.nav_customise) {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.container_view,new MCustomizeFragment()).commit();
+                    fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
 
                 }
 
                 if (menuItem.getItemId() == R.id.nav_essential_information) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.container_view,new MEssentialInfoFragment()).commit();
+                    xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
                 }
 
                 if (menuItem.getItemId() == R.id.nav_cooperative_solutions) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.container_view,new MCooperativeSolFragment()).commit();
+                    xfragmentTransaction.replace(R.id.container_view, new MCooperativeSolFragment()).commit();
                 }
 
                 if (menuItem.getItemId() == R.id.nav_welfare) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.container_view,new MWelfareFragment()).commit();
+                    xfragmentTransaction.replace(R.id.container_view, new MWelfareFragment()).commit();
                 }
 
                 if (menuItem.getItemId() == R.id.nav_leisure) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.container_view,new MLeisureFragment()).commit();
+                    xfragmentTransaction.replace(R.id.container_view, new MLeisureFragment()).commit();
                 }
                 if (menuItem.getItemId() == R.id.nav_login) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.container_view,new LoginFragment()).commit();
+                    xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
                 }
 
                 return false;
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
         //Setup Drawer Toggle of the Toolbar
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout, toolbar,R.string.open,
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open,
                 R.string.close);
 
         drawerLayout.setDrawerListener(mDrawerToggle);
@@ -108,23 +111,27 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         mDrawerToggle.syncState();
 
     }
+    /************Module Essential Info*******/
 
     //Test item has been clicked
     @Override
     public void onItemSelected(Test test) {
         Intent intent = new Intent(this, TestActivity.class);
         intent.putExtra("TEST", test);
-        startActivity(intent);
+        startActivityForResult(intent, VIDEO_TEST_REQUEST);
     }
 
     //Video item has been clicked
     @Override
-    public void onItemVideoSelected(String urlName, String videoName) {
+    public void onItemVideoSelected(String urlName, String videoName, boolean isWatched) {
         Intent intent = new Intent(this, VideoYoutubeActivity.class);
-        intent.putExtra("URL",urlName);
-        intent.putExtra("VIDEO_NAME",videoName);
-        startActivity(intent);
+        intent.putExtra("URL", urlName);
+        intent.putExtra("VIDEO_NAME", videoName);
+        intent.putExtra("IS_WATCHED", isWatched);
+        startActivityForResult(intent, VIDEO_YOUTUBE_REQUEST);
     }
+
+    /**************Module Leisure***************/
 
     /*****Homepage*****/
     //Post item has been clicked
@@ -165,5 +172,33 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         Intent intent = new Intent(this, CommentActivity.class);
         intent.putExtra("POST", post);
         startActivity(intent);
+    }
+
+
+    /****************All modules *******************/
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**************Module Essential information***************/
+        if (requestCode == VIDEO_YOUTUBE_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+               if (data != null){
+                   if (data.getBooleanExtra("IS_UPDATED", true)){
+                       FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                       xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
+                   }
+                }
+            }
+        }else if (requestCode == VIDEO_TEST_REQUEST){
+            if (resultCode == RESULT_OK) {
+                if (data != null){
+                    if (data.getBooleanExtra("IS_UPDATED", true)){
+                        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                        xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
+                    }
+                }
+            }
+        }
     }
 }

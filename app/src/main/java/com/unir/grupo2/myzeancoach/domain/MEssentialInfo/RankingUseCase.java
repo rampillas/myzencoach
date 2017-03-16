@@ -4,24 +4,20 @@ import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialDataRepository;
 import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialRepository;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
 
-import okhttp3.RequestBody;
 import rx.Observable;
 
 /**
- * Created by Cesar on 14/03/2017.
+ * Created by Cesar on 15/03/2017.
  */
 
-public class UpdateVideoUseCase extends UseCase{
+public class RankingUseCase extends UseCase {
 
-    private RequestBody body;
-
-    public UpdateVideoUseCase(RequestBody body) {
-        this.body = body;
+    public RankingUseCase() {
     }
 
     @Override
-    protected Observable<Void> buildUseCaseObservable() {
+    protected Observable buildUseCaseObservable() {
         EssentialRepository repo = EssentialDataRepository.getInstance();
-        return repo.updateVideo(body).first();
+        return repo.ranking().first();
     }
 }

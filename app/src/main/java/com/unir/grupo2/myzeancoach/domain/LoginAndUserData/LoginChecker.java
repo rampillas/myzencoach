@@ -48,7 +48,7 @@ public class LoginChecker{
 
         loginFragment.showLoading();
         // RxJava
-        apiConexion.loginUser(contentType, body).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        apiConexion.loginUser("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Token>() {
                     @Override
                     public void onCompleted() {
@@ -99,7 +99,7 @@ public class LoginChecker{
 
         createUserFragment.showLoading();
         // RxJava
-        apiConexion.loginUser(contentType, body).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        apiConexion.loginUser("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Token>() {
                     @Override
                     public void onCompleted() {

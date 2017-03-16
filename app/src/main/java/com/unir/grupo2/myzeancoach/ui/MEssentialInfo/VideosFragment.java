@@ -1,6 +1,7 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.VideosUseCase;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
@@ -43,7 +45,7 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
     VideosFragment.OnItemVideoSelectedListener onItemVideoSelectedListener;
 
     public interface OnItemVideoSelectedListener{
-        void onItemVideoSelected(String urlVideo, String videoName);
+        void onItemVideoSelected(String urlVideo, String videoName, boolean isWatched);
     }
 
     @Override
@@ -73,14 +75,14 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
     }
 
     @Override
-    public void onItemVideoClick(String urlVideo, String videoName) {
-        onItemVideoSelectedListener.onItemVideoSelected(urlVideo, videoName);
+    public void onItemVideoClick(String urlVideo, String videoName, boolean isWatched) {
+        onItemVideoSelectedListener.onItemVideoSelected(urlVideo, videoName, isWatched);
     }
 
     private void updateData() {
         showLoading();
         //we must pass a real token**
-        new VideosUseCase("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK").execute(new VideosSubscriber());
+        new VideosUseCase().execute(new VideosSubscriber());
     }
 
     /**
@@ -117,6 +119,19 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
         videoListRecyclerView.setAdapter(videoListAdapter);
     }
 
+    //Save videos on Shared Preference to be used from other places
+    private void saveVideosSharedPreference(List<Video> videoList){
+        Gson gson = new Gson();
+        String jsonList = gson.toJson(videoList);
+
+        SharedPreferences sharedPref = getContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.PREFERENCES_VIDEOS), jsonList);
+        editor.commit();
+    }
+
     private final class VideosSubscriber extends Subscriber<List<Video>> {
         //3 callbacks
 
@@ -133,6 +148,7 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
         //Update listview datas
         @Override
         public void onNext(List<Video> videoList) {
+            saveVideosSharedPreference(videoList);
             updateList(videoList);
         }
     }
