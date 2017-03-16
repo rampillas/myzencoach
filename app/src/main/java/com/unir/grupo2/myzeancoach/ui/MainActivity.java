@@ -15,7 +15,9 @@ import android.widget.Toast;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestActivity;
@@ -33,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener {
+        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener {
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
@@ -174,6 +176,12 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         startActivity(intent);
     }
 
+    /**************Module Cooperative Solutions***************/
+
+    @Override
+    public void onDilemmaItemPostSelected(DilemmaPost dilemmaPost) {
+        Toast.makeText(this, "click", Toast.LENGTH_LONG).show();
+    }
 
     /****************All modules *******************/
     @Override

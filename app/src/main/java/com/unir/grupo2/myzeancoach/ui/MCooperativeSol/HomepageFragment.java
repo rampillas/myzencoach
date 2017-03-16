@@ -1,39 +1,56 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol;
 
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.UseCase;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPostListAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Cesar on 22/02/2017.
  */
 
-public class HomepageFragment extends Fragment{
+public class HomepageFragment extends Fragment implements DilemmaPostListAdapter.OnDilemmaPostClickListener{
 
-  /*  List<PostItem> postItemList;
-    PostListAdapter postListAdapter;
+    List<DilemmaPost> dilemmaPostItemList;
+    DilemmaPostListAdapter dilemmaPostListAdapter;
     private UseCase useCase;
 
     @BindView(R.id.sol_coop_post_recycler_view) RecyclerView dilemmaPostListRecyclerView;
     @BindView(R.id.loading_layout) LinearLayout loadingLayout;
     @BindView(R.id.error_layout) LinearLayout errorLayout;
 
-    PublicHomepageFragment.OnPostListener postListener;
+    HomepageFragment.OnDilemmaPostListener dilemmaPostListener;
 
-    public interface OnPostListener{
-        void onItemPostSelected(PostItem post);
-        void onAddPostSelected();
-        void onLikePostSelected(PostItem post);
-        void onNumberLikePostSelected(PostItem post);
-        void onCommentPostSelected(PostItem post);
-        void onNumberCommentPostSelected(PostItem post);
+    public interface OnDilemmaPostListener{
+        void onDilemmaItemPostSelected(DilemmaPost dilemmaPost);
     }
 
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        if (context instanceof PublicHomepageFragment.OnPostListener){
-            postListener = (PublicHomepageFragment.OnPostListener) context;
+        if (context instanceof HomepageFragment.OnDilemmaPostListener){
+            dilemmaPostListener = (HomepageFragment.OnDilemmaPostListener) context;
         }else{
-            throw new ClassCastException(context.toString() + " must implements PublicHomepageFragment.OnPostListener");
+            throw new ClassCastException(context.toString() + " must implements HomepageFragment.OnDilemmaPostListener");
         }
     }
 
@@ -46,30 +63,30 @@ public class HomepageFragment extends Fragment{
 
         //updateData();
 
-        postListRecyclerView.setHasFixedSize(true);
+        dilemmaPostListRecyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        postListRecyclerView.setLayoutManager(linearLayoutManager);
+        dilemmaPostListRecyclerView.setLayoutManager(linearLayoutManager);
 
-        CommentItem commentItem1 = new CommentItem("12-12-2016", "primer comentario de prueba");
-        CommentItem commentItem2 = new CommentItem("05-10-2012", "segundo comentario de prueba");
-        CommentItem commentItem3 = new CommentItem("12-12-2016", "terceo comentario de prueba");
-        CommentItem commentItem4 = new CommentItem("12-12-2016", "cuarto comentario de prueba");
-        CommentItem commentItem5 = new CommentItem("12-12-2016", "quinto comentario de prueba");
-        CommentItem commentItem6 = new CommentItem("12-12-2016", "sexto comentario de prueba");
-        CommentItem commentItem7 = new CommentItem("12-12-2016", "septimo comentario de prueba");
+        DilemmaPost dilemmaPost1 = new DilemmaPost("12-12-2016", "ceo", "Title 1","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Ayudame a solucionarlo",null);
+        DilemmaPost dilemmaPost2 = new DilemmaPost("05-10-2012", "Rodro","Title 2","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Ayudame a solucionarlo", null);
+        DilemmaPost dilemmaPost3 = new DilemmaPost("12-12-2016", "Armin","Title 3","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Ayudame a solucionarlo", null);
+        DilemmaPost dilemmaPost4 = new DilemmaPost("12-12-2016", "Day","Title 4","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Feedback. Fecha limite: 2-5-2017", null);
+        DilemmaPost dilemmaPost5 = new DilemmaPost("12-12-2016", "Mateo","Titlo largo para ver como queda en la app movil y calorar","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Feedback. Fecha limite: 2-5-2017", null);
+        DilemmaPost dilemmaPost6 = new DilemmaPost("12-12-2016", "Eki","mas titulos","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Completado", null);
+        DilemmaPost dilemmaPost7 = new DilemmaPost("12-12-2016", "Javichu","el ultimo titulo","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Completado", null);
 
-        ArrayList<CommentItem> commentList = new ArrayList<CommentItem>();
-        commentList.add(commentItem1);
-        commentList.add(commentItem2);
-        commentList.add(commentItem3);
-        commentList.add(commentItem4);
-        commentList.add(commentItem5);
-        commentList.add(commentItem6);
-        commentList.add(commentItem7);
-        commentList.add(commentItem7);
-        commentList.add(commentItem7);
+        dilemmaPostItemList = new ArrayList<DilemmaPost>();
+        dilemmaPostItemList.add(dilemmaPost1);
+        dilemmaPostItemList.add(dilemmaPost2);
+        dilemmaPostItemList.add(dilemmaPost3);
+        dilemmaPostItemList.add(dilemmaPost4);
+        dilemmaPostItemList.add(dilemmaPost5);
+        dilemmaPostItemList.add(dilemmaPost6);
+        dilemmaPostItemList.add(dilemmaPost7);
+        dilemmaPostItemList.add(dilemmaPost7);
+        dilemmaPostItemList.add(dilemmaPost7);
 
-        postItemList = new ArrayList<PostItem>();
+        /*postItemList = new ArrayList<PostItem>();
         PostItem post1 = new PostItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", 4, 6,commentList);
         PostItem post2 = new PostItem("31-05-2017","Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion",52, 10,commentList);
         PostItem post3 = new PostItem("2-05-2016","Me voy a casar","eventos", "¿Que iglesia me recomendais?", 70, 30, commentList);
@@ -82,47 +99,21 @@ public class HomepageFragment extends Fragment{
         postItemList.add(post3);
         postItemList.add(post4);
         postItemList.add(post5);
-        postItemList.add(post6);
-        postListRecyclerView.setVisibility(View.VISIBLE);
+        postItemList.add(post6);*/
+
+        dilemmaPostListRecyclerView.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
-        postListAdapter = new PostListAdapter(getContext(),postItemList, this);
-        postListRecyclerView.setAdapter(postListAdapter);
+        dilemmaPostListAdapter = new DilemmaPostListAdapter(getContext(),dilemmaPostItemList, this);
+        dilemmaPostListRecyclerView.setAdapter(dilemmaPostListAdapter);
 
         return view;
     }
 
     @Override
-    public void onItemPostClick(PostItem post) {
-        postListener.onItemPostSelected(post);
+    public void onItemDilemmaPostClick(DilemmaPost dilemmaPost) {
+        dilemmaPostListener.onDilemmaItemPostSelected(dilemmaPost);
     }
-
-    @Override
-    public void onAddCommentPostClick(PostItem post) {
-        postListener.onCommentPostSelected(post);
-    }
-
-    @Override
-    public void onNumberCommentPostClick(PostItem post) {
-        postListener.onNumberCommentPostSelected(post);
-    }
-
-    @Override
-    public void onLikePostClick(PostItem post) {
-        postListener.onLikePostSelected(post);
-    }
-
-    @Override
-    public void onNumberLikePostClick(PostItem post) {
-        postListener.onNumberLikePostSelected(post);
-    }
-
-
-    @OnClick(R.id.floating_action_button)
-    void addPost(View view) {
-        postListener.onAddPostSelected();
-    }
-
 
 /*
     private void updateData() {
@@ -184,7 +175,5 @@ public class HomepageFragment extends Fragment{
             updateList(postList);
         }
     }*/
-
-
 }
 

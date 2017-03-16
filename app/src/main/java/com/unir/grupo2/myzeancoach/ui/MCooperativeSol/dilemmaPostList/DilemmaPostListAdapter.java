@@ -16,42 +16,38 @@ import java.util.List;
 
 public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItemViewHolder>  {
 
-    private List<DilemmaPost> postItemList;
+    private List<DilemmaPost> dilemmaPostItemList;
     private Context context;
 
-    public interface OnPostClickListener{
-        public void onItemPostClick(DilemmaPost post);
-        public void onAddCommentPostClick(DilemmaPost post);
-        public void onNumberCommentPostClick(DilemmaPost post);
-        public void onLikePostClick(DilemmaPost post);
-        public void onNumberLikePostClick(DilemmaPost post);
+    public interface OnDilemmaPostClickListener{
+        public void onItemDilemmaPostClick(DilemmaPost post);
     }
 
-    DilemmaPostListAdapter.OnPostClickListener listener;
+    DilemmaPostListAdapter.OnDilemmaPostClickListener listener;
 
-    public DilemmaPostListAdapter(Context context, List<DilemmaPost> postItemList, DilemmaPostListAdapter.OnPostClickListener listener) {
+    public DilemmaPostListAdapter(Context context, List<DilemmaPost> dilemmaPostItemList, DilemmaPostListAdapter.OnDilemmaPostClickListener listener) {
         this.context = context;
-        this.postItemList = postItemList;
+        this.dilemmaPostItemList = dilemmaPostItemList;
         this.listener = listener;
     }
 
     @Override
     public DilemmaPostItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.public_homepage_item_layout, viewGroup, false);
-        final DilemmaPostItemViewHolder postItemViewHolder = new DilemmaPostItemViewHolder(view);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.coop_sol_homepage_item_layout, viewGroup, false);
+        final DilemmaPostItemViewHolder dilemmaPostItemViewHolder = new DilemmaPostItemViewHolder(view);
 
-        return postItemViewHolder;
+        return dilemmaPostItemViewHolder;
     }
 
     @Override
     public void onBindViewHolder(DilemmaPostItemViewHolder viewHolder, int position) {
-        DilemmaPost postItem = postItemList.get(position);
-        viewHolder.bind(postItemList.get(position),listener);
+        DilemmaPost dilemmaPostItem = dilemmaPostItemList.get(position);
+        viewHolder.bind(dilemmaPostItemList.get(position),listener);
     }
 
     @Override
     public int getItemCount() {
-        return postItemList.size();
+        return dilemmaPostItemList.size();
     }
 }
 

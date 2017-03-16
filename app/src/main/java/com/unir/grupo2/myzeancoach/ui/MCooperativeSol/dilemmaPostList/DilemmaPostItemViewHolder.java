@@ -2,7 +2,6 @@ package com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
@@ -17,47 +16,29 @@ import butterknife.ButterKnife;
 public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.date_textView) TextView dateTextView;
+    @BindView(R.id.nick_textView) TextView nickTextView;
     @BindView(R.id.title_textView) TextView titleTextView;
-    @BindView(R.id.category_textView) TextView categoryTextView;
     @BindView(R.id.description_textView) TextView descriptionTextView;
-    @BindView(R.id.like_number_textView) TextView likeNumberTextView;
-    @BindView(R.id.comments_number_textView) TextView commentNumberTextView;
-    @BindView(R.id.like_button) Button likeButton;
-    @BindView(R.id.comment_button) Button commentButton;
-
+    @BindView(R.id.state_textView) TextView stateTextView;
 
     public DilemmaPostItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
 
-    public void bind(final DilemmaPost postItem, final DilemmaPostListAdapter.OnPostClickListener listener) {
+    public void bind(final DilemmaPost dilemmaPostItem, final DilemmaPostListAdapter.OnDilemmaPostClickListener listener) {
 
-        dateTextView.setText(postItem.getDate());
-        titleTextView.setText(postItem.getTitle());
-        categoryTextView.setText(postItem.getCategory());
-        descriptionTextView.setText(postItem.getDescription());
-        likeNumberTextView.setText(Integer.toString(postItem.getLikeNumber()));
-        commentNumberTextView.setText(String.format(itemView.getContext().getString(R.string.number_comments), postItem.getCommentNumber()));
+        dateTextView.setText(dilemmaPostItem.getDate());
+        nickTextView.setText(dilemmaPostItem.getNick());
+        titleTextView.setText(dilemmaPostItem.getTitle());
+        descriptionTextView.setText(dilemmaPostItem.getDescription());
+        stateTextView.setText(dilemmaPostItem.getState());
 
-        commentNumberTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onNumberCommentPostClick(postItem);
-            }
-        });
-
-        commentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onAddCommentPostClick(postItem);
-            }
-        });
-
+        /*
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 listener.onItemPostClick(postItem);
             }
-        });
+        });*/
     }
 }

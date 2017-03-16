@@ -3,8 +3,6 @@ package com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentItem;
-
 import java.util.ArrayList;
 
 /**
@@ -14,48 +12,38 @@ import java.util.ArrayList;
 public class DilemmaPost implements Parcelable{
 
     private String date;
+    private String nick;
     private String title;
-    private String category;
     private String description;
-    private int likeNumber;
-    private int commentNumber;
-    private ArrayList<CommentItem> comments;
+    private String state;
+    private ArrayList<DilemmaComment> comments;
 
-    public DilemmaPost(String date, String title, String category, String description, int likeNumber,
-                       int commentNumber, ArrayList<CommentItem> comments){
+    public DilemmaPost(String date, String nick,String title, String description, String state, ArrayList<DilemmaComment> comments){
         this.date = date;
+        this.nick = nick;
         this.title = title;
-        this.category = category;
         this.description = description;
-        this.likeNumber = likeNumber;
-        this.commentNumber = commentNumber;
+        this.state = state;
         this.comments = comments;
     }
 
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(date);
+        out.writeString(nick);
         out.writeString(title);
-        out.writeString(category);
         out.writeString(description);
-        out.writeInt(likeNumber);
-        out.writeInt(commentNumber);
-        // out.writeTypedList(questions);
+        out.writeString(state);
         out.writeList(comments);
-
     }
 
     @SuppressWarnings("unchecked")
     private DilemmaPost(Parcel in) {
         date = in.readString();
-        title = in.readString();
-        category = in.readString();
+        nick = in.readString();
         description = in.readString();
-        likeNumber = in.readInt();
-        commentNumber = in.readInt();
-        //in.readTypedList(questions, Question.CREATOR);
-        comments = new ArrayList<CommentItem>();
-
-        comments = in.readArrayList(CommentItem.class.getClassLoader());
+        state = in.readString();
+        comments = new ArrayList<DilemmaComment>();
+        comments = in.readArrayList(DilemmaComment.class.getClassLoader());
     }
 
     public int describeContents() {
@@ -74,20 +62,20 @@ public class DilemmaPost implements Parcelable{
                 }
             };
 
-    public String getTitle() {
-        return title;
+    public String getDate() {
+        return date;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getCategory() {
-        return category;
+    public String getNick() {
+        return nick;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
     public String getDescription() {
@@ -98,35 +86,27 @@ public class DilemmaPost implements Parcelable{
         this.description = description;
     }
 
-    public int getLikeNumber() {
-        return likeNumber;
+    public String getState() {
+        return state;
     }
 
-    public void setLikeNumber(int likeNumber) {
-        this.likeNumber = likeNumber;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public int getCommentNumber() {
-        return commentNumber;
-    }
-
-    public void setCommentNumber(int commentNumber) {
-        this.commentNumber = commentNumber;
-    }
-
-    public ArrayList<CommentItem> getComments() {
+    public ArrayList<DilemmaComment> getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<CommentItem> comments) {
+    public void setComments(ArrayList<DilemmaComment> comments) {
         this.comments = comments;
     }
 
-    public String getDate() {
-        return date;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
