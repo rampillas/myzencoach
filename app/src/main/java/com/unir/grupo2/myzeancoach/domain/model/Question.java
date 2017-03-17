@@ -76,4 +76,11 @@ public class Question implements Parcelable{
         this.answers = answers;
     }
 
+    public Boolean getCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(Boolean completed) {
+        isCompleted = completed;
+    }
 }

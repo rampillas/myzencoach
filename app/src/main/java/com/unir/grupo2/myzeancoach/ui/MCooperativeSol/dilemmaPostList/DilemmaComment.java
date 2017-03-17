@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Cesar on 16/03/2017.
@@ -14,13 +15,14 @@ public class DilemmaComment implements Parcelable {
     private String nick;
     private String date;
     private String description;
-    private ArrayList<String> pros;
-    private ArrayList<String> cons;
+    private ArrayList<String> pros = null;
+    private ArrayList<String> cons = null;
     private boolean isLike;
     private String feedback;
+    private Date dateLike;
 
     public DilemmaComment(String nick,String date, String description, ArrayList<String> pros,
-                          ArrayList<String> cons, boolean isLike, String feedback){
+                          ArrayList<String> cons, boolean isLike, String feedback, Date dateLike){
         this.nick = nick;
         this.date = date;
         this.description = description;
@@ -28,6 +30,7 @@ public class DilemmaComment implements Parcelable {
         this.cons = cons;
         this.isLike = isLike;
         this.feedback = feedback;
+        this.dateLike = dateLike;
     }
 
     public void writeToParcel(Parcel out, int flags) {
@@ -37,6 +40,8 @@ public class DilemmaComment implements Parcelable {
         out.writeList(pros);
         out.writeList(cons);
         out.writeInt(isLike ? 1 : 0);
+        out.writeString(feedback);
+        out.writeLong(dateLike.getTime());
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +54,8 @@ public class DilemmaComment implements Parcelable {
         cons = new ArrayList<String>();
         cons = in.readArrayList(String.class.getClassLoader());
         isLike = (in.readInt() == 0) ? false : true;
+        feedback = in.readString();
+        dateLike = new Date(in.readLong());
     }
 
     public int describeContents() {
@@ -121,5 +128,13 @@ public class DilemmaComment implements Parcelable {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
+    }
+
+    public Date getDateLike() {
+        return dateLike;
+    }
+
+    public void setDateLike(Date dateLike) {
+        this.dateLike = dateLike;
     }
 }

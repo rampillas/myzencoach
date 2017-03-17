@@ -90,7 +90,7 @@ public class MCustomizeFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return getString(R.string.remainders);
+                    return getString(R.string.reminders);
                 case 1 :
                     return getString(R.string.stress_detection);
 

@@ -67,9 +67,9 @@ public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapt
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         dilemmaPostListRecyclerView.setLayoutManager(linearLayoutManager);
 
-        DilemmaPost dilemmaPost1 = new DilemmaPost("12-12-2016", "ceo", "Title 1","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Ayudame a solucionarlo",null);
-        DilemmaPost dilemmaPost2 = new DilemmaPost("12-12-2016", "Ceo","Title 4","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Feedback. Fecha limite: 2-5-2017", null);
-        DilemmaPost dilemmaPost3 = new DilemmaPost("12-12-2016", "Ceo","el ultimo titulo","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Completado", null);
+        DilemmaPost dilemmaPost1 = new DilemmaPost("12-12-2016", "ceo", "Title 1","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "help_me",null);
+        DilemmaPost dilemmaPost2 = new DilemmaPost("12-12-2016", "Ceo","Title 4","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "feedback", null);
+        DilemmaPost dilemmaPost3 = new DilemmaPost("12-12-2016", "Ceo","el ultimo titulo","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "completed", null);
 
         dilemmaPostItemList = new ArrayList<DilemmaPost>();
         dilemmaPostItemList.add(dilemmaPost1);

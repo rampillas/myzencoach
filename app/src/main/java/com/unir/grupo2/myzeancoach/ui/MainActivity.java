@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
+    static final int DILEMMA_COMMENT_REQUEST = 3;
 
     // ui
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -105,8 +107,8 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
         //Setup Drawer Toggle of the Toolbar
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open,
-                R.string.close);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.opened,
+                R.string.closed);
 
         drawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -178,9 +180,12 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     /**************Module Cooperative Solutions***************/
 
+    /***Homepage***/
     @Override
     public void onDilemmaItemPostSelected(DilemmaPost dilemmaPost) {
-        Toast.makeText(this, "click", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, DilemmaCommentActivity.class);
+        intent.putExtra("DILEMMA", dilemmaPost);
+        startActivityForResult(intent, DILEMMA_COMMENT_REQUEST);
     }
 
     /****************All modules *******************/

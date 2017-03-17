@@ -44,7 +44,7 @@ public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItem
     @Override
     public void onBindViewHolder(DilemmaPostItemViewHolder viewHolder, int position) {
         DilemmaPost dilemmaPostItem = dilemmaPostItemList.get(position);
-        viewHolder.bind(dilemmaPostItemList.get(position),listener, showNick);
+        viewHolder.bind(dilemmaPostItemList.get(position),listener, showNick, context);
     }
 
     @Override

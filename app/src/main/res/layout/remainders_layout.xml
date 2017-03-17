@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/remainders"
+        android:text="@string/reminders"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/letra_grande" />
 

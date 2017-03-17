@@ -16,7 +16,7 @@ public class DilemmaPost implements Parcelable{
     private String title;
     private String description;
     private String state;
-    private ArrayList<DilemmaComment> comments;
+    private ArrayList<DilemmaComment> comments = null;
 
     public DilemmaPost(String date, String nick,String title, String description, String state, ArrayList<DilemmaComment> comments){
         this.date = date;
@@ -40,6 +40,7 @@ public class DilemmaPost implements Parcelable{
     private DilemmaPost(Parcel in) {
         date = in.readString();
         nick = in.readString();
+        title = in.readString();
         description = in.readString();
         state = in.readString();
         comments = new ArrayList<DilemmaComment>();
@@ -109,4 +110,5 @@ public class DilemmaPost implements Parcelable{
     public void setTitle(String title) {
         this.title = title;
     }
+
 }

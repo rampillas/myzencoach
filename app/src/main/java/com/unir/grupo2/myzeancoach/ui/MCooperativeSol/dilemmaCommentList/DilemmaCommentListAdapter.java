@@ -34,14 +34,14 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
 
     boolean isHeader = false;
 
-    public interface OnButtonClickListener{
-        public void onButtonClick(int testRate);
+    public interface OnDilemmaCommentClickListener{
+        public void onXClick();
     }
 
-    private final DilemmaCommentListAdapter.OnButtonClickListener listener;
+    private final DilemmaCommentListAdapter.OnDilemmaCommentClickListener listener;
 
     public DilemmaCommentListAdapter(Context context, DilemmaPost dilemmaPost,
-                                     OnButtonClickListener listener){
+                                     OnDilemmaCommentClickListener listener){
         this.context = context;
         this.dilemmaPost = dilemmaPost;
         this.listener = listener;
@@ -52,10 +52,10 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == VIEWS_TYPES.Normal){
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coop_sol_comment_list_header_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coop_sol_comment_list_item_layout, parent, false);
             return new DilemmaCommentItemViewHolder(view);
         }else if (viewType == VIEWS_TYPES.Header){
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coop_sol_comment_list_item_layout, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coop_sol_comment_list_header_layout, parent, false);
             return new DilemmaCommentHeaderViewHolder(view);
         }
         return null;
@@ -104,7 +104,11 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
                 itemHolder.likeCheckBox.setClickable(false);
                 itemHolder.feedbackEditText.setVisibility(View.GONE);
                 itemHolder.feedbackTextView.setVisibility(View.VISIBLE);
-                itemHolder.feedbackTextView.setText(dilemmaComment.getFeedback());
+                itemHolder.feedbackTextView.setText(context.getString(R.string.feedback, dilemmaComment.getFeedback()));
+            }
+
+            if (dilemmaPost.getState().equals("completed") && !dilemmaComment.isLike()){
+                itemHolder.likeCheckBox.setVisibility(View.GONE);
             }
         }
     }

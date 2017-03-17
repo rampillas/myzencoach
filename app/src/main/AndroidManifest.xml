@@ -28,6 +28,8 @@
                   android:screenOrientation="portrait"></activity>
         <activity android:name=".ui.MLeisure.CommentActivity"
                   android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.MCooperativeSol.DilemmaCommentActivity"
+                  android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

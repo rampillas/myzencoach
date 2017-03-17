@@ -8,15 +8,15 @@
     <string name="error_icon_description">Ha ocurrido un error</string>
 
     <!-- DrawerMenu and SwipeTabs -->
-    <string name="open">Abierto</string>
-    <string name="close">Cerrado</string>
+    <string name="opened">Abierto</string>
+    <string name="closed">Cerrado</string>
     <string name="customize">Personalización</string>
     <string name="essential_information">Información esencial</string>
     <string name="cooperative_solutions">Soluciones cooperativas</string>
     <string name="welfare">Bienestar/Minfulness</string>
     <string name="leisure">Ocio y tiempo libre</string>
     <string name="stress_detection">Detección de estrés</string>
-    <string name="remainders">Recordatorios</string>
+    <string name="reminders">Recordatorios</string>
     <string name="videos">Videos</string>
     <string name="tests">Tests</string>
     <string name="ranking">Ranking</string>
@@ -151,6 +151,13 @@
 
     <!--********* NEW WORDS ******-->
     <!--Leisure -->
-    <string name="feedback">Feedback: %1$d</string>
+    <string name="feedback"><b>Feedback:</b> %1$s</string>
+    <string name="state_waiting_for_answer">Esperando por la respuesta del coach</string>
+    <string name="state_refused">Denegado</string>
+    <string name="state_help_me">Ayudame a solucionarlo</string>
+    <string name="state_feedback_1">Esperando feedback</string>
+    <string name="state_feedback_2">Ha pasado más de 1 semana. Proporcione feedback por favor.</string>
+    <string name="state_completed">Finalizado</string>
+    <string name="more_seven_days"></string>
 
 </resources>
