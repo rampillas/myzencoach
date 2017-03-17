@@ -18,6 +18,7 @@ public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItem
 
     private List<DilemmaPost> dilemmaPostItemList;
     private Context context;
+    private boolean showNick;
 
     public interface OnDilemmaPostClickListener{
         public void onItemDilemmaPostClick(DilemmaPost post);
@@ -25,10 +26,11 @@ public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItem
 
     DilemmaPostListAdapter.OnDilemmaPostClickListener listener;
 
-    public DilemmaPostListAdapter(Context context, List<DilemmaPost> dilemmaPostItemList, DilemmaPostListAdapter.OnDilemmaPostClickListener listener) {
+    public DilemmaPostListAdapter(Context context, List<DilemmaPost> dilemmaPostItemList, DilemmaPostListAdapter.OnDilemmaPostClickListener listener, boolean showNick) {
         this.context = context;
         this.dilemmaPostItemList = dilemmaPostItemList;
         this.listener = listener;
+        this.showNick = showNick;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItem
     @Override
     public void onBindViewHolder(DilemmaPostItemViewHolder viewHolder, int position) {
         DilemmaPost dilemmaPostItem = dilemmaPostItemList.get(position);
-        viewHolder.bind(dilemmaPostItemList.get(position),listener);
+        viewHolder.bind(dilemmaPostItemList.get(position),listener, showNick);
     }
 
     @Override

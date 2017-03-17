@@ -70,10 +70,10 @@ public class HomepageFragment extends Fragment implements DilemmaPostListAdapter
         DilemmaPost dilemmaPost1 = new DilemmaPost("12-12-2016", "ceo", "Title 1","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Ayudame a solucionarlo",null);
         DilemmaPost dilemmaPost2 = new DilemmaPost("05-10-2012", "Rodro","Title 2","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Ayudame a solucionarlo", null);
         DilemmaPost dilemmaPost3 = new DilemmaPost("12-12-2016", "Armin","Title 3","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Ayudame a solucionarlo", null);
-        DilemmaPost dilemmaPost4 = new DilemmaPost("12-12-2016", "Day","Title 4","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Feedback. Fecha limite: 2-5-2017", null);
+        DilemmaPost dilemmaPost4 = new DilemmaPost("12-12-2016", "Ceo","Title 4","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Feedback. Fecha limite: 2-5-2017", null);
         DilemmaPost dilemmaPost5 = new DilemmaPost("12-12-2016", "Mateo","Titlo largo para ver como queda en la app movil y calorar","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Feedback. Fecha limite: 2-5-2017", null);
         DilemmaPost dilemmaPost6 = new DilemmaPost("12-12-2016", "Eki","mas titulos","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Completado", null);
-        DilemmaPost dilemmaPost7 = new DilemmaPost("12-12-2016", "Javichu","el ultimo titulo","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Completado", null);
+        DilemmaPost dilemmaPost7 = new DilemmaPost("12-12-2016", "Ceo","el ultimo titulo","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "Completado", null);
 
         dilemmaPostItemList = new ArrayList<DilemmaPost>();
         dilemmaPostItemList.add(dilemmaPost1);
@@ -104,7 +104,7 @@ public class HomepageFragment extends Fragment implements DilemmaPostListAdapter
         dilemmaPostListRecyclerView.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
-        dilemmaPostListAdapter = new DilemmaPostListAdapter(getContext(),dilemmaPostItemList, this);
+        dilemmaPostListAdapter = new DilemmaPostListAdapter(getContext(),dilemmaPostItemList, this, true);
         dilemmaPostListRecyclerView.setAdapter(dilemmaPostListAdapter);
 
         return view;

@@ -6,9 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Remainders;
-import com.unir.grupo2.myzeancoach.domain.model.Test;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.testList.TestItemViewHolder;
 
 import java.util.List;
 

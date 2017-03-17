@@ -11,21 +11,27 @@ import java.util.ArrayList;
 
 public class DilemmaComment implements Parcelable {
 
+    private String nick;
     private String date;
     private String description;
     private ArrayList<String> pros;
     private ArrayList<String> cons;
     private boolean isLike;
+    private String feedback;
 
-    public DilemmaComment(String date, String description, ArrayList<String> pros, ArrayList<String> cons, boolean isLike){
+    public DilemmaComment(String nick,String date, String description, ArrayList<String> pros,
+                          ArrayList<String> cons, boolean isLike, String feedback){
+        this.nick = nick;
         this.date = date;
         this.description = description;
         this.pros = pros;
         this.cons = cons;
         this.isLike = isLike;
+        this.feedback = feedback;
     }
 
     public void writeToParcel(Parcel out, int flags) {
+        out.writeString(nick);
         out.writeString(date);
         out.writeString(description);
         out.writeList(pros);
@@ -35,6 +41,7 @@ public class DilemmaComment implements Parcelable {
 
     @SuppressWarnings("unchecked")
     private DilemmaComment(Parcel in) {
+        nick = in.readString();
         date = in.readString();
         description = in.readString();
         pros = new ArrayList<String>();
@@ -98,5 +105,21 @@ public class DilemmaComment implements Parcelable {
 
     public void setLike(boolean like) {
         isLike = like;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 }

@@ -26,8 +26,11 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-    public void bind(final DilemmaPost dilemmaPostItem, final DilemmaPostListAdapter.OnDilemmaPostClickListener listener) {
+    public void bind(final DilemmaPost dilemmaPostItem, final DilemmaPostListAdapter.OnDilemmaPostClickListener listener, boolean showNick) {
 
+        if (!showNick){
+            nickTextView.setVisibility(View.GONE);
+        }
         dateTextView.setText(dilemmaPostItem.getDate());
         nickTextView.setText(dilemmaPostItem.getNick());
         titleTextView.setText(dilemmaPostItem.getTitle());

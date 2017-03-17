@@ -144,4 +144,13 @@
     <string name="REMAINDERS_ADD_INSERT_TIME">introduce hora</string>
     <string name="SAVE">Guardar</string>
 
+    <!-- Cooperative Solution -->
+    <string name="write_feedback">Proporciona un feedback a la solución elegida</string>
+
+
+
+    <!--********* NEW WORDS ******-->
+    <!--Leisure -->
+    <string name="feedback">Feedback: %1$d</string>
+
 </resources>
