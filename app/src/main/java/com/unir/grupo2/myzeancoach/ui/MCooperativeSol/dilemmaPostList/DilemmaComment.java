@@ -19,10 +19,11 @@ public class DilemmaComment implements Parcelable {
     private ArrayList<String> cons = null;
     private boolean isLike;
     private String feedback;
-    private Date dateLike;
+    public long dateLike;
 
     public DilemmaComment(String nick,String date, String description, ArrayList<String> pros,
                           ArrayList<String> cons, boolean isLike, String feedback, Date dateLike){
+
         this.nick = nick;
         this.date = date;
         this.description = description;
@@ -30,8 +31,10 @@ public class DilemmaComment implements Parcelable {
         this.cons = cons;
         this.isLike = isLike;
         this.feedback = feedback;
-        this.dateLike = dateLike;
-    }
+        if (dateLike != null){
+            this.dateLike = dateLike.getTime();
+        }
+}
 
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(nick);
@@ -41,7 +44,7 @@ public class DilemmaComment implements Parcelable {
         out.writeList(cons);
         out.writeInt(isLike ? 1 : 0);
         out.writeString(feedback);
-        out.writeLong(dateLike.getTime());
+        out.writeLong(dateLike);
     }
 
     @SuppressWarnings("unchecked")
@@ -55,7 +58,7 @@ public class DilemmaComment implements Parcelable {
         cons = in.readArrayList(String.class.getClassLoader());
         isLike = (in.readInt() == 0) ? false : true;
         feedback = in.readString();
-        dateLike = new Date(in.readLong());
+        dateLike = in.readLong();
     }
 
     public int describeContents() {
@@ -131,10 +134,10 @@ public class DilemmaComment implements Parcelable {
     }
 
     public Date getDateLike() {
-        return dateLike;
+        return new Date(dateLike);
     }
 
-    public void setDateLike(Date dateLike) {
-        this.dateLike = dateLike;
+    public void setDateLike(Date date) {
+        dateLike = date.getTime();
     }
 }

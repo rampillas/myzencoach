@@ -15,10 +15,12 @@ import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaComment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPostListAdapter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -41,7 +43,7 @@ public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapt
     HomepageFragment.OnDilemmaPostListener dilemmaPostListener;
 
     public interface OnDilemmaPostListener{
-        void onDilemmaItemPostSelected(DilemmaPost dilemmaPost);
+        void onDilemmaItemPostSelected(DilemmaPost dilemmaPost, boolean fromMyDilemma);
     }
 
     @Override
@@ -67,42 +69,80 @@ public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapt
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         dilemmaPostListRecyclerView.setLayoutManager(linearLayoutManager);
 
-        DilemmaPost dilemmaPost1 = new DilemmaPost("12-12-2016", "ceo", "Title 1","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "help_me",null);
-        DilemmaPost dilemmaPost2 = new DilemmaPost("12-12-2016", "Ceo","Title 4","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "feedback", null);
-        DilemmaPost dilemmaPost3 = new DilemmaPost("12-12-2016", "Ceo","el ultimo titulo","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "completed", null);
+        ArrayList<String> pros = new ArrayList<String>() {{
+            add("Es una rapida solucion");
+            add("Lo recomienda los medicos");
+        }};
+        ArrayList<String> cons = new ArrayList<String>() {{
+            add("A tu familia no le aprecera bien");
+            add("Los viernes no podras ir al cine");
+        }};
+
+        //Ayudame a solucionarlo
+        ArrayList<DilemmaComment> comments1 = new ArrayList<DilemmaComment>();
+
+        DilemmaComment post1 = new DilemmaComment("Mary", "31-05-2017", "esto seria lo mejor", pros,cons, false, null, null);
+        DilemmaComment post2 = new DilemmaComment("Merlu", "31-05-2017", "esto seria lo mejor", pros,cons, false, null, null);
+        DilemmaComment post3 = new DilemmaComment("Day", "31-05-2017", "esto seria lo mejor", pros,cons, false, null, null);
+        DilemmaComment post4 = new DilemmaComment("Mary", "31-05-2017", "esto seria lo mejor", pros,cons, false, null, null);
+        DilemmaComment post5 = new DilemmaComment("Armin", "31-05-2017", "esto seria lo mejor", pros,cons, false, null, null);
+        DilemmaComment post6 = new DilemmaComment("Karl", "31-05-2017", "esto seria lo mejor", pros,cons, false, null, null);
+
+        comments1.add(post1);
+        comments1.add(post2);
+        comments1.add(post3);
+        comments1.add(post4);
+        comments1.add(post5);
+        comments1.add(post6);
+
+        //Feedback
+        ArrayList<DilemmaComment> comments2 = new ArrayList<DilemmaComment>();
+        long DAY_IN_MS = 1000 * 60 * 60 * 24;
+        Date now = new Date();
+        Date eightDaysAgo = new Date(now.getTime() - (8 * DAY_IN_MS));
+        DilemmaComment post7 = new DilemmaComment("Mary", "31-05-2017", "esto seria lo mejor", pros,cons, true, null,eightDaysAgo);
+        DilemmaComment post8 = new DilemmaComment("Merlu", "31-05-2017", "esto seria lo mejor", pros,cons, false, null, null);
+        comments2.add(post7);
+        comments2.add(post8);
+
+        //Completado
+        ArrayList<DilemmaComment> comments3 = new ArrayList<DilemmaComment>();
+        DilemmaComment post9 = new DilemmaComment("Mary", "31-05-2017", "esto seria lo mejor", pros,cons, true, "Ha sido muy util, sobre todo al segunda semana",null);
+        DilemmaComment post10 = new DilemmaComment("Merlu", "31-05-2017", "esto seria lo mejor", pros,cons, false, null,null);
+        comments3.add(post9);
+        comments3.add(post10);
+
+        //De otro usuario
+        ArrayList<DilemmaComment> comments4 = new ArrayList<DilemmaComment>();
+        DilemmaComment post11 = new DilemmaComment("Mary", "31-05-2017", "esto seria lo mejor", pros,cons, false, null,null);
+        DilemmaComment post12 = new DilemmaComment("Merlu", "31-05-2017", "esto seria lo mejor", pros,cons, false, null,null);
+        comments4.add(post11);
+        comments4.add(post12);
+
+
+        DilemmaPost dilemmaPost1 = new DilemmaPost("12-12-2016", "ceo", "Title 1","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "help_me me",comments1);
+        DilemmaPost dilemmaPost2 = new DilemmaPost("05-10-2012", "ceo","Title 2","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "feedback", comments2);
+        DilemmaPost dilemmaPost3 = new DilemmaPost("12-12-2016", "Ceo","Title 3","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "completed", comments3);
+        DilemmaPost dilemmaPost7 = new DilemmaPost("12-12-2016", "Ceo","el ultimo titulo","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "help_me", null);
 
         dilemmaPostItemList = new ArrayList<DilemmaPost>();
         dilemmaPostItemList.add(dilemmaPost1);
         dilemmaPostItemList.add(dilemmaPost2);
         dilemmaPostItemList.add(dilemmaPost3);
-
-        /*postItemList = new ArrayList<PostItem>();
-        PostItem post1 = new PostItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", 4, 6,commentList);
-        PostItem post2 = new PostItem("31-05-2017","Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion",52, 10,commentList);
-        PostItem post3 = new PostItem("2-05-2016","Me voy a casar","eventos", "¿Que iglesia me recomendais?", 70, 30, commentList);
-        PostItem post4 = new PostItem("2-05-2016","Aun no se con quien me voy a casar", "eventos", "Vladimir Kokorev, presunto testaferro de Teodoro Obiang, presidente de Guinea " +
-                "Ecuatorial, encarcelado por supuesto delito fiscal y blanqueo de capitales, contrató por 140.000 euros a una empresa de comunicación para limpiar la imagen de su familia e investigar a un abogado y a dos periodistas, uno de ellos de EL PAÍS, según se desprende de la documentación intervenida por la Policía en el registro de su domicilio en la madrileña calle Ferraz. La investigación sobre la familia Kokorev se inició hace 12 años al detectarse que había recibido más de 30 millones procedentes de la Tesorería General de Guinea Ecuatorial", 100, 3,commentList);
-        PostItem post5 = new PostItem("2-05-2016","Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?",54565, 123,null);
-        PostItem post6 = new PostItem("2-05-2016","voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", 0, 0,null);
-        postItemList.add(post1);
-        postItemList.add(post2);
-        postItemList.add(post3);
-        postItemList.add(post4);
-        postItemList.add(post5);
-        postItemList.add(post6);*/
+        dilemmaPostItemList.add(dilemmaPost7);
 
         dilemmaPostListRecyclerView.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
-        dilemmaPostListAdapter = new DilemmaPostListAdapter(getContext(),dilemmaPostItemList, this, false);
+        dilemmaPostListAdapter = new DilemmaPostListAdapter(getContext(),dilemmaPostItemList, this, true);
         dilemmaPostListRecyclerView.setAdapter(dilemmaPostListAdapter);
 
         return view;
     }
 
     @Override
-    public void onItemDilemmaPostClick(DilemmaPost dilemmaPost) {
-        dilemmaPostListener.onDilemmaItemPostSelected(dilemmaPost);
+    public void onItemDilemmaPostClick(DilemmaPost dilemmaPost, boolean fromMyDilemma) {
+        dilemmaPostListener.onDilemmaItemPostSelected(dilemmaPost,fromMyDilemma);
     }
 
 /*

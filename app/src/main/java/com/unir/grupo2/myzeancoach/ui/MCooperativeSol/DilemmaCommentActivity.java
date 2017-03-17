@@ -42,6 +42,7 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
 
         Intent intent = getIntent();
         DilemmaPost dilemma = (DilemmaPost) intent.getParcelableExtra("DILEMMA");
+        boolean isFromDilemma = intent.getBooleanExtra("IS_FROM_MYDILEMMA", false);
 
         commentItemList = dilemma.getComments();
 
@@ -52,7 +53,7 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
             recyclerView.setAdapter(dilemmaCommentListAdapter);
         }
 
-        if (dilemma.getState().equals("completed")){
+        if (dilemma.getState().equals("completed") || isFromDilemma){
             addCommentfloatingActionButton.setVisibility(View.GONE);
         }
 

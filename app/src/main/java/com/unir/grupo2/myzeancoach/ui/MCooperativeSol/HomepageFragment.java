@@ -43,7 +43,7 @@ public class HomepageFragment extends Fragment implements DilemmaPostListAdapter
     HomepageFragment.OnDilemmaPostListener dilemmaPostListener;
 
     public interface OnDilemmaPostListener{
-        void onDilemmaItemPostSelected(DilemmaPost dilemmaPost);
+        void onDilemmaItemPostSelected(DilemmaPost dilemmaPost, boolean fromMyDilemma);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class HomepageFragment extends Fragment implements DilemmaPostListAdapter
         DilemmaPost dilemmaPost2 = new DilemmaPost("05-10-2012", "ceo","Title 2","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "feedback", comments2);
         DilemmaPost dilemmaPost3 = new DilemmaPost("12-12-2016", "Ceo","Title 3","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "completed", comments3);
         DilemmaPost dilemmaPost4 = new DilemmaPost("12-12-2016", "Armin","Title 4","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "help_me", comments4);
-        DilemmaPost dilemmaPost5 = new DilemmaPost("12-12-2016", "Mateo","Titlo largo para ver como queda en la app movil y calorar","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "feedback", null);
+        DilemmaPost dilemmaPost5 = new DilemmaPost("12-12-2016", "Mateo","Titulo largo para ver como queda en la app movil y calorar","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "feedback", comments4);
         DilemmaPost dilemmaPost6 = new DilemmaPost("12-12-2016", "Eki","mas titulos","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "help_me", null);
         DilemmaPost dilemmaPost7 = new DilemmaPost("12-12-2016", "Ceo","el ultimo titulo","asdkasdnkahdjahsdkjahdkjhakjsdhhasdhkjashdjkahsdkjas", "help_me", null);
 
@@ -140,21 +140,18 @@ public class HomepageFragment extends Fragment implements DilemmaPostListAdapter
         dilemmaPostItemList.add(dilemmaPost7);
         dilemmaPostItemList.add(dilemmaPost7);
 
-
-
-
         dilemmaPostListRecyclerView.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
-        dilemmaPostListAdapter = new DilemmaPostListAdapter(getContext(),dilemmaPostItemList, this, true);
+        dilemmaPostListAdapter = new DilemmaPostListAdapter(getContext(),dilemmaPostItemList, this, false);
         dilemmaPostListRecyclerView.setAdapter(dilemmaPostListAdapter);
 
         return view;
     }
 
     @Override
-    public void onItemDilemmaPostClick(DilemmaPost dilemmaPost) {
-        dilemmaPostListener.onDilemmaItemPostSelected(dilemmaPost);
+    public void onItemDilemmaPostClick(DilemmaPost dilemmaPost, boolean fromMyDilemma) {
+        dilemmaPostListener.onDilemmaItemPostSelected(dilemmaPost, fromMyDilemma);
     }
 
 /*

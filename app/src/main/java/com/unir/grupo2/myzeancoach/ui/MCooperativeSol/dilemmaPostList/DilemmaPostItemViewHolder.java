@@ -1,6 +1,8 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -27,16 +29,18 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.description_textView) TextView descriptionTextView;
     @BindView(R.id.state_textView) TextView stateTextView;
 
+
     public DilemmaPostItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void bind(final DilemmaPost dilemmaPostItem,
                      final DilemmaPostListAdapter.OnDilemmaPostClickListener listener,
-                     boolean showNick, Context context) {
+                     final boolean fromMyDilemma, Context context) {
 
-        if (!showNick){
+        if (fromMyDilemma){
             nickTextView.setVisibility(View.GONE);
         }
         dateTextView.setText(dilemmaPostItem.getDate());
@@ -46,10 +50,9 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
         switch (dilemmaPostItem.getState()) {
             case "help_me":
                 stateTextView.setText(context.getString(R.string.state_help_me));
+                stateTextView.setTextColor(context.getColor(R.color.blueApp));
                 break;
             case "feedback":
-
-
 
                 for(int i = 0; i < dilemmaPostItem.getComments().size(); i++){
                     if (dilemmaPostItem.getComments().get(i).isLike()){
@@ -61,23 +64,21 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
                         break;
                     }
                 }
+                stateTextView.setTextColor(context.getColor(R.color.redApp));
                 break;
             case "completed":
                 stateTextView.setText(context.getString(R.string.state_completed));
+                stateTextView.setTextColor(context.getColor(R.color.greenApp));
                 break;
             default:
                 stateTextView.setText(context.getString(R.string.state_help_me));
+                stateTextView.setTextColor(context.getColor(R.color.blueApp));
                 break;
         }
-        if (dilemmaPostItem.getState().equals("completed")){
-
-        }
-        stateTextView.setText(dilemmaPostItem.getState());
-
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                listener.onItemDilemmaPostClick(dilemmaPostItem);
+                listener.onItemDilemmaPostClick(dilemmaPostItem,fromMyDilemma);
             }
         });
     }

@@ -182,9 +182,10 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     /***Homepage***/
     @Override
-    public void onDilemmaItemPostSelected(DilemmaPost dilemmaPost) {
+    public void onDilemmaItemPostSelected(DilemmaPost dilemmaPost, boolean fromMyDilemma) {
         Intent intent = new Intent(this, DilemmaCommentActivity.class);
         intent.putExtra("DILEMMA", dilemmaPost);
+        intent.putExtra("IS_FROM_MYDILEMMA", fromMyDilemma);
         startActivityForResult(intent, DILEMMA_COMMENT_REQUEST);
     }
 
