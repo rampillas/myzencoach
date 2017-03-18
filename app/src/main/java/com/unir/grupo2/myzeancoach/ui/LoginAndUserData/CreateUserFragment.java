@@ -146,7 +146,6 @@ public class CreateUserFragment extends Fragment {
 
     @OnClick(R.id.okButton)
     public void addAcount() {
-        // TODO comprobar que loscampos estan rellenos
         if (usuario.getText().length() > 0 && password.getText().length() > 0 && email.getText().length() > 0 && nombre.getText().length() > 0 && nacimiento.getText().length() > 0
                 && pais.length() > 0 && ciudad.getText().length() > 0 && estudiosPersona > 0) {
             UserValidator validator = UserValidator.builder().build();

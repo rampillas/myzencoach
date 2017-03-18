@@ -50,7 +50,7 @@ public class CreateUserServer {
 
                     @Override
                     public void onNext(User userObject) {
-                        if (userObject.getIsActive()) {
+                        if (true) {
                             Log.d("Create process", "ok creado");
                             createUserFragment.showContent();
                             FragmentTransaction xfragmentTransaction = createUserFragment.getFragmentManager().beginTransaction();

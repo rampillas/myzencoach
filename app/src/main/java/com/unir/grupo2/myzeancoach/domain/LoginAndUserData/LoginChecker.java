@@ -1,8 +1,13 @@
 package com.unir.grupo2.myzeancoach.domain.LoginAndUserData;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
+import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.ApiCallsForLogin;
+import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RegisterBody;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RetrofitClient;
 import com.unir.grupo2.myzeancoach.domain.model.Token;
 import com.unir.grupo2.myzeancoach.domain.model.User;
@@ -48,7 +53,9 @@ public class LoginChecker{
 
         loginFragment.showLoading();
         // RxJava
-        apiConexion.loginUser("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        Log.d("Login Body: ", body.toString());
+        RegisterBody rb =new RegisterBody("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write");
+        apiConexion.loginUser(rb).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Token>() {
                     @Override
                     public void onCompleted() {
@@ -64,23 +71,22 @@ public class LoginChecker{
 
                     @Override
                     public void onNext(Token token) {
-                        if (userObject.getIsActive()) {
-                            Log.d("Login process", "okLogin");
-                            /*loginFragment.showContent();
+                        if (token.getAccessToken()!=null) {
+                            Log.d("Login process token= ", token.getAccessToken());
+                            loginFragment.showContent();
 
-                            //se guarda el usuario y clave para mantener la sesion
+                            //se guarda el token usuario y clave para mantener la sesion
                             Context context = loginFragment.getActivity();
                             SharedPreferences sharedPref = context.getSharedPreferences(
                                     loginFragment.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString(loginFragment.getString(R.string.PREFERENCES_USER), userObject.getUsername());
-                            editor.putString(loginFragment.getString(R.string.PREFERENCES_PASSWORD), userObject.getPassword());
+                            editor.putString(loginFragment.getString(R.string.PREFERENCES_TOKEN), token.getAccessToken());
                             editor.commit();
 
                             //se cambia la vista
                             loginFragment.showContent();
                             FragmentTransaction xfragmentTransaction = loginFragment.getFragmentManager().beginTransaction();
-                            xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();*/
+                            xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
                         } else {
                             Log.d("Login process", "incorrectpass");
                             loginFragment.showError();
@@ -99,7 +105,8 @@ public class LoginChecker{
 
         createUserFragment.showLoading();
         // RxJava
-        apiConexion.loginUser("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write").subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        RegisterBody rb =new RegisterBody("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write");
+        apiConexion.loginUser(rb).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Token>() {
                     @Override
                     public void onCompleted() {
@@ -116,8 +123,8 @@ public class LoginChecker{
                     @Override
                     public void onNext(Token token) {
                         Log.d("Login process", "okLogin");
-                       /* if (userObject.getIsActive()) {
-                            Log.d("Login process", "okLogin");
+                        if (token.getAccessToken()!=null) {
+                            Log.d("Login process token= ", token.getAccessToken());
                             createUserFragment.showContent();
                             createUserFragment.showFieldsIntoCases(userObject);
 
@@ -125,7 +132,7 @@ public class LoginChecker{
                             Log.d("Login process", "incorrectpass");
                             createUserFragment.showContent();
                             createUserFragment.userExits();
-                        }*/
+                        }
                     }
 
 

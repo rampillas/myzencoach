@@ -21,9 +21,9 @@ public class User {
     @SerializedName("last_name")
     @Expose
     private String lastName;
-    @SerializedName("is_active")
+    /*@SerializedName("is_active")
     @Expose
-    private Boolean isActive;
+    private Boolean isActive;*/
     @SerializedName("last_login")
     @Expose
     private Object lastLogin;
@@ -73,13 +73,13 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Boolean getIsActive() {
+    /*public Boolean getIsActive() {
         return isActive;
     }
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
-    }
+    }*/
 
     public Object getLastLogin() {
         return lastLogin;

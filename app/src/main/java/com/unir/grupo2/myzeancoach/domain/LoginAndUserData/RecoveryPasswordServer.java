@@ -43,7 +43,7 @@ public class RecoveryPasswordServer {
 
                     @Override
                     public void onNext(User userObject) {
-                        if (userObject.getIsActive()) {
+                        if (true) {
                             Log.d("Recovery process", "okRecovery");
                             recoveryPasswordFragment.showContent();
                             // se muestra un toast de correcto
