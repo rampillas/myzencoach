@@ -179,6 +179,9 @@
     <string name="spanish">Español</string>
     <string name="english">Inglés</string>
     <string name="italian">Italiano</string>
+
+    !--preferences-->
+    <string name="PREFERENCES_EMOTICON">emoticon_en_preferencias</string>
     <string name="PREFERENCES_TOKEN">token_preferencias_key(no traducir)</string>
 
 </resources>
