@@ -5,7 +5,6 @@ import com.unir.grupo2.myzeancoach.domain.model.User;
 
 import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -19,15 +18,14 @@ public interface ApiCallsForLogin{
 
     @Headers("Content-Type: application/json")
     @POST("login/")
+    // se ha creado un objeto register body para que la informacion del cuerpo pueda viajar ademas de quitar la etiqueta @FormUrlEncoded
     Observable<Token> loginUser(@Body RegisterBody rb) ;
     //Observable<Token> loginUser(@Body RequestBody body);
 
     @POST("/password-recovery/")
-    @FormUrlEncoded
     Observable<User> forgetPass(@Field("username") String usuario) ;
 
     @POST("/users/")
-    @FormUrlEncoded
     Observable<User> createUser(@Field("username") String Usuario,
                                        @Field("email") String Email,
                                        @Field("first_name") String Nombre,
