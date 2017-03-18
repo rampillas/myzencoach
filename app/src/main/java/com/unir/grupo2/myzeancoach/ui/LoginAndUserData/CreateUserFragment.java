@@ -266,7 +266,7 @@ public class CreateUserFragment extends Fragment {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String nombreDeUsuario = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
-        String claveDeUsuario = sharedPref.getString(getString(R.string.PREFERENCES_PASSWORD), null);
+        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
 
         //iniciadores de vistas y spinner
         View view = inflater.inflate(R.layout.create_user, null);
@@ -291,7 +291,7 @@ public class CreateUserFragment extends Fragment {
             //mostrar pantalla rellena de datos qque hay que obtener de la db
             Log.d("usuario checkeado", "esta logeado el usuario " + nombreDeUsuario);
             LoginChecker loginChecker = new LoginChecker();
-            //loginChecker.Login("application/json","clientweb2231", "secretweb2231", nombreDeUsuario, claveDeUsuario, "password", "read+write", this);
+            loginChecker.Login("application/json",nombreDeUsuario, token, this);
             return view;
         }
 

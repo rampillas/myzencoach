@@ -154,18 +154,20 @@ public class LoginFragment extends Fragment {
         Context context = getActivity();
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String nombreDeUsuario = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
-        if (nombreDeUsuario == null) {
+        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
+        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+
+        if (token == null) {
             //mostrar pantalla de registro
             View view = inflater.inflate(R.layout.login, null);
             ButterKnife.bind(this, view);
             return view;
         } else {
             //mostrar pantalla de deslogueo
-            Log.d("usuario checkeado", "esta logeado el usuario " + nombreDeUsuario);
+            Log.d("usuario checkeado", "esta logeado el usuario ");
             View view = inflater.inflate(R.layout.user_logout_and_edit_button, null);
             ButterKnife.bind(this, view);
-            usuarioActual.setText(getString(R.string.LOGOUT_WELCOME) + " " + nombreDeUsuario + "!");
+            usuarioActual.setText( getString(R.string.LOGOUT_WELCOME)+" "+user+"!" );
             return view;
         }
 

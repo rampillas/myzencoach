@@ -6,6 +6,12 @@ public class RegisterBody {
     String client_secret;
     String username;
     String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+
     String grant_type;
     String scope;
 

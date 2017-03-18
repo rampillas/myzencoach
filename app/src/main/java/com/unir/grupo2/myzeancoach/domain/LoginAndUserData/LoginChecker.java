@@ -40,8 +40,8 @@ public class LoginChecker{
         validateUser(contentType, body, loginFragment);
     }
 
-    public void Login(String contentType,RequestBody body, CreateUserFragment createUserFragment) {
-        validateUser(contentType, body, createUserFragment);
+    public void Login(String contentType,String user, String token, CreateUserFragment createUserFragment) {
+        validateUser(contentType, user,token, createUserFragment);
     }
 
     RetrofitClient conexionAPIretrofit = new RetrofitClient();
@@ -54,7 +54,7 @@ public class LoginChecker{
         loginFragment.showLoading();
         // RxJava
         Log.d("Login Body: ", body.toString());
-        RegisterBody rb =new RegisterBody("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write");
+        final RegisterBody rb =new RegisterBody("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write");
         apiConexion.loginUser(rb).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Token>() {
                     @Override
@@ -81,6 +81,7 @@ public class LoginChecker{
                                     loginFragment.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putString(loginFragment.getString(R.string.PREFERENCES_TOKEN), token.getAccessToken());
+                            editor.putString(loginFragment.getString(R.string.PREFERENCES_USER), rb.getUsername());
                             editor.commit();
 
                             //se cambia la vista
@@ -101,13 +102,12 @@ public class LoginChecker{
 
 
     //recreamos la clase para ser llamada desde la pantalla de Crear Usuario
-    public void validateUser(String contentType, RequestBody body, final CreateUserFragment createUserFragment) {
+    public void validateUser(String contentType, String user,String token, final CreateUserFragment createUserFragment) {
 
         createUserFragment.showLoading();
         // RxJava
-        RegisterBody rb =new RegisterBody("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write");
-        apiConexion.loginUser(rb).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Token>() {
+        apiConexion.userData(user,"Beader "+token).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<User>() {
                     @Override
                     public void onCompleted() {
                         Log.d("Login process", "completado");
@@ -121,18 +121,10 @@ public class LoginChecker{
                     }
 
                     @Override
-                    public void onNext(Token token) {
+                    public void onNext(User user) {
                         Log.d("Login process", "okLogin");
-                        if (token.getAccessToken()!=null) {
-                            Log.d("Login process token= ", token.getAccessToken());
-                            createUserFragment.showContent();
-                            createUserFragment.showFieldsIntoCases(userObject);
-
-                        } else {
-                            Log.d("Login process", "incorrectpass");
-                            createUserFragment.showContent();
-                            createUserFragment.userExits();
-                        }
+                        createUserFragment.showFieldsIntoCases(user);
+                        createUserFragment.showContent();
                     }
 
 
