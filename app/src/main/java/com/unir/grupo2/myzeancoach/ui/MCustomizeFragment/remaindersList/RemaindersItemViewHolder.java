@@ -4,9 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.model.QuestionsStress;
 
+import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Remainders;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,22 +25,21 @@ public class RemaindersItemViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
+    public void bind(final Remainders remaindersItem, final RemaindersListAdapter.OnItemClickListener listener) {
 
-    public void bind(final QuestionsStress questionsStress final StressListAdapter.OnItemClickListener listener) {
-
-        videoName.setText(questionsStress.getDescription());
-        if (questionsStress.getIsCompleted()){
+        videoName.setText(remaindersItem.getDescription());
+        if (remaindersItem.getIsCompleted()){
             isCOmpleted.setTextColor(itemView.getContext().getResources().getColor(R.color.greenApp));
             isCOmpleted.setText(R.string.completed);
             scoreRatingBar.setVisibility(View.VISIBLE);
         }else{
             isCOmpleted.setText(R.string.uncompleted);
         }
-        scoreRatingBar.setRating(questionsStress.getScore());
+        scoreRatingBar.setRating(remaindersItem.getScore());
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                listener.onItemClick(questionsStress);
+                listener.onItemClick(remaindersItem);
             }
         });
     }

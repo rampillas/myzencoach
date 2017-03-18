@@ -48,6 +48,7 @@ public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemVi
         remaindersItemViewHolder.bind(remaindersItemList.get(position),listener);
     }
 
+
     @Override
     public int getItemCount() {
         return remaindersItemList.size();

@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.QuestionsStress;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
