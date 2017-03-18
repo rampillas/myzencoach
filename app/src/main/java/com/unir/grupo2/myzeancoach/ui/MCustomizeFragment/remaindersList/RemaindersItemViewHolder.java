@@ -2,7 +2,7 @@ package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.RatingBar;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
@@ -17,29 +17,33 @@ import butterknife.ButterKnife;
 
 public class RemaindersItemViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.videoName_textView) TextView videoName;
-    @BindView(R.id.isCompleted_textView) TextView isCOmpleted;
-    @BindView(R.id.score_ratingBar) RatingBar scoreRatingBar;
+    @BindView(R.id.title_textView)
+    TextView remainderTitle;
+    @BindView(R.id.observations_textView)
+    TextView remainderObservations;
+    @BindView(R.id.complete_button)
+    Button remainderComplete;
 
     public RemaindersItemViewHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
+
     public void bind(final Remainders remaindersItem, final RemaindersListAdapter.OnItemClickListener listener) {
 
-        videoName.setText(remaindersItem.getDescription());
-        if (remaindersItem.getIsCompleted()){
-            isCOmpleted.setTextColor(itemView.getContext().getResources().getColor(R.color.greenApp));
-            isCOmpleted.setText(R.string.completed);
-            scoreRatingBar.setVisibility(View.VISIBLE);
-        }else{
-            isCOmpleted.setText(R.string.uncompleted);
+        remainderTitle.setText("remaindersItem.getTitle()");
+        remainderObservations.setText("remaindersItem.getObservations()");
+        if (remaindersItem.getIsCompleted()) {
+            remainderComplete.setText(R.string.completed);
+            remainderComplete.setEnabled(false);
         }
-        scoreRatingBar.setRating(remaindersItem.getScore());
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+
+        remainderComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 listener.onItemClick(remaindersItem);
+                //TODO conect with backend and set finished task then reload the list
             }
         });
     }
