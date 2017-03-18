@@ -1,5 +1,7 @@
 package com.unir.grupo2.myzeancoach.ui.profil;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,11 +23,14 @@ import com.unir.grupo2.myzeancoach.domain.Profil.UpdateEmoticonUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Emoticon;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Subscriber;
 
 /**
@@ -55,6 +60,7 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     private String languageSelected;
     private String emoticonSelected;
     private Emoticon emoticon;
+    private String emoticonSharedPre;
 
     final static String VERY_HAPPY = "very_happy";
     final static String HAPPY = "happy";
@@ -117,12 +123,14 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     public void submit(View view) {
         boolean isUpdateData = false;
         if (emoticonSelected != null){
-            if (emoticon != null){
-                if (!emoticon.getName().equals(emoticonSelected)){
+            if (!emoticonSelected.equals(emoticonSharedPre)){
+                if (emoticon != null){
+                    if (!emoticon.getName().equals(emoticonSelected)){
+                        isUpdateData = true;
+                    }
+                }else{
                     isUpdateData = true;
                 }
-            }else{
-                isUpdateData = true;
             }
         }
         if (isUpdateData){
@@ -133,13 +141,56 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     }
 
     private void getEmoticon() {
-        showLoading();
-        new EmoticonUseCase().execute(new EmoticonSubscriber());
+
+        //check on SharedPreference
+        SharedPreferences sharedPref = getContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String emoticonShared = sharedPref.getString(getString(R.string.PREFERENCES_EMOTICON), null);
+
+        if (emoticonShared == null){
+            showLoading();
+            new EmoticonUseCase().execute(new EmoticonSubscriber());
+        }else{
+            showLoading();
+            emoticonSelected = emoticonShared;
+            setEmoticonImage(emoticonShared);
+            showContent();
+        }
     }
 
     private void saveEmoticon(){
         showLoading();
-        new UpdateEmoticonUseCase().execute(new UpdateEmoticonSubscriber());
+        boolean isPositive = false;
+
+            switch (emoticonSelected) {
+                case VERY_HAPPY:
+                case HAPPY:
+                case IN_LOVE:
+                case LAUGHING:
+                    isPositive= true;
+                    break;
+                case DISAPPOINTED:
+                case SAT:
+                case CRYING:
+                case ANGRY:
+                    isPositive= false;
+                    break;
+                default:
+                    isPositive= true;
+                    break;
+            }
+
+        Date nowDate = new Date();
+
+        String text = "{\n" +
+                "  \"name\": \""+ emoticonSelected +"\",\n" +
+                "  \"is_positive\": " + isPositive +",\n" +
+                "  \"date\": \"" + nowDate.toString() +"\"\n" +
+                "}";
+
+        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), text);
+
+        new UpdateEmoticonUseCase(body).execute(new UpdateEmoticonSubscriber());
     }
 
     private void showEmoticon(Emoticon emoticon) {
@@ -162,28 +213,28 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     private void setEmoticonImage(String emoticonName){
         emoticonSelected = emoticonName;
         switch (emoticonName) {
-            case "very_happy":
+            case VERY_HAPPY:
                 emoticonImageView.setImageResource(R.mipmap.ic_very_happy);
                 break;
-            case "happy":
+            case HAPPY:
                 emoticonImageView.setImageResource(R.mipmap.ic_happy);
                 break;
-            case "in_love":
+            case IN_LOVE:
                 emoticonImageView.setImageResource(R.mipmap.ic_in_love);
                 break;
-            case "laughing":
+            case LAUGHING:
                 emoticonImageView.setImageResource(R.mipmap.ic_laughing);
                 break;
-            case "sat":
+            case SAT:
                 emoticonImageView.setImageResource(R.mipmap.ic_sat);
                 break;
-            case "disappointed":
+            case DISAPPOINTED:
                 emoticonImageView.setImageResource(R.mipmap.ic_disappointed);
                 break;
-            case "angry":
+            case CRYING:
                 emoticonImageView.setImageResource(R.mipmap.ic_crying);
                 break;
-            case "crying":
+            case ANGRY:
                 emoticonImageView.setImageResource(R.mipmap.ic_angry);
                 break;
             default:
@@ -217,6 +268,17 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         contentLayout.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
+    }
+
+    public void saveEmoticonSharedPreference(String emoticonName){
+        SharedPreferences sharedPref = getContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.PREFERENCES_EMOTICON), emoticonName);
+        editor.commit();
+
+        emoticonSharedPre = emoticonName;
     }
 
     private final class EmoticonSubscriber extends Subscriber<Emoticon> {
@@ -259,7 +321,8 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         //Update listview datas
         @Override
         public void onNext(Emoticon emoticon) {
-            Toast.makeText(getContext(), "data saved", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.data_saved), Toast.LENGTH_LONG).show();
+            saveEmoticonSharedPreference(emoticon.getName());
         }
     }
 }

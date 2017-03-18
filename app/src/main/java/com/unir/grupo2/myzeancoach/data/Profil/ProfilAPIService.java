@@ -1,8 +1,10 @@
 package com.unir.grupo2.myzeancoach.data.Profil;
 
+import com.unir.grupo2.myzeancoach.domain.model.Emoticon;
 import com.unir.grupo2.myzeancoach.domain.model.EmoticonListPojo;
 
-import retrofit2.http.Field;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -18,13 +20,8 @@ public interface ProfilAPIService {
     Observable<EmoticonListPojo> getEmoticon(@Header("Authorization") String token);
 
     @POST("/emoticon/")
-    Observable<EmoticonListPojo> createEmoticon(@Header("Content-Type") String contentType,
-                                                @Header("Authorization") String token,
-                                                @Field("name") String name,
-                                                @Field("is_positive") boolean isPositive,
-                                                @Field("date") String date);
-
-
-    //@Body RequestBody body);
+    Observable<Emoticon> createEmoticon(@Header("Content-Type") String contentType,
+                                        @Header("Authorization") String token,
+                                        @Body RequestBody body);
 
 }

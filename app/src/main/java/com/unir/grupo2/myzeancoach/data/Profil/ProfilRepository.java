@@ -1,7 +1,9 @@
 package com.unir.grupo2.myzeancoach.data.Profil;
 
+import com.unir.grupo2.myzeancoach.domain.model.Emoticon;
 import com.unir.grupo2.myzeancoach.domain.model.EmoticonListPojo;
 
+import okhttp3.RequestBody;
 import rx.Observable;
 
 /**
@@ -11,6 +13,6 @@ import rx.Observable;
 
 public interface ProfilRepository {
     Observable<EmoticonListPojo> emoticon();
-    Observable<EmoticonListPojo> updateEmoticon();
+    Observable<Emoticon> updateEmoticon(RequestBody body);
 }
 

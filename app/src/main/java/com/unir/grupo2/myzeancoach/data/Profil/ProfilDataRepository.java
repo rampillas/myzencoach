@@ -1,10 +1,10 @@
 package com.unir.grupo2.myzeancoach.data.Profil;
 
+import com.unir.grupo2.myzeancoach.domain.model.Emoticon;
 import com.unir.grupo2.myzeancoach.domain.model.EmoticonListPojo;
 
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -54,17 +54,8 @@ public class ProfilDataRepository implements ProfilRepository {
     }
 
     @Override
-    public Observable<EmoticonListPojo> updateEmoticon() {
-        String text = "{\n" +
-                "\t\"name\":\"sat\",\n" +
-                "\t\"is_positive\": false,\n" +
-                "\t\"date\":\"2017-03-02\"\n" +
-                "}\n";
-
-        RequestBody body =
-                RequestBody.create(MediaType.parse("text/plain"), text);
-
-        return service.createEmoticon("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK","happy", true, "2017-5-6");
+    public Observable<Emoticon> updateEmoticon(RequestBody body) {
+        return service.createEmoticon("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK",body);
     }
 
 }
