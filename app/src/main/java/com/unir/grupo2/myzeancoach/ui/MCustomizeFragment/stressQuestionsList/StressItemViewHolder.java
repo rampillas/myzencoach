@@ -29,7 +29,7 @@ public class StressItemViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(final QuestionsStress questionsStress, final StressListAdapter.OnItemClickListener listener) {
 
-        videoName.setText(questionsStress.getDescription());
+       /* videoName.setText(questionsStress.getDescription());
         if (questionsStress.getIsCompleted()){
             isCOmpleted.setTextColor(itemView.getContext().getResources().getColor(R.color.greenApp));
             isCOmpleted.setText(R.string.completed);
@@ -43,6 +43,6 @@ public class StressItemViewHolder extends RecyclerView.ViewHolder {
             @Override public void onClick(View v) {
                 listener.onItemClick(questionsStress);
             }
-        });
+        });*/
     }
 }

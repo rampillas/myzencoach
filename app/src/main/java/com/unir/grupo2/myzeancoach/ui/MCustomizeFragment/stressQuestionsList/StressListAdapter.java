@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.QuestionsStress;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class StressListAdapter extends RecyclerView.Adapter<StressItemViewHolder
     //We create the viewHolder
     @Override
     public StressItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stress_question_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stress_questions_card, parent, false);
         final StressItemViewHolder stressItemViewHolder = new StressItemViewHolder(view);
 
         return stressItemViewHolder;

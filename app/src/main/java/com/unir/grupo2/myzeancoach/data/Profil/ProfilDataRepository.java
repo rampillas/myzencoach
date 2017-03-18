@@ -64,7 +64,7 @@ public class ProfilDataRepository implements ProfilRepository {
         RequestBody body =
                 RequestBody.create(MediaType.parse("text/plain"), text);
 
-        return service.createEmoticon("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK","happy", true, "asd");
+        return service.createEmoticon("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK","happy", true, "2017-5-6");
     }
 
 }
