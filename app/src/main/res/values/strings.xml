@@ -165,13 +165,19 @@
     <string name="logout">Cerrar sesión</string>
 
     <!--Profile-->
-    <string name="emoticon_very_happy">Estoy muy feliz</string>
-    <string name="emoticon_happy">Estoy feliz</string>
-    <string name="emoticon_in_love">Estoy enamorado</string>
-    <string name="emoticon_laughing">Me estoy riendo</string>
-    <string name="emoticon_sat">Estoy triste</string>
-    <string name="emoticon_disappointed">Estoy decepcionado</string>
-    <string name="emoticon_angry">Estoy enfadado</string>
-    <string name="emoticon_crying">Estoy llorando</string>
+    <string name="emoticon_very_happy">Feliz</string>
+    <string name="emoticon_happy">Muy feliz</string>
+    <string name="emoticon_in_love">Enamorado</string>
+    <string name="emoticon_laughing">Riendo</string>
+    <string name="emoticon_sat">Triste</string>
+    <string name="emoticon_disappointed">Decepcionado</string>
+    <string name="emoticon_angry">Enfadado</string>
+    <string name="emoticon_crying">Llorando</string>
+    <string name="how_you_feeling"><b>¿Cómo te sientes?</b>\nDesliza el dedo horizontalmente para ver mas estados.</string>
+    <string name="choose_language"><b>Elige un idioma</b></string>
+    <string name="save_changes">Guardar cambios</string>
+    <string name="spanish">Español</string>
+    <string name="english">Inglés</string>
+    <string name="italian">Italiano</string>
 
 </resources>
