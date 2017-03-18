@@ -21,7 +21,7 @@ public class MWelfareFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 3 ;
+    public static int int_items = 2;
 
     @Nullable
     @Override
@@ -68,8 +68,7 @@ public class MWelfareFragment extends Fragment {
         {
             switch (position){
                 case 0 : return new PlanFragment();
-                case 1 : return new ExerciseFragment();
-                case 2 : return new RateFragment();
+                case 1 : return new RateFragment();
             }
             return null;
         }
@@ -92,8 +91,6 @@ public class MWelfareFragment extends Fragment {
                 case 0 :
                     return getString(R.string.current_plan);
                 case 1 :
-                    return getString(R.string.weekly_exercise);
-                case 2 :
                     return getString(R.string.rate);
             }
             return null;

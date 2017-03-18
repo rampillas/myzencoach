@@ -13,11 +13,11 @@ import com.unir.grupo2.myzeancoach.R;
  * Created by Cesar on 22/02/2017.
  */
 
-public class ExerciseFragment extends Fragment {
+public class ExerciseActivity extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.exercise_layout,null);
+        return inflater.inflate(R.layout.welfare_plan,null);
     }
 }

@@ -27,15 +27,15 @@ public class PlanListAdapter extends RecyclerView.Adapter<PlanItemViewHolder> {
 
     @Override
     public PlanItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plan_item_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.welfare_plan_item_card, parent, false);
         return new PlanItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(PlanItemViewHolder planItemViewHolder, final int position) {
         final PlanItem planItem = planItemList.get(position);
-        planItemViewHolder.weekTextView.setText(String.format(context.getString(R.string.week_info),planItem.getWeek()));
-        planItemViewHolder.planTextView.setText(planItem.getNamePlan());
+      /*  planItemViewHolder.weekTextView.setText(String.format(context.getString(R.string.week_info),planItem.getWeek()));
+        planItemViewHolder.planTextView.setText(planItem.getNamePlan());*/
     }
 
     @Override

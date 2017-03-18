@@ -1,6 +1,8 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +43,7 @@ public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItem
         return dilemmaPostItemViewHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(DilemmaPostItemViewHolder viewHolder, int position) {
         DilemmaPost dilemmaPostItem = dilemmaPostItemList.get(position);

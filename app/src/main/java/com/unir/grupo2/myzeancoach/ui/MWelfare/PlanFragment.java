@@ -1,17 +1,13 @@
 package com.unir.grupo2.myzeancoach.ui.MWelfare;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.planList.PlanItem;
@@ -46,7 +42,7 @@ public class PlanFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.plan_layout, null);
+        View view = inflater.inflate(R.layout.welfare_plan, null);
         ButterKnife.bind(this, view);
         planItemList = new ArrayList<>();
 

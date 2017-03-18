@@ -160,4 +160,18 @@
     <string name="state_completed">Finalizado</string>
     <string name="more_seven_days"></string>
 
+    <!-- DrawerMenu and SwipeTabs -->
+    <string name="profil">Perfil</string>
+    <string name="logout">Cerrar sesión</string>
+
+    <!--Profile-->
+    <string name="emoticon_very_happy">Estoy muy feliz</string>
+    <string name="emoticon_happy">Estoy feliz</string>
+    <string name="emoticon_in_love">Estoy enamorado</string>
+    <string name="emoticon_laughing">Me estoy riendo</string>
+    <string name="emoticon_sat">Estoy triste</string>
+    <string name="emoticon_disappointed">Estoy decepcionado</string>
+    <string name="emoticon_angry">Estoy enfadado</string>
+    <string name="emoticon_crying">Estoy llorando</string>
+
 </resources>

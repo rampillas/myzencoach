@@ -31,6 +31,7 @@ import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.PublicHomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.MWelfareFragment;
+import com.unir.grupo2.myzeancoach.ui.profil.ProfitFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +94,13 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                 if (menuItem.getItemId() == R.id.nav_leisure) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.container_view, new MLeisureFragment()).commit();
+                }
+                if (menuItem.getItemId() == R.id.nav_profil) {
+                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.container_view, new ProfitFragment()).commit();
+                }
+                if (menuItem.getItemId() == R.id.nav_logout) {
+                    Toast.makeText(getBaseContext(), "log out", Toast.LENGTH_LONG).show();
                 }
                 if (menuItem.getItemId() == R.id.nav_login) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
