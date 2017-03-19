@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.model.Remainders;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,11 +28,11 @@ public class RemaindersItemViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(final Remainders remaindersItem, final RemaindersListAdapter.OnItemClickListener listener) {
+    public void bind(final RemainderItem remainderItem, final RemaindersListAdapter.OnItemClickListener listener) {
 
-        remainderTitle.setText("remaindersItem.getTitle()");
-        remainderObservations.setText("remaindersItem.getObservations()");
-        if (remaindersItem.getIsCompleted()) {
+        remainderTitle.setText(remainderItem.getTitle());
+        remainderObservations.setText(remainderItem.getDescription());
+        if (true ) { //TODO implementar mirar si es true
             remainderComplete.setText(R.string.completed);
             remainderComplete.setEnabled(false);
         }
@@ -42,8 +41,7 @@ public class RemaindersItemViewHolder extends RecyclerView.ViewHolder {
         remainderComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(remaindersItem);
-                //TODO conect with backend and set finished task then reload the list
+                listener.onItemClick(remainderItem);
             }
         });
     }

@@ -21,7 +21,10 @@ import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderActivity;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItem;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
@@ -39,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener {
+        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener,RemaindersFragment.OnPostListener {
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
@@ -59,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
         /**
          * Lets inflate the very first fragment
-         * Here , we are inflating the MCustomizeFragment as the first Fragment
+         * Here , we are inflating the Login as the first Fragment
          */
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -164,12 +167,14 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         startActivity(intent);*/
     }
 
+
     //Add post button has been clicked
     @Override
     public void onAddPostSelected() {
         Intent intent = new Intent(this, AddPostActivity.class);
         startActivity(intent);
     }
+
 
     @Override
     public void onLikePostSelected(PostItem post) {
@@ -231,5 +236,22 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                 }
             }
         }
+    }
+
+    /**************Module Customize Fragment***************/
+    @Override
+    public void onItemRemainderSelected(RemainderItem remainderItem) {
+
+    }
+
+    @Override
+    public void onAddRemainderSelected() {
+        Intent intent = new Intent(this, AddRemainderActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onCompletedRemainderSelected(RemainderItem remainderItem) {
+
     }
 }

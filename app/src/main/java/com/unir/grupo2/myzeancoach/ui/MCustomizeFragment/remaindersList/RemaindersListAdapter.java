@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.model.Remainders;
 
 import java.util.List;
 
@@ -17,16 +16,18 @@ import java.util.List;
 
 public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemViewHolder> {
     private Context context;
-    private List<Remainders> remaindersItemList;
+    private List<RemainderItem> remaindersItemList;
     private RemaindersListAdapter thisAdapter = this;
 
     public interface OnItemClickListener{
-        public void onItemClick(Remainders remaindersItem);
+        public void onItemClick(RemainderItem remaindersItem);
+        public void onCompleteClick(RemainderItem remainderItem);
+        public void onAddClick(RemainderItem remainderItem);
     }
 
     private final OnItemClickListener listener;
 
-    public RemaindersListAdapter(Context context, List<Remainders> remaindersItemList, RemaindersListAdapter.OnItemClickListener listener){
+    public RemaindersListAdapter(Context context, List<RemainderItem> remaindersItemList, RemaindersListAdapter.OnItemClickListener listener){
         this.context = context;
         this.remaindersItemList = remaindersItemList;
         this.listener = listener;
@@ -44,7 +45,7 @@ public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemVi
 
     @Override
     public void onBindViewHolder(RemaindersItemViewHolder remaindersItemViewHolder, int position) {
-        final Remainders remainderItem = remaindersItemList.get(position);
+        final RemainderItem remainderItem = remaindersItemList.get(position);
         remaindersItemViewHolder.bind(remaindersItemList.get(position),listener);
     }
 

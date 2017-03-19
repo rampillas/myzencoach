@@ -7,4 +7,5 @@
     <dimen name="letra_mediana">18dp</dimen>
     <dimen name="letra_pequeña">12dp</dimen>
     <dimen name="letra_extra_pequeña">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

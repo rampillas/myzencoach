@@ -31,36 +31,45 @@ import butterknife.OnClick;
  * Created by Cesar on 22/02/2017.
  */
 
-public class PublicHomepageFragment extends Fragment implements PostListAdapter.OnPostClickListener{
+public class PublicHomepageFragment extends Fragment implements PostListAdapter.OnPostClickListener {
 
 
     List<PostItem> postItemList;
     PostListAdapter postListAdapter;
     private UseCase useCase;
 
-    @BindView(R.id.post_recycler_view) RecyclerView postListRecyclerView;
-    @BindView(R.id.loading_layout) LinearLayout loadingLayout;
-    @BindView(R.id.error_layout) LinearLayout errorLayout;
-    @BindView(R.id.floating_action_button) FloatingActionButton floatingActionButton;
+    @BindView(R.id.post_recycler_view)
+    RecyclerView postListRecyclerView;
+    @BindView(R.id.loading_layout)
+    LinearLayout loadingLayout;
+    @BindView(R.id.error_layout)
+    LinearLayout errorLayout;
+    @BindView(R.id.floating_action_button)
+    FloatingActionButton floatingActionButton;
 
 
     PublicHomepageFragment.OnPostListener postListener;
 
-    public interface OnPostListener{
+    public interface OnPostListener {
         void onItemPostSelected(PostItem post);
+
         void onAddPostSelected();
+
         void onLikePostSelected(PostItem post);
+
         void onNumberLikePostSelected(PostItem post);
+
         void onCommentPostSelected(PostItem post);
+
         void onNumberCommentPostSelected(PostItem post);
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof PublicHomepageFragment.OnPostListener){
+        if (context instanceof PublicHomepageFragment.OnPostListener) {
             postListener = (PublicHomepageFragment.OnPostListener) context;
-        }else{
+        } else {
             throw new ClassCastException(context.toString() + " must implements PublicHomepageFragment.OnPostListener");
         }
     }
@@ -69,7 +78,7 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.public_homepage_layout,null);
+        View view = inflater.inflate(R.layout.public_homepage_layout, null);
         ButterKnife.bind(this, view);
 
         //updateData();
@@ -98,13 +107,13 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
         commentList.add(commentItem7);
 
         postItemList = new ArrayList<PostItem>();
-        PostItem post1 = new PostItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", 4, 6,commentList);
-        PostItem post2 = new PostItem("31-05-2017","Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion",52, 10,commentList);
-        PostItem post3 = new PostItem("2-05-2016","Me voy a casar","eventos", "¿Que iglesia me recomendais?", 70, 30, commentList);
-        PostItem post4 = new PostItem("2-05-2016","Aun no se con quien me voy a casar", "eventos", "Vladimir Kokorev, presunto testaferro de Teodoro Obiang, presidente de Guinea " +
-                "Ecuatorial, encarcelado por supuesto delito fiscal y blanqueo de capitales, contrató por 140.000 euros a una empresa de comunicación para limpiar la imagen de su familia e investigar a un abogado y a dos periodistas, uno de ellos de EL PAÍS, según se desprende de la documentación intervenida por la Policía en el registro de su domicilio en la madrileña calle Ferraz. La investigación sobre la familia Kokorev se inició hace 12 años al detectarse que había recibido más de 30 millones procedentes de la Tesorería General de Guinea Ecuatorial", 100, 3,commentList);
-        PostItem post5 = new PostItem("2-05-2016","Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?",54565, 123,null);
-        PostItem post6 = new PostItem("2-05-2016","voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", 0, 0,null);
+        PostItem post1 = new PostItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", 4, 6, commentList);
+        PostItem post2 = new PostItem("31-05-2017", "Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion", 52, 10, commentList);
+        PostItem post3 = new PostItem("2-05-2016", "Me voy a casar", "eventos", "¿Que iglesia me recomendais?", 70, 30, commentList);
+        PostItem post4 = new PostItem("2-05-2016", "Aun no se con quien me voy a casar", "eventos", "Vladimir Kokorev, presunto testaferro de Teodoro Obiang, presidente de Guinea " +
+                "Ecuatorial, encarcelado por supuesto delito fiscal y blanqueo de capitales, contrató por 140.000 euros a una empresa de comunicación para limpiar la imagen de su familia e investigar a un abogado y a dos periodistas, uno de ellos de EL PAÍS, según se desprende de la documentación intervenida por la Policía en el registro de su domicilio en la madrileña calle Ferraz. La investigación sobre la familia Kokorev se inició hace 12 años al detectarse que había recibido más de 30 millones procedentes de la Tesorería General de Guinea Ecuatorial", 100, 3, commentList);
+        PostItem post5 = new PostItem("2-05-2016", "Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?", 54565, 123, null);
+        PostItem post6 = new PostItem("2-05-2016", "voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", 0, 0, null);
         postItemList.add(post1);
         postItemList.add(post2);
         postItemList.add(post3);
@@ -114,7 +123,7 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
         postListRecyclerView.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
-        postListAdapter = new PostListAdapter(getContext(),postItemList, this);
+        postListAdapter = new PostListAdapter(getContext(), postItemList, this);
         postListRecyclerView.setAdapter(postListAdapter);
 
         return view;

@@ -148,7 +148,6 @@
     <string name="write_feedback">Proporciona un feedback a la solución elegida</string>
 
 
-
     <!--********* NEW WORDS ******-->
     <!--Leisure -->
     <string name="feedback"><b>Feedback:</b> %1$s</string>
@@ -183,5 +182,7 @@
     !--preferences-->
     <string name="PREFERENCES_EMOTICON">emoticon_en_preferencias</string>
     <string name="PREFERENCES_TOKEN">token_preferencias_key(no traducir)</string>
+    <string name="data_saved">datos guardados</string>
+    <string name="title_activity_add_remainder">AddRemainderActivity</string>
 
 </resources>
