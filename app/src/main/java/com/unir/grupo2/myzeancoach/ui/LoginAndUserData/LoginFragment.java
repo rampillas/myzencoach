@@ -165,9 +165,8 @@ public class LoginFragment extends Fragment {
         } else {
             //mostrar pantalla de deslogueo
             Log.d("usuario checkeado", "esta logeado el usuario ");
-            View view = inflater.inflate(R.layout.user_logout_and_edit_button, null);
+            View view = inflater.inflate(R.layout.remainders_layout, null);
             ButterKnife.bind(this, view);
-            usuarioActual.setText( getString(R.string.LOGOUT_WELCOME)+" "+user+"!" );
             return view;
         }
 

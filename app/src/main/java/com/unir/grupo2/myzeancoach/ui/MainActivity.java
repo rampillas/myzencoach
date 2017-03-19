@@ -1,7 +1,9 @@
 package com.unir.grupo2.myzeancoach.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
          */
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+        fragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
 
 
         //Setup click events on the Navigation View Items.
@@ -100,6 +102,13 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                     xfragmentTransaction.replace(R.id.container_view, new ProfilFragment()).commit();
                 }
                 if (menuItem.getItemId() == R.id.nav_logout) {
+                    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                            getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.clear().commit();
+                    //se muestra la pantalla de login
+                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
                     Toast.makeText(getBaseContext(), "log out", Toast.LENGTH_LONG).show();
                 }
                 if (menuItem.getItemId() == R.id.nav_login) {

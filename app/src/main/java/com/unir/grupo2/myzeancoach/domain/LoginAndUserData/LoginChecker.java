@@ -13,6 +13,7 @@ import com.unir.grupo2.myzeancoach.domain.model.Token;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
 
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
@@ -87,7 +88,7 @@ public class LoginChecker{
                             //se cambia la vista
                             loginFragment.showContent();
                             FragmentTransaction xfragmentTransaction = loginFragment.getFragmentManager().beginTransaction();
-                            xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
+                            xfragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
                         } else {
                             Log.d("Login process", "incorrectpass");
                             loginFragment.showError();
