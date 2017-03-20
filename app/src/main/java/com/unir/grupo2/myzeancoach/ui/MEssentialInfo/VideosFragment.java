@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import com.google.gson.Gson;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.VideosUseCase;
-import com.unir.grupo2.myzeancoach.domain.UseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Video;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.videoList.VideoListAdapter;
 
@@ -35,7 +34,6 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
 
     List<Video> videoItemList;
     VideoListAdapter videoListAdapter;
-    private UseCase useCase;
 
     @BindView(R.id.video_recycler_view) RecyclerView videoListRecyclerView;
     @BindView(R.id.loading_layout) LinearLayout loadingLayout;

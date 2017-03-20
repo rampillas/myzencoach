@@ -23,7 +23,6 @@
     <string name="my_dilemmas">Mis dilemas</string>
     <string name="homepage">Muro</string>
     <string name="coach">Coach</string>
-    <string name="current_plan">Plan Actual</string>
     <string name="weekly_exercise">Ejercicio semanal</string>
     <string name="rate">Valoración</string>
     <string name="test_completed_dialog">El test se ha guardado y enviado correctamente. Recuerde que
@@ -178,11 +177,20 @@
     <string name="spanish">Español</string>
     <string name="english">Inglés</string>
     <string name="italian">Italiano</string>
+    <string name="data_saved">Los datos se han guardado correctamente</string>
 
     !--preferences-->
-    <string name="PREFERENCES_EMOTICON">emoticon_en_preferencias</string>
+    <string name="PREFERENCES_EMOTICON">emoticon_en_preferencias(no traducir)</string>
     <string name="PREFERENCES_TOKEN">token_preferencias_key(no traducir)</string>
-    <string name="data_saved">datos guardados</string>
+    <string name="PREFERENCES_CURRENT_PLAN_WELFARE">current_plan_welfare(no traducir)</string>
+
+
     <string name="title_activity_add_remainder">AddRemainderActivity</string>
+
+    <!--Welfare-->
+    <string name="choose_plan">Elige un plan</string>
+    <string name="ongoing_plan">Comenzado</string>
+    <string name="choose_ongoing_one">Solo puedes seleccionar el plan que ya has comenzado</string>
+    <string name="week_number">Semana %1d</string>
 
 </resources>

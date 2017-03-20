@@ -14,7 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
+import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
@@ -35,14 +39,19 @@ import com.unir.grupo2.myzeancoach.ui.MLeisure.CommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.PublicHomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
-import com.unir.grupo2.myzeancoach.ui.MWelfare.MWelfareFragment;
+import com.unir.grupo2.myzeancoach.ui.MWelfare.CurrentPlanFragment;
+import com.unir.grupo2.myzeancoach.ui.MWelfare.MainExerciseActivity;
+import com.unir.grupo2.myzeancoach.ui.MWelfare.WelfareAllPlansFragment;
 import com.unir.grupo2.myzeancoach.ui.profil.ProfilFragment;
+
+import java.lang.reflect.Type;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener,RemaindersFragment.OnPostListener {
+        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener,RemaindersFragment.OnPostListener,
+        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener{
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
@@ -62,11 +71,10 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
         /**
          * Lets inflate the very first fragment
-         * Here , we are inflating the Login as the first Fragment
          */
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
+        fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
 
 
         //Setup click events on the Navigation View Items.
@@ -92,8 +100,21 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                 }
 
                 if (menuItem.getItemId() == R.id.nav_welfare) {
-                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.container_view, new MWelfareFragment()).commit();
+                    //check on SharedPreference
+                    SharedPreferences sharedPref = getSharedPreferences(
+                            getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+                    String savedPLan = sharedPref.getString(getString(R.string.PREFERENCES_CURRENT_PLAN_WELFARE), null);
+
+                    if (savedPLan != null){
+                        Type type = new TypeToken<PlanWelfare>() {}.getType();
+                        Gson gson = new Gson();
+                        PlanWelfare plan = gson.fromJson(savedPLan, type);
+                        launchCurrentPlanFragment(plan);
+                    }else{
+                        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                        xfragmentTransaction.replace(R.id.container_view, new WelfareAllPlansFragment()).commit();
+                    }
                 }
 
                 if (menuItem.getItemId() == R.id.nav_leisure) {
@@ -135,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         mDrawerToggle.syncState();
 
     }
+
     /************Module Essential Info*******/
 
     //Test item has been clicked
@@ -211,6 +233,34 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         startActivityForResult(intent, DILEMMA_COMMENT_REQUEST);
     }
 
+    /*************Module Welfare**************************/
+    private void launchMainExerciseActivity(ExerciseWelfare exerciseWelfare){
+        Intent intent = new Intent(this, MainExerciseActivity.class);
+        intent.putExtra("EXERCISE", exerciseWelfare);
+        startActivity(intent);
+    }
+
+    private void launchCurrentPlanFragment(PlanWelfare plan){
+        CurrentPlanFragment fragment = new CurrentPlanFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("PLAN", plan);
+        fragment.setArguments(bundle);
+
+        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        xfragmentTransaction.replace(R.id.container_view, fragment).commit();
+    }
+
+    @Override
+    public void onItemExerciseSelected(ExerciseWelfare exercise) {
+        launchMainExerciseActivity(exercise);
+    }
+
+    @Override
+    public void onItemPlanSelected(PlanWelfare plan) {
+        launchCurrentPlanFragment(plan);
+    }
+
+
     /****************All modules *******************/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -254,4 +304,5 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     public void onCompletedRemainderSelected(RemainderItem remainderItem) {
 
     }
+
 }
