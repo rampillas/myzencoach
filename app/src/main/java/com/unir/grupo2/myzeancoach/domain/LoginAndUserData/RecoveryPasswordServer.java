@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.ApiCallsForLogin;
+import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RecoveryPasswordObject;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RetrofitClient;
-import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.RecoveryPasswordFragment;
 
@@ -27,8 +27,9 @@ public class RecoveryPasswordServer {
 
         recoveryPasswordFragment.showLoading();
         // RxJava
-        apiConexion.forgetPass(usuario).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<User>() {
+        RecoveryPasswordObject recoveryPasswordObject =new RecoveryPasswordObject(usuario);
+        apiConexion.forgetPass(recoveryPasswordObject).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<RecoveryPasswordObject>() {
                     @Override
                     public void onCompleted() {
                         Log.d("Login process", "completado");
@@ -42,7 +43,7 @@ public class RecoveryPasswordServer {
                     }
 
                     @Override
-                    public void onNext(User userObject) {
+                    public void onNext(RecoveryPasswordObject userObject) {
                         if (true) {
                             Log.d("Recovery process", "okRecovery");
                             recoveryPasswordFragment.showContent();

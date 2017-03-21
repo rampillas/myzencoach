@@ -79,7 +79,7 @@ public class LoginFragment extends Fragment {
             RequestBody body =
                     RequestBody.create(MediaType.parse("text/plain"), bodyString);
 
-            loginChecker.Login("application/json", body, this);
+            loginChecker.Login("application/json", usuarioLogin.getText().toString(), password.getText().toString(), this);
         } else {
             loginFalse.setText(getResources().getString(R.string.LOGIN_BAD_LOGIN));
             loginFalse.setTextColor(getResources().getColor(R.color.redApp));

@@ -23,7 +23,6 @@ public interface ApiCallsForLogin{
     @POST("login/")
     // se ha creado un objeto register body para que la informacion del cuerpo pueda viajar ademas de quitar la etiqueta @FormUrlEncoded
     Observable<Token> loginUser(@Body RegisterBody rb) ;
-    //Observable<Token> loginUser(@Body RequestBody body);
 
 
     //recuperar usuario
@@ -33,8 +32,9 @@ public interface ApiCallsForLogin{
     Observable<User> userData(@Path("username") String user, @Header("Authorization") String access_token) ;
     //Observable<Token> loginUser(@Body RequestBody body);
 
+    @Headers("Content-Type: application/json")
     @POST("/password-recovery/")
-    Observable<User> forgetPass(@Field("username") String usuario) ;
+    Observable<RecoveryPasswordObject> forgetPass(@Body RecoveryPasswordObject rpo) ;
 
     @POST("/users/")
     Observable<User> createUser(@Field("username") String Usuario,

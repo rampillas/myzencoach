@@ -15,7 +15,6 @@ import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
 
-import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,8 +36,8 @@ public class LoginChecker{
         }
     }
 
-    public void Login(String contentType, RequestBody body, LoginFragment loginFragment) {
-        validateUser(contentType, body, loginFragment);
+    public void Login(String contentType, String user, String pass, LoginFragment loginFragment) {
+        validateUser(contentType, user, pass,loginFragment);
     }
 
     public void Login(String contentType,String user, String token, CreateUserFragment createUserFragment) {
@@ -50,12 +49,11 @@ public class LoginChecker{
     ApiCallsForLogin apiConexion = retrofit.create(ApiCallsForLogin.class);
 
 
-    public void validateUser(String contentType,RequestBody body, final LoginFragment loginFragment) {
+    public void validateUser(String contentType, String user, String pass, final LoginFragment loginFragment) {
 
         loginFragment.showLoading();
         // RxJava
-        Log.d("Login Body: ", body.toString());
-        final RegisterBody rb =new RegisterBody("clientweb2231","secretweb2231", "ceo", "1234", "password","read+write");
+        final RegisterBody rb =new RegisterBody("clientweb2231","secretweb2231", user, pass, "password","read+write");
         apiConexion.loginUser(rb).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Token>() {
                     @Override
