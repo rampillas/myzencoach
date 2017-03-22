@@ -45,7 +45,6 @@ public class PostListAdapter  extends RecyclerView.Adapter<PostItemViewHolder>  
 
     @Override
     public void onBindViewHolder(PostItemViewHolder viewHolder, int position) {
-        PostItem postItem = postItemList.get(position);
         viewHolder.bind(postItemList.get(position),listener);
     }
 

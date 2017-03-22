@@ -199,7 +199,7 @@
     <string name="dialog_title_survey_sent_plan_over">Ejercicio y plan completados</string>
     <string name="dialog_message_survey_sent">Enhorabuena por realizar el ejercicio de la semana y gracias por mandarnos su valoración</string>
     <string name="dialog_message_survey_sent_over">Enhorabuena por realizar el ejercicio de la semana y finalizar por completo el plan. Gracias por mandarnos su valoración</string>
-    <string name="alert_plan_chosen">El plan seleccionado se ha guardado en sus preferencias. Podra volver a ver la lista de planes al finalizar sel seleccionado a la cerrar sesión</string>
+    <string name="alert_plan_chosen">El plan seleccionado se ha guardado en sus preferencias. Podrá volver a ver la lista de planes al finalizar el plan seleccionado o al cerrar sesión</string>
     <string name="error_update_survey">Error al guardar su valoración</string>
     <string name="alert_check_fields_empty">Responda a todas las preguntas por favor.</string>
     <string name="dialog_title_url_no_valid">URL no válida</string>

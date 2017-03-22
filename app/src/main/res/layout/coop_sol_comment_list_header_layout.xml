@@ -8,14 +8,14 @@
 
     <TextView
         android:id="@+id/title_textView"
-        style="bold"
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:textColor="@color/black"
+        android:textColor="@color/colorAccent"
         android:textSize="@dimen/letra_menos_grande"/>
 
     <TextView

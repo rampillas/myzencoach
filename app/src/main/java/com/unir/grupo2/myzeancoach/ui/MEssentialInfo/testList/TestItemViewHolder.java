@@ -43,5 +43,19 @@ public class TestItemViewHolder extends RecyclerView.ViewHolder {
                 listener.onItemClick(testItem);
             }
         });
+
+        videoName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(testItem);
+            }
+        });
+
+        isCOmpleted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(testItem);
+            }
+        });
     }
 }

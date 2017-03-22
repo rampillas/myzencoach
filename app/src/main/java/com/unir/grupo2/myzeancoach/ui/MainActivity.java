@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                 drawerLayout.closeDrawers();
 
                 if (menuItem.getItemId() == R.id.nav_customise) {
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                    xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
 
                 }
 

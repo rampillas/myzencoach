@@ -28,7 +28,7 @@ public class TesttListAdapter extends RecyclerView.Adapter<TestItemViewHolder>{
 
     private final OnItemClickListener listener;
 
-    public TesttListAdapter(Context context, List<Test> testItemList, OnItemClickListener listener){
+    public TesttListAdapter(Context context, List<Test> testItemList, TesttListAdapter.OnItemClickListener listener){
         this.context = context;
         this.testItemList = testItemList;
         this.listener = listener;
@@ -45,7 +45,6 @@ public class TesttListAdapter extends RecyclerView.Adapter<TestItemViewHolder>{
 
     @Override
     public void onBindViewHolder(TestItemViewHolder testItemViewHolder, int position) {
-        final Test testItem = testItemList.get(position);
         testItemViewHolder.bind(testItemList.get(position),listener);
     }
 
