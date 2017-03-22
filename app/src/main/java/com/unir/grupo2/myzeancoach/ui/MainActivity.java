@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
     static final int DILEMMA_COMMENT_REQUEST = 3;
+    static final int PLAN_EXERCISE_REQUEST = 4;
 
     // ui
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     private FragmentTransaction fragmentTransaction;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -104,16 +105,16 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                     SharedPreferences sharedPref = getSharedPreferences(
                             getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-                    String savedPLan = sharedPref.getString(getString(R.string.PREFERENCES_CURRENT_PLAN_WELFARE), null);
+                    String savedPlan = sharedPref.getString(getString(R.string.PREFERENCES_CURRENT_PLAN_WELFARE),null);
 
-                    if (savedPLan != null){
-                        Type type = new TypeToken<PlanWelfare>() {}.getType();
-                        Gson gson = new Gson();
-                        PlanWelfare plan = gson.fromJson(savedPLan, type);
-                        launchCurrentPlanFragment(plan);
-                    }else{
+                    if (savedPlan == null || savedPlan.equals("null")){
                         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                         xfragmentTransaction.replace(R.id.container_view, new WelfareAllPlansFragment()).commit();
+                    }else{
+                        Type type = new TypeToken<PlanWelfare>() {}.getType();
+                        Gson gson = new Gson();
+                        PlanWelfare plan = gson.fromJson(savedPlan, type);
+                        launchCurrentPlanFragment(plan);
                     }
                 }
 
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     private void launchMainExerciseActivity(ExerciseWelfare exerciseWelfare){
         Intent intent = new Intent(this, MainExerciseActivity.class);
         intent.putExtra("EXERCISE", exerciseWelfare);
-        startActivity(intent);
+        startActivityForResult(intent, PLAN_EXERCISE_REQUEST);
     }
 
     private void launchCurrentPlanFragment(PlanWelfare plan){
@@ -282,6 +283,19 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                     if (data.getBooleanExtra("IS_UPDATED", true)){
                         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                         xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
+                    }
+                }
+            }
+            /*************Module Welfare****************/
+        }else if (requestCode == PLAN_EXERCISE_REQUEST){
+            if (resultCode == RESULT_OK) {
+                if (data != null){
+                    if (data.getBooleanExtra("IS_PLAN_COMPLETED", true)){
+                        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                        xfragmentTransaction.replace(R.id.container_view, new WelfareAllPlansFragment()).commit();
+                    }else{
+                        PlanWelfare plan = data.getParcelableExtra("PLAN");
+                        launchCurrentPlanFragment(plan);
                     }
                 }
             }

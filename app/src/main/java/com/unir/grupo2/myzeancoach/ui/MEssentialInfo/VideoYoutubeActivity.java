@@ -1,8 +1,10 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -43,27 +45,42 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
         videoName = intent.getStringExtra("VIDEO_NAME");
         isWatched = intent.getBooleanExtra("IS_WATCHED", false);
 
-        int inicio = fullUrl.indexOf("watch?v") + 8;
-        url = fullUrl.substring(inicio);
 
-        myPlayerStateChangeListener = new MyPlayerStateChangeListener();
+        //Checking if the URL is from Youtube
+        if (!fullUrl.toLowerCase().contains("watch?v".toLowerCase())){
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.dialog_title_url_no_valid))
+                    .setMessage(getString(R.string.dialog_massage_no_youtube_url_video))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }else{
+            int inicio = fullUrl.indexOf("watch?v") + 8;
+            url = fullUrl.substring(inicio);
 
-        onInitializedListener = new YouTubePlayer.OnInitializedListener(){
+            myPlayerStateChangeListener = new MyPlayerStateChangeListener();
 
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
-                youTubePlayer.loadVideo(url);
+            onInitializedListener = new YouTubePlayer.OnInitializedListener(){
 
-                youTubePlayer.setPlayerStateChangeListener(myPlayerStateChangeListener);
-            }
+                @Override
+                public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
+                    youTubePlayer.loadVideo(url);
 
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+                    youTubePlayer.setPlayerStateChangeListener(myPlayerStateChangeListener);
+                }
 
-            }
-        };
+                @Override
+                public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
 
-        youtubeView.initialize(YOUTUBE_KEY, onInitializedListener);
+                }
+            };
+
+            youtubeView.initialize(YOUTUBE_KEY, onInitializedListener);
+        }
     }
 
     private final class MyPlayerStateChangeListener implements YouTubePlayer.PlayerStateChangeListener {

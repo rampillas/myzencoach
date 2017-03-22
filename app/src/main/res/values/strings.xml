@@ -119,7 +119,7 @@
     <string name="description">Descripción. ¿Qué estás pensando?</string>
     <string name="category">Elige una categoría</string>
     <string name="post">Publicar</string>
-    <string name="public_homepage">Muro público</string>
+    <string name="public_homepage">Muro</string>
     <string name="set_up_your_interests">Selecciona los intereses que sean de tu preferencia</string>
     <string name="save_interests">Guardar intereses</string>
     <string name="write_comment">Escribe un commentario...</string>
@@ -156,7 +156,6 @@
     <string name="state_feedback_1">Esperando feedback</string>
     <string name="state_feedback_2">Ha pasado más de 1 semana. Proporcione feedback por favor.</string>
     <string name="state_completed">Finalizado</string>
-    <string name="more_seven_days"></string>
 
     <!-- DrawerMenu and SwipeTabs -->
     <string name="profil">Perfil</string>
@@ -192,5 +191,23 @@
     <string name="ongoing_plan">Comenzado</string>
     <string name="choose_ongoing_one">Solo puedes seleccionar el plan que ya has comenzado</string>
     <string name="week_number">Semana %1d</string>
+    <string name="question_answer">Escriba su respuesta</string>
+    <string name="exercise_rate_number">¿Qué le ha parecido el ejercicio?</string>
+    <string name="exercise_rate_string">Por favor, proporcione una valoracion del ejercicio.</string>
+    <string name="send_survey">Enviar valoración</string>
+    <string name="dialog_title_survey_sent">Ejercicio completado</string>
+    <string name="dialog_title_survey_sent_plan_over">Ejercicio y plan completados</string>
+    <string name="dialog_message_survey_sent">Enhorabuena por realizar el ejercicio de la semana y gracias por mandarnos su valoración</string>
+    <string name="dialog_message_survey_sent_over">Enhorabuena por realizar el ejercicio de la semana y finalizar por completo el plan. Gracias por mandarnos su valoración</string>
+    <string name="alert_plan_chosen">El plan seleccionado se ha guardado en sus preferencias. Podra volver a ver la lista de planes al finalizar sel seleccionado a la cerrar sesión</string>
+    <string name="error_update_survey">Error al guardar su valoración</string>
+    <string name="alert_check_fields_empty">Responda a todas las preguntas por favor.</string>
+    <string name="dialog_title_url_no_valid">URL no válida</string>
+    <string name="dialog_massage_no_youtube_url_audio">La URL del audio debe ser de Youtube</string>
+    <string name="dialog_title_no_plans_available">No hay planes disponibles</string>
+    <string name="dialog_message_no_plans_available">Le sugerimos esperar hasta que haya un plan disponible para usted. Perdone las molestias</string>
+
+    <!-- essential_information-->
+    <string name="dialog_massage_no_youtube_url_video">La URL del video debe ser de Youtube</string>
 
 </resources>

@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-public class ExerciseWelfare implements Parcelable{
+public class ExerciseWelfare implements Parcelable {
 
     @SerializedName("week")
     @Expose
@@ -70,6 +70,20 @@ public class ExerciseWelfare implements Parcelable{
                     return new ExerciseWelfare[size];
                 }
             };
+
+    public boolean equals(Object obj) {
+        if (obj instanceof ExerciseWelfare) {
+            ExerciseWelfare exerciseTemp = (ExerciseWelfare) obj;
+            if (this.week.equals(exerciseTemp.week) && this.description.equals(exerciseTemp.description) &&
+                    this.audioUrl.equals(exerciseTemp.audioUrl) && this.instructions.equals(exerciseTemp.instructions)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
     public Integer getWeek() {
         return week;

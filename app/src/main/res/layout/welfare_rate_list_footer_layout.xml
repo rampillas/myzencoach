@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="15dp"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/exercise_rate_number"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="@dimen/letra_mediana"/>
+
+    <RatingBar
+        android:id="@+id/rate_ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:stepSize="1"
+        android:numStars="5"/><!-- number of stars to be displayed-->
+    />
+
+    <EditText
+        android:id="@+id/rate_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:hint="@string/exercise_rate_string"
+        android:inputType="textMultiLine"
+        android:minHeight="100dp"/>
+
+    <Button
+        android:id="@+id/send__button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorAccent"
+        android:text="@string/send_survey"/>
+</LinearLayout>
