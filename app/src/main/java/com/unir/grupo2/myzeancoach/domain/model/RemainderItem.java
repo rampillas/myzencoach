@@ -1,11 +1,12 @@
 package com.unir.grupo2.myzeancoach.domain.model;
 
 import com.google.gson.annotations.Expose;
-import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+import javax.annotation.Generated;
+
 @Generated("com.robohorse.robopojogenerator")
-public class RemaindersPojo{
+public class RemainderItem {
 
 	@SerializedName("date")
 	@Expose
@@ -130,7 +131,7 @@ public class RemaindersPojo{
 	@Override
  	public String toString(){
 		return 
-			"RemaindersPojo{" + 
+			"RemainderItemObject{" +
 			"date = '" + date + '\'' + 
 			",subtitle = '" + subtitle + '\'' + 
 			",description = '" + description + '\'' + 

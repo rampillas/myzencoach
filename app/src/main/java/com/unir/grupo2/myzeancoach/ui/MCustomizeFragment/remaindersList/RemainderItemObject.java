@@ -4,12 +4,12 @@ package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList;
  * Created by andres on 19/03/2017.
  */
 
-public class RemainderItem {
+public class RemainderItemObject {
     String title;
     String description;
     Boolean isCompleted;
 
-    public RemainderItem(String title, String description, Boolean isCompleted) {
+    public RemainderItemObject(String title, String description, Boolean isCompleted) {
 
         this.title = title;
         this.description = description;

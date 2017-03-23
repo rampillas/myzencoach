@@ -1,6 +1,6 @@
 package com.unir.grupo2.myzeancoach.data.MCustomize;
 
-import com.unir.grupo2.myzeancoach.domain.model.RemaindersPojo;
+import com.unir.grupo2.myzeancoach.domain.model.RemaindersListPojo;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -18,7 +18,7 @@ import rx.Observable;
 public interface ApiCallsRemainders {
     @Headers("Content-Type: application/json")
     @GET("personalization/reminders")
-    Observable<RemaindersPojo> getRemainders(@Header("Authorization") String token);
+    Observable<RemaindersListPojo> getRemainders(@Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
     @POST("personalization/reminders/{username}/updateReminder/")

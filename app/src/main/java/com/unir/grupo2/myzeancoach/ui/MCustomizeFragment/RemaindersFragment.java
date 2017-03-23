@@ -14,15 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItem;
+import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.UpdateListUseCase;
+import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemaindersListAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 /**
  * Created by Cesar on 22/02/2017.
@@ -41,17 +43,19 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     }
 
     RemaindersListAdapter remaindersListAdapter;
-
-    private List<RemainderItem> remainders;
+    //elements from database
+    List<RemainderItem> remainderItemList;
+    //local elements for view holder
+    private List<RemainderItemObject> remainders;
 
     RemaindersFragment.OnPostListener postListener;
 
     public interface OnPostListener {
-        void onItemRemainderSelected(RemainderItem remainderItem);
+        void onItemRemainderSelected(RemainderItemObject remainderItem);
 
         void onAddRemainderSelected();
 
-        void onCompletedRemainderSelected(RemainderItem remainderItem);
+        void onCompletedRemainderSelected(RemainderItemObject remainderItem);
 
     }
 
@@ -78,12 +82,12 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         taskList.setLayoutManager(mLayoutManager);
 
-        RemainderItem p1 = new RemainderItem("titulo", "obs", true);
-        RemainderItem p2 = new RemainderItem("titulo", "obs", true);
-        RemainderItem p3 = new RemainderItem("titulo", "obs", true);
-        RemainderItem p4 = new RemainderItem("titulo", "obs", true);
-        RemainderItem p5 = new RemainderItem("titulo", "obs", true);
-        remainders = new ArrayList<RemainderItem>();
+        /*RemainderItemObject p1 = new RemainderItemObject("titulo", "obs", true);
+        RemainderItemObject p2 = new RemainderItemObject("titulo", "obs", true);
+        RemainderItemObject p3 = new RemainderItemObject("titulo", "obs", true);
+        RemainderItemObject p4 = new RemainderItemObject("titulo", "obs", true);
+        RemainderItemObject p5 = new RemainderItemObject("titulo", "obs", true);
+        remainders = new ArrayList<RemainderItemObject>();
         remainders.add(p1);
         remainders.add(p2);
         remainders.add(p3);
@@ -93,22 +97,98 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
 
         // specify an adapter (see also next example)
         remaindersListAdapter = new RemaindersListAdapter(getContext(), remainders, this);
-        taskList.setAdapter(remaindersListAdapter);
+        taskList.setAdapter(remaindersListAdapter);*/
+        updatedata();
         return view;
     }
 
+    private void updatedata() {
+        showLoading();
+        //todo pasarel token sacado de las shared preferences
+        new UpdateListUseCase("TOKEN HERE").execute(new RemaindersFragment.RemaindersSubscriber());
+
+    }
+
+    private final class RemaindersSubscriber extends Subscriber<List<RemainderItem>> {
+        //3 callbacks
+
+        //Show the listView
+        @Override
+        public void onCompleted() {
+
+        }
+
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+            showError();
+        }
+
+        //Update listview datas
+        @Override
+        public void onNext(List<RemainderItem> remainderItems) {
+            updateList(remainderItems);
+        }
+    }
+
+    private void updateList(List<RemainderItem> remainderItemList) {
+        remainders.clear();
+        this.remainderItemList = remainderItemList;
+        if(remainderItemList!=null&& remainderItemList.size()>0){
+            for (int i = 0; i< this.remainderItemList.size(); i++){
+                RemainderItem remainderItem = remainderItemList.get(i);
+                RemainderItemObject remainderItemObject = new RemainderItemObject(remainderItem.getTitle(),remainderItem.getDescription(),true);
+                        //todo implementar el recuperar si ese item esta completo o no;
+                remainders.add(remainderItemObject);
+            }
+        }
+        showContent();
+        remaindersListAdapter = new RemaindersListAdapter(getContext(), this.remainders, this);
+        taskList.setAdapter(remaindersListAdapter);
+    }
+
+    /**
+     * Method used to show error view
+     */
+    public void showError() {
+        /*recyclerView.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
+        noTestLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);*/
+    }
+
+    /**
+     * Method used to show the loading view
+     */
+    public void showLoading() {
+        /*loadingLayout.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+        noTestLayout.setVisibility(View.GONE);*/
+    }
+
+    /**
+     * Method used to show the listView
+     */
+    public void showContent() {
+        /*recyclerView.setVisibility(View.VISIBLE);
+        loadingLayout.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+        noTestLayout.setVisibility(View.GONE);*/
+    }
+
     @Override
-    public void onItemClick(RemainderItem remaindersItem) {
+    public void onItemClick(RemainderItemObject remaindersItem) {
         postListener.onItemRemainderSelected(remaindersItem);
     }
 
     @Override
-    public void onCompleteClick(RemainderItem remainderItem) {
+    public void onCompleteClick(RemainderItemObject remainderItem) {
         postListener.onCompletedRemainderSelected(remainderItem);
     }
 
     @Override
-    public void onAddClick(RemainderItem remainderItem) {
+    public void onAddClick(RemainderItemObject remainderItem) {
         postListener.onAddRemainderSelected();
     }
 }

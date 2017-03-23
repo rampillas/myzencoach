@@ -28,7 +28,7 @@ public class RemaindersItemViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(final RemainderItem remainderItem, final RemaindersListAdapter.OnItemClickListener listener) {
+    public void bind(final RemainderItemObject remainderItem, final RemaindersListAdapter.OnItemClickListener listener) {
 
         remainderTitle.setText(remainderItem.getTitle());
         remainderObservations.setText(remainderItem.getDescription());

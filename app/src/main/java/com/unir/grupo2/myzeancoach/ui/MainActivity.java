@@ -30,7 +30,7 @@ import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPos
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderActivity;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItem;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     /**************Module Customize Fragment***************/
     @Override
-    public void onItemRemainderSelected(RemainderItem remainderItem) {
+    public void onItemRemainderSelected(RemainderItemObject remainderItem) {
 
     }
 
@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     }
 
     @Override
-    public void onCompletedRemainderSelected(RemainderItem remainderItem) {
+    public void onCompletedRemainderSelected(RemainderItemObject remainderItem) {
 
     }
 
