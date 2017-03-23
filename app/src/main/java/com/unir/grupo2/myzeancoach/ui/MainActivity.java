@@ -12,6 +12,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -141,6 +143,8 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                     xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
                 }
 
+                closeSoftKeyboard();
+
                 return false;
             }
 
@@ -156,6 +160,14 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
         mDrawerToggle.syncState();
 
+    }
+
+    private void closeSoftKeyboard(){
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     /************Module Essential Info*******/
@@ -179,29 +191,12 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     }
 
     /**************Module Leisure***************/
-
     /*****Homepage*****/
-    //Post item has been clicked
-    @Override
-    public void onItemPostSelected(PostItem post) {
-        Toast.makeText(this, "item has been clicked", Toast.LENGTH_LONG).show();
-        /*Intent intent = new Intent(this, VideoYoutubeActivity.class);
-        intent.putExtra("URL",urlName);
-        startActivity(intent);*/
-    }
-
-
     //Add post button has been clicked
     @Override
     public void onAddPostSelected() {
         Intent intent = new Intent(this, AddPostActivity.class);
         startActivity(intent);
-    }
-
-
-    @Override
-    public void onLikePostSelected(PostItem post) {
-
     }
 
     @Override

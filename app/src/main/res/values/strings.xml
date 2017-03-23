@@ -122,7 +122,7 @@
     <string name="public_homepage">Muro</string>
     <string name="set_up_your_interests">Selecciona los intereses que sean de tu preferencia</string>
     <string name="save_interests">Guardar intereses</string>
-    <string name="write_comment">Escribe un commentario...</string>
+    <string name="write_comment">Escribe un comentario...</string>
     <string name="number_comments">%1$d comentarios</string>
 
     <!--Remainders -->

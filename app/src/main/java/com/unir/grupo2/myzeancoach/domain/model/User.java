@@ -1,10 +1,13 @@
 
 package com.unir.grupo2.myzeancoach.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+public class User implements Parcelable {
 
     @SerializedName("url")
     @Expose
@@ -32,6 +35,52 @@ public class User {
     private Profile profile;
 
     private String password;
+
+    public User(){
+
+    }
+
+    protected User(Parcel in) {
+        url = in.readString();
+        username = in.readString();
+        email = in.readString();
+        firstName = in.readString();
+        lastName = in.readString();
+        lastLogin = (Object) in.readValue(Object.class.getClassLoader());
+        profile = (Profile) in.readValue(Profile.class.getClassLoader());
+        password = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(url);
+        dest.writeString(username);
+        dest.writeString(email);
+        dest.writeString(firstName);
+        dest.writeString(lastName);
+        dest.writeValue(lastLogin);
+        dest.writeValue(profile);
+        dest.writeString(password);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
 
     public String getUrl() {
         return url;

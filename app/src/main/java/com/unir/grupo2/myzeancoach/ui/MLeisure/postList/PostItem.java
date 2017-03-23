@@ -17,18 +17,15 @@ public class PostItem implements Parcelable{
     private String title;
     private String category;
     private String description;
-    private int likeNumber;
-    private int commentNumber;
+    private ArrayList<Like> likes;
     private ArrayList<CommentItem> comments;
 
-    public PostItem(String date, String title, String category, String description, int likeNumber,
-                    int commentNumber, ArrayList<CommentItem> comments){
+    public PostItem(String date, String title, String category, String description, ArrayList<Like> likes, ArrayList<CommentItem> comments){
         this.date = date;
         this.title = title;
         this.category = category;
         this.description = description;
-        this.likeNumber = likeNumber;
-        this.commentNumber = commentNumber;
+        this.likes = likes;
         this.comments = comments;
     }
 
@@ -37,8 +34,7 @@ public class PostItem implements Parcelable{
         out.writeString(title);
         out.writeString(category);
         out.writeString(description);
-        out.writeInt(likeNumber);
-        out.writeInt(commentNumber);
+        out.writeList(likes);
         // out.writeTypedList(questions);
         out.writeList(comments);
 
@@ -50,11 +46,9 @@ public class PostItem implements Parcelable{
         title = in.readString();
         category = in.readString();
         description = in.readString();
-        likeNumber = in.readInt();
-        commentNumber = in.readInt();
-        //in.readTypedList(questions, Question.CREATOR);
+        likes = new ArrayList<Like>();
+        likes = in.readArrayList(Like.class.getClassLoader());
         comments = new ArrayList<CommentItem>();
-
         comments = in.readArrayList(CommentItem.class.getClassLoader());
     }
 
@@ -98,22 +92,6 @@ public class PostItem implements Parcelable{
         this.description = description;
     }
 
-    public int getLikeNumber() {
-        return likeNumber;
-    }
-
-    public void setLikeNumber(int likeNumber) {
-        this.likeNumber = likeNumber;
-    }
-
-    public int getCommentNumber() {
-        return commentNumber;
-    }
-
-    public void setCommentNumber(int commentNumber) {
-        this.commentNumber = commentNumber;
-    }
-
     public ArrayList<CommentItem> getComments() {
         return comments;
     }
@@ -128,5 +106,13 @@ public class PostItem implements Parcelable{
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public ArrayList<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(ArrayList<Like> likes) {
+        this.likes = likes;
     }
 }

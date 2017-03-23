@@ -15,8 +15,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.UseCase;
+import com.unir.grupo2.myzeancoach.domain.Utils;
+import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentItem;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.Like;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostListAdapter;
 
@@ -36,26 +38,17 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
 
     List<PostItem> postItemList;
     PostListAdapter postListAdapter;
-    private UseCase useCase;
 
-    @BindView(R.id.post_recycler_view)
-    RecyclerView postListRecyclerView;
-    @BindView(R.id.loading_layout)
-    LinearLayout loadingLayout;
-    @BindView(R.id.error_layout)
-    LinearLayout errorLayout;
-    @BindView(R.id.floating_action_button)
-    FloatingActionButton floatingActionButton;
-
+    @BindView(R.id.post_recycler_view) RecyclerView postListRecyclerView;
+    @BindView(R.id.loading_layout) LinearLayout loadingLayout;
+    @BindView(R.id.error_layout) LinearLayout errorLayout;
+    @BindView(R.id.floating_action_button) FloatingActionButton floatingActionButton;
 
     PublicHomepageFragment.OnPostListener postListener;
 
     public interface OnPostListener {
-        void onItemPostSelected(PostItem post);
 
         void onAddPostSelected();
-
-        void onLikePostSelected(PostItem post);
 
         void onNumberLikePostSelected(PostItem post);
 
@@ -106,14 +99,44 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
         commentList.add(commentItem7);
         commentList.add(commentItem7);
 
+        ArrayList<Like> likeslist1 = new ArrayList<>();
+        User userMerlu = new User();
+        userMerlu.setUsername("merlu");
+        User userCeo = new User();
+        userCeo.setUsername("ceo");
+        User userArmin = new User();
+        userArmin.setUsername("armin");
+        Like like = new Like(userMerlu);
+        Like like2 = new Like(userCeo);
+        Like like3= new Like(userArmin);
+
+        likeslist1.add(like);
+        likeslist1.add(like2);
+        likeslist1.add(like3);
+
+        ArrayList<Like> likeslist2 = new ArrayList<>();
+        likeslist2.add(like);
+        likeslist2.add(like2);
+        likeslist2.add(like3);
+
+        ArrayList<Like> likeslist3 = new ArrayList<>();
+        likeslist3.add(like);
+        likeslist3.add(like2);
+        likeslist3.add(like3);
+
+        ArrayList<Like> likeslist4 = new ArrayList<>();
+        likeslist4.add(like);
+        likeslist4.add(like2);
+        likeslist4.add(like3);
+
         postItemList = new ArrayList<PostItem>();
-        PostItem post1 = new PostItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", 4, 6, commentList);
-        PostItem post2 = new PostItem("31-05-2017", "Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion", 52, 10, commentList);
-        PostItem post3 = new PostItem("2-05-2016", "Me voy a casar", "eventos", "¿Que iglesia me recomendais?", 70, 30, commentList);
+        PostItem post1 = new PostItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", likeslist1, commentList);
+        PostItem post2 = new PostItem("31-05-2017", "Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion", likeslist2, commentList);
+        PostItem post3 = new PostItem("2-05-2016", "Me voy a casar", "eventos", "¿Que iglesia me recomendais?", likeslist3, commentList);
         PostItem post4 = new PostItem("2-05-2016", "Aun no se con quien me voy a casar", "eventos", "Vladimir Kokorev, presunto testaferro de Teodoro Obiang, presidente de Guinea " +
-                "Ecuatorial, encarcelado por supuesto delito fiscal y blanqueo de capitales, contrató por 140.000 euros a una empresa de comunicación para limpiar la imagen de su familia e investigar a un abogado y a dos periodistas, uno de ellos de EL PAÍS, según se desprende de la documentación intervenida por la Policía en el registro de su domicilio en la madrileña calle Ferraz. La investigación sobre la familia Kokorev se inició hace 12 años al detectarse que había recibido más de 30 millones procedentes de la Tesorería General de Guinea Ecuatorial", 100, 3, commentList);
-        PostItem post5 = new PostItem("2-05-2016", "Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?", 54565, 123, null);
-        PostItem post6 = new PostItem("2-05-2016", "voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", 0, 0, null);
+                "Ecuatorial, encarcelado por supuesto delito fiscal y blanqueo de capitales, contrató por 140.000 euros a una empresa de comunicación para limpiar la imagen de su familia e investigar a un abogado y a dos periodistas, uno de ellos de EL PAÍS, según se desprende de la documentación intervenida por la Policía en el registro de su domicilio en la madrileña calle Ferraz. La investigación sobre la familia Kokorev se inició hace 12 años al detectarse que había recibido más de 30 millones procedentes de la Tesorería General de Guinea Ecuatorial", likeslist4, commentList);
+        PostItem post5 = new PostItem("2-05-2016", "Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?", null, null);
+        PostItem post6 = new PostItem("2-05-2016", "voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", null, null);
         postItemList.add(post1);
         postItemList.add(post2);
         postItemList.add(post3);
@@ -130,11 +153,6 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
     }
 
     @Override
-    public void onItemPostClick(PostItem post) {
-        postListener.onItemPostSelected(post);
-    }
-
-    @Override
     public void onAddCommentPostClick(PostItem post) {
         postListener.onCommentPostSelected(post);
     }
@@ -145,8 +163,29 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
     }
 
     @Override
-    public void onLikePostClick(PostItem post) {
-        postListener.onLikePostSelected(post);
+    public void onLikePostClick(PostItem post, int position, boolean toLike) {
+        String username = Utils.getUserFromPreference(getContext());
+
+        if (toLike){
+            User user = new User();
+            user.setUsername(username);
+            Like like = new Like(user);
+            if (postItemList.get(position).getLikes() != null){
+                postItemList.get(position).getLikes().add(like);
+            }else{
+                ArrayList<Like> likes = new ArrayList<>();
+                likes.add(like);
+                postItemList.get(position).setLikes(likes);
+            }
+        }else{
+            for (int i = 0; i < postItemList.get(position).getLikes().size(); i++){
+                if (postItemList.get(position).getLikes().get(i).getUser().getUsername().equals(username)){
+                    postItemList.get(position).getLikes().remove(i);
+                    break;
+                }
+            }
+        }
+        postListAdapter.notifyDataSetChanged();
     }
 
     @Override
