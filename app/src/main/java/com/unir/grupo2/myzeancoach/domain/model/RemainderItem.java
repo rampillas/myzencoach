@@ -48,6 +48,51 @@ public class RemainderItem {
 	@Expose
 	private String frequency;
 
+	@SerializedName("is_finished")
+	@Expose
+	private boolean isFinished;
+
+	@Override
+	public String toString() {
+		return "RemainderItem{" +
+				"date='" + date + '\'' +
+				", subtitle='" + subtitle + '\'' +
+				", description='" + description + '\'' +
+				", time='" + time + '\'' +
+				", type='" + type + '\'' +
+				", title='" + title + '\'' +
+				", isObservationsEnabled=" + isObservationsEnabled +
+				", user='" + user + '\'' +
+				", isPersonal=" + isPersonal +
+				", frequency='" + frequency + '\'' +
+				", isFinished=" + isFinished +
+				'}';
+	}
+
+	public boolean isObservationsEnabled() {
+		return isObservationsEnabled;
+	}
+
+	public void setObservationsEnabled(boolean observationsEnabled) {
+		isObservationsEnabled = observationsEnabled;
+	}
+
+	public boolean isPersonal() {
+		return isPersonal;
+	}
+
+	public void setPersonal(boolean personal) {
+		isPersonal = personal;
+	}
+
+	public boolean isFinished() {
+		return isFinished;
+	}
+
+	public void setFinished(boolean finished) {
+		isFinished = finished;
+	}
+
 	public void setDate(String date){
 		this.date = date;
 	}
@@ -128,20 +173,4 @@ public class RemainderItem {
 		return frequency;
 	}
 
-	@Override
- 	public String toString(){
-		return 
-			"RemainderItemObject{" +
-			"date = '" + date + '\'' + 
-			",subtitle = '" + subtitle + '\'' + 
-			",description = '" + description + '\'' + 
-			",time = '" + time + '\'' + 
-			",type = '" + type + '\'' + 
-			",title = '" + title + '\'' + 
-			",is_observations_enabled = '" + isObservationsEnabled + '\'' + 
-			",user = '" + user + '\'' + 
-			",is_personal = '" + isPersonal + '\'' + 
-			",frequency = '" + frequency + '\'' + 
-			"}";
-		}
 }

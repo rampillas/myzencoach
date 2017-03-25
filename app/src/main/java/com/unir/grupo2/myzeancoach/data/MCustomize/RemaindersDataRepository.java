@@ -1,6 +1,7 @@
 package com.unir.grupo2.myzeancoach.data.MCustomize;
 
 import com.unir.grupo2.myzeancoach.domain.model.RemaindersListPojo;
+import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
 
 import java.util.concurrent.TimeUnit;
 
@@ -70,6 +71,11 @@ public class RemaindersDataRepository implements RemaindersRepository {
     @Override
     public Observable<Void> setRewards(RequestBody body, String token) {
         return service.setRewards(token, body);
+    }
+
+    @Override
+    public Observable<RewardsItem> getRewards(String token) {
+        return service.getRewards(token);
     }
 
 
