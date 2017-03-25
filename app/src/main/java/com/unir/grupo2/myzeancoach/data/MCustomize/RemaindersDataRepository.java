@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.data.MCustomize;
 
+import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
 import com.unir.grupo2.myzeancoach.domain.model.RemaindersListPojo;
 import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
 
@@ -64,8 +65,8 @@ public class RemaindersDataRepository implements RemaindersRepository {
     }
 
     @Override
-    public Observable<Void> addNewRemainder(String username, RequestBody body, String token) {
-        return service.addRemainder(username, token, body);
+    public Observable<Void> addNewRemainder(String username, RemainderItem body, String token) {
+        return service.addRemainder(token, body);
     }
 
     @Override

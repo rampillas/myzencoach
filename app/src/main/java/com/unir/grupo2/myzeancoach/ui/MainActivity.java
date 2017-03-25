@@ -27,7 +27,7 @@ import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderActivity;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
@@ -52,8 +52,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener,RemaindersFragment.OnPostListener,
-        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener{
+        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener, RemaindersFragment.OnPostListener,
+        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener {
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
@@ -61,8 +61,10 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     static final int PLAN_EXERCISE_REQUEST = 4;
 
     // ui
-    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
-    @BindView(R.id.navigation_view) NavigationView navigationView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -75,9 +77,23 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         /**
          * Lets inflate the very first fragment
          */
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
+        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+
+        if (token == null) {
+            //mostrar pantalla de registro
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
+        } else {
+            //mostrar pantalla de deslogueo
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
+        }
+
 
 
         //Setup click events on the Navigation View Items.
@@ -107,13 +123,14 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                     SharedPreferences sharedPref = getSharedPreferences(
                             getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-                    String savedPlan = sharedPref.getString(getString(R.string.PREFERENCES_CURRENT_PLAN_WELFARE),null);
+                    String savedPlan = sharedPref.getString(getString(R.string.PREFERENCES_CURRENT_PLAN_WELFARE), null);
 
-                    if (savedPlan == null || savedPlan.equals("null")){
+                    if (savedPlan == null || savedPlan.equals("null")) {
                         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                         xfragmentTransaction.replace(R.id.container_view, new WelfareAllPlansFragment()).commit();
-                    }else{
-                        Type type = new TypeToken<PlanWelfare>() {}.getType();
+                    } else {
+                        Type type = new TypeToken<PlanWelfare>() {
+                        }.getType();
                         Gson gson = new Gson();
                         PlanWelfare plan = gson.fromJson(savedPlan, type);
                         launchCurrentPlanFragment(plan);
@@ -162,10 +179,10 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     }
 
-    private void closeSoftKeyboard(){
+    private void closeSoftKeyboard() {
         View view = getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
@@ -230,13 +247,13 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     }
 
     /*************Module Welfare**************************/
-    private void launchMainExerciseActivity(ExerciseWelfare exerciseWelfare){
+    private void launchMainExerciseActivity(ExerciseWelfare exerciseWelfare) {
         Intent intent = new Intent(this, MainExerciseActivity.class);
         intent.putExtra("EXERCISE", exerciseWelfare);
         startActivityForResult(intent, PLAN_EXERCISE_REQUEST);
     }
 
-    private void launchCurrentPlanFragment(PlanWelfare plan){
+    private void launchCurrentPlanFragment(PlanWelfare plan) {
         CurrentPlanFragment fragment = new CurrentPlanFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable("PLAN", plan);
@@ -265,30 +282,30 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         if (requestCode == VIDEO_YOUTUBE_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-               if (data != null){
-                   if (data.getBooleanExtra("IS_UPDATED", true)){
-                       FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                       xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
-                   }
+                if (data != null) {
+                    if (data.getBooleanExtra("IS_UPDATED", true)) {
+                        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                        xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
+                    }
                 }
             }
-        }else if (requestCode == VIDEO_TEST_REQUEST){
+        } else if (requestCode == VIDEO_TEST_REQUEST) {
             if (resultCode == RESULT_OK) {
-                if (data != null){
-                    if (data.getBooleanExtra("IS_UPDATED", true)){
+                if (data != null) {
+                    if (data.getBooleanExtra("IS_UPDATED", true)) {
                         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                         xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
                     }
                 }
             }
             /*************Module Welfare****************/
-        }else if (requestCode == PLAN_EXERCISE_REQUEST){
+        } else if (requestCode == PLAN_EXERCISE_REQUEST) {
             if (resultCode == RESULT_OK) {
-                if (data != null){
-                    if (data.getBooleanExtra("IS_PLAN_COMPLETED", true)){
+                if (data != null) {
+                    if (data.getBooleanExtra("IS_PLAN_COMPLETED", true)) {
                         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                         xfragmentTransaction.replace(R.id.container_view, new WelfareAllPlansFragment()).commit();
-                    }else{
+                    } else {
                         PlanWelfare plan = data.getParcelableExtra("PLAN");
                         launchCurrentPlanFragment(plan);
                     }
@@ -305,8 +322,8 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     @Override
     public void onAddRemainderSelected() {
-        Intent intent = new Intent(this, AddRemainderActivity.class);
-        startActivity(intent);
+        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        xfragmentTransaction.replace(R.id.container_view, new AddRemainderFragment()).commit();
     }
 
     @Override

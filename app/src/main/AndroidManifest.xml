@@ -36,7 +36,7 @@
             android:name=".ui.MCooperativeSol.DilemmaCommentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.MCustomizeFragment.AddRemainderActivity"
+            android:name=".ui.MCustomizeFragment.AddRemainderFragment"
             android:label="@string/title_activity_add_remainder"
             android:screenOrientation="portrait"></activity>
         <activity

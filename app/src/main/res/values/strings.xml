@@ -209,5 +209,6 @@
 
     <!-- essential_information-->
     <string name="dialog_massage_no_youtube_url_video">La URL del video debe ser de Youtube</string>
+    <string name="REMAINDERS_EMPTY_ADD">Por favor rellena todoslos campos</string>
 
 </resources>
