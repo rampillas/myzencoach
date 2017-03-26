@@ -1,6 +1,5 @@
 package com.unir.grupo2.myzeancoach.data.MCustomize;
 
-import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
 import com.unir.grupo2.myzeancoach.domain.model.RemaindersListPojo;
 import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
 
@@ -37,12 +36,12 @@ public interface ApiCallsRemainders {
                                 @Body RequestBody body);
 
     @Headers("Content-Type: application/json")
-    @POST("personalization/reminders")
+    @POST("personalization/reminders/")
     Observable<Void> addRemainder(@Header("Authorization") String token,
-                                  @Body RemainderItem body);
+                                  @Body RequestBody body);
 
     @Headers("Content-Type: application/json")
-    @POST("personalization/reminders/{username}/addObservation/{username}")
+    @POST("personalization/reminders/{username}/addObservation/{username}/")
     Observable<Void> addObservations(@Path("username") String user,
                                      @Header("Authorization") String token,
                                      @Body RequestBody body);

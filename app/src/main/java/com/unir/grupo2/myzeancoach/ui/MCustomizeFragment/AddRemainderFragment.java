@@ -32,6 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Subscriber;
 
 public class AddRemainderFragment extends Fragment {
@@ -107,16 +109,18 @@ public class AddRemainderFragment extends Fragment {
         if (!remainderTitle.getText().toString().isEmpty() && !description.getText().toString().isEmpty()
                 && !datePickerText.getText().toString().isEmpty() && !datePickerTextHour.getText().toString().isEmpty()) {
             String bodyString = "{\n" +
-                    "\t\"type\": \"\" \n" +
-                    "\t\"title\": " + remainderTitle.getText().toString() + "\n" +
-                    "\t\"subtitle\":  \"\" \n" +
-                    "\t\"description\": " + description.getText().toString() + "\n" +
-                    "\t\"is_personal\": true\n" +
-                    "\t\"date\": " + datePickerText.getText().toString() + "\n" +
-                    "\t\"time\": " + datePickerTextHour.getText().toString() + "\n" +
-                    "\t\"is_observations_enabled\": false\n" +
-                    "\t\"frequency\": everyday\n" +
+                    "\t\"type\": \"individual\", \n" +
+                    "\t\"user\": \"" + user + "\",\n" +
+                    "\t\"title\": \"" + remainderTitle.getText().toString() + "\",\n" +
+                    "\t\"subtitle\":  \"\", \n" +
+                    "\t\"description\": \"" + description.getText().toString() + "\",\n" +
+                    "\t\"is_personal\": true,\n" +
+                    "\t\"date\": \"" + datePickerText.getText().toString() + "\",\n" +
+                    "\t\"time\": \"" + datePickerTextHour.getText().toString() + "\",\n" +
+                    "\t\"is_observations_enabled\": false,\n" +
+                    "\t\"frequency\": \"everyday\"\n" +
                     "}";
+            RequestBody rb = RequestBody.create(MediaType.parse("text/plain"),bodyString);
             RemainderItem body = new RemainderItem();
             body.setType("\"\"");
             body.setTitle(remainderTitle.getText().toString() );
@@ -126,7 +130,7 @@ public class AddRemainderFragment extends Fragment {
             body.setTime(datePickerTextHour.getText().toString());
             body.setFrequency("everyday");
             showLoading();
-            new NewRemainderUserCase(user, "Bearer " + token, body).execute(new AddRemainderFragment.AddRemainderSubscriber());
+            new NewRemainderUserCase(user, "Bearer " + token, rb).execute(new AddRemainderFragment.AddRemainderSubscriber());
         } else {
             Toast.makeText(getContext(), getString(R.string.REMAINDERS_EMPTY_ADD), Toast.LENGTH_LONG).show();
         }
@@ -139,6 +143,9 @@ public class AddRemainderFragment extends Fragment {
         @Override
         public void onCompleted() {
             showContent();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
         }
 
         //Show the error

@@ -45,7 +45,7 @@ public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemVi
 
     @Override
     public void onBindViewHolder(RemaindersItemViewHolder remaindersItemViewHolder, int position) {
-        final RemainderItemObject remainderItem = remaindersItemList.get(position);
+        final RemainderItemObject remainderItemObject = remaindersItemList.get(position);
         remaindersItemViewHolder.bind(remaindersItemList.get(position),listener);
     }
 

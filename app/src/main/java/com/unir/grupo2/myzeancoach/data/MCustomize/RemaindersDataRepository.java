@@ -65,7 +65,7 @@ public class RemaindersDataRepository implements RemaindersRepository {
     }
 
     @Override
-    public Observable<Void> addNewRemainder(String username, RemainderItem body, String token) {
+    public Observable<Void> addNewRemainder(String username, RequestBody body, String token) {
         return service.addRemainder(token, body);
     }
 

@@ -61,7 +61,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_gravity="right"
                 android:background="@color/transparent"
-                android:drawableLeft="@mipmap/checked"
+                android:drawableLeft="@mipmap/checked_no"
                 android:drawablePadding="5dip"
                 android:text="@string/REMAINDERS_MASK_AS_DONE"
                 android:textSize="@dimen/letra_pequeña" />

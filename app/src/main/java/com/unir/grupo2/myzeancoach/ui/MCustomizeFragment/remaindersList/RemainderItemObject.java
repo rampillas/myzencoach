@@ -8,16 +8,26 @@ public class RemainderItemObject {
     String title;
     String description;
     Boolean isCompleted;
+    String user;
 
-    public RemainderItemObject(String title, String description, Boolean isCompleted) {
+    public RemainderItemObject(String title, String description, Boolean isCompleted, String user) {
 
         this.title = title;
         this.description = description;
         this.isCompleted = isCompleted;
+        this.user = user;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public void setTitle(String title) {

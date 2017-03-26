@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         }
 
 
-
         //Setup click events on the Navigation View Items.
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -313,11 +312,11 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                 }
             }
             /************Module Leisure******************/
-        }else if (requestCode == ADD_EVENT_REQUEST) {
+        } else if (requestCode == ADD_EVENT_REQUEST) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
                     EventItem event = data.getParcelableExtra("EVENT_NEW");
-                     if (event != null) {
+                    if (event != null) {
                         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                         xfragmentTransaction.replace(R.id.container_view, new PublicHomepageFragment()).commit();
                     }
@@ -329,7 +328,8 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     /**************Module Customize Fragment***************/
     @Override
     public void onItemRemainderSelected(RemainderItemObject remainderItem) {
-
+        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        xfragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
     }
 
     @Override
@@ -340,7 +340,8 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     @Override
     public void onCompletedRemainderSelected(RemainderItemObject remainderItem) {
-
+        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        xfragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
     }
 
 }
