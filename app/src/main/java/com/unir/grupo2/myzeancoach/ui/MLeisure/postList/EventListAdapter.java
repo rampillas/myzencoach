@@ -17,56 +17,56 @@ import java.util.List;
  * Created by Cesar on 11/03/2017.
  */
 
-public class PostListAdapter  extends RecyclerView.Adapter<PostItemViewHolder>  {
+public class EventListAdapter extends RecyclerView.Adapter<EventItemViewHolder>  {
 
-    private List<PostItem> postItemList;
+    private List<EventItem> eventItemList;
     private Context context;
 
-    public interface OnPostClickListener{
-        public void onAddCommentPostClick(PostItem post);
-        public void onNumberCommentPostClick(PostItem post);
-        public void onLikePostClick(PostItem post, int position, boolean isLike);
-        public void onNumberLikePostClick(PostItem post);
+    public interface OnEventClickListener{
+        public void onAddCommentEventClick(EventItem post);
+        public void onNumberCommentEventClick(EventItem post);
+        public void onLikeEventClick(EventItem post, int position, boolean isLike);
+        public void onNumberLikeEventClick(EventItem post);
     }
 
-    PostListAdapter.OnPostClickListener listener;
+    EventListAdapter.OnEventClickListener listener;
 
-    public PostListAdapter(Context context, List<PostItem> postItemList, PostListAdapter.OnPostClickListener listener) {
+    public EventListAdapter(Context context, List<EventItem> eventItemList, EventListAdapter.OnEventClickListener listener) {
         this.context = context;
-        this.postItemList = postItemList;
+        this.eventItemList = eventItemList;
         this.listener = listener;
     }
 
     @Override
-    public PostItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public EventItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.public_homepage_item_layout, viewGroup, false);
-        final PostItemViewHolder postItemViewHolder = new PostItemViewHolder(view);
+        final EventItemViewHolder eventItemViewHolder = new EventItemViewHolder(view);
 
-        return postItemViewHolder;
+        return eventItemViewHolder;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void onBindViewHolder(PostItemViewHolder viewHolder, final int position) {
-        final PostItem postItem = postItemList.get(position);
-        PostItemViewHolder itemHolder = (PostItemViewHolder) viewHolder;
+    public void onBindViewHolder(EventItemViewHolder viewHolder, final int position) {
+        final EventItem eventItem = eventItemList.get(position);
+        EventItemViewHolder itemHolder = (EventItemViewHolder) viewHolder;
 
-        itemHolder.dateTextView.setText(postItem.getDate());
-        itemHolder.titleTextView.setText(postItem.getTitle());
-        itemHolder.categoryTextView.setText(postItem.getCategory());
-        itemHolder.descriptionTextView.setText(postItem.getDescription());
+        itemHolder.dateTextView.setText(eventItem.getDate());
+        itemHolder.titleTextView.setText(eventItem.getTitle());
+        itemHolder.categoryTextView.setText(eventItem.getCategory());
+        itemHolder.descriptionTextView.setText(eventItem.getDescription());
 
         //like number
-        if (postItem.getLikes() != null && !postItem.getLikes().isEmpty()){
-            itemHolder.likeNumberTextView.setText(Integer.toString(postItem.getLikes().size()));
+        if (eventItem.getLikes() != null && !eventItem.getLikes().isEmpty()){
+            itemHolder.likeNumberTextView.setText(Integer.toString(eventItem.getLikes().size()));
         }else{
             itemHolder.likeNumberTextView.setText("0");
         }
 
         //***Like button
-        if (postItem.getLikes() != null && !postItem.getLikes().isEmpty()){
+        if (eventItem.getLikes() != null && !eventItem.getLikes().isEmpty()){
 
-            if (isLike(postItem)){
+            if (isLike(eventItem)){
                 itemHolder.likeButton.setTextColor(context.getColor(R.color.colorAccent));
                 itemHolder.likeButton.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_thumb_up_orange_24dp, 0, 0, 0);
             }else{
@@ -80,19 +80,19 @@ public class PostListAdapter  extends RecyclerView.Adapter<PostItemViewHolder>  
         itemHolder.likeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isLike(postItem)){
-                    listener.onLikePostClick(postItem, position, false);
+                if (isLike(eventItem)){
+                    listener.onLikeEventClick(eventItem, position, false);
                 }else{
-                    listener.onLikePostClick(postItem, position, true);
+                    listener.onLikeEventClick(eventItem, position, true);
                 }
 
             }
         });
 
         //***comment number
-        if (postItem.getComments() != null && !postItem.getComments().isEmpty()){
+        if (eventItem.getComments() != null && !eventItem.getComments().isEmpty()){
             itemHolder.commentNumberTextView.setText(String.format(context.getString(R.string.number_comments)
-                    , postItem.getComments().size()));
+                    , eventItem.getComments().size()));
         }else{
             itemHolder.commentNumberTextView.setText(String.format(context.getString(R.string.number_comments)
                     , 0));
@@ -101,7 +101,7 @@ public class PostListAdapter  extends RecyclerView.Adapter<PostItemViewHolder>  
         itemHolder.commentNumberTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onNumberCommentPostClick(postItem);
+                listener.onNumberCommentEventClick(eventItem);
             }
         });
 
@@ -109,17 +109,17 @@ public class PostListAdapter  extends RecyclerView.Adapter<PostItemViewHolder>  
         itemHolder.commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onAddCommentPostClick(postItem);
+                listener.onAddCommentEventClick(eventItem);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return postItemList.size();
+        return eventItemList.size();
     }
 
-    private boolean isLike(PostItem postItem){
+    private boolean isLike(EventItem postItem){
         boolean isLike = false;
         if (postItem.getLikes() != null && !postItem.getLikes().isEmpty()) {
             for (Like like : postItem.getLikes()) {

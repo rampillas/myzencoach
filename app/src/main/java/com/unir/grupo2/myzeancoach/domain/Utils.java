@@ -17,7 +17,6 @@ public class Utils {
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         return sharedPref.getString(context.getString(R.string.PREFERENCES_USER),null);
-
     }
 
 }

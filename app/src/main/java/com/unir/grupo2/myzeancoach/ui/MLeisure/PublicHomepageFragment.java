@@ -19,8 +19,8 @@ import com.unir.grupo2.myzeancoach.domain.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.Like;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostListAdapter;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventItem;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,11 @@ import butterknife.OnClick;
  * Created by Cesar on 22/02/2017.
  */
 
-public class PublicHomepageFragment extends Fragment implements PostListAdapter.OnPostClickListener {
+public class PublicHomepageFragment extends Fragment implements EventListAdapter.OnEventClickListener {
 
 
-    List<PostItem> postItemList;
-    PostListAdapter postListAdapter;
+    List<EventItem> postItemList;
+    EventListAdapter postListAdapter;
 
     @BindView(R.id.post_recycler_view) RecyclerView postListRecyclerView;
     @BindView(R.id.loading_layout) LinearLayout loadingLayout;
@@ -48,13 +48,13 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
 
     public interface OnPostListener {
 
-        void onAddPostSelected();
+        void onAddEventSelected();
 
-        void onNumberLikePostSelected(PostItem post);
+        void onNumberLikePostSelected(EventItem post);
 
-        void onCommentPostSelected(PostItem post);
+        void onCommentPostSelected(EventItem post);
 
-        void onNumberCommentPostSelected(PostItem post);
+        void onNumberCommentPostSelected(EventItem post);
     }
 
     @Override
@@ -129,14 +129,14 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
         likeslist4.add(like2);
         likeslist4.add(like3);
 
-        postItemList = new ArrayList<PostItem>();
-        PostItem post1 = new PostItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", likeslist1, commentList);
-        PostItem post2 = new PostItem("31-05-2017", "Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion", likeslist2, commentList);
-        PostItem post3 = new PostItem("2-05-2016", "Me voy a casar", "eventos", "¿Que iglesia me recomendais?", likeslist3, commentList);
-        PostItem post4 = new PostItem("2-05-2016", "Aun no se con quien me voy a casar", "eventos", "Vladimir Kokorev, presunto testaferro de Teodoro Obiang, presidente de Guinea " +
+        postItemList = new ArrayList<EventItem>();
+        EventItem post1 = new EventItem("2-05-2016", "Viaje a New York", "viajes", "voy a viajar a New York, ¿Que me recomendais?", likeslist1, commentList);
+        EventItem post2 = new EventItem("31-05-2017", "Como el conocimiento de variso idiomas te hace cambir la manera en la que funciona tu cerebro", "idiomas", "a partir del 2 idioma aprendidio tu celebro cambia como procesa la inforamcion", likeslist2, commentList);
+        EventItem post3 = new EventItem("2-05-2016", "Me voy a casar", "eventos", "¿Que iglesia me recomendais?", likeslist3, commentList);
+        EventItem post4 = new EventItem("2-05-2016", "Aun no se con quien me voy a casar", "eventos", "Vladimir Kokorev, presunto testaferro de Teodoro Obiang, presidente de Guinea " +
                 "Ecuatorial, encarcelado por supuesto delito fiscal y blanqueo de capitales, contrató por 140.000 euros a una empresa de comunicación para limpiar la imagen de su familia e investigar a un abogado y a dos periodistas, uno de ellos de EL PAÍS, según se desprende de la documentación intervenida por la Policía en el registro de su domicilio en la madrileña calle Ferraz. La investigación sobre la familia Kokorev se inició hace 12 años al detectarse que había recibido más de 30 millones procedentes de la Tesorería General de Guinea Ecuatorial", likeslist4, commentList);
-        PostItem post5 = new PostItem("2-05-2016", "Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?", null, null);
-        PostItem post6 = new PostItem("2-05-2016", "voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", null, null);
+        EventItem post5 = new EventItem("2-05-2016", "Viaje al trabajo", "transporte", "¿Me recomendais venir a trabajar en metro?", null, null);
+        EventItem post6 = new EventItem("2-05-2016", "voy a empezar a programar en Android", "tecnologia", "¿Es buena idea?", null, null);
         postItemList.add(post1);
         postItemList.add(post2);
         postItemList.add(post3);
@@ -146,24 +146,24 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
         postListRecyclerView.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
-        postListAdapter = new PostListAdapter(getContext(), postItemList, this);
+        postListAdapter = new EventListAdapter(getContext(), postItemList, this);
         postListRecyclerView.setAdapter(postListAdapter);
 
         return view;
     }
 
     @Override
-    public void onAddCommentPostClick(PostItem post) {
+    public void onAddCommentEventClick(EventItem post) {
         postListener.onCommentPostSelected(post);
     }
 
     @Override
-    public void onNumberCommentPostClick(PostItem post) {
+    public void onNumberCommentEventClick(EventItem post) {
         postListener.onNumberCommentPostSelected(post);
     }
 
     @Override
-    public void onLikePostClick(PostItem post, int position, boolean toLike) {
+    public void onLikeEventClick(EventItem post, int position, boolean toLike) {
         String username = Utils.getUserFromPreference(getContext());
 
         if (toLike){
@@ -189,14 +189,14 @@ public class PublicHomepageFragment extends Fragment implements PostListAdapter.
     }
 
     @Override
-    public void onNumberLikePostClick(PostItem post) {
+    public void onNumberLikeEventClick(EventItem post) {
         postListener.onNumberLikePostSelected(post);
     }
 
 
     @OnClick(R.id.floating_action_button)
-    void addPost(View view) {
-        postListener.onAddPostSelected();
+    void addEvent(View view) {
+        postListener.onAddEventSelected();
     }
 
 

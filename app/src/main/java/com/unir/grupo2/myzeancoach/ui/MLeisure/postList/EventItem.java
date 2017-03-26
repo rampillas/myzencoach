@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by Cesar on 11/03/2017.
  */
 
-public class PostItem implements Parcelable{
+public class EventItem implements Parcelable{
 
     private String date;
     private String title;
@@ -20,7 +20,7 @@ public class PostItem implements Parcelable{
     private ArrayList<Like> likes;
     private ArrayList<CommentItem> comments;
 
-    public PostItem(String date, String title, String category, String description, ArrayList<Like> likes, ArrayList<CommentItem> comments){
+    public EventItem(String date, String title, String category, String description, ArrayList<Like> likes, ArrayList<CommentItem> comments){
         this.date = date;
         this.title = title;
         this.category = category;
@@ -35,13 +35,12 @@ public class PostItem implements Parcelable{
         out.writeString(category);
         out.writeString(description);
         out.writeList(likes);
-        // out.writeTypedList(questions);
         out.writeList(comments);
 
     }
 
     @SuppressWarnings("unchecked")
-    private PostItem(Parcel in) {
+    private EventItem(Parcel in) {
         date = in.readString();
         title = in.readString();
         category = in.readString();
@@ -57,14 +56,14 @@ public class PostItem implements Parcelable{
     }
 
     @SuppressWarnings("rawtypes")
-    public static final Parcelable.Creator<PostItem> CREATOR =
-            new Parcelable.Creator<PostItem>() {
-                public PostItem createFromParcel(Parcel in) {
-                    return new PostItem(in);
+    public static final Parcelable.Creator<EventItem> CREATOR =
+            new Parcelable.Creator<EventItem>() {
+                public EventItem createFromParcel(Parcel in) {
+                    return new EventItem(in);
                 }
 
-                public PostItem[] newArray(int size) {
-                    return new PostItem[size];
+                public EventItem[] newArray(int size) {
+                    return new EventItem[size];
                 }
             };
 

@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentListAdapter;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventItem;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,11 +43,11 @@ public class CommentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.post_comment_list_layout);
+        setContentView(R.layout.event_comment_list_layout);
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        PostItem post = (PostItem) intent.getParcelableExtra("POST");
+        EventItem post = (EventItem) intent.getParcelableExtra("POST");
 
         commentItemList = post.getComments();
 

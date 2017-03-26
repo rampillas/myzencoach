@@ -40,7 +40,7 @@ import com.unir.grupo2.myzeancoach.ui.MLeisure.AddPostActivity;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.CommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.PublicHomepageFragment;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.PostItem;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventItem;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.CurrentPlanFragment;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.MainExerciseActivity;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.WelfareAllPlansFragment;
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     static final int VIDEO_TEST_REQUEST = 2;
     static final int DILEMMA_COMMENT_REQUEST = 3;
     static final int PLAN_EXERCISE_REQUEST = 4;
+    static final int ADD_EVENT_REQUEST = 5;
 
     // ui
     @BindView(R.id.drawer_layout)
@@ -211,25 +212,25 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     /*****Homepage*****/
     //Add post button has been clicked
     @Override
-    public void onAddPostSelected() {
+    public void onAddEventSelected() {
         Intent intent = new Intent(this, AddPostActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, ADD_EVENT_REQUEST);
     }
 
     @Override
-    public void onNumberLikePostSelected(PostItem post) {
+    public void onNumberLikePostSelected(EventItem post) {
 
     }
 
     @Override
-    public void onCommentPostSelected(PostItem post) {
+    public void onCommentPostSelected(EventItem post) {
         Intent intent = new Intent(this, CommentActivity.class);
         intent.putExtra("POST", post);
         startActivity(intent);
     }
 
     @Override
-    public void onNumberCommentPostSelected(PostItem post) {
+    public void onNumberCommentPostSelected(EventItem post) {
         Intent intent = new Intent(this, CommentActivity.class);
         intent.putExtra("POST", post);
         startActivity(intent);
@@ -308,6 +309,17 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                     } else {
                         PlanWelfare plan = data.getParcelableExtra("PLAN");
                         launchCurrentPlanFragment(plan);
+                    }
+                }
+            }
+            /************Module Leisure******************/
+        }else if (requestCode == ADD_EVENT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    EventItem event = data.getParcelableExtra("EVENT_NEW");
+                     if (event != null) {
+                        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+                        xfragmentTransaction.replace(R.id.container_view, new PublicHomepageFragment()).commit();
                     }
                 }
             }
