@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,7 +21,7 @@ import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginFragment;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
@@ -78,23 +77,9 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         /**
          * Lets inflate the very first fragment
          */
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
-
-        if (token == null) {
-            //mostrar pantalla de registro
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
-        } else {
-            //mostrar pantalla de deslogueo
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
-        }
-
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
 
         //Setup click events on the Navigation View Items.
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -151,13 +136,8 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.clear().commit();
                     //se muestra la pantalla de login
-                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
-                    Toast.makeText(getBaseContext(), "log out", Toast.LENGTH_LONG).show();
-                }
-                if (menuItem.getItemId() == R.id.nav_login) {
-                    FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                    xfragmentTransaction.replace(R.id.container_view, new LoginFragment()).commit();
+                    lauchLoginActivity();
+                    finish();
                 }
 
                 closeSoftKeyboard();
@@ -177,6 +157,11 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
         mDrawerToggle.syncState();
 
+    }
+
+    private void lauchLoginActivity(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 
     private void closeSoftKeyboard() {
