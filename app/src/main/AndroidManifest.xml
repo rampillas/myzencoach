@@ -11,15 +11,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.LoginAndUserData.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.MEssentialInfo.TestActivity"
             android:screenOrientation="portrait" />
@@ -36,8 +40,10 @@
             android:name=".ui.MCooperativeSol.DilemmaCommentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.MCustomizeFragment.AddRemainderFragment"
-            android:label="@string/title_activity_add_remainder"
+            android:name=".ui.LoginAndUserData.CreateUserActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.LoginAndUserData.RecoveryPasswordActivity"
             android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.MWelfare.MainExerciseActivity"

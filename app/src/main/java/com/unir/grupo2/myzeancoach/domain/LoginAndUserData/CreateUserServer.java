@@ -1,14 +1,11 @@
 package com.unir.grupo2.myzeancoach.domain.LoginAndUserData;
 
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
-import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.ApiCallsForLogin;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RetrofitClient;
 import com.unir.grupo2.myzeancoach.domain.model.User;
-import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserFragment;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.CreateUserActivity;
 
 import retrofit2.Retrofit;
 import rx.Subscriber;
@@ -28,9 +25,8 @@ public class CreateUserServer {
     public void newUser(String usuarioValor, String emailValor, String nombreValor, String apellidoValor,
                         String passwordValor, String nacimientoValor, String sexoValor, String paisValor,
                         String ciudadValor, String descripcionValor, String zonaValor, String cambioPaisValor,
-                        String estudiosValor, final CreateUserFragment createUserFragment) {
+                        String estudiosValor, final CreateUserActivity createUserActivity) {
 
-        createUserFragment.showLoading();
         // RxJava
         conexioAPI.createUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor, nacimientoValor,
                 sexoValor, paisValor, ciudadValor, descripcionValor, zonaValor, cambioPaisValor, estudiosValor).subscribeOn(Schedulers.io())
@@ -44,22 +40,15 @@ public class CreateUserServer {
                     @Override
                     public void onError(Throwable e) {
                         Log.d("Create process", "error " + e);
-                        createUserFragment.showError();
-                        createUserFragment.errorServer();
+                        createUserActivity.userExits();
+                        createUserActivity.showContent();
                     }
 
                     @Override
                     public void onNext(User userObject) {
-                        if (true) {
-                            Log.d("Create process", "ok creado");
-                            createUserFragment.showContent();
-                            FragmentTransaction xfragmentTransaction = createUserFragment.getFragmentManager().beginTransaction();
-                            xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
-                        } else {
-                            Log.d("Create process", "incorrect usser exits");
-                            createUserFragment.userExits();
-                            createUserFragment.showContent();
-                        }
+                        Log.d("Create process", "ok creado");
+                        createUserActivity.finishCreateUser(userObject.getUsername());
+                        createUserActivity.showContent();
                     }
                 });
     }

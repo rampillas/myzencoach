@@ -1,11 +1,12 @@
 package com.unir.grupo2.myzeancoach.ui.LoginAndUserData;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,8 +20,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Created by Cesar on 26/03/2017.
+ */
 
-public class RecoveryPasswordFragment extends Fragment {
+public class RecoveryPasswordActivity extends AppCompatActivity{
 
     @BindView(R.id.Usuario)
     EditText usuario;
@@ -38,29 +42,30 @@ public class RecoveryPasswordFragment extends Fragment {
     LinearLayout errorLayout;
 
     @OnClick(R.id.okButton)
-
     public void recoveryPass(){
         String user=usuario.getText().toString();
         if (user.length()>0){
+            closeKeyboard();
             RecoveryPasswordServer recoveryPasswordServer=new RecoveryPasswordServer();
             recoveryPasswordServer.recoveryPass(user, this);
-        }else Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_ERROR_USERNAME_LEN),Toast.LENGTH_LONG).show();
+        }else Toast.makeText(this,getResources().getString(R.string.SIGNUP_ERROR_USERNAME_LEN),Toast.LENGTH_LONG).show();
     }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.recovery_password,null);
-        ButterKnife.bind(this, view);
-        return view;
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.recovery_password);
+        ButterKnife.bind(this);
     }
     public void errorServer(){
-        Toast.makeText(getContext(),getResources().getString(R.string.LOGIN_ERROR_SERVER),Toast.LENGTH_LONG).show();
+        Toast.makeText(this,getResources().getString(R.string.LOGIN_ERROR_SERVER),Toast.LENGTH_LONG).show();
     }
     public void userNotExits() {
-        Toast.makeText(getContext(),getResources().getString(R.string.SIGNUP_USER_NOT_EXITS),Toast.LENGTH_LONG).show();
+        Toast.makeText(this,getResources().getString(R.string.SIGNUP_USER_NOT_EXITS),Toast.LENGTH_LONG).show();
     }
     public void passEmailSend() {
-        Toast.makeText(getContext(),getResources().getString(R.string.LOGIN_EMAIL_SEND),Toast.LENGTH_LONG).show();
+        Toast.makeText(this,getResources().getString(R.string.LOGIN_EMAIL_SEND),Toast.LENGTH_LONG).show();
+        finish();
     }
     /**
      * Method used to show error view
@@ -89,4 +94,19 @@ public class RecoveryPasswordFragment extends Fragment {
         errorLayout.setVisibility(View.GONE);
     }
 
+    public void setReturnData() {
+        setResult(Activity.RESULT_OK);
+        finish();
+    }
+
+    public void closeKeyboard(){
+        // Check if no view has focus:
+        View view = getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
 }
+

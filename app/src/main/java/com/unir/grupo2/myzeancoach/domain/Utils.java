@@ -11,6 +11,15 @@ import com.unir.grupo2.myzeancoach.R;
 
 public class Utils {
 
+    public static void saveUserInPreference(Context context, String token, String username){
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(context.getString(R.string.PREFERENCES_TOKEN), token);
+        editor.putString(context.getString(R.string.PREFERENCES_USER), username);
+        editor.commit();
+    }
+
     public static String getUserFromPreference(Context context){
 
         SharedPreferences sharedPref = context.getSharedPreferences(

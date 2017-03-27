@@ -5,6 +5,7 @@ import com.unir.grupo2.myzeancoach.domain.model.User;
 
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -34,8 +35,9 @@ public interface ApiCallsForLogin{
 
     @Headers("Content-Type: application/json")
     @POST("/password-recovery/")
-    Observable<RecoveryPasswordObject> forgetPass(@Body RecoveryPasswordObject rpo) ;
+    Observable<Void> forgetPass(@Body RecoveryPasswordObject rpo) ;
 
+    @FormUrlEncoded
     @POST("/users/")
     Observable<User> createUser(@Field("username") String Usuario,
                                        @Field("email") String Email,
@@ -51,11 +53,4 @@ public interface ApiCallsForLogin{
                                        @Field("change_country") String CambioPais,
                                        @Field("level_studies") String Estudios);
 
-
-                       /*@Field("client_id") String IdFijo,
-                               @Field("client_secret") String SecretFijo,
-                               @Field("username") String Usuario,
-                               @Field("password") String Contrasena,
-                               @Field("grant_type") String TipoFijo,
-                               @Field("scope") String ScopeFijo);*/
 }

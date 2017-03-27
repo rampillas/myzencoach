@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -48,11 +48,10 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         Intent intent = getIntent();
         test = (Test) intent.getParcelableExtra("TEST");
 
-        questionItemList = test.getQuestions();
-
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,1);
         recyclerView.setLayoutManager(layoutManager);
+        questionItemList = test.getQuestions();
         questionListAdapter = new QuestionListAdapter(this, questionItemList, test.getDescription(), this);
         recyclerView.setAdapter(questionListAdapter);
 

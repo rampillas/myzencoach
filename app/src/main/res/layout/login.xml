@@ -244,6 +244,7 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
                     android:textSize="@dimen/letra_pequeña" />
 
                 <TextView

@@ -1,15 +1,11 @@
 package com.unir.grupo2.myzeancoach.ui.LoginAndUserData;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -34,7 +30,6 @@ import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.CreateUserServer;
-import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
 import com.unir.grupo2.myzeancoach.domain.model.User;
 
 import butterknife.BindView;
@@ -42,8 +37,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
+/**
+ * Created by Cesar on 26/03/2017.
+ */
 
-public class CreateUserFragment extends Fragment {
+public class CreateUserActivity extends AppCompatActivity{
+
     String pais = "";
     int estudiosPersona = 0;
     @BindView(R.id.UsuarioSingUp)
@@ -56,10 +55,10 @@ public class CreateUserFragment extends Fragment {
     EditText email;
     String emailValor;
     @BindView(R.id.UNombreSingUp)
-    EditText apellido;
+    EditText nombre;
     String apellidoValor;
     @BindView(R.id.ApellidoSingUp)
-    EditText nombre;
+    EditText apellido;
     String nombreValor;
     @BindView(R.id.datePickerText)
     TextView nacimiento;
@@ -130,7 +129,7 @@ public class CreateUserFragment extends Fragment {
 
     @OnClick(R.id.datePickerText)
     public void elegirFechaNacimiento() {
-        elegirFecha = new DatePickerDialog(getContext(), datePickerDialog, 2017, 1, 1);
+        elegirFecha = new DatePickerDialog(this, datePickerDialog, 2017, 1, 1);
         elegirFecha.show();
     }
 
@@ -192,45 +191,46 @@ public class CreateUserFragment extends Fragment {
                         validator.validatePassword(usuarioValor, passwordValor)) {
                     CreateUserServer registerUser = new CreateUserServer();
 
+                    showLoading();
                     registerUser.newUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor,
                             nacimientoValor, sexoValor, paisValor, ciudadValor, "empleado", zonaValor, siNoValor, estudiosValor, this);
 
                 }
             } catch (InvalidEmailFormatException e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_EMAIL), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_EMAIL), Toast.LENGTH_LONG).show();
             } catch (NullEmailException e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_EMAIL_NULL), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_EMAIL_NULL), Toast.LENGTH_LONG).show();
             } catch (InvalidPasswordException e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_PASSWORD), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_PASSWORD), Toast.LENGTH_LONG).show();
             } catch (InvalidPasswordFormatException e) { // Catch all exceptions you're interested to handle
                 CreateUserServer registerUser = new CreateUserServer();
+                showLoading();
                 registerUser.newUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor,
                         nacimientoValor, sexoValor, paisValor, ciudadValor, "empleado", zonaValor, siNoValor, estudiosValor, this);
             } catch (InvalidPasswordLengthException e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_LEN), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_LEN), Toast.LENGTH_LONG).show();
             } catch (NullPasswordException e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_NULL), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_NULL), Toast.LENGTH_LONG).show();
             } catch (UsernameIsNullException e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_USERNAME_NULL), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_USERNAME_NULL), Toast.LENGTH_LONG).show();
             } catch (InvalidUsernameFormatException e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_USERNAME), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_USERNAME), Toast.LENGTH_LONG).show();
             } catch (InvalidUsernameLengthException e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_USERNAME_LEN), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_USERNAME_LEN), Toast.LENGTH_LONG).show();
             } catch (Exception e) { // Catch all exceptions you're interested to handle
-                Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_ERROR_FIELDS), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_FIELDS), Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_INCORRECT_DATA), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getResources().getString(R.string.SIGNUP_INCORRECT_DATA), Toast.LENGTH_LONG).show();
 
         }
-
 
     }
 
     @OnClick(R.id.PaisList)
     public void showCountryList() {
         final CountryPicker picker = CountryPicker.newInstance("Select Country");
-        picker.show(getFragmentManager(), "COUNTRY_PICKER");
+        picker.show(getSupportFragmentManager(), "COUNTRY_PICKER");
         picker.setListener(new CountryPickerListener() {
             @Override
             public void onSelectCountry(String name, String code, String dialCode, int flagDrawableResID) {
@@ -249,51 +249,26 @@ public class CreateUserFragment extends Fragment {
     }
 
     public void errorServer() {
-        Toast.makeText(getContext(), getResources().getString(R.string.LOGIN_ERROR_SERVER), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(R.string.LOGIN_ERROR_SERVER), Toast.LENGTH_LONG).show();
     }
 
     public void userExits() {
-        Toast.makeText(getContext(), getResources().getString(R.string.SIGNUP_USER_EXITS), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getResources().getString(R.string.SIGNUP_USER_EXITS), Toast.LENGTH_LONG).show();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        //en funcion de si el usuario esta logueado o no se muestran sus datosen pantalla o los campos vacios
-        Context context = getActivity();
-        SharedPreferences sharedPref = context.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String nombreDeUsuario = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-
-        //iniciadores de vistas y spinner
-        View view = inflater.inflate(R.layout.create_user, null);
-        ButterKnife.bind(this, view);
-        // Inflate the layout for this fragment
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.create_user);
+        ButterKnife.bind(this);
 
 // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.SIGNUP_STUDY_LEVELS, android.R.layout.simple_spinner_item);
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         estudios.setAdapter(adapter);
-
-        //comprobamos logueo
-        if (nombreDeUsuario == null) {
-            //mostrar pantalla de creacion
-
-
-            return view;
-        } else {
-            //mostrar pantalla rellena de datos qque hay que obtener de la db
-            Log.d("usuario checkeado", "esta logeado el usuario " + nombreDeUsuario);
-            LoginChecker loginChecker = new LoginChecker();
-            loginChecker.Login("application/json", nombreDeUsuario, token, this);
-            return view;
-        }
 
     }
 
@@ -368,4 +343,14 @@ public class CreateUserFragment extends Fragment {
         errorLayout.setVisibility(View.GONE);
     }
 
+
+    public void finishCreateUser(String userName){
+        Toast.makeText(this, getString(R.string.user_created), Toast.LENGTH_LONG).show();
+        Intent intent = new Intent();
+        intent.putExtra("USER_NAME", userName);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
 }
+
