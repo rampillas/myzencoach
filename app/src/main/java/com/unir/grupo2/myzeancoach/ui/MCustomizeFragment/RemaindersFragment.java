@@ -20,9 +20,10 @@ import android.widget.RatingBar;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.GetRewardsUseCase;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.SetRemainderFinishedUseCase;
+import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.SetRewardsUseCase;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.UpdateListUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
-import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
+import com.unir.grupo2.myzeancoach.domain.model.ResultsItem;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemaindersListAdapter;
 
@@ -62,6 +63,8 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     }
 
     RemaindersListAdapter remaindersListAdapter;
+    static String tokenActivo = "";
+    static RemainderItemObject remainderItemInUse = null;
     //elements from database
     List<RemainderItem> remainderItemList;
     //local elements for view holder
@@ -144,7 +147,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         }
     }
 
-    private final class AwardsSuscriber extends Subscriber<RewardsItem> {
+    private final class AwardsSuscriber extends Subscriber<List<ResultsItem>> {
         //3 callbacks
 
         //Show the listView
@@ -162,12 +165,31 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
 
         //Update listview datas
         @Override
-        public void onNext(RewardsItem rewardsItems) {
+        public void onNext(List<ResultsItem> rewardsItems) {
             setrewardspoints(rewardsItems);
         }
     }
 
     public static final class FinishedSuscriber extends Subscriber<Void> {
+        //3 callbacks
+
+        @Override
+        public void onCompleted() {
+            setUserPoints();
+        }
+
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+            Log.e("ERROR mark as complete ", e.toString());
+        }
+
+        @Override
+        public void onNext(Void e) {
+        }
+    }
+
+    public static final class SetPointsSuscriber extends Subscriber<Void> {
         //3 callbacks
 
         @Override
@@ -203,22 +225,23 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         recyclerView.setAdapter(remaindersListAdapter);
     }
 
-    private void setrewardspoints(RewardsItem rewardsItemList) {
-        int puntos = rewardsItemList.getPoints();
-        Log.d("PUNTOS", String.valueOf(puntos));
-        switch (puntos) {
-            case 1:
-                ratingBar.setNumStars(1);
-            case 2:
-                ratingBar.setNumStars(2);
-            case 3:
-                ratingBar.setNumStars(3);
-            case 4:
-                ratingBar.setNumStars(4);
-            case 5:
-                ratingBar.setNumStars(5);
+    private void setrewardspoints(List<ResultsItem> rewardsItemList) {
+        int totalPoints = 0;
+        for (int i = 0; i < rewardsItemList.size(); i++) {
+            totalPoints += Integer.valueOf(rewardsItemList.get(i).getPoints());
         }
+        Log.d("PUNTOS", String.valueOf(totalPoints));
+        ratingBar.setRating(totalPoints);
         showContent();
+    }
+
+    private static void setUserPoints() {
+        String bodyString = "{\n" +
+                "\t\"title\": \"" + remainderItemInUse.getTitle() + "\",\n" +
+                "\t\"points\": 1 \n" +
+                "}";
+        RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);
+        new SetRewardsUseCase("Bearer " + tokenActivo, rb).execute(new RemaindersFragment.SetPointsSuscriber());
     }
 
     /**
@@ -265,7 +288,9 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
         String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
-        new SetRemainderFinishedUseCase(user, "Bearer "+token, rb).execute(new RemaindersFragment.FinishedSuscriber());
+        tokenActivo = token;
+        remainderItemInUse = remainderItem;
+        new SetRemainderFinishedUseCase(user, "Bearer " + token, rb).execute(new RemaindersFragment.FinishedSuscriber());
         postListener.onCompletedRemainderSelected(remainderItem);
     }
 

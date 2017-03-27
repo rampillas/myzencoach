@@ -1,7 +1,7 @@
 package com.unir.grupo2.myzeancoach.data.MCustomize;
 
 import com.unir.grupo2.myzeancoach.domain.model.RemaindersListPojo;
-import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
+import com.unir.grupo2.myzeancoach.domain.model.RewardsListPojo;
 
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
@@ -19,7 +19,7 @@ import rx.Observable;
 public interface ApiCallsRemainders {
     @Headers("Content-Type: application/json")
     @GET("personalization/rewards")
-    Observable<RewardsItem> getRewards(@Header("Authorization") String token);
+    Observable<RewardsListPojo> getRewards(@Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
     @GET("personalization/reminders")

@@ -1,7 +1,7 @@
 package com.unir.grupo2.myzeancoach.data.MCustomize;
 
 import com.unir.grupo2.myzeancoach.domain.model.RemaindersListPojo;
-import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
+import com.unir.grupo2.myzeancoach.domain.model.RewardsListPojo;
 
 import okhttp3.RequestBody;
 import rx.Observable;
@@ -16,5 +16,5 @@ public interface RemaindersRepository {
     Observable<Void> addObservations(String username,RequestBody body,String token);
     Observable<Void> addNewRemainder(String username, RequestBody body, String token);
     Observable<Void> setRewards(RequestBody body,String token);
-    Observable<RewardsItem> getRewards(String token);
+    Observable<RewardsListPojo> getRewards(String token);
 }

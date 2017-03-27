@@ -33,18 +33,18 @@ public class RemaindersItemViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(final RemainderItemObject remainderItemObject, final RemaindersListAdapter.OnItemClickListener listener) {
         this.listener = listener;
+        this.remainderItem=remainderItemObject;
         remainderTitle.setText(remainderItemObject.getTitle());
         remainderObservations.setText(remainderItemObject.getDescription());
+        remainderComplete.setEnabled(true);
+        remainderComplete.setText(R.string.REMAINDERS_MASK_AS_DONE);
         if (remainderItemObject.getCompleted()) {
             remainderComplete.setText(R.string.completed);
             remainderComplete.setEnabled(false);
         }else {
             remainderComplete.setCompoundDrawablesWithIntrinsicBounds( R.mipmap.checked, 0, 0, 0);
         }
-        if (remainderItemObject.getUser().toString().isEmpty()) {
-            remainderComplete.setEnabled(false);
-            remainderComplete.setVisibility(View.INVISIBLE);
-        }
+
 
 
     }

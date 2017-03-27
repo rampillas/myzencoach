@@ -3,8 +3,14 @@ package com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders;
 import com.unir.grupo2.myzeancoach.data.MCustomize.RemaindersDataRepository;
 import com.unir.grupo2.myzeancoach.data.MCustomize.RemaindersRepository;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
+import com.unir.grupo2.myzeancoach.domain.model.ResultsItem;
+import com.unir.grupo2.myzeancoach.domain.model.RewardsListPojo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Created by andres on 25/03/2017.
@@ -20,6 +26,17 @@ public class GetRewardsUseCase extends UseCase {
     @Override
     protected Observable buildUseCaseObservable() {
         RemaindersRepository repo = RemaindersDataRepository.getInstance();
-        return repo.getRewards(token);
+        return repo.getRewards(token).map(new Func1<RewardsListPojo, List<ResultsItem>>() {
+            @Override
+            public List<ResultsItem> call(RewardsListPojo rewardsListPojo) {
+
+                List<ResultsItem> rewardsItemList = new ArrayList<ResultsItem>();
+
+                for(int i = 0; i < rewardsListPojo.getCount(); i++){
+                    rewardsItemList.add(rewardsListPojo.getResults().get(i));
+                }
+                return rewardsItemList;
+            }
+        });
     }
 }
