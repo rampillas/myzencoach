@@ -25,7 +25,7 @@ public class StressQuestionsListPojo {
 
     @SerializedName("results")
     @Expose
-    private List<ResultsItem> results;
+    private List<StressQuestion> results;
 
     public void setNext(Object next) {
         this.next = next;
@@ -51,11 +51,11 @@ public class StressQuestionsListPojo {
         return count;
     }
 
-    public void setResults(List<ResultsItem> results) {
+    public void setResults(List<StressQuestion> results) {
         this.results = results;
     }
 
-    public List<ResultsItem> getResults() {
+    public List<StressQuestion> getResults() {
         return results;
     }
 

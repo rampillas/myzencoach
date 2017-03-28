@@ -19,15 +19,17 @@ public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemVi
     private List<RemainderItemObject> remaindersItemList;
     private RemaindersListAdapter thisAdapter = this;
 
-    public interface OnItemClickListener{
+    public interface OnItemClickListener {
         public void onItemClick(RemainderItemObject remaindersItem);
+
         public void onCompleteClick(RemainderItemObject remainderItem);
+
         public void onAddClick(RemainderItemObject remainderItem);
     }
 
     private final OnItemClickListener listener;
 
-    public RemaindersListAdapter(Context context, List<RemainderItemObject> remaindersItemList, RemaindersListAdapter.OnItemClickListener listener){
+    public RemaindersListAdapter(Context context, List<RemainderItemObject> remaindersItemList, RemaindersListAdapter.OnItemClickListener listener) {
         this.context = context;
         this.remaindersItemList = remaindersItemList;
         this.listener = listener;
@@ -46,7 +48,7 @@ public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemVi
     @Override
     public void onBindViewHolder(RemaindersItemViewHolder remaindersItemViewHolder, int position) {
         final RemainderItemObject remainderItemObject = remaindersItemList.get(position);
-        remaindersItemViewHolder.bind(remaindersItemList.get(position),listener);
+        remaindersItemViewHolder.bind(remaindersItemList.get(position), listener);
     }
 
 

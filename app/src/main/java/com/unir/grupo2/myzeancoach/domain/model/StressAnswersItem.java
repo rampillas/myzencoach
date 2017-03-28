@@ -1,11 +1,12 @@
 package com.unir.grupo2.myzeancoach.domain.model;
 
 import com.google.gson.annotations.Expose;
-import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
+import javax.annotation.Generated;
+
 @Generated("com.robohorse.robopojogenerator")
-public class AnswersItem{
+public class StressAnswersItem {
 
 	@SerializedName("color")
 	@Expose
@@ -46,7 +47,7 @@ public class AnswersItem{
 	@Override
  	public String toString(){
 		return 
-			"AnswersItem{" + 
+			"StressAnswersItem{" +
 			"color = '" + color + '\'' + 
 			",popup_message = '" + popupMessage + '\'' + 
 			",description = '" + description + '\'' + 

@@ -29,7 +29,9 @@ import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPos
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.StressFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList.StressQuestionObject;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
@@ -52,7 +54,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
         VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener, RemaindersFragment.OnPostListener,
-        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener {
+        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener,StressFragment.OnPostListener {
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
          */
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
+        fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
 
         //Setup click events on the Navigation View Items.
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -314,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     @Override
     public void onItemRemainderSelected(RemainderItemObject remainderItem) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-        xfragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
+        xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
     }
 
     @Override
@@ -326,7 +328,16 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     @Override
     public void onCompletedRemainderSelected(RemainderItemObject remainderItem) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-        xfragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
+        xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
     }
 
+    @Override
+    public void onNewQuestionSelected() {
+
+    }
+
+    @Override
+    public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
+
+    }
 }

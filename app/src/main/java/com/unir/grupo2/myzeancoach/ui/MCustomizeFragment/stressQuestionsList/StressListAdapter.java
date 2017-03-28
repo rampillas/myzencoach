@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.model.QuestionsStress;
 
 import java.util.List;
 
@@ -17,16 +16,16 @@ import java.util.List;
 
 public class StressListAdapter extends RecyclerView.Adapter<StressItemViewHolder> {
     private Context context;
-    private List<QuestionsStress> stressItemList;
+    private List<StressQuestionObject> stressItemList;
     private StressListAdapter thisAdapter = this;
 
-    public interface OnItemClickListener{
-        public void onItemClick(QuestionsStress questionsStress);
+    public interface OnItemClickListener {
+        public void onSendClick(String answer, StressQuestionObject stressQuestionObject);
     }
 
     private final StressListAdapter.OnItemClickListener listener;
 
-    public StressListAdapter(Context context, List<QuestionsStress> questionsStressItemList, StressListAdapter.OnItemClickListener listener){
+    public StressListAdapter(Context context, List<StressQuestionObject> questionsStressItemList, StressListAdapter.OnItemClickListener listener) {
         this.context = context;
         this.stressItemList = questionsStressItemList;
         this.listener = listener;
@@ -44,8 +43,8 @@ public class StressListAdapter extends RecyclerView.Adapter<StressItemViewHolder
 
     @Override
     public void onBindViewHolder(StressItemViewHolder stressItemViewHolder, int position) {
-        final QuestionsStress questionsStress = stressItemList.get(position);
-        stressItemViewHolder.bind(stressItemList.get(position),listener);
+        final StressQuestionObject questionsStress = stressItemList.get(position);
+        stressItemViewHolder.bind(stressItemList.get(position), listener);
     }
 
     @Override

@@ -145,7 +145,7 @@ public class AddRemainderFragment extends Fragment {
             showContent();
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_view, new RemaindersFragment()).commit();
+            fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
         }
 
         //Show the error

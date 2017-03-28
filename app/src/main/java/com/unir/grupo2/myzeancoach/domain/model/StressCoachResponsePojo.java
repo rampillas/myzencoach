@@ -1,9 +1,11 @@
 package com.unir.grupo2.myzeancoach.domain.model;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
-import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
 public class StressCoachResponsePojo {
@@ -22,7 +24,7 @@ public class StressCoachResponsePojo {
 
 	@SerializedName("results")
 	@Expose
-	private List<ResultsItem> results;
+	private List<StressCoachResponse> results;
 
 	public void setNext(Object next){
 		this.next = next;
@@ -48,11 +50,11 @@ public class StressCoachResponsePojo {
 		return count;
 	}
 
-	public void setResults(List<ResultsItem> results){
+	public void setResults(List<StressCoachResponse> results){
 		this.results = results;
 	}
 
-	public List<ResultsItem> getResults(){
+	public List<StressCoachResponse> getResults(){
 		return results;
 	}
 

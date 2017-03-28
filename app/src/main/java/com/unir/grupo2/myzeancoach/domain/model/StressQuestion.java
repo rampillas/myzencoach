@@ -1,69 +1,90 @@
 package com.unir.grupo2.myzeancoach.domain.model;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
-import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
 public class StressQuestion{
 
-	@SerializedName("is_personal_question")
+	@SerializedName("user")
 	@Expose
-	private boolean isPersonalQuestion;
-
-	@SerializedName("possible_answers")
-	@Expose
-	private int possibleAnswers;
-
-	@SerializedName("answers")
-	@Expose
-	private List<AnswersItem> answers;
-
+	private String user;
 	@SerializedName("description")
 	@Expose
 	private String description;
+	@SerializedName("possible_answers")
+	@Expose
+	private Integer possibleAnswers;
+	@SerializedName("is_personal_question")
+	@Expose
+	private Boolean isPersonalQuestion;
+	@SerializedName("active")
+	@Expose
+	private Integer active;
+	@SerializedName("user_answer")
+	@Expose
+	private String userAnswer;
+	@SerializedName("questions")
+	@Expose
+	private List<StressAnswersItem> questions = null;
 
-	public void setIsPersonalQuestion(boolean isPersonalQuestion){
-		this.isPersonalQuestion = isPersonalQuestion;
+	public String getUser() {
+		return user;
 	}
 
-	public boolean isIsPersonalQuestion(){
-		return isPersonalQuestion;
+	public void setUser(String user) {
+		this.user = user;
 	}
 
-	public void setPossibleAnswers(int possibleAnswers){
-		this.possibleAnswers = possibleAnswers;
-	}
-
-	public int getPossibleAnswers(){
-		return possibleAnswers;
-	}
-
-	public void setAnswers(List<AnswersItem> answers){
-		this.answers = answers;
-	}
-
-	public List<AnswersItem> getAnswers(){
-		return answers;
-	}
-
-	public void setDescription(String description){
-		this.description = description;
-	}
-
-	public String getDescription(){
+	public String getDescription() {
 		return description;
 	}
 
-	@Override
- 	public String toString(){
-		return 
-			"StressQuestion{" + 
-			"is_personal_question = '" + isPersonalQuestion + '\'' + 
-			",possible_answers = '" + possibleAnswers + '\'' + 
-			",answers = '" + answers + '\'' + 
-			",description = '" + description + '\'' + 
-			"}";
-		}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getPossibleAnswers() {
+		return possibleAnswers;
+	}
+
+	public void setPossibleAnswers(Integer possibleAnswers) {
+		this.possibleAnswers = possibleAnswers;
+	}
+
+	public Boolean getIsPersonalQuestion() {
+		return isPersonalQuestion;
+	}
+
+	public void setIsPersonalQuestion(Boolean isPersonalQuestion) {
+		this.isPersonalQuestion = isPersonalQuestion;
+	}
+
+	public Integer getActive() {
+		return active;
+	}
+
+	public void setActive(Integer active) {
+		this.active = active;
+	}
+
+	public String getUserAnswer() {
+		return userAnswer;
+	}
+
+	public void setUserAnswer(String userAnswer) {
+		this.userAnswer = userAnswer;
+	}
+
+	public List<StressAnswersItem> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<StressAnswersItem> questions) {
+		this.questions = questions;
+	}
 }

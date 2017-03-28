@@ -214,5 +214,6 @@
     <!-- MORE NEW WORDS-->
     //Login
     <string name="user_created">Se ha registrado correctamente. Ya puede iniciar sesión</string>
+    <string name="send">Enviar</string>
 
 </resources>

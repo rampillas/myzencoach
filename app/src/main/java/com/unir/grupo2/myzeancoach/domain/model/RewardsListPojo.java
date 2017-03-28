@@ -24,7 +24,7 @@ public class RewardsListPojo{
 
 	@SerializedName("results")
 	@Expose
-	private List<ResultsItem> results;
+	private List<RewardsItem> results;
 
 	public void setNext(Object next){
 		this.next = next;
@@ -50,11 +50,11 @@ public class RewardsListPojo{
 		return count;
 	}
 
-	public void setResults(List<ResultsItem> results){
+	public void setResults(List<RewardsItem> results){
 		this.results = results;
 	}
 
-	public List<ResultsItem> getResults(){
+	public List<RewardsItem> getResults(){
 		return results;
 	}
 

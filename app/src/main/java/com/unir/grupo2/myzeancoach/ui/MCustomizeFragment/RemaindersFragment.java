@@ -23,7 +23,7 @@ import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.SetRe
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.SetRewardsUseCase;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.UpdateListUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
-import com.unir.grupo2.myzeancoach.domain.model.ResultsItem;
+import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemaindersListAdapter;
 
@@ -147,7 +147,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         }
     }
 
-    private final class AwardsSuscriber extends Subscriber<List<ResultsItem>> {
+    private final class AwardsSuscriber extends Subscriber<List<RewardsItem>> {
         //3 callbacks
 
         //Show the listView
@@ -165,7 +165,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
 
         //Update listview datas
         @Override
-        public void onNext(List<ResultsItem> rewardsItems) {
+        public void onNext(List<RewardsItem> rewardsItems) {
             setrewardspoints(rewardsItems);
         }
     }
@@ -225,7 +225,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         recyclerView.setAdapter(remaindersListAdapter);
     }
 
-    private void setrewardspoints(List<ResultsItem> rewardsItemList) {
+    private void setrewardspoints(List<RewardsItem> rewardsItemList) {
         int totalPoints = 0;
         for (int i = 0; i < rewardsItemList.size(); i++) {
             totalPoints += Integer.valueOf(rewardsItemList.get(i).getPoints());
