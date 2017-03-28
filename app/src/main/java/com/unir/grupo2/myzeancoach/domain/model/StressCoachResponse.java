@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class ResultsItem{
+public class StressCoachResponse{
 
 	@SerializedName("description")
 	@Expose
@@ -34,7 +34,7 @@ public class ResultsItem{
 	@Override
  	public String toString(){
 		return 
-			"ResultsItem{" + 
+			"StressCoachResponse{" + 
 			"description = '" + description + '\'' + 
 			",active = '" + active + '\'' + 
 			"}";
