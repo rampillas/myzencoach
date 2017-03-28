@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -36,7 +40,7 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void bind(final DilemmaPost dilemmaPostItem,
+    public void bind(final Dilemma dilemmaPostItem,
                      final DilemmaPostListAdapter.OnDilemmaPostClickListener listener,
                      final boolean fromMyDilemma, Context context) {
 
@@ -44,24 +48,28 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
             nickTextView.setVisibility(View.GONE);
         }
         dateTextView.setText(dilemmaPostItem.getDate());
-        nickTextView.setText(dilemmaPostItem.getNick());
+        nickTextView.setText(dilemmaPostItem.getNickUser());
         titleTextView.setText(dilemmaPostItem.getTitle());
         descriptionTextView.setText(dilemmaPostItem.getDescription());
         switch (dilemmaPostItem.getState()) {
             case "help_me":
-                stateTextView.setText(context.getString(R.string.state_help_me));
+                stateTextView.setText(context.getString(R.string.state_acepted));
                 stateTextView.setTextColor(context.getColor(R.color.blueApp));
                 break;
             case "feedback":
 
                 for(int i = 0; i < dilemmaPostItem.getComments().size(); i++){
-                    if (dilemmaPostItem.getComments().get(i).isLike()){
-                        if (isMore7days(dilemmaPostItem.getComments().get(i).getDateLike())){
-                            stateTextView.setText(context.getString(R.string.state_feedback_2));
-                        }else{
-                            stateTextView.setText(context.getString(R.string.state_feedback_1));
+                    if (dilemmaPostItem.getComments().get(i).getLike()){
+                        /** CHANGE LIKE_DATE ************/
+                        if (dilemmaPostItem.getComments().get(i).getDateFeedback() != null &&
+                                !dilemmaPostItem.getComments().get(i).getDateFeedback().equals("")){
+                            if (isMore7days(dilemmaPostItem.getComments().get(i).getDateFeedback())){
+                                stateTextView.setText(context.getString(R.string.state_feedback_2));
+                            }else{
+                                stateTextView.setText(context.getString(R.string.state_feedback_1));
+                            }
+                            break;
                         }
-                        break;
                     }
                 }
                 stateTextView.setTextColor(context.getColor(R.color.redApp));
@@ -71,7 +79,7 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
                 stateTextView.setTextColor(context.getColor(R.color.greenApp));
                 break;
             default:
-                stateTextView.setText(context.getString(R.string.state_help_me));
+                stateTextView.setText(context.getString(R.string.state_acepted));
                 stateTextView.setTextColor(context.getColor(R.color.blueApp));
                 break;
         }
@@ -83,7 +91,15 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    private boolean isMore7days(Date date){
+    private boolean isMore7days(String dateString){
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        Date date = new Date();
+        try {
+            date = df.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Date now = new Date();
         long MAX_DURATION = MILLISECONDS.convert(7, DAYS);
 

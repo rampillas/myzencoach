@@ -11,9 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Comment;
+import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaCommentList.DilemmaCommentListAdapter;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaComment;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 public class DilemmaCommentActivity extends AppCompatActivity implements DilemmaCommentListAdapter.OnDilemmaCommentClickListener{
 
     @BindView(R.id.dilemma_comment_recycler_view) RecyclerView recyclerView;
-    private List<DilemmaComment> commentItemList;
+    private List<Comment> commentItemList;
     private DilemmaCommentListAdapter dilemmaCommentListAdapter;
 
     @BindView(R.id.floating_action_button) FloatingActionButton addCommentfloatingActionButton;
@@ -41,7 +41,7 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        DilemmaPost dilemma = (DilemmaPost) intent.getParcelableExtra("DILEMMA");
+        Dilemma dilemma = (Dilemma) intent.getParcelableExtra("DILEMMA");
         boolean isFromDilemma = intent.getBooleanExtra("IS_FROM_MYDILEMMA", false);
 
         commentItemList = dilemma.getComments();

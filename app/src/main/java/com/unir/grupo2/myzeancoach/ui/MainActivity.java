@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
@@ -25,7 +26,6 @@ import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     /***Homepage***/
     @Override
-    public void onDilemmaItemPostSelected(DilemmaPost dilemmaPost, boolean fromMyDilemma) {
+    public void onDilemmaItemPostSelected(Dilemma dilemmaPost, boolean fromMyDilemma) {
         Intent intent = new Intent(this, DilemmaCommentActivity.class);
         intent.putExtra("DILEMMA", dilemmaPost);
         intent.putExtra("IS_FROM_MYDILEMMA", fromMyDilemma);

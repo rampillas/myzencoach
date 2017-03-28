@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaComment;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaPostList.DilemmaPost;
+import com.unir.grupo2.myzeancoach.domain.model.Comment;
+import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ import java.util.List;
 public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private DilemmaPost dilemmaPost;
-    private List<DilemmaComment> dilemmaCommentItemList;
+    private Dilemma dilemmaPost;
+    private List<Comment> dilemmaCommentItemList;
     private String videoName;
     private boolean[] userAnswers;
 
@@ -40,7 +40,7 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
 
     private final DilemmaCommentListAdapter.OnDilemmaCommentClickListener listener;
 
-    public DilemmaCommentListAdapter(Context context, DilemmaPost dilemmaPost,
+    public DilemmaCommentListAdapter(Context context, Dilemma dilemmaPost,
                                      OnDilemmaCommentClickListener listener){
         this.context = context;
         this.dilemmaPost = dilemmaPost;
@@ -71,10 +71,10 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
             headerHolder.descriptionTextView.setText(dilemmaPost.getDescription());
 
         } else if(holder instanceof DilemmaCommentItemViewHolder) {
-            final DilemmaComment dilemmaComment = dilemmaCommentItemList.get(position - 1);
+            final Comment dilemmaComment = dilemmaCommentItemList.get(position - 1);
             DilemmaCommentItemViewHolder itemHolder = (DilemmaCommentItemViewHolder) holder;
 
-            itemHolder.nickTextView.setText(dilemmaComment.getNick());
+            itemHolder.nickTextView.setText(dilemmaComment.getNickUser());
             itemHolder.dateTextView.setText(dilemmaComment.getDate());
             itemHolder.descriptionTextView.setText(dilemmaComment.getDescription());
 
@@ -92,7 +92,7 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
                 itemHolder.proConLinearLayout.addView(con);
             }
 
-            if (dilemmaComment.isLike()){
+            if (dilemmaComment.getLike()){
                 itemHolder.likeCheckBox.setChecked(true);
                 itemHolder.feedbackEditText.setVisibility(View.VISIBLE);
             }else{
@@ -107,7 +107,7 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
                 itemHolder.feedbackTextView.setText(context.getString(R.string.feedback, dilemmaComment.getFeedback()));
             }
 
-            if (dilemmaPost.getState().equals("completed") && !dilemmaComment.isLike()){
+            if (dilemmaPost.getState().equals("completed") && !dilemmaComment.getLike()){
                 itemHolder.likeCheckBox.setVisibility(View.GONE);
             }
         }

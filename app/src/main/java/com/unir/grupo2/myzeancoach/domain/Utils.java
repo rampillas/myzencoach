@@ -28,4 +28,13 @@ public class Utils {
         return sharedPref.getString(context.getString(R.string.PREFERENCES_USER),null);
     }
 
+    public static String getTokenFromPreference(Context context){
+
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        return sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN),null);
+    }
+
+
 }

@@ -151,8 +151,8 @@
     <!--Leisure -->
     <string name="feedback"><b>Feedback:</b> %1$s</string>
     <string name="state_waiting_for_answer">Esperando por la respuesta del coach</string>
-    <string name="state_refused">Denegado</string>
-    <string name="state_help_me">Ayudame a solucionarlo</string>
+    <string name="state_refused">Denegado\nVer comentarios del coach...</string>
+    <string name="state_acepted">Ayudame a solucionarlo</string>
     <string name="state_feedback_1">Esperando feedback</string>
     <string name="state_feedback_2">Ha pasado más de 1 semana. Proporcione feedback por favor.</string>
     <string name="state_completed">Finalizado</string>
@@ -212,8 +212,13 @@
     <string name="REMAINDERS_EMPTY_ADD">Por favor rellena todoslos campos</string>
 
     <!-- MORE NEW WORDS-->
-    //Login
+    <!--Login-->
     <string name="user_created">Se ha registrado correctamente. Ya puede iniciar sesión</string>
     <string name="send">Enviar</string>
+
+    <!--MODULE COOPERATIVE SOLUTIONS -->
+    <string name="message_no_my_dilemmas">No tiene ningún dilema aceptado por su coach</string>
+    <string name="message_no_coach_dilemmas">No tiene ningún dilema en mediación con su coach. Si lo desea, puede añadir uno</string>
+    <string name="message_no_muro_dilemmas">Aún no existe ningún dilema</string>
 
 </resources>

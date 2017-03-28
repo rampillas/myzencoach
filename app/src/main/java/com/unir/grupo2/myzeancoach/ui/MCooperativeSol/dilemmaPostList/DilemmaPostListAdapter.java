@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 
 import java.util.List;
 
@@ -18,17 +19,17 @@ import java.util.List;
 
 public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItemViewHolder>  {
 
-    private List<DilemmaPost> dilemmaPostItemList;
+    private List<Dilemma> dilemmaPostItemList;
     private Context context;
     private boolean fromMyDilemma;
 
     public interface OnDilemmaPostClickListener{
-        public void onItemDilemmaPostClick(DilemmaPost post,boolean fromMyDilemma);
+        public void onItemDilemmaPostClick(Dilemma post,boolean fromMyDilemma);
     }
 
     DilemmaPostListAdapter.OnDilemmaPostClickListener listener;
 
-    public DilemmaPostListAdapter(Context context, List<DilemmaPost> dilemmaPostItemList, DilemmaPostListAdapter.OnDilemmaPostClickListener listener, boolean fromMyDilemma) {
+    public DilemmaPostListAdapter(Context context, List<Dilemma> dilemmaPostItemList, DilemmaPostListAdapter.OnDilemmaPostClickListener listener, boolean fromMyDilemma) {
         this.context = context;
         this.dilemmaPostItemList = dilemmaPostItemList;
         this.listener = listener;
@@ -46,7 +47,7 @@ public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItem
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(DilemmaPostItemViewHolder viewHolder, int position) {
-        DilemmaPost dilemmaPostItem = dilemmaPostItemList.get(position);
+        Dilemma dilemmaPostItem = dilemmaPostItemList.get(position);
         viewHolder.bind(dilemmaPostItemList.get(position),listener, fromMyDilemma, context);
     }
 
