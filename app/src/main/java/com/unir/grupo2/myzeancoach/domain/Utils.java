@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 
 import com.unir.grupo2.myzeancoach.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Cesar on 22/03/2017.
  */
@@ -36,5 +40,21 @@ public class Utils {
         return sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN),null);
     }
 
+    public static String dateFormat(String dateString){
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat output = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+
+        try {
+
+            Date date = sdf .parse(dateString);
+
+            dateString = output.format(date);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return dateString;
+    }
 
 }

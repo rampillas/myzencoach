@@ -38,7 +38,6 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachViewHolder>  {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(CoachViewHolder viewHolder, int position) {
-        Dilemma dilemmaPostItem = dilemmaPostItemList.get(position);
         viewHolder.bind(dilemmaPostItemList.get(position), context);
     }
 

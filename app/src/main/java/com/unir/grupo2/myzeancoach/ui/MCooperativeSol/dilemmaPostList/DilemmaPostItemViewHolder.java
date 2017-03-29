@@ -52,7 +52,7 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
         titleTextView.setText(dilemmaPostItem.getTitle());
         descriptionTextView.setText(dilemmaPostItem.getDescription());
         switch (dilemmaPostItem.getState()) {
-            case "help_me":
+            case "acepted":
                 stateTextView.setText(context.getString(R.string.state_acepted));
                 stateTextView.setTextColor(context.getColor(R.color.blueApp));
                 break;
