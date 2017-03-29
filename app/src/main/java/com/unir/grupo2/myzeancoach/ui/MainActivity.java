@@ -27,6 +27,7 @@ import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddStressQuestionFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.StressFragment;
@@ -333,11 +334,14 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     @Override
     public void onNewQuestionSelected() {
+        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        xfragmentTransaction.replace(R.id.container_view, new AddStressQuestionFragment()).commit();
 
     }
 
     @Override
     public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
-
+        //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
     }
 }

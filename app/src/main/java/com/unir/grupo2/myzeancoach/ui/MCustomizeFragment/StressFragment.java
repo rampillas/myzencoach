@@ -1,6 +1,7 @@
 package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.SetAnswerUseCase;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.UpdateQuestionsListUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.StressQuestion;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList.StressListAdapter;
@@ -29,6 +32,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Subscriber;
 
 /**
@@ -60,6 +65,8 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
     private List<StressQuestionObject> stressQuestionObjectList;
 
     StressFragment.OnPostListener postListener;
+    StressQuestionObject stressQuestionActive = null;
+    String personal_question_answer;
 
     @OnClick(R.id.floatingActionButton)
     public void openNewQuestion() {
@@ -70,6 +77,21 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
     @Override
     public void onSendClick(String answer, StressQuestionObject stressQuestionObject) {
         //call and send the data
+        this.stressQuestionActive = stressQuestionObject;
+        this.personal_question_answer = answer;
+        String question_description="";
+        SharedPreferences sharedPref = getContext().getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
+        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+        //get the options and create the request body
+        String bodyString = "{\n" +
+                "\t\"description\": \""+stressQuestionActive.getDescription()+"\", \n" +
+                "\t\"user_answer\": \"" + answer + "\"\n" +
+                "}";
+        RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);
+        showLoading();
+        new SetAnswerUseCase("Bearer " + token, rb, user).execute(new StressFragment.SendAnswer());
         postListener.onSendItemSelected(answer, stressQuestionObject);
     }
 
@@ -138,6 +160,49 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         }
     }
 
+    private final class SendAnswer extends Subscriber<Void> {
+        //3 callbacks
+        //Show the listView
+        @Override
+        public void onCompleted() {
+        }
+
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+            Log.e("ERROR Answer ", e.toString());
+            showError();
+        }
+
+        @Override
+        public void onNext(Void aVoid) {
+            //mostramos un alert dialog con el mensage
+            showMsg();
+        }
+
+    }
+
+    private void showMsg() {
+        String mensage = "";
+        //recuperamos el mensage correspondiente a la respuesta dada
+        for (int i = 0; i < stressQuestionActive.getElementos().size(); i++) {
+            if (stressQuestionActive.getElementos().get(i).getDescription().equalsIgnoreCase(personal_question_answer))
+                mensage = stressQuestionActive.getElementos().get(i).getPopupMessage();
+        }
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Coach response")
+                .setMessage(mensage)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        showContent();
+                        dialog.cancel();
+                    }
+                })
+                .show();
+    }
+
     private void updateList(List<StressQuestion> stressQuestions) {
         Log.d("updateList", "updateList1");
         this.stressQuestionsList = stressQuestions;
@@ -146,7 +211,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         if (stressQuestions != null && stressQuestions.size() > 0) {
             for (int i = 0; i < this.stressQuestionsList.size(); i++) {
                 StressQuestion stressQuestionItem = stressQuestions.get(i);
-                StressQuestionObject stressQuestionObject = new StressQuestionObject(stressQuestionItem.getDescription(),stressQuestionItem.getUserAnswer(),stressQuestionItem.getQuestions());
+                StressQuestionObject stressQuestionObject = new StressQuestionObject(stressQuestionItem.getDescription(), stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
                 stressQuestionObjectList.add(stressQuestionObject);
             }
         }

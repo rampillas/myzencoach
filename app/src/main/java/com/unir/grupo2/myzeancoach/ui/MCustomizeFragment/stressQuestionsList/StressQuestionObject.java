@@ -11,7 +11,16 @@ import java.util.List;
 public class StressQuestionObject {
     String description;
     String user_answer;
+    String popup;
     List<StressAnswersItem> elementos;
+
+    public String getPopup() {
+        return popup;
+    }
+
+    public void setPopup(String popup) {
+        this.popup = popup;
+    }
 
     public StressQuestionObject(String description, String user_answer, List<StressAnswersItem> elementos) {
         this.description = description;
