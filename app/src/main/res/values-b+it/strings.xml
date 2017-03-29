@@ -1,0 +1,221 @@
+<resources>
+    <string name="app_name">MyZenCoach</string>
+    <string name="OK">OK</string>
+
+    <!-- General -->
+    <string name="loading_message">Caricando …</string>
+    <string name="error_message">Errore nel caricamento dati</string>
+    <string name="error_icon_description">Si è verificato un errore</string>
+
+    <!-- DrawerMenu and SwipeTabs -->
+    <string name="open">Aperto</string>
+    <string name="close">Chiuso</string>
+    <string name="customize">Personalizzazione</string>
+    <string name="essential_information">Informazioni essenziali</string>
+    <string name="cooperative_solutions">Soluzioni interattive</string>
+    <string name="welfare">Benessere/Mindfulness</string>
+    <string name="leisure">Riposo e tempo libero</string>
+    <string name="stress_detection">Sensore di stress</string>
+    <string name="remainders">Promemoria</string>
+    <string name="videos">Video</string>
+    <string name="tests">Test</string>
+    <string name="ranking">Classifica</string>
+    <string name="my_dilemmas">I miei dilemmi</string>
+    <string name="Homepage">"Pagina principale"></string>
+    <string name="coach">Coach</string>
+    <string name="current_plan">Piano Attuale</string>
+    <string name="weekly_exercise">Esercizio della settimana</string>
+    <string name="rate">Punteggio</string>
+    <string name="test_completed_dialog">Il test è stato salvato e inviato correttamente. Potrà rifare il test quante volte desidera</string>
+    <string name="puntuaction">Punteggio</string>
+    <string name="login">Login</string>
+    <string name="interests">Interessi</string>
+
+
+    <!-- essential_information-->
+    <string name="score_info">%1$d punti</string>
+    <string name="completed">Completato</string>
+    <string name="uncompleted">In sospeso</string>
+    <string name="question_number">Domanda %1$d de %2$d</string>
+    <string name="test_name">Test: %1sd</string>
+    <string name="send_to_rate">Inviare per ricevere valutazione</string>
+    <string name="no_available_test">Non ci sono test disponibili. Per avere accesso al test di un video,
+    deve prima completare la visualizzazione dee video corrispondente.</string>
+    <string name="error_update_video">Errore nell\'aggiornamento di stato del video</string>
+
+    <!-- LOGIN -->
+    <string name="LOGIN_TEXT_USER">Nome utente</string>
+    <string name="LOGIN_TEXT_PASSWORD">Password</string>
+    <string name="LOGIN_TEXT_LOGIN">Inizio sessione</string>
+    <string name="LOGIN_REMEMBER_PASSWORD">Ho dimenticato la password</string>
+    <string name="LOGIN_CREATE_ACCOUNT">Non ha un account?</string>
+    <string name="LOGIN_CREATE_ACCOUNT_BUTTON">Registrazione</string>
+    <string name="LOGIN_BAD_LOGIN">Utente o password invalidi</string>
+    <string name="LOGIN_ERROR_SERVER">Errore di connessione al server :(</string>
+
+    <!-- SIGNUP -->
+    <string name="SIGNUP_INCORRECT_DATA">I dati inseriti sono mancanti o incorretti, la invitiamo a correggerli.</string>
+    <string name="SIGNUP_USER_EXITS">L\'utente esiste già nel database</string>
+    <string name="SIGNUP_INSERT_DATE">Inserisca una data</string>
+    <string name="SIGNUP_NAME">Nome</string>
+    <string name="SIGNUP_LAST_NAME">Cognome</string>
+    <string name="SIGNUP_BIRD_DATE">Data di nascita</string>
+    <string name="SIGNUP_SEXO">Genere</string>
+    <string name="SIGNUP_COUNTRY">Paese</string>
+    <string name="SIGNUP_CITY">Città</string>
+    <string name="SIGNUP_URBAN_RURAL">Zona de Residenza</string>
+    <string name="SIGNUP_CHANGE_COUNTRY">Si è trasferito in un altro paese negli ultimi 5 anni?</string>
+    <string name="SIGNUP_ESTUDIOS">Livello d\'istruzione raggiunto</string>
+    <string name="SIGNUP_MAN">Maschio</string>
+    <string name="SIGNUP_WOMAN">Femmina</string>
+    <string name="SIGNUP_SELECT">Selezioni</string>
+    <string name="SIGNUP_YES">Sì</string>
+    <string name="SIGNUP_NO">No</string>
+    <string name="SIGNUP_RURAL">Rurale</string>
+    <string name="SIGNUP_URBAN">Urbana</string>
+    <string name="SIGNUP_OK">Ok</string>
+    <string name="SIGNUP_EMAIL">email</string>
+    <string-array name="SIGNUP_STUDY_LEVELS">
+        <item>Selezioni</item>
+        <item>Primaria</item>
+        <item>Secondaria di 1º</item>
+        <item>Secondaria superiore</item>
+        <item>Istituto Tecnico</item>
+        <item>Università</item>
+        <item>Dottorato</item>
+    </string-array>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!-- Preferencias -->
+    <string name="preference_file_key">archivo_preferencias_no_traducir</string>
+    <string name="PREFERENCES_USER">usuario_preferencias</string>
+    <string name="PREFERENCES_PASSWORD">contrasena_de_registro_en_preferencias</string>
+    <string name="PREFERENCES_VIDEOS">videos_en_preferencias</string>
+
+    <!-- Logout pantalla-->
+    <string name="LOGOUT_LOGOUT">Logout</string>
+    <string name="LOGOUT_EDIT">Modifica</string>
+    <string name="LOGOUT_WELCOME">Benvenuto</string>
+    <string name="SIGNUP_ERROR_FIELDS">Lunghezza/formato di email e/o utente errati</string>
+    <string name="SIGNUP_ERROR_EMAIL">Formato email non corretto</string>
+    <string name="SIGNUP_ERROR_EMAIL_NULL">Il campo Email non può essere vuoto</string>
+    <string name="SIGNUP_ERROR_PASSWORD">Formato password non accettato</string>
+    <string name="SIGNUP_ERROR_PASSWORD_LEN">La lunghezza della password deve essere compresa fra 6 e 20 caratteri</string>
+    <string name="SIGNUP_ERROR_PASSWORD_NULL">Compili il campo password</string>
+    <string name="SIGNUP_ERROR_USERNAME_NULL">Compili il campo utente</string>
+    <string name="SIGNUP_ERROR_USERNAME">Il formato del campo utente non è corretto</string>
+    <string name="SIGNUP_ERROR_USERNAME_LEN">La lunghezza dell\'utente deve esere compresa fra 3 e 25 caratteri</string>
+    <string name="LOGIN_EMAIL_SEND">La password è stata inviata via email</string>
+    <string name="SIGNUP_USER_NOT_EXITS">L\'utente non è registrato</string>
+
+    <!--Leisure -->
+    <string name="like">Mi piace</string>
+    <string name="comment">Scriva un commento</string>
+    <string name="title">Titolo</string>
+    <string name="description">Descrizione. A che cosa sta pensando?</string>
+    <string name="category">Selezioni una categoría</string>
+    <string name="post">Pubblichi</string>
+    <string name="public_homepage">Homepage</string>
+    <string name="set_up_your_interests">Selezioni gli interessi di sua preferenza</string>
+    <string name="save_interests">Salvare interessi</string>
+    <string name="write_comment">Scriva un commento...</string>
+    <string name="number_comments">%1$d commenti</string>
+
+    <!--Remainders -->
+    <string name="REMAINDERS_HELLO_USER">Salve</string>
+    <string name="REMAINDERS_TASK_REMAIN">Compiti per passare di livello</string>
+    <string name="REMAINDERS_YOUR_TASK">I miei compiti</string>
+    <string name="REMAINDERS_MASK_AS_DONE">Segnare come completato</string>
+    <string name="hello_world">messagePlan</string>
+
+    <!--MWelfare -->
+    <string name="week_info">settimana: %1$d</string>
+    <string name="remainders_add">Nuovo Promemoria</string>
+    <string name="REMAINDERS_ADD_TITLE">Titolo</string>
+    <string name="REMAINDERS_ADD_DESCRIPTION">Descrizione del promemoria</string>
+    <string name="REMAINDERS_ADD_WHEN">Data del promemoria</string>
+    <string name="REMAINDERS_ADD_INSERT_DATE">Selezioni una data</string>
+    <string name="REMAINDERS_ADD_WHEN_HOUR">Ora del promemoria</string>
+    <string name="REMAINDERS_ADD_INSERT_TIME">Selezioni l\'ora</string>
+    <string name="SAVE">Salvare</string>
+
+    <!-- Cooperative Solution -->
+    <string name="write_feedback">Dia un feedback alla soluzione che ha scelto</string>
+
+
+
+    <!--********* NEW WORDS ******-->
+    <!--Leisure -->
+    <string name="feedback"><b>Feedback:</b> %1$s</string>
+    <string name="state_waiting_for_answer">In attesa di risposta del coach</string>
+    <string name="state_refused">Negato\nLegga i commenti del coach</string>
+    <string name="state_help_me">Aiutatemi a trovare una soluzione</string>
+    <string name="state_feedback">Feedback. Scadenza: %1$s</string>
+    <string name="state_completed_yes">Risolto</string>
+    <string name="state_completed_no">Finalizzato senza feedback</string>
+
+
+    <!--********* NEW WORDS ******-->
+
+    <!-- DrawerMenu and SwipeTabs -->
+<string name="profil">Profilo</string>
+<string name="logout">Logout</string>
+
+    <!--Profile-->
+<string name="emoticon_very_happy">Felice</string>
+<string name="emoticon_happy"> Felicissimo</string>
+<string name="emoticon_in_love">Innamorato</string>
+<string name="emoticon_laughing">Rido</string>
+<string name="emoticon_sat">Triste</string>
+<string name="emoticon_disappointed">Deluso</string>
+<string name="emoticon_angry">Arrabbiato</string>
+<string name="emoticon_crying">Piango</string>
+<string name="how_you_feeling"><b>Come si sente?</b>\Scorra il dito orizzontalmente per vedere più stati d\'animo</string>
+<string name="choose_language"><b>Lingua</b></string>
+<string name="save_changes">Salvare cambiamenti</string>
+<string name="spanish">Spagnolo</string>
+<string name="english">Inglese</string>
+<string name="italian">Italiano</string>
+<string name="data_saved">I dati sono stati salvati correttamente</string>
+
+    <!--preferences-->
+<string name="PREFERENCES_EMOTICON">emoticon_en_preferencias(no traducir)</string>
+<string name="PREFERENCES_TOKEN">token_preferencias_key(no traducir)</string>
+<string name="PREFERENCES_CURRENT_PLAN_WELFARE">current_plan_welfare(no traducir)</string>
+
+
+<string name="title_activity_add_remainder">AddRemainderActivity</string>
+
+    <!--Welfare-->
+<string name="choose_plan">Selezioni il piano</string>
+<string name="ongoing_plan">In corso</string>
+<string name="choose_ongoing_one">Può selezionare solo piani in corso</string>
+<string name="week_number">Settimana %1d</string>
+<string name="question_answer">Scriva una risposta</string>
+<string name="exercise_rate_number">Come valuterebbe l\'esercizio?</string>
+<string name="exercise_rate_string">Dia il suo feedback all\'esercizio.</string>
+<string name="send_survey">Invia feedback</string>
+<string name="dialog_title_survey_sent">Esercizio completato</string>
+<string name="dialog_title_survey_sent_plan_over">Piano ed esercizio completati</string>
+<string name="dialog_message_survey_sent"> Congratulazioni! Ha completato l\'esercizio della settimana. Grazie per aver inviato il feedback</string>
+<string name="dialog_message_survey_sent_over">Congratulazioni! Ha completato l\'esercizio della settimana e il piano. Grazie per aver inviato il feedback</string>
+<string name="alert_plan_chosen">Il piano selezionato è stato aggiunto alle preferenze. L\'elenco dei piani sarà accessibile dopo che avrà completato
+il piano o dopo il logout</string>
+<string name="error_update_survey">Il feedback non è stato salvato correttamente</string>
+<string name="alert_check_fields_empty">Risponda a tutte le domande per favore</string>
+<string name="dialog_title_url_no_valid">URL non valido</string>
+<string name="dialog_massage_no_youtube_url_audio">Gli URL degli audio sono supportati solo in formato YouTube URL</string>
+<string name="dialog_title_no_plans_available">Non ci sono piani disponibili al momento</string>
+<string name="dialog_message_no_plans_available">La invitiamo ad attendere l\'arrivo di nuovi piani disponibili. Ci scusiamo per l\'inconveniente</string>
+
+    <!-- essential_information-->
+<string name="dialog_massage_no_youtube_url_video">Gli URL dei video sono supportati solo in formato YouTube URL</string>
+
+<string name="user_created">La registrazione è avvenuta con successo. Può già effettuare il login</string>
+
+</resources>
+
