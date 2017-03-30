@@ -38,4 +38,17 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
+    <!--
+Un Floating Action Button.
+-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_new"
+        app:elevation="6dp" />
+
 </android.support.design.widget.CoordinatorLayout>

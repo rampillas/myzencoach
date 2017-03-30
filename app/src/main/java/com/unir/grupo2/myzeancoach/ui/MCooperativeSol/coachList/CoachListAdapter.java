@@ -22,9 +22,16 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachViewHolder>  {
     private List<Dilemma> dilemmaPostItemList;
     private Context context;
 
-    public CoachListAdapter(Context context, List<Dilemma> dilemmaPostItemList) {
+    public interface OnDilemmaCoachClickListener{
+        public void onItemCilemmaCoachClick(Dilemma dilemma);
+    }
+
+    CoachListAdapter.OnDilemmaCoachClickListener listener;
+
+    public CoachListAdapter(Context context, List<Dilemma> dilemmaPostItemList, CoachListAdapter.OnDilemmaCoachClickListener listener) {
         this.context = context;
         this.dilemmaPostItemList = dilemmaPostItemList;
+        this.listener = listener;
     }
 
     @Override
@@ -38,7 +45,7 @@ public class CoachListAdapter extends RecyclerView.Adapter<CoachViewHolder>  {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(CoachViewHolder viewHolder, int position) {
-        viewHolder.bind(dilemmaPostItemList.get(position), context);
+        viewHolder.bind(dilemmaPostItemList.get(position), context, listener);
     }
 
     @Override

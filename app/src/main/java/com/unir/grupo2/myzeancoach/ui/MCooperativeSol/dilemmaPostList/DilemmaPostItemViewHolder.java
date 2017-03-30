@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 
 import java.text.DateFormat;
@@ -31,8 +32,8 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.nick_textView) TextView nickTextView;
     @BindView(R.id.title_textView) TextView titleTextView;
     @BindView(R.id.description_textView) TextView descriptionTextView;
+    @BindView(R.id.solution_textView) TextView solutionsNumberTextView;
     @BindView(R.id.state_textView) TextView stateTextView;
-
 
     public DilemmaPostItemViewHolder(View itemView) {
         super(itemView);
@@ -44,10 +45,20 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
                      final DilemmaPostListAdapter.OnDilemmaPostClickListener listener,
                      final boolean fromMyDilemma, Context context) {
 
+        if (dilemmaPostItem.getComments() != null && !dilemmaPostItem.getComments().isEmpty()){
+            solutionsNumberTextView.setVisibility(View.VISIBLE);
+            if (dilemmaPostItem.getComments().size() == 1){
+                solutionsNumberTextView.setText(context.getString(R.string.number_solutions_singular));
+            }else{
+                solutionsNumberTextView.setText(context.getString(R.string.number_solutions_plural, dilemmaPostItem.getComments().size()));
+            }
+        }
+
         if (fromMyDilemma){
             nickTextView.setVisibility(View.GONE);
         }
-        dateTextView.setText(dilemmaPostItem.getDate());
+
+        dateTextView.setText(Utils.dateFormat(dilemmaPostItem.getDate()));
         nickTextView.setText(dilemmaPostItem.getNickUser());
         titleTextView.setText(dilemmaPostItem.getTitle());
         descriptionTextView.setText(dilemmaPostItem.getDescription());

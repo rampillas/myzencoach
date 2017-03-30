@@ -1,9 +1,11 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,19 +23,38 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Cesar on 22/02/2017.
  */
 
-public class CoachFragment extends Fragment {
-
-    List<Dilemma> coachDilemmaItemList;
-    CoachListAdapter coachDilemmaListAdapter;
+public class CoachFragment extends Fragment implements CoachListAdapter.OnDilemmaCoachClickListener{
 
     @BindView(R.id.sol_coop_coach_recycler_view) RecyclerView dilemmaPostListRecyclerView;
     @BindView(R.id.no_dilemma_layout) LinearLayout noDilemmaLayout;
     @BindView(R.id.message_textView) TextView messageNoDielmmaTextView;
+    @BindView(R.id.floating_action_button) FloatingActionButton floatingActionButton;
+
+    List<Dilemma> coachDilemmaItemList;
+    CoachListAdapter coachDilemmaListAdapter;
+
+    CoachFragment.OnDilemmaCoachListener dilemmaCoachListener;
+
+    public interface OnDilemmaCoachListener{
+        void onDilemmaCoachSelected(Dilemma dilemmaPost);
+        void onAddDilemmaCoachButton();
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if (context instanceof CoachFragment.OnDilemmaCoachListener){
+            dilemmaCoachListener = (CoachFragment.OnDilemmaCoachListener) context;
+        }else{
+            throw new ClassCastException(context.toString() + " must implements CoachFragment.OnDilemmaCoachPostListener");
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -49,7 +70,7 @@ public class CoachFragment extends Fragment {
             dilemmaPostListRecyclerView.setHasFixedSize(true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             dilemmaPostListRecyclerView.setLayoutManager(linearLayoutManager);
-            coachDilemmaListAdapter = new CoachListAdapter(getContext(),coachDilemmaItemList);
+            coachDilemmaListAdapter = new CoachListAdapter(getContext(),coachDilemmaItemList, this);
             dilemmaPostListRecyclerView.setAdapter(coachDilemmaListAdapter);
             showContent();
         }else{
@@ -57,6 +78,11 @@ public class CoachFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @OnClick(R.id.floating_action_button)
+    void addEvent(View view) {
+        dilemmaCoachListener.onAddDilemmaCoachButton();
     }
 
     public void showNoDilemma() {
@@ -68,6 +94,11 @@ public class CoachFragment extends Fragment {
     public void showContent() {
         dilemmaPostListRecyclerView.setVisibility(View.VISIBLE);
         noDilemmaLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onItemCilemmaCoachClick(Dilemma dilemma) {
+        dilemmaCoachListener.onDilemmaCoachSelected(dilemma);
     }
 
 

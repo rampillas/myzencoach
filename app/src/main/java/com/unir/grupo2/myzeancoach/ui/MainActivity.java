@@ -23,6 +23,9 @@ import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.AddDilemmaActivity;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.AmendDilemmaActivity;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.CoachFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
@@ -55,7 +58,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
         VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener, RemaindersFragment.OnPostListener,
-        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener,StressFragment.OnPostListener {
+        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener,StressFragment.OnPostListener, CoachFragment.OnDilemmaCoachListener {
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
@@ -234,6 +237,19 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         startActivityForResult(intent, DILEMMA_COMMENT_REQUEST);
     }
 
+    @Override
+    public void onDilemmaCoachSelected(Dilemma coachDilemma) {
+        Intent intent = new Intent(this, AmendDilemmaActivity.class);
+        intent.putExtra("COACH_DILEMMA", coachDilemma);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onAddDilemmaCoachButton() {
+        Intent intent = new Intent(this, AddDilemmaActivity.class);
+        startActivity(intent);
+    }
+
     /*************Module Welfare**************************/
     private void launchMainExerciseActivity(ExerciseWelfare exerciseWelfare) {
         Intent intent = new Intent(this, MainExerciseActivity.class);
@@ -344,4 +360,5 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
         //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
     }
+
 }

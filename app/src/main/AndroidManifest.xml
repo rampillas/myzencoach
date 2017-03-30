@@ -26,18 +26,31 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.MEssentialInfo.TestActivity"
+            android:theme="@style/AppThemeActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MEssentialInfo.VideoYoutubeActivity"
-            android:screenOrientation="landscape" />
+            android:theme="@style/AppThemeActionBar"
+        android:screenOrientation="landscape" />
         <activity
             android:name=".ui.MLeisure.AddPostActivity"
+            android:theme="@style/AppThemeActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MLeisure.CommentActivity"
+            android:theme="@style/AppThemeActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MCooperativeSol.DilemmaCommentActivity"
+            android:theme="@style/AppThemeActionBar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MCooperativeSol.AmendDilemmaActivity"
+            android:theme="@style/AppThemeActionBar"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MCooperativeSol.AddDilemmaActivity"
+            android:theme="@style/AppThemeActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.LoginAndUserData.CreateUserActivity"

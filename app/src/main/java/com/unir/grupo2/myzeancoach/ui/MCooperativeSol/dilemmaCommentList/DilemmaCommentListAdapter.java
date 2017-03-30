@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Comment;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 
@@ -75,7 +76,7 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
             DilemmaCommentItemViewHolder itemHolder = (DilemmaCommentItemViewHolder) holder;
 
             itemHolder.nickTextView.setText(dilemmaComment.getNickUser());
-            itemHolder.dateTextView.setText(dilemmaComment.getDate());
+            itemHolder.dateTextView.setText(Utils.dateFormat(dilemmaComment.getDate()));
             itemHolder.descriptionTextView.setText(dilemmaComment.getDescription());
 
             for (int i = 0; i < dilemmaComment.getPros().size(); i++){

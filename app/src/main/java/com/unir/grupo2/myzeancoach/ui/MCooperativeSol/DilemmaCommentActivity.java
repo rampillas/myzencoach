@@ -31,8 +31,7 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
     private DilemmaCommentListAdapter dilemmaCommentListAdapter;
 
     @BindView(R.id.floating_action_button) FloatingActionButton addCommentfloatingActionButton;
-    @BindView(R.id.loading_layout) LinearLayout loadingLayout;
-    @BindView(R.id.error_layout) LinearLayout errorLayout;
+    @BindView(R.id.no_comments_layout) LinearLayout noCommentsLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +50,25 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
             recyclerView.setLayoutManager(linearLayoutManager);
             dilemmaCommentListAdapter = new DilemmaCommentListAdapter(this, dilemma, this);
             recyclerView.setAdapter(dilemmaCommentListAdapter);
+            showContent();
+        }else{
+            showNoComments();
         }
 
         if (dilemma.getState().equals("completed") || isFromDilemma){
             addCommentfloatingActionButton.setVisibility(View.GONE);
         }
 
-        recyclerView.setVisibility(View.VISIBLE);
-        loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
+    }
 
+    public void showNoComments() {
+        noCommentsLayout.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    public void showContent() {
+        recyclerView.setVisibility(View.VISIBLE);
+        noCommentsLayout.setVisibility(View.GONE);
     }
 
     @Override
