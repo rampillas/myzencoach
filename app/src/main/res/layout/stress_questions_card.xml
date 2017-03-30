@@ -8,6 +8,29 @@
     android:layout_marginRight="7dp">
 
     <LinearLayout
+        android:id="@+id/lastCard"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/buttonFinal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@color/colorAccent"
+            android:text="@string/send"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/normalCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

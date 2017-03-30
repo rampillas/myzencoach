@@ -95,9 +95,16 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         postListener.onSendItemSelected(answer, stressQuestionObject);
     }
 
+    @Override
+    public void OnFinalButtonSelected() {
+        //todo show mesages
+
+    }
+
     //we create a interface to implement from activity witch reacts to item clicks
     public interface OnPostListener {
         void onNewQuestionSelected();
+        void onFinalButtonPressed();
 
         void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject);
 
@@ -213,6 +220,9 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
                 StressQuestion stressQuestionItem = stressQuestions.get(i);
                 StressQuestionObject stressQuestionObject = new StressQuestionObject(stressQuestionItem.getDescription(), stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
                 stressQuestionObjectList.add(stressQuestionObject);
+                if(i==this.stressQuestionsList.size()-1){
+                    StressQuestionObject lastStressQuestionObject = new StressQuestionObject("ENDELEMENT", stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
+                }
             }
         }
         // use a linear layout manager

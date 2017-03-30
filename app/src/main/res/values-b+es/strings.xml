@@ -219,6 +219,8 @@
     <string name="message_no_my_dilemmas">No tiene ningún dilema aceptado por su coach</string>
     <string name="message_no_coach_dilemmas">No tiene ningún dilema en mediación con su coach. Si lo desea, puede añadir uno</string>
     <string name="message_no_muro_dilemmas">Aún no existe ningún dilema</string>
+
+    <!--MODULE CUSTOMIZE -->
     <string name="stress_add">Añadir Preguntas</string>
     <string name="STRESS_QUESTION_ADD">Pregunta</string>
     <string name="STRESS_OPTION_1">Opcion 1</string>

@@ -21,6 +21,8 @@ public class StressListAdapter extends RecyclerView.Adapter<StressItemViewHolder
 
     public interface OnItemClickListener {
         public void onSendClick(String answer, StressQuestionObject stressQuestionObject);
+
+        public void OnFinalButtonSelected();
     }
 
     private final StressListAdapter.OnItemClickListener listener;

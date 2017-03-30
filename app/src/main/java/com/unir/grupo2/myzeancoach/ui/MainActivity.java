@@ -356,6 +356,11 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     }
 
     @Override
+    public void onFinalButtonPressed() {
+        //none
+    }
+
+    @Override
     public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
         //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();

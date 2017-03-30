@@ -216,12 +216,17 @@ il piano o dopo il logout</string>
 <string name="dialog_massage_no_youtube_url_video">Gli URL dei video sono supportati solo in formato YouTube URL</string>
 
 <string name="user_created">La registrazione è avvenuta con successo. Può già effettuare il login</string>
+
+    <!--new words -->
+
+    <!--MODULE CUSTOMIZE -->
     <string name="stress_add">Añadir Preguntas</string>
     <string name="STRESS_QUESTION_ADD">Pregunta</string>
     <string name="STRESS_OPTION_1">Opcion 1</string>
     <string name="STRESS_OPTION_2">Opcion 2</string>
     <string name="STRESS_OPTION_4">Opcion 4</string>
     <string name="STRESS_TIPS">Opcion 1 - azul, Opcion 2 - amarillo, Opcion 3 - rojo, Opcion 4 - naranja</string>
+
 
 </resources>
 
