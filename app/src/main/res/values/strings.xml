@@ -151,7 +151,7 @@
     <!--Leisure -->
     <string name="feedback"><b>Feedback:</b> %1$s</string>
     <string name="state_waiting_for_answer">Esperando por la respuesta del coach</string>
-    <string name="state_refused">Denegado\nVer comentarios del coach...</string>
+    <string name="state_refused">Denegado\nVer sugerencias del coach...</string>
     <string name="state_acepted">Ayudame a solucionarlo</string>
     <string name="state_feedback_1">Esperando feedback</string>
     <string name="state_feedback_2">Ha pasado más de 1 semana. Proporcione feedback por favor.</string>
@@ -220,6 +220,15 @@
     <string name="message_no_my_dilemmas">No tiene ningún dilema aceptado por su coach</string>
     <string name="message_no_coach_dilemmas">No tiene ningún dilema en mediación con su coach. Si lo desea, puede añadir uno</string>
     <string name="message_no_muro_dilemmas">Aún no existe ningún dilema</string>
+    <string name="number_solutions_plural">%1$d soluciones</string>
+    <string name="number_solutions_singular">1 solución</string>
+    <string name="message_no_solutions">Aún no se ha proporcionado ninguna solución</string>
+    <string name="suggestion_coach">Sugerencias del Coach:</string>
+    <string name="dilemma_title">Título del dilema</string>
+    <string name="dilemma_description">Describe su dilema...</string>
+
+
+    <!--MODULE 1-->
     <string name="stress_add">Añadir Preguntas</string>
     <string name="STRESS_QUESTION_ADD">Pregunta</string>
     <string name="STRESS_OPTION_1">Opcion 1</string>
