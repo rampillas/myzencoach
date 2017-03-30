@@ -15,7 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.GetRewardsUseCase;
@@ -49,7 +50,10 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     FloatingActionButton floatingActionButton;
     @Nullable
     @BindView(R.id.ratingBar)
-    RatingBar ratingBar;
+    ProgressBar progressBar;
+    @Nullable
+    @BindView(R.id.remainTaskNextLevel)
+    TextView remainTaskNextLevel;
     @Nullable
     @BindView(R.id.loading_layout)
     LinearLayout loadingLayout;
@@ -231,7 +235,11 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
             totalPoints += Integer.valueOf(rewardsItemList.get(i).getPoints());
         }
         Log.d("PUNTOS", String.valueOf(totalPoints));
-        ratingBar.setRating(totalPoints);
+        int level = (totalPoints/10)+1;
+        int progressPoints =totalPoints%10;
+        progressBar.setProgress(progressPoints*10);
+        String texto = remainTaskNextLevel.getText().toString();
+        remainTaskNextLevel.setText(getResources().getString(R.string.REMAINDERS_LEVEL)+" "+String.valueOf(level+"\n "+(10-progressPoints))+" "+texto);
         showContent();
     }
 

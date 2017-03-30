@@ -226,6 +226,7 @@ il piano o dopo il logout</string>
     <string name="STRESS_OPTION_2">Opcion 2</string>
     <string name="STRESS_OPTION_4">Opcion 4</string>
     <string name="STRESS_TIPS">Opcion 1 - azul, Opcion 2 - amarillo, Opcion 3 - rojo, Opcion 4 - naranja</string>
+    <string name="REMAINDERS_LEVEL">NIVEL:</string>
 
 
 </resources>
