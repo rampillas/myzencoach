@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Comment;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Cesar on 17/03/2017.
@@ -61,6 +61,11 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
 
     }
 
+    @OnClick(R.id.floating_action_button)
+    void addEvent(View view) {
+
+    }
+
     public void showNoComments() {
         noCommentsLayout.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
@@ -73,6 +78,6 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
 
     @Override
     public void onXClick() {
-        Toast.makeText(this,"click", Toast.LENGTH_LONG)
-.show();    }
+
+    }
 }

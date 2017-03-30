@@ -1,6 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,11 +19,13 @@ import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.coachList.CoachListAdapter;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Cesar on 22/02/2017.
@@ -31,30 +33,18 @@ import butterknife.OnClick;
 
 public class CoachFragment extends Fragment implements CoachListAdapter.OnDilemmaCoachClickListener{
 
+    private final static int DILEMMA_NEW_REQUEST = 1;
+    private final static int DILEMMA_UPDATE_REQUEST = 2;
+
     @BindView(R.id.sol_coop_coach_recycler_view) RecyclerView dilemmaPostListRecyclerView;
     @BindView(R.id.no_dilemma_layout) LinearLayout noDilemmaLayout;
     @BindView(R.id.message_textView) TextView messageNoDielmmaTextView;
     @BindView(R.id.floating_action_button) FloatingActionButton floatingActionButton;
 
-    List<Dilemma> coachDilemmaItemList;
+    ArrayList<Dilemma> coachDilemmaItemList;
     CoachListAdapter coachDilemmaListAdapter;
 
-    CoachFragment.OnDilemmaCoachListener dilemmaCoachListener;
-
-    public interface OnDilemmaCoachListener{
-        void onDilemmaCoachSelected(Dilemma dilemmaPost);
-        void onAddDilemmaCoachButton();
-    }
-
-    @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
-        if (context instanceof CoachFragment.OnDilemmaCoachListener){
-            dilemmaCoachListener = (CoachFragment.OnDilemmaCoachListener) context;
-        }else{
-            throw new ClassCastException(context.toString() + " must implements CoachFragment.OnDilemmaCoachPostListener");
-        }
-    }
+    int positionClicked;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -82,7 +72,16 @@ public class CoachFragment extends Fragment implements CoachListAdapter.OnDilemm
 
     @OnClick(R.id.floating_action_button)
     void addEvent(View view) {
-        dilemmaCoachListener.onAddDilemmaCoachButton();
+        Intent intent = new Intent(getActivity(), AddDilemmaActivity.class);
+        startActivityForResult(intent,DILEMMA_NEW_REQUEST);
+    }
+
+    @Override
+    public void onItemCilemmaCoachClick(Dilemma dilemma, int position) {
+        positionClicked = position;
+        Intent intent = new Intent(getActivity(), AmendDilemmaActivity.class);
+        intent.putExtra("DILEMMA_UPDATE", dilemma);
+        startActivityForResult(intent,DILEMMA_UPDATE_REQUEST);
     }
 
     public void showNoDilemma() {
@@ -97,8 +96,28 @@ public class CoachFragment extends Fragment implements CoachListAdapter.OnDilemm
     }
 
     @Override
-    public void onItemCilemmaCoachClick(Dilemma dilemma) {
-        dilemmaCoachListener.onDilemmaCoachSelected(dilemma);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**************Module Essential information***************/
+        if (requestCode == DILEMMA_NEW_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    Dilemma dilemmaNew = data.getParcelableExtra("DILEMMA_NEW");
+                    coachDilemmaItemList.add(dilemmaNew);
+                    coachDilemmaListAdapter.notifyDataSetChanged();
+                }
+            }
+        }else if (requestCode == DILEMMA_UPDATE_REQUEST){
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    Dilemma dilemmaUpdated = data.getParcelableExtra("DILEMMA_UPDATED");
+                    coachDilemmaItemList.set(positionClicked, dilemmaUpdated);
+                    coachDilemmaListAdapter.notifyDataSetChanged();
+                }
+            }
+        }
     }
 
 

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 
 import butterknife.ButterKnife;
@@ -53,11 +54,11 @@ public class MainExerciseActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
+                Utils.closeSoftKeyboard(MainExerciseActivity.this);
                 finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

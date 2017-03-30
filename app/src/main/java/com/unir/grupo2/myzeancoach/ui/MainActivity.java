@@ -12,20 +12,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.AddDilemmaActivity;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.AmendDilemmaActivity;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.CoachFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
@@ -58,19 +54,18 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
         VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener, RemaindersFragment.OnPostListener,
-        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener,StressFragment.OnPostListener, CoachFragment.OnDilemmaCoachListener {
+        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener,StressFragment.OnPostListener {
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
     static final int DILEMMA_COMMENT_REQUEST = 3;
     static final int PLAN_EXERCISE_REQUEST = 4;
     static final int ADD_EVENT_REQUEST = 5;
+    static final int ADD_DILEMMA_REQUEST = 6;
 
     // ui
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
-    @BindView(R.id.navigation_view)
-    NavigationView navigationView;
+    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.navigation_view) NavigationView navigationView;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
@@ -146,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                     finish();
                 }
 
-                closeSoftKeyboard();
+                Utils.closeSoftKeyboard(MainActivity.this);
 
                 return false;
             }
@@ -168,14 +163,6 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     private void lauchLoginActivity(){
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    private void closeSoftKeyboard() {
-        View view = getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     /************Module Essential Info*******/
@@ -235,19 +222,6 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         intent.putExtra("DILEMMA", dilemmaPost);
         intent.putExtra("IS_FROM_MYDILEMMA", fromMyDilemma);
         startActivityForResult(intent, DILEMMA_COMMENT_REQUEST);
-    }
-
-    @Override
-    public void onDilemmaCoachSelected(Dilemma coachDilemma) {
-        Intent intent = new Intent(this, AmendDilemmaActivity.class);
-        intent.putExtra("COACH_DILEMMA", coachDilemma);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onAddDilemmaCoachButton() {
-        Intent intent = new Intent(this, AddDilemmaActivity.class);
-        startActivity(intent);
     }
 
     /*************Module Welfare**************************/

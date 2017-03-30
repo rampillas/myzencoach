@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCooperativeSol.DilemmasUseCase;
-import com.unir.grupo2.myzeancoach.domain.Utils;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 
 import java.util.ArrayList;
@@ -24,8 +24,6 @@ import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
-
-import static com.unir.grupo2.myzeancoach.domain.Utils.getUserFromPreference;
 
 /**
  * Created by Cesar on 22/02/2017.
@@ -69,7 +67,7 @@ public class MCooperativeSolFragment extends Fragment {
     private void updateData() {
         showLoading();
 
-        String userName = getUserFromPreference(getActivity());
+        String userName = Utils.getUserFromPreference(getActivity());
         String token = "Bearer " + Utils.getTokenFromPreference(getActivity());
 
         String text = "{\n" +

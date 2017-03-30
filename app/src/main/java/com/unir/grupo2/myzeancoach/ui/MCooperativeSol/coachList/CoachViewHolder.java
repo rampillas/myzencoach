@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.Utils;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 
 import butterknife.BindView;
@@ -32,7 +32,7 @@ public class CoachViewHolder extends RecyclerView.ViewHolder {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void bind(final Dilemma dilemmaPostItem, Context context,
-                     final CoachListAdapter.OnDilemmaCoachClickListener listener) {
+                     final CoachListAdapter.OnDilemmaCoachClickListener listener, final int position) {
 
         dateTextView.setText(Utils.dateFormat(dilemmaPostItem.getDate()));
         titleTextView.setText(dilemmaPostItem.getTitle());
@@ -55,7 +55,9 @@ public class CoachViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemCilemmaCoachClick(dilemmaPostItem);
+                if (dilemmaPostItem.getState().equals("refused")){
+                    listener.onItemCilemmaCoachClick(dilemmaPostItem, position);
+                }
             }
         });
     }

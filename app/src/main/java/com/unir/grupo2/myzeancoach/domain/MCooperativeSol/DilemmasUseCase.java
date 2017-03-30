@@ -23,8 +23,8 @@ public class DilemmasUseCase extends UseCase {
     private String token;
     private RequestBody body;
 
-    public DilemmasUseCase(String username, String token, RequestBody body) {
-        this.userName = username;
+    public DilemmasUseCase(String userName, String token, RequestBody body) {
+        this.userName = userName;
         this.token = token;
         this.body = body;
     }

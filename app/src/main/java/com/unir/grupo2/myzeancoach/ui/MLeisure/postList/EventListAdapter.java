@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.Utils;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 
 import java.util.List;
 

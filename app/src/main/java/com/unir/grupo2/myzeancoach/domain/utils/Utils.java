@@ -1,13 +1,19 @@
-package com.unir.grupo2.myzeancoach.domain;
+package com.unir.grupo2.myzeancoach.domain.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.unir.grupo2.myzeancoach.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * Created by Cesar on 22/03/2017.
@@ -45,16 +51,26 @@ public class Utils {
         SimpleDateFormat output = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         try {
-
             Date date = sdf .parse(dateString);
-
             dateString = output.format(date);
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         return dateString;
+    }
+
+    public static String dateNowForBackend(){
+        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateNow = new Date();
+        return sdf.format(dateNow);
+    }
+
+    public static void closeSoftKeyboard(@NonNull Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 }

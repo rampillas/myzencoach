@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.data.MCooperativeSol;
 
+import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 import com.unir.grupo2.myzeancoach.domain.model.DilemmaListPojo;
 
 import java.util.concurrent.TimeUnit;
@@ -53,4 +54,13 @@ public class CooperativeDataRepository implements CooperativeRepository{
         return service.getAllDilemmas(userName,CONTENT_TYPE,token,body);
     }
 
+    @Override
+    public Observable<Dilemma> addDilemma(String token, RequestBody body) {
+        return service.createDilemma(CONTENT_TYPE,token,body);
+    }
+
+    @Override
+    public Observable<Void> amendDilemma(String userName, String token, RequestBody body) {
+        return service.updateDilemma(userName,CONTENT_TYPE,token,body);
+    }
 }

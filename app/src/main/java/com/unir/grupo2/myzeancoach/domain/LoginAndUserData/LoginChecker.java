@@ -5,7 +5,7 @@ import android.util.Log;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.ApiCallsForLogin;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RegisterBody;
 import com.unir.grupo2.myzeancoach.data.LoginInterfaceRetrofit.RetrofitClient;
-import com.unir.grupo2.myzeancoach.domain.Utils;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Token;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 

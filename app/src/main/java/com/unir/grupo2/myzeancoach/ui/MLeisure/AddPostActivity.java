@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.Like;
@@ -43,6 +45,9 @@ public class AddPostActivity extends AppCompatActivity {
         setContentView(R.layout.event_add_layout);
         ButterKnife.bind(this);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         final RadioButton[] rb = new RadioButton[8];
         for(int i=0; i<8; i++){
             rb[i]  = new RadioButton(this);
@@ -50,6 +55,18 @@ public class AddPostActivity extends AppCompatActivity {
             rb[i].setId(i);
             categoryRadioGroup.addView(rb[i]);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Utils.closeSoftKeyboard(AddPostActivity.this);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick(R.id.add_event_button)
