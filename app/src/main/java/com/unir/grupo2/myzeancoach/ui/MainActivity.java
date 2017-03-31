@@ -18,7 +18,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -359,6 +358,10 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
         //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
     }
+
+
+
+    // ------------------------ Push Notifications -------------------------- //
     private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Exception> {
         protected Exception doInBackground(Void... params) {
             try {
@@ -385,7 +388,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
             // Failed?
             if (exc != null) {
                 // Show error as toast message
-                Toast.makeText(getApplicationContext(), exc.toString(), Toast.LENGTH_LONG).show();
+                Log.e("Notifications error: ", exc.toString());
                 return;
             }
 

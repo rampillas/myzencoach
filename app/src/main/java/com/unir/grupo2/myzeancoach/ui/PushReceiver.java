@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach;
+package com.unir.grupo2.myzeancoach.ui;
 
 /**
  * Created by andres on 31/03/2017.
@@ -13,21 +13,14 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.support.v4.app.NotificationCompat;
 
-import com.unir.grupo2.myzeancoach.ui.MainActivity;
+import com.unir.grupo2.myzeancoach.R;
 
 public class PushReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String notificationTitle = "My Zen Coach";
-        String notificationText = "Test notification";
         int id = intent.getIntExtra("id", 0);
         String message = intent.getStringExtra("message");
-        boolean success = intent.getBooleanExtra("success", false);
-
-        // Attempt to extract the "message" property from the payload: {"message":"Hello World!"}
-        if (intent.getStringExtra("message") != null) {
-            notificationText = intent.getStringExtra("message");
-        }
 
         // Prepare a notification with vibration, sound and lights
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
@@ -43,6 +36,6 @@ public class PushReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
         // Build the notification and display it
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(id, builder.build());
     }
 }
