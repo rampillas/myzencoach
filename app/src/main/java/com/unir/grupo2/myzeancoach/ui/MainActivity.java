@@ -1,26 +1,33 @@
 package com.unir.grupo2.myzeancoach.ui;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
@@ -48,13 +55,15 @@ import com.unir.grupo2.myzeancoach.ui.MWelfare.WelfareAllPlansFragment;
 import com.unir.grupo2.myzeancoach.ui.profil.ProfilFragment;
 
 import java.lang.reflect.Type;
+import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.pushy.sdk.Pushy;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
         VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener, RemaindersFragment.OnPostListener,
-        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener,StressFragment.OnPostListener {
+        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener, StressFragment.OnPostListener {
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
@@ -64,16 +73,27 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     static final int ADD_DILEMMA_REQUEST = 6;
 
     // ui
-    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
-    @BindView(R.id.navigation_view) NavigationView navigationView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.navigation_view)
+    NavigationView navigationView;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Pushy.listen(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // Request both READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE so that the
+            // Pushy SDK will be able to persist the device token in the external storage
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
+        new RegisterForPushNotificationsAsync().execute();
+
+
 
         /**
          * Lets inflate the very first fragment
@@ -160,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
 
     }
 
-    private void lauchLoginActivity(){
+    private void lauchLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
@@ -338,6 +358,39 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
         //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+    }
+    private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Exception> {
+        protected Exception doInBackground(Void... params) {
+            try {
+                // Assign a unique token to this device
+                String deviceToken = Pushy.register(getApplicationContext());
+
+                // Log it for debugging purposes
+                Log.d("MyApp", "Pushy device token: " + deviceToken);
+
+                // Send the token to your backend server via an HTTP GET request
+                new URL("https://{YOUR_API_HOSTNAME}/register/device?token=" + deviceToken).openConnection();
+            }
+            catch (Exception exc) {
+                // Return exc to onPostExecute
+                return exc;
+            }
+
+            // Success
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Exception exc) {
+            // Failed?
+            if (exc != null) {
+                // Show error as toast message
+                Toast.makeText(getApplicationContext(), exc.toString(), Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            // Succeeded, do something to alert the user
+        }
     }
 
 }
