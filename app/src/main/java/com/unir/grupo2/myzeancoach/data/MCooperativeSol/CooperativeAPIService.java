@@ -33,4 +33,22 @@ public interface CooperativeAPIService {
                                                @Header("Authorization") String token,
                                                @Body RequestBody body) ;
 
+    @POST("/solutions/dilemmas/{username}/addCommentDilemma/")
+    Observable<Void> createComment(@Path("username") String username,
+                                   @Header("Content-Type") String contentType,
+                                   @Header("Authorization") String token,
+                                   @Body RequestBody body) ;
+
+    @POST("/solutions/dilemmas/{username}/addProsCommentDilemma/")
+    Observable<Void> createPros(@Path("username") String username,
+                                   @Header("Content-Type") String contentType,
+                                   @Header("Authorization") String token,
+                                   @Body RequestBody body) ;
+
+    @POST("/solutions/dilemmas/{username}/addConsCommentDilemma/")
+    Observable<Void> createCons(@Path("username") String username,
+                                   @Header("Content-Type") String contentType,
+                                   @Header("Authorization") String token,
+                                   @Body RequestBody body) ;
+
 }

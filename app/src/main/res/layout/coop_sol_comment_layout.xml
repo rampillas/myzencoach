@@ -42,7 +42,7 @@ Un Floating Action Button.
         app:layout_anchorGravity="bottom|right|end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_mode_edit_black_24dp"
+        android:src="@drawable/ic_action_new"
         app:elevation="6dp" />
     
 </android.support.design.widget.CoordinatorLayout>

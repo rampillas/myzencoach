@@ -63,4 +63,19 @@ public class CooperativeDataRepository implements CooperativeRepository{
     public Observable<Void> amendDilemma(String userName, String token, RequestBody body) {
         return service.updateDilemma(userName,CONTENT_TYPE,token,body);
     }
+
+    @Override
+    public Observable<Void> addComment(String userName, String token, RequestBody body) {
+        return service.createComment(userName,CONTENT_TYPE,token,body);
+    }
+
+    @Override
+    public Observable<Void> addPros(String userName, String token, RequestBody body) {
+        return service.createPros(userName,CONTENT_TYPE,token,body);
+    }
+
+    @Override
+    public Observable<Void> addCons(String userName, String token, RequestBody body) {
+        return service.createCons(userName,CONTENT_TYPE,token,body);
+    }
 }

@@ -36,6 +36,9 @@ public class Comment implements Parcelable {
     @Expose
     private ArrayList<String> cons = null;
 
+    public Comment(){
+    }
+
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(nickUser);
         out.writeString(date);

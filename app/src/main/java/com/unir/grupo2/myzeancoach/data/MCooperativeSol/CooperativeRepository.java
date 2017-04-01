@@ -11,4 +11,7 @@ public interface CooperativeRepository {
     Observable<DilemmaListPojo> allDilemmas(String userName, String token, RequestBody body);
     Observable<Dilemma> addDilemma(String token, RequestBody body);
     Observable<Void> amendDilemma(String userName, String token, RequestBody body);
+    Observable<Void> addComment(String userName, String token, RequestBody body);
+    Observable<Void> addPros(String userName, String token, RequestBody body);
+    Observable<Void> addCons(String userName, String token, RequestBody body);
 }

@@ -232,6 +232,16 @@
     <string name="alert_title_dilemma_sent">Dilema enviado</string>
     <string name="alert_title_dilemma_updated">Dilema modificado</string>
     <string name="alert_message_dilemma_sent">Su coach le respondera lo antes posible. ¡Gracias por compartir!</string>
+    <string name="solution">Solución</string>
+    <string name="solution_hint">Introduzca su propuesta para solucionar el dilema</string>
+    <string name="pros">Pros</string>
+    <string name="pros_hint">Escriba brevemente al menos un pro</string>
+    <string name="cons">Contras</string>
+    <string name="cons_hint">Escriba brevemente al menos una contra</string>
+    <string name="save_solution">Guardar solución</string>
+    <string name="alert_fill_out_all_fields">Por favor, rellene todos los campos</string>
+    <string name="alert_title_solution_added">Solución añadida</string>
+    <string name="alert_message_solution_added">¡Gracias por ayudar a tus compañeros!</string>
 
     <!--MODULE 1-->
     <string name="stress_add">Añadir Preguntas</string>

@@ -97,7 +97,7 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-                listener.onItemDilemmaPostClick(dilemmaPostItem,fromMyDilemma);
+                listener.onItemDilemmaPostClick(dilemmaPostItem);
             }
         });
     }

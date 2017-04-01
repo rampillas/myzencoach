@@ -22,14 +22,11 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.DilemmaCommentActivity;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddStressQuestionFragment;
@@ -61,7 +58,7 @@ import butterknife.ButterKnife;
 import me.pushy.sdk.Pushy;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, HomepageFragment.OnDilemmaPostListener, RemaindersFragment.OnPostListener,
+        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, RemaindersFragment.OnPostListener,
         WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener, StressFragment.OnPostListener {
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
@@ -230,17 +227,6 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         Intent intent = new Intent(this, CommentActivity.class);
         intent.putExtra("POST", post);
         startActivity(intent);
-    }
-
-    /**************Module Cooperative Solutions***************/
-
-    /***Homepage***/
-    @Override
-    public void onDilemmaItemPostSelected(Dilemma dilemmaPost, boolean fromMyDilemma) {
-        Intent intent = new Intent(this, DilemmaCommentActivity.class);
-        intent.putExtra("DILEMMA", dilemmaPost);
-        intent.putExtra("IS_FROM_MYDILEMMA", fromMyDilemma);
-        startActivityForResult(intent, DILEMMA_COMMENT_REQUEST);
     }
 
     /*************Module Welfare**************************/

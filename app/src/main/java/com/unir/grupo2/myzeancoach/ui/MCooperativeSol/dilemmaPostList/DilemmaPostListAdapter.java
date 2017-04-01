@@ -24,7 +24,7 @@ public class DilemmaPostListAdapter extends RecyclerView.Adapter<DilemmaPostItem
     private boolean fromMyDilemma;
 
     public interface OnDilemmaPostClickListener{
-        public void onItemDilemmaPostClick(Dilemma post,boolean fromMyDilemma);
+        public void onItemDilemmaPostClick(Dilemma post);
     }
 
     DilemmaPostListAdapter.OnDilemmaPostClickListener listener;

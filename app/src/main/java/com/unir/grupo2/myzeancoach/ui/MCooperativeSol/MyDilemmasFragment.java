@@ -1,6 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,11 +23,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by Cesar on 22/02/2017.
  */
 
 public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapter.OnDilemmaPostClickListener{
+
+    private final static int COMMENT_REQUEST = 1;
 
     List<Dilemma> dilemmaPostItemList;
     DilemmaPostListAdapter dilemmaPostListAdapter;
@@ -35,22 +39,6 @@ public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapt
     @BindView(R.id.sol_coop_post_recycler_view) RecyclerView dilemmaPostListRecyclerView;
     @BindView(R.id.no_dilemma_layout) LinearLayout noDilemmaLayout;
     @BindView(R.id.message_textView) TextView messageNoDielmmaTextView;
-
-    HomepageFragment.OnDilemmaPostListener dilemmaPostListener;
-
-    public interface OnDilemmaPostListener{
-        void onDilemmaItemPostSelected(Dilemma dilemmaPost, boolean fromMyDilemma);
-    }
-
-    @Override
-    public void onAttach(Context context){
-        super.onAttach(context);
-        if (context instanceof HomepageFragment.OnDilemmaPostListener){
-            dilemmaPostListener = (HomepageFragment.OnDilemmaPostListener) context;
-        }else{
-            throw new ClassCastException(context.toString() + " must implements MyDilemmasFragment.OnDilemmaPostListener");
-        }
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -76,8 +64,11 @@ public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapt
     }
 
     @Override
-    public void onItemDilemmaPostClick(Dilemma dilemmaPost, boolean fromMyDilemma) {
-        dilemmaPostListener.onDilemmaItemPostSelected(dilemmaPost,fromMyDilemma);
+    public void onItemDilemmaPostClick(Dilemma dilemmaPost) {
+        Intent intent = new Intent(getActivity(), DilemmaCommentActivity.class);
+        intent.putExtra("DILEMMA", dilemmaPost);
+        intent.putExtra("IS_FROM_MYDILEMMA", true);
+        startActivityForResult(intent, COMMENT_REQUEST);
     }
 
     public void showNoDilemma() {
@@ -89,6 +80,21 @@ public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapt
     public void showContent() {
         dilemmaPostListRecyclerView.setVisibility(View.VISIBLE);
         noDilemmaLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        /**************Module Essential information***************/
+        if (requestCode == COMMENT_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+
+
+                }
+            }
+        }
     }
 /*
     private void updateData() {
