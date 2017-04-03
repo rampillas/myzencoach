@@ -197,6 +197,7 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
             solutionsList.add(solution);
             dilemma.setComments(solutionsList);
         }
+
         Intent resultData = new Intent();
         resultData.putExtra("DILEMMA", dilemma);
         setResult(Activity.RESULT_OK, resultData);
