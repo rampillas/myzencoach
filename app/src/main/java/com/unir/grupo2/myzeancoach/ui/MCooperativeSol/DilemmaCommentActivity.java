@@ -49,14 +49,14 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
 
         Intent intent = getIntent();
         dilemma = (Dilemma) intent.getParcelableExtra("DILEMMA");
+        commentItemList = dilemma.getComments();
         boolean isFromDilemma = intent.getBooleanExtra("IS_FROM_MYDILEMMA", false);
 
-        commentItemList = dilemma.getComments();
 
-        if (commentItemList != null && commentItemList.size() >0){
+        if (dilemma.getComments() != null && dilemma.getComments().size() >0){
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(linearLayoutManager);
-            dilemmaCommentListAdapter = new DilemmaCommentListAdapter(this, dilemma, this);
+            dilemmaCommentListAdapter = new DilemmaCommentListAdapter(this, commentItemList,dilemma, this);
             recyclerView.setAdapter(dilemmaCommentListAdapter);
             showContent();
             if (dilemma.getNickUser().equals(Utils.getUserFromPreference(this))){
@@ -119,9 +119,9 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-                    Dilemma dilemmaNew = data.getParcelableExtra("DILEMMA");
-                    //coachDilemmaItemList.add(dilemmaNew);
-                    //coachDilemmaListAdapter.notifyDataSetChanged();
+                    dilemma = data.getParcelableExtra("DILEMMA");
+                    commentItemList.add(dilemma.getComments().get(dilemma.getComments().size() - 1));
+                    dilemmaCommentListAdapter.notifyDataSetChanged();
                 }
             }
         }

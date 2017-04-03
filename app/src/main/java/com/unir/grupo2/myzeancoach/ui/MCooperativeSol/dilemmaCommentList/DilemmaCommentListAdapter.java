@@ -7,12 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Comment;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 
 import java.util.List;
 
@@ -41,12 +40,12 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
 
     private final DilemmaCommentListAdapter.OnDilemmaCommentClickListener listener;
 
-    public DilemmaCommentListAdapter(Context context, Dilemma dilemmaPost,
+    public DilemmaCommentListAdapter(Context context, List<Comment> comments,  Dilemma dilemmaPost,
                                      OnDilemmaCommentClickListener listener){
         this.context = context;
         this.dilemmaPost = dilemmaPost;
         this.listener = listener;
-        this.dilemmaCommentItemList = dilemmaPost.getComments();
+        this.dilemmaCommentItemList = comments;
     }
 
     @Override
@@ -79,18 +78,12 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
             itemHolder.dateTextView.setText(Utils.dateFormat(dilemmaComment.getDate()));
             itemHolder.descriptionTextView.setText(dilemmaComment.getDescription());
 
-            for (int i = 0; i < dilemmaComment.getPros().size(); i++){
-                TextView pro = new TextView(context);
-                pro.setText(dilemmaComment.getPros().get(i));
-                pro.setTextColor(context.getColor(R.color.greenApp));
-                itemHolder.proConLinearLayout.addView(pro);
+            if (dilemmaComment.getPros() != null && !dilemmaComment.getPros().isEmpty()){
+                itemHolder.prosTextView.setText(dilemmaComment.getPros().get(0).getDescription());
             }
 
-            for (int i = 0; i < dilemmaComment.getCons().size(); i++){
-                TextView con = new TextView(context);
-                con.setText(dilemmaComment.getCons().get(i));
-                con.setTextColor(context.getColor(R.color.redApp));
-                itemHolder.proConLinearLayout.addView(con);
+            if (dilemmaComment.getCons() != null && !dilemmaComment.getCons().isEmpty()){
+                itemHolder.consTextView.setText(dilemmaComment.getCons().get(0).getDescription());
             }
 
             if (dilemmaComment.getLike()){

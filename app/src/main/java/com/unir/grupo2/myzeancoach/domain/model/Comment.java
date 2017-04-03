@@ -31,10 +31,10 @@ public class Comment implements Parcelable {
     private String dateFeedback;
     @SerializedName("pros")
     @Expose
-    private ArrayList<String> pros = null;
+    private ArrayList<Pro> pros = null;
     @SerializedName("cons")
     @Expose
-    private ArrayList<String> cons = null;
+    private ArrayList<Cons> cons = null;
 
     public Comment(){
     }
@@ -58,10 +58,10 @@ public class Comment implements Parcelable {
         like = (in.readInt() == 0) ? false : true;
         feedback = in.readString();
         dateFeedback = in.readString();
-        pros = new ArrayList<String>();
-        pros = in.readArrayList(Object.class.getClassLoader());
-        cons = new ArrayList<String>();
-        cons = in.readArrayList(Object.class.getClassLoader());
+        pros = new ArrayList<Pro>();
+        pros = in.readArrayList(Pro.class.getClassLoader());
+        cons = new ArrayList<Cons>();
+        cons = in.readArrayList(Cons.class.getClassLoader());
     }
 
     public int describeContents() {
@@ -128,19 +128,19 @@ public class Comment implements Parcelable {
         this.dateFeedback = dateFeedback;
     }
 
-    public ArrayList<String> getPros() {
+    public ArrayList<Pro> getPros() {
         return pros;
     }
 
-    public void setPros(ArrayList<String> pros) {
+    public void setPros(ArrayList<Pro> pros) {
         this.pros = pros;
     }
 
-    public ArrayList<String> getCons() {
+    public ArrayList<Cons> getCons() {
         return cons;
     }
 
-    public void setCons(ArrayList<String> cons) {
+    public void setCons(ArrayList<Cons> cons) {
         this.cons = cons;
     }
 

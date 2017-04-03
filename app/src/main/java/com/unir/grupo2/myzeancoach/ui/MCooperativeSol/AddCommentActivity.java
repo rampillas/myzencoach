@@ -19,8 +19,11 @@ import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCooperativeSol.AddCommentUseCase;
+import com.unir.grupo2.myzeancoach.domain.MCooperativeSol.AddProContUserCase;
 import com.unir.grupo2.myzeancoach.domain.model.Comment;
+import com.unir.grupo2.myzeancoach.domain.model.Cons;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
+import com.unir.grupo2.myzeancoach.domain.model.Pro;
 import com.unir.grupo2.myzeancoach.domain.utils.DialogCustomFragment;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 
@@ -89,10 +92,10 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
             showDialogFillOutFields();
         }else{
             showLoading();
-            sendData();
+            sendCommentData();
         }
     }
-    private void sendData(){
+    private void sendCommentData(){
         showLoading();
 
         String userName = Utils.getUserFromPreference(this);
@@ -113,6 +116,16 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
                 "\t}\n" +
                 "}\n";
 
+        RequestBody commentbody = RequestBody.create(MediaType.parse("text/plain"), commentText);
+
+        new AddCommentUseCase(userName,token, commentbody).execute(new AddCommentSubscriber());
+    }
+
+    private void sendProConData(){
+        String userName = Utils.getUserFromPreference(this);
+        String token = "Bearer " + Utils.getTokenFromPreference(this);
+        commentDate = Utils.dateNowForBackend();
+
         String prosText = "{\n" +
                 "\t\"nick_user\": \"" + Utils.getUserFromPreference(this) + "\",\n" +
                 "\t\"description\": \"" + solutionEditText.getText().toString().trim() + "\",\n" +
@@ -129,11 +142,10 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
                 "\t}\n" +
                 "}\n";
 
-        RequestBody commentbody = RequestBody.create(MediaType.parse("text/plain"), commentText);
         RequestBody prosbody = RequestBody.create(MediaType.parse("text/plain"), prosText);
         RequestBody consbody = RequestBody.create(MediaType.parse("text/plain"), consText);
 
-        new AddCommentUseCase(userName,token, commentbody, prosbody, consbody).execute(new AddCommentSubscriber());
+        new AddProContUserCase(userName,token, prosbody, consbody).execute(new AddProConsSubscriber());
     }
 
     /**
@@ -164,14 +176,19 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
         Comment solution = new Comment();
         solution.setDescription(solutionEditText.getText().toString().trim());
         solution.setFeedback("");
-        ArrayList<String> pros = new ArrayList<>();
-        ArrayList<String> cons = new ArrayList<>();
-        pros.add(prosEditText.getText().toString().trim());
-        cons.add(consEditText.getText().toString().trim());
-        solution.setPros(pros);
-        solution.setCons(cons);
+        ArrayList<Pro> prosArray = new ArrayList<>();
+        ArrayList<Cons> consArray = new ArrayList<>();
+        Pro pro = new Pro();
+        pro.setDescription(prosEditText.getText().toString().trim());
+        Cons con = new Cons();
+        con.setDescription(consEditText.getText().toString().trim());
+        prosArray.add(pro);
+        consArray.add(con);
+        solution.setPros(prosArray);
+        solution.setCons(consArray);
         solution.setLike(false);
         solution.setNickUser(Utils.getUserFromPreference(this));
+        solution.setDate(commentDate);
 
         if (dilemma.getComments() != null){
             dilemma.getComments().add(solution);
@@ -224,6 +241,26 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
     }
 
     private final class AddCommentSubscriber extends Subscriber<Void> {
+        //3 callbacks
+
+        @Override
+        public void onCompleted() {
+
+        }
+
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+            showError();
+        }
+
+        @Override
+        public void onNext(Void aVoid) {
+            sendProConData();
+        }
+    }
+
+    private final class AddProConsSubscriber extends Subscriber<Void> {
         //3 callbacks
 
         @Override

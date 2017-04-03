@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical"
-    android:layout_marginTop="10dp">
+              android:layout_marginTop="10dp"
+              android:orientation="vertical">
 
 
     <RelativeLayout
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:id="@+id/first_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="4dp">
 
         <TextView
@@ -34,69 +34,94 @@
         android:id="@+id/description_comment_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
         android:textColor="@color/black"
         android:textSize="@dimen/letra_mediana"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/pros"
+        android:textColor="@color/greenApp"
+        android:textSize="16sp"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/pros_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/greenApp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="@string/cons"
+        android:textColor="@color/redApp"
+        android:textSize="16sp"
+        android:textStyle="italic"/>
+
+    <TextView
+        android:id="@+id/cons_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/redApp"/>
+
     <LinearLayout
-        android:id="@+id/pro_con_liear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginBottom="8dp"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginRight="10dp">
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
 
         <CheckBox
             android:id="@+id/like_check_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:text="@string/like" />
+            android:text="@string/like"/>
     </LinearLayout>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/feedback_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:textColor="@color/greenApp"/>
+        android:textColor="@color/greenApp"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/feedback_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="6dp"
-        android:inputType="textPersonName"
-        android:hint="@string/write_feedback"/>
+        android:hint="@string/write_feedback"
+        android:inputType="textPersonName"/>
 
     <View
         android:id="@+id/line_view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="6dp"/>
+        android:layout_marginTop="8dp"
+        android:background="@color/grey"/>
 </LinearLayout>
