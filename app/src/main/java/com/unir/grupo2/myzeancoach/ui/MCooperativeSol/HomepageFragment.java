@@ -92,11 +92,17 @@ public class HomepageFragment extends Fragment implements DilemmaPostListAdapter
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-
+                    Dilemma dilemmaUpdated = data.getParcelableExtra("DILEMMA");
+                    for (int i = 0; i < dilemmaPostItemList.size(); i++){
+                        if (dilemmaPostItemList.get(i).getTitle().equals(dilemmaUpdated.getTitle())){
+                            dilemmaPostItemList.set(i, dilemmaUpdated);
+                            dilemmaPostListAdapter.notifyDataSetChanged();
+                            break;
+                        }
+                    }
                 }
             }
         }
     }
-
 }
 

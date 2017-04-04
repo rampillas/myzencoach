@@ -34,14 +34,14 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
 
     boolean isHeader = false;
 
-    public interface OnDilemmaCommentClickListener{
-        public void onXClick();
+    public interface OnDilemmaClickListener{
+        public void onClickCheckBox(int position);
     }
 
-    private final DilemmaCommentListAdapter.OnDilemmaCommentClickListener listener;
+    private final DilemmaCommentListAdapter.OnDilemmaClickListener listener;
 
     public DilemmaCommentListAdapter(Context context, List<Comment> comments,  Dilemma dilemmaPost,
-                                     OnDilemmaCommentClickListener listener){
+                                     OnDilemmaClickListener listener){
         this.context = context;
         this.dilemmaPost = dilemmaPost;
         this.listener = listener;
@@ -104,6 +104,13 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
             if (dilemmaPost.getState().equals("completed") && !dilemmaComment.getLike()){
                 itemHolder.likeCheckBox.setVisibility(View.GONE);
             }
+
+            itemHolder.likeCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onClickCheckBox(position - 1);
+                }
+            });
         }
     }
 

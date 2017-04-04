@@ -36,6 +36,10 @@ public class Dilemma implements Parcelable {
     @Expose
     private ArrayList<CommentsCoach> commentsCoach = null;
 
+    public Dilemma(){
+
+    }
+
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(date);
         out.writeString(title);

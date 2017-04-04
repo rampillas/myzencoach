@@ -51,4 +51,10 @@ public interface CooperativeAPIService {
                                    @Header("Authorization") String token,
                                    @Body RequestBody body) ;
 
+    @POST("/solutions/dilemmas/{username}/selectBestComment/")
+    Observable<Void> addLike(@Path("username") String username,
+                                @Header("Content-Type") String contentType,
+                                @Header("Authorization") String token,
+                                @Body RequestBody body) ;
+
 }

@@ -158,6 +158,13 @@ public class AddDilemmaActivity extends AppCompatActivity implements DialogCusto
         dialog.show(manager, "fragment_dialog");
     }
 
+
+    private void setReturnData(){
+        Intent resultData = new Intent();
+        resultData.putExtra("DILEMMA", dilemma);
+        setResult(Activity.RESULT_OK, resultData);
+    }
+
     @Override
     public void onStopDialog() {
         finish();

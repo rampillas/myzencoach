@@ -14,4 +14,5 @@ public interface CooperativeRepository {
     Observable<Void> addComment(String userName, String token, RequestBody body);
     Observable<Void> addPros(String userName, String token, RequestBody body);
     Observable<Void> addCons(String userName, String token, RequestBody body);
+    Observable<Void> addLikeDilemma(String userName, String token, RequestBody body);
 }

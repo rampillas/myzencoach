@@ -237,7 +237,6 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
 
     @Override
     public void onBackPressed() {
-        setReturnData();
         finish();
     }
 
