@@ -29,9 +29,6 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public static final int Footer = 3;
     }
 
-    boolean isFooter = false;
-    boolean isHeader = false;
-
     public interface OnButtonClickListener{
         public void onButtonClick(int testRate);
     }

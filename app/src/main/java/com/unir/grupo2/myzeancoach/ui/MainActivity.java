@@ -27,7 +27,9 @@ import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
+import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MyDilemmasFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddStressQuestionFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
@@ -59,14 +61,13 @@ import me.pushy.sdk.Pushy;
 
 public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
         VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, RemaindersFragment.OnPostListener,
-        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener, StressFragment.OnPostListener {
+        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener,
+        StressFragment.OnPostListener, HomepageFragment.UpdateDilemmaListener{
 
     static final int VIDEO_YOUTUBE_REQUEST = 1;
     static final int VIDEO_TEST_REQUEST = 2;
-    static final int DILEMMA_COMMENT_REQUEST = 3;
     static final int PLAN_EXERCISE_REQUEST = 4;
     static final int ADD_EVENT_REQUEST = 5;
-    static final int ADD_DILEMMA_REQUEST = 6;
 
     // ui
     @BindView(R.id.drawer_layout)
@@ -256,6 +257,17 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         launchCurrentPlanFragment(plan);
     }
 
+    /****************Module cooperative solutions *************************/
+    @Override
+    public void updateDilemma(int position) {
+        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_PAGER_POSITION", position);
+        MCooperativeSolFragment fragment = new MCooperativeSolFragment();
+        fragment.setArguments(bundle);
+        xfragmentTransaction.replace(R.id.container_view, fragment).commit();
+    }
+
 
     /****************All modules *******************/
     @Override
@@ -344,8 +356,6 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
         //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
     }
-
-
 
     // ------------------------ Push Notifications -------------------------- //
     private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Exception> {

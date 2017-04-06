@@ -68,10 +68,8 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
                 stateTextView.setTextColor(context.getColor(R.color.blueApp));
                 break;
             case "feedback":
-
                 for(int i = 0; i < dilemmaPostItem.getComments().size(); i++){
                     if (dilemmaPostItem.getComments().get(i).getLike()){
-                        /** CHANGE LIKE_DATE ************/
                         if (dilemmaPostItem.getComments().get(i).getDateFeedback() != null &&
                                 !dilemmaPostItem.getComments().get(i).getDateFeedback().equals("")){
                             if (isMore7days(dilemmaPostItem.getComments().get(i).getDateFeedback())){

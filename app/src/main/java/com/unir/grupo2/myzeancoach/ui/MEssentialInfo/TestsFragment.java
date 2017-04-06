@@ -57,7 +57,7 @@ public class TestsFragment extends Fragment implements TesttListAdapter.OnItemCl
         if (context instanceof OnItemSelectedListener) {
             onItemSelectedListener = (OnItemSelectedListener) context;
         } else {
-            throw new ClassCastException(context.toString() + " must implements TestListAdapter.onItemSelectedListener");
+            throw new ClassCastException(context.toString() + " must implements TestsFragment.OnItemSelectedListener");
         }
     }
 

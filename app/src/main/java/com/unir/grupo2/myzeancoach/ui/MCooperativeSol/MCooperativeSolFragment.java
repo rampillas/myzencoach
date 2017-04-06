@@ -14,8 +14,8 @@ import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCooperativeSol.DilemmasUseCase;
-import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 
 import java.util.ArrayList;
 
@@ -31,17 +31,22 @@ import rx.Subscriber;
 
 public class MCooperativeSolFragment extends Fragment {
 
-    @BindView(R.id.content_linearLayout) LinearLayout contentLinearLayout;
-    @BindView(R.id.loading_layout) LinearLayout loadingLayout;
-    @BindView(R.id.error_layout) LinearLayout errorLayout;
+    @BindView(R.id.content_linearLayout)
+    LinearLayout contentLinearLayout;
+    @BindView(R.id.loading_layout)
+    LinearLayout loadingLayout;
+    @BindView(R.id.error_layout)
+    LinearLayout errorLayout;
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 3 ;
+    public static int int_items = 3;
 
     private ArrayList<Dilemma> myAceptedDilemmas = new ArrayList<Dilemma>();
     private ArrayList<Dilemma> coachDilemmas = new ArrayList<Dilemma>();
     private ArrayList<Dilemma> muroDilemmas = new ArrayList<Dilemma>();
+
+    private int positionViewPager = -1;
 
     @Nullable
     @Override
@@ -49,10 +54,15 @@ public class MCooperativeSolFragment extends Fragment {
         /**
          *Inflate tab_layout and setup Views.
          */
-        View x =  inflater.inflate(R.layout.tab_layout_loading,null);
+        View x = inflater.inflate(R.layout.tab_layout_loading, null);
         ButterKnife.bind(this, x);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            positionViewPager = bundle.getInt("VIEW_PAGER_POSITION");
+        }
 
         updateData();
 
@@ -79,7 +89,7 @@ public class MCooperativeSolFragment extends Fragment {
         new DilemmasUseCase(userName, token, body).execute(new DilemmasSubscriber());
     }
 
-    private void startViewPager(){
+    private void startViewPager() {
         viewPager.setAdapter(new MCooperativeSolFragment.MyAdapter(getChildFragmentManager()));
 
         /**
@@ -93,6 +103,9 @@ public class MCooperativeSolFragment extends Fragment {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
+        if (positionViewPager != -1){
+            viewPager.setCurrentItem(positionViewPager);
+        }
     }
 
     /**
@@ -132,22 +145,21 @@ public class MCooperativeSolFragment extends Fragment {
          * Return fragment with respect to Position .
          */
         @Override
-        public Fragment getItem(int position)
-        {
-            switch (position){
-                case 0 :
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
                     MyDilemmasFragment myDilemmasFragment = new MyDilemmasFragment();
                     Bundle args = new Bundle();
                     args.putParcelableArrayList("MY_DILEMMAS", myAceptedDilemmas);
                     myDilemmasFragment.setArguments(args);
                     return myDilemmasFragment;
-                case 1 :
+                case 1:
                     HomepageFragment muroFragment = new HomepageFragment();
                     Bundle args2 = new Bundle();
                     args2.putParcelableArrayList("MURO_DILEMMAS", muroDilemmas);
                     muroFragment.setArguments(args2);
                     return muroFragment;
-                case 2 :
+                case 2:
                     CoachFragment coachFragment = new CoachFragment();
                     Bundle args3 = new Bundle();
                     args3.putParcelableArrayList("COACH_DILEMMAS", coachDilemmas);
@@ -171,12 +183,12 @@ public class MCooperativeSolFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            switch (position){
-                case 0 :
+            switch (position) {
+                case 0:
                     return getString(R.string.my_dilemmas);
-                case 1 :
+                case 1:
                     return getString(R.string.homepage);
-                case 2 :
+                case 2:
                     return getString(R.string.coach);
             }
             return null;
@@ -187,12 +199,14 @@ public class MCooperativeSolFragment extends Fragment {
         //3 callbacks
 
         //Show the listView
-        @Override public void onCompleted() {
+        @Override
+        public void onCompleted() {
             showContent();
         }
 
         //Show the error
-        @Override public void onError(Throwable e) {
+        @Override
+        public void onError(Throwable e) {
             showError();
         }
 
@@ -202,15 +216,15 @@ public class MCooperativeSolFragment extends Fragment {
 
             String userName = Utils.getUserFromPreference(getActivity());
 
-            for (int i = 0; i< allDilemmas.size(); i++){
-                if (allDilemmas.get(i).getNickUser().equals(userName)){
-                    if (allDilemmas.get(i).getState().equals("waitingForAnswer") || allDilemmas.get(i).getState().equals("refused")){
+            for (int i = 0; i < allDilemmas.size(); i++) {
+                if (allDilemmas.get(i).getNickUser().equals(userName)) {
+                    if (allDilemmas.get(i).getState().equals("waitingForAnswer") || allDilemmas.get(i).getState().equals("refused")) {
                         coachDilemmas.add(allDilemmas.get(i));
-                    }else{
+                    } else {
                         myAceptedDilemmas.add(allDilemmas.get(i));
                         muroDilemmas.add(allDilemmas.get(i));
                     }
-                }else{
+                } else {
                     muroDilemmas.add(allDilemmas.get(i));
                 }
             }

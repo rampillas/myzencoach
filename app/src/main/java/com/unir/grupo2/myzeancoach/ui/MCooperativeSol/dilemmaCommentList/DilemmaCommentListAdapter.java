@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Comment;
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
+import com.unir.grupo2.myzeancoach.domain.utils.FooterSpaceViewHolder;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
     private class VIEWS_TYPES{
         public static final int Header = 1;
         public static final int Normal = 2;
+        public static final int Footer = 3;
     }
 
     boolean isHeader = false;
@@ -61,6 +63,9 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
         }else if (viewType == VIEWS_TYPES.Header){
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coop_sol_comment_list_header_layout, parent, false);
             return new DilemmaCommentHeaderViewHolder(view);
+        }else if (viewType == VIEWS_TYPES.Footer) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_space_for_floating_button_layout, parent, false);
+            return new FooterSpaceViewHolder(view);
         }
         return null;
     }
@@ -168,6 +173,8 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
                     return false;
                 }
             });
+        } else if (holder instanceof FooterSpaceViewHolder) {
+
         }
     }
 
@@ -176,13 +183,16 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
         if(isPositionHeader (position)) {
             return VIEWS_TYPES.Header;
         }
+        if (isPositionFooter(position)) {
+            return VIEWS_TYPES.Footer;
+        }
         return VIEWS_TYPES.Normal;
 
     }
 
     @Override
     public int getItemCount() {
-        return dilemmaCommentItemList.size() + 1;
+        return dilemmaCommentItemList.size() + 2;
     }
 
     private boolean isPositionHeader (int position) {
@@ -191,6 +201,14 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
             isHeader = true;
         }
         return isHeader;
+    }
+
+    private boolean isPositionFooter (int position) {
+        if (position == dilemmaCommentItemList.size() + 1){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private void showDialogFillOutField(){

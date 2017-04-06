@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +40,22 @@ public class HomepageFragment extends Fragment implements DilemmaPostListAdapter
     @BindView(R.id.sol_coop_post_recycler_view) RecyclerView dilemmaPostListRecyclerView;
     @BindView(R.id.no_dilemma_layout) LinearLayout noDilemmaLayout;
     @BindView(R.id.message_textView) TextView messageNoDielmmaTextView;
+
+    UpdateDilemmaListener updateDilemaListener;
+
+    public interface UpdateDilemmaListener {
+        void updateDilemma(int posotion);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof UpdateDilemmaListener) {
+            updateDilemaListener = (UpdateDilemmaListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implements HomepageFragment.UpdateDilemmaListener");
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -91,16 +108,7 @@ public class HomepageFragment extends Fragment implements DilemmaPostListAdapter
         if (requestCode == COMMENT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    Dilemma dilemmaUpdated = data.getParcelableExtra("DILEMMA");
-                    for (int i = 0; i < dilemmaPostItemList.size(); i++){
-                        if (dilemmaPostItemList.get(i).getTitle().equals(dilemmaUpdated.getTitle())){
-                            dilemmaPostItemList.set(i, dilemmaUpdated);
-                            dilemmaPostListAdapter.notifyDataSetChanged();
-                            break;
-                        }
-                    }
-                }
+                updateDilemaListener.updateDilemma(1);
             }
         }
     }

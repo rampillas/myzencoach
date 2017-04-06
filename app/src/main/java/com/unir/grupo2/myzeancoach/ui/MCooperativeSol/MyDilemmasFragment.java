@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +40,18 @@ public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapt
     @BindView(R.id.sol_coop_post_recycler_view) RecyclerView dilemmaPostListRecyclerView;
     @BindView(R.id.no_dilemma_layout) LinearLayout noDilemmaLayout;
     @BindView(R.id.message_textView) TextView messageNoDielmmaTextView;
+
+    HomepageFragment.UpdateDilemmaListener updateDilemaListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof HomepageFragment.UpdateDilemmaListener) {
+            updateDilemaListener = (HomepageFragment.UpdateDilemmaListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implements HomepageFragment.UpdateDilemmaListener");
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -89,78 +102,9 @@ public class MyDilemmasFragment extends Fragment implements DilemmaPostListAdapt
         if (requestCode == COMMENT_REQUEST) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    Dilemma dilemmaUpdated = data.getParcelableExtra("DILEMMA");
-                    for (int i = 0; i < dilemmaPostItemList.size(); i++){
-                        if (dilemmaPostItemList.get(i).getTitle().equals(dilemmaUpdated.getTitle())){
-                            dilemmaPostItemList.set(i, dilemmaUpdated);
-                            dilemmaPostListAdapter.notifyDataSetChanged();
-                            break;
-                        }
-                    }
-                }
+                updateDilemaListener.updateDilemma(0);
             }
         }
     }
-/*
-    private void updateData() {
-        showLoading();
-        //we must pass a real token**
-        new VideosUseCase("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK").execute(new VideosSubscriber());
-    }
-
-    /**
-     * Method used to show error view
-     */
-  /*  public void showError() {
-        postListRecyclerView.setVisibility(View.GONE);
-        loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * Method used to show the loading view
-     */
-  /*  public void showLoading() {
-        loadingLayout.setVisibility(View.VISIBLE);
-        postListRecyclerView.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
-    }
-
-    /**
-     * Method used to show the listView
-     */
- /*   public void showContent() {
-        postListRecyclerView.setVisibility(View.VISIBLE);
-        loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
-    }
-
-
-    private void updateList(List<PostItem> postList){
-        postItemList = postList;
-        postListAdapter = new VideoListAdapter(getContext(),postItemList, this);
-        postListRecyclerView.setAdapter(postListAdapter);
-    }
-
-    private final class PostsSubscriber extends Subscriber<List<PostItem>> {
-        //3 callbacks
-
-        //Show the listView
-        @Override public void onCompleted() {
-            showContent();
-        }
-
-        //Show the error
-        @Override public void onError(Throwable e) {
-            showError();
-        }
-
-        //Update listview datas
-        @Override
-        public void onNext(List<PostItem> postList) {
-            updateList(postList);
-        }
-    }*/
 }
 

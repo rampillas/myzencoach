@@ -201,9 +201,7 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
     }
 
     private void setReturnData(){
-        Intent resultData = new Intent();
-        resultData.putExtra("DILEMMA", dilemma);
-        setResult(Activity.RESULT_OK, resultData);
+        setResult(Activity.RESULT_OK);
     }
 
     @Override
@@ -242,7 +240,6 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
 
     @Override
     public void onStopDialog() {
-        finish();
     }
 
     public void showNoComments() {
