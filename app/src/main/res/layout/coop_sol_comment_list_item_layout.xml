@@ -37,6 +37,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:gravity="center_horizontal"
         android:textColor="@color/black"
         android:textSize="@dimen/letra_mediana"/>
 
@@ -97,24 +98,35 @@
             android:text="@string/like"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/feedback_textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/greenApp"
-        android:visibility="gone"/>
 
-    <EditText
-        android:id="@+id/feedback_editText"
+    <LinearLayout
+        android:id="@+id/feedback_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="@string/write_feedback"
-        android:inputType="textPersonName"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/feedbackTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/feedback_dilemma"
+            android:textColor="@color/blueApp"/>
+
+        <EditText
+            android:id="@+id/feedback_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:hint="@string/write_feedback"
+            android:inputType="textMultiLine"
+            android:drawableRight="@mipmap/ic_send_black_24dp"
+            android:drawablePadding="5dp"
+            android:lines="3"/>
+
+    </LinearLayout>
 
     <View
         android:id="@+id/line_view"

@@ -242,6 +242,11 @@
     <string name="alert_fill_out_all_fields">Por favor, rellene todos los campos</string>
     <string name="alert_title_solution_added">Solución añadida</string>
     <string name="alert_message_solution_added">¡Gracias por ayudar a tus compañeros!</string>
+    <string name="feedback_dilemma">Feedback</string>
+    <string name="alert_fill_out_feedback">Por favor, proporcione feedback</string>
+    <string name="alert_title_feedback_completed">Dilema completado</string>
+    <string name="alert_description_feedback_completed">Muchas gracias por proporcionar feedback. Esperamos que haya resuelto su dilema.</string>
+    <string name="alert_like">Por favor, ponga en practica la porpuesta seleccionada y proporcione feedback, si es posible, en menos de una semana</string>
 
     <!--MODULE 1-->
     <string name="stress_add">Añadir Preguntas</string>
@@ -252,5 +257,8 @@
     <string name="STRESS_OPTION_4">Opcion 4</string>
     <string name="STRESS_TIPS">Opcion 1 - azul, Opcion 2 - amarillo, Opcion 3 - rojo, Opcion 4 - naranja</string>
     <string name="REMAINDERS_LEVEL">NIVEL:</string>
+
+    <!--Leisure-->
+    <string name="alert_fill_out_comment">Por favor, inserte un comentario</string>
 
 </resources>

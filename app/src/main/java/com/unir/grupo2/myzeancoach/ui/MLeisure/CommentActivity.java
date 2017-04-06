@@ -1,20 +1,20 @@
 package com.unir.grupo2.myzeancoach.ui.MLeisure;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentListAdapter;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventItem;
@@ -69,27 +69,26 @@ public class CommentActivity extends AppCompatActivity {
 
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if(event.getRawX() >= (addCommentEditText.getRight() - addCommentEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        CommentItem newComment = new CommentItem(new Date().toString(), addCommentEditText.getText().toString());
 
-                        if (commentItemList != null){
-                            commentItemList.add(newComment);
-                            commentListAdapter.notifyItemInserted(commentItemList.size() - 1);
+                        if(addCommentEditText.getText().toString().trim().length() == 0){
+                            showDialogFillOutField();
                         }else{
-                            commentItemList = new ArrayList<CommentItem>();
-                            commentItemList.add(newComment);
-                            setUpRecyclerView();
+                            CommentItem newComment = new CommentItem(new Date().toString(), addCommentEditText.getText().toString());
+
+                            if (commentItemList != null){
+                                commentItemList.add(newComment);
+                                commentListAdapter.notifyItemInserted(commentItemList.size() - 1);
+                            }else{
+                                commentItemList = new ArrayList<CommentItem>();
+                                commentItemList.add(newComment);
+                                setUpRecyclerView();
+                            }
+
+                            Toast.makeText(getBaseContext(), "gracias por añadir un comentario", Toast.LENGTH_LONG).show();
+                            addCommentEditText.setText("");
                         }
 
-                        Toast.makeText(getBaseContext(), "gracias por añadir un comentario", Toast.LENGTH_LONG).show();
-                        addCommentEditText.setText("");
-
-                        View view = getCurrentFocus();
-                        if (view != null) {
-                            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                        }
-
-                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                        Utils.closeSoftKeyboard(CommentActivity.this);
 
                         return true;
                     }
@@ -98,6 +97,18 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showDialogFillOutField(){
+        new AlertDialog.Builder(this)
+                .setMessage(getString(R.string.alert_fill_out_comment))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     private void setUpRecyclerView(){

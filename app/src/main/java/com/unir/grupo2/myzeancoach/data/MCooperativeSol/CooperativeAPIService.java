@@ -20,41 +20,53 @@ public interface CooperativeAPIService {
     Observable<DilemmaListPojo> getAllDilemmas(@Path("username") String username,
                                                @Header("Content-Type") String contentType,
                                                @Header("Authorization") String token,
-                                               @Body RequestBody body) ;
+                                               @Body RequestBody body);
 
     @POST("/solutions/dilemmas/")
     Observable<Dilemma> createDilemma(@Header("Content-Type") String contentType,
                                       @Header("Authorization") String token,
-                                      @Body RequestBody body) ;
+                                      @Body RequestBody body);
 
     @POST("/solutions/dilemmas/{username}/changeDilemmaWithSuggestion/")
     Observable<Void> updateDilemma(@Path("username") String username,
-                                               @Header("Content-Type") String contentType,
-                                               @Header("Authorization") String token,
-                                               @Body RequestBody body) ;
+                                   @Header("Content-Type") String contentType,
+                                   @Header("Authorization") String token,
+                                   @Body RequestBody body);
 
     @POST("/solutions/dilemmas/{username}/addCommentDilemma/")
     Observable<Void> createComment(@Path("username") String username,
                                    @Header("Content-Type") String contentType,
                                    @Header("Authorization") String token,
-                                   @Body RequestBody body) ;
+                                   @Body RequestBody body);
 
     @POST("/solutions/dilemmas/{username}/addProsCommentDilemma/")
     Observable<Void> createPros(@Path("username") String username,
-                                   @Header("Content-Type") String contentType,
-                                   @Header("Authorization") String token,
-                                   @Body RequestBody body) ;
+                                @Header("Content-Type") String contentType,
+                                @Header("Authorization") String token,
+                                @Body RequestBody body);
 
     @POST("/solutions/dilemmas/{username}/addConsCommentDilemma/")
     Observable<Void> createCons(@Path("username") String username,
-                                   @Header("Content-Type") String contentType,
-                                   @Header("Authorization") String token,
-                                   @Body RequestBody body) ;
+                                @Header("Content-Type") String contentType,
+                                @Header("Authorization") String token,
+                                @Body RequestBody body);
 
     @POST("/solutions/dilemmas/{username}/selectBestComment/")
     Observable<Void> addLike(@Path("username") String username,
-                                @Header("Content-Type") String contentType,
-                                @Header("Authorization") String token,
-                                @Body RequestBody body) ;
+                             @Header("Content-Type") String contentType,
+                             @Header("Authorization") String token,
+                             @Body RequestBody body);
+
+    @POST("/solutions/dilemmas/{username}/updateDilemma/")
+    Observable<Void> updateStatusDilemma(@Path("username") String username,
+                                         @Header("Content-Type") String contentType,
+                                         @Header("Authorization") String token,
+                                         @Body RequestBody body);
+
+    @POST("/solutions/dilemmas/{username}/addFeedbackDilemma/")
+    Observable<Void> addFeedbackComment(@Path("username") String username,
+                                         @Header("Content-Type") String contentType,
+                                         @Header("Authorization") String token,
+                                         @Body RequestBody body);
 
 }

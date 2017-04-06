@@ -1,10 +1,13 @@
 package com.unir.grupo2.myzeancoach.ui.MCooperativeSol.dilemmaCommentList;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,6 +39,7 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
 
     public interface OnDilemmaClickListener{
         public void onClickCheckBox(int position);
+        public void onClickFeedback(int position, String feedback);
     }
 
     private final DilemmaCommentListAdapter.OnDilemmaClickListener listener;
@@ -72,7 +76,7 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
 
         } else if(holder instanceof DilemmaCommentItemViewHolder) {
             final Comment dilemmaComment = dilemmaCommentItemList.get(position - 1);
-            DilemmaCommentItemViewHolder itemHolder = (DilemmaCommentItemViewHolder) holder;
+            final DilemmaCommentItemViewHolder itemHolder = (DilemmaCommentItemViewHolder) holder;
 
             itemHolder.nickTextView.setText(dilemmaComment.getNickUser());
             itemHolder.dateTextView.setText(Utils.dateFormat(dilemmaComment.getDate()));
@@ -86,29 +90,82 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
                 itemHolder.consTextView.setText(dilemmaComment.getCons().get(0).getDescription());
             }
 
-            if (dilemmaComment.getLike()){
-                itemHolder.likeCheckBox.setChecked(true);
-                itemHolder.feedbackEditText.setVisibility(View.VISIBLE);
-            }else{
-                itemHolder.likeCheckBox.setChecked(false);
-                itemHolder.feedbackEditText.setVisibility(View.GONE);
-            }
+            //**************************Variable*******************
 
-            if (dilemmaComment.getFeedback() != null){
-                itemHolder.likeCheckBox.setClickable(false);
-                itemHolder.feedbackEditText.setVisibility(View.GONE);
-                itemHolder.feedbackTextView.setVisibility(View.VISIBLE);
-                itemHolder.feedbackTextView.setText(context.getString(R.string.feedback, dilemmaComment.getFeedback()));
-            }
+            if (dilemmaPost.getState().equals("acepted")){
+                if (!dilemmaPost.getNickUser().equals(Utils.getUserFromPreference(context))){
+                    itemHolder.likeCheckBox.setVisibility(View.GONE);
+                }else{
+                    itemHolder.likeCheckBox.setVisibility(View.VISIBLE);
+                    itemHolder.likeCheckBox.setChecked(false);
+                    itemHolder.likeCheckBox.setClickable(true);
+                }
+                itemHolder.feedbackLinearLayout.setVisibility(View.GONE);
 
-            if (dilemmaPost.getState().equals("completed") && !dilemmaComment.getLike()){
-                itemHolder.likeCheckBox.setVisibility(View.GONE);
+            }else if (dilemmaPost.getState().equals("feedback")){
+                itemHolder.likeCheckBox.setVisibility(View.VISIBLE);
+                if (!dilemmaPost.getNickUser().equals(Utils.getUserFromPreference(context))){
+                    if (dilemmaComment.getLike()){
+                        itemHolder.likeCheckBox.setChecked(true);
+                    }else{
+                        itemHolder.likeCheckBox.setChecked(false);
+                    }
+                    itemHolder.likeCheckBox.setEnabled(false);
+                    itemHolder.feedbackLinearLayout.setVisibility(View.GONE);
+                }else{
+                    if (dilemmaComment.getLike()){
+                        itemHolder.likeCheckBox.setChecked(true);
+                        itemHolder.likeCheckBox.setEnabled(false);
+                        itemHolder.feedbackLinearLayout.setVisibility(View.VISIBLE);
+                    }else{
+                        itemHolder.feedbackLinearLayout.setVisibility(View.GONE);
+                        itemHolder.likeCheckBox.setChecked(false);
+                        itemHolder.likeCheckBox.setEnabled(true);
+                    }
+                }
+            }else if (dilemmaPost.getState().equals("completed")){
+                if (dilemmaComment.getLike()){
+                    itemHolder.likeCheckBox.setVisibility(View.VISIBLE);
+                    itemHolder.likeCheckBox.setChecked(true);
+                    itemHolder.likeCheckBox.setEnabled(false);
+                    itemHolder.feedbackLinearLayout.setVisibility(View.VISIBLE);
+                    if (dilemmaComment.getFeedback() != null){
+                        itemHolder.feedbackTextView.setText(context.getString(R.string.feedback, dilemmaComment.getFeedback()));
+                        itemHolder.feedbackEditText.setVisibility(View.GONE);
+                    }
+                }else{
+                    itemHolder.likeCheckBox.setVisibility(View.GONE);
+                    itemHolder.feedbackLinearLayout.setVisibility(View.GONE);
+                }
             }
 
             itemHolder.likeCheckBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onClickCheckBox(position - 1);
+                }
+            });
+
+            itemHolder.feedbackEditText.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    final int DRAWABLE_RIGHT = 2;
+
+                    String feedbackText = itemHolder.feedbackEditText.getText().toString().trim();
+
+                    if(event.getAction() == MotionEvent.ACTION_UP) {
+                        if(event.getRawX() >= (itemHolder.feedbackEditText.getRight() - itemHolder.feedbackEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+
+                            if(feedbackText.length() == 0){
+                                showDialogFillOutField();
+                            }else{
+                                listener.onClickFeedback(position -1, feedbackText);
+                            }
+
+                            return true;
+                        }
+                    }
+                    return false;
                 }
             });
         }
@@ -134,6 +191,18 @@ public class DilemmaCommentListAdapter extends RecyclerView.Adapter<RecyclerView
             isHeader = true;
         }
         return isHeader;
+    }
+
+    private void showDialogFillOutField(){
+        new AlertDialog.Builder(context)
+                .setMessage(context.getText(R.string.alert_fill_out_feedback))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 }
