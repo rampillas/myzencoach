@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
-    android:orientation="vertical"
-    android:layout_marginBottom="7dp">
+    android:layout_marginBottom="7dp"
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/loginLayout"
@@ -244,8 +244,8 @@
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/letra_pequeña" />
+                    android:textSize="@dimen/letra_pequeña"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView4"
@@ -295,6 +295,7 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="15dp" />
+
         </LinearLayout>
 
     </ScrollView>

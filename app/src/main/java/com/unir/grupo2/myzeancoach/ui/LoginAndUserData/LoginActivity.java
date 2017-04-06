@@ -15,6 +15,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.LoginChecker;
 import com.unir.grupo2.myzeancoach.ui.MainActivity;
@@ -23,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Optional;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Cesar on 26/03/2017.
@@ -57,6 +60,7 @@ public class LoginActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics(), new CrashlyticsNdk());
         setContentView(R.layout.login);
         ButterKnife.bind(this);
 
@@ -72,7 +76,9 @@ public class LoginActivity  extends AppCompatActivity {
             //Show mainActiviy directly
             launchMainActivity();
         }
+
     }
+
 
     @Nullable
     @Optional

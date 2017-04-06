@@ -103,6 +103,9 @@
         <service android:name="me.pushy.sdk.services.PushySocketService"/>
 
         <!-- End Pushy Declarations -->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f8f5d4ebe8121c78cf7f90f6605303e431ee5174" />
     </application>
 
 </manifest>
