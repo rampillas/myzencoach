@@ -1,12 +1,16 @@
 
 package com.unir.grupo2.myzeancoach.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Video {
+public class Video implements Parcelable {
 
     @SerializedName("user")
     @Expose
@@ -32,6 +36,46 @@ public class Video {
     @SerializedName("survey")
     @Expose
     private List<Test> survey = null;
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(user);
+        out.writeString(name);
+        out.writeString(url);
+        out.writeInt(newAttr);
+        out.writeInt(isWatched ? 1 : 0);
+        out.writeString(date);
+        out.writeString(photoUrl);
+        out.writeList(survey);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Video(Parcel in) {
+        user = in.readString();
+        name = in.readString();
+        url = in.readString();
+        newAttr = in.readInt();
+        isWatched = (in.readInt() == 0) ? false : true;
+        date = in.readString();
+        photoUrl = in.readString();
+        survey = new ArrayList<Test>();
+        survey = in.readArrayList(Test.class.getClassLoader());
+    }
+
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static final Creator<Video> CREATOR =
+            new Creator<Video>() {
+                public Video createFromParcel(Parcel in) {
+                    return new Video(in);
+                }
+
+                public Video[] newArray(int size) {
+                    return new Video[size];
+                }
+            };
 
     public String getUser() {
         return user;

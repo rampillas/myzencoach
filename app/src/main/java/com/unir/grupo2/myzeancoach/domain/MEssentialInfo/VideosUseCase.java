@@ -14,13 +14,16 @@ import rx.functions.Func1;
 
 public class VideosUseCase extends UseCase {
 
-    public VideosUseCase() {
+    String token;
+
+    public VideosUseCase(String token) {
+        this.token = token;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
         EssentialRepository repo = EssentialDataRepository.getInstance();
-        return repo.videos().map(new Func1<VideoListPojo, List<Video>>() {
+        return repo.videos(token).map(new Func1<VideoListPojo, List<Video>>() {
             @Override
             public List<Video> call(VideoListPojo videoListPojo) {
 

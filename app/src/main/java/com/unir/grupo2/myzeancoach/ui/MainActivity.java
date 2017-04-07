@@ -24,12 +24,10 @@ import com.google.gson.reflect.TypeToken;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
-import com.unir.grupo2.myzeancoach.domain.model.Test;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
-import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MyDilemmasFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddStressQuestionFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
@@ -38,9 +36,6 @@ import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.StressFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList.StressQuestionObject;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestActivity;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideoYoutubeActivity;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.AddPostActivity;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.CommentActivity;
@@ -59,13 +54,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.pushy.sdk.Pushy;
 
-public class MainActivity extends AppCompatActivity implements TestsFragment.OnItemSelectedListener,
-        VideosFragment.OnItemVideoSelectedListener, PublicHomepageFragment.OnPostListener, RemaindersFragment.OnPostListener,
-        WelfareAllPlansFragment.OnItemPlanSelectedListener, CurrentPlanFragment.OnItemExerciseSelectedListener,
-        StressFragment.OnPostListener, HomepageFragment.UpdateDilemmaListener{
+public class MainActivity extends AppCompatActivity implements VideosFragment.UpdateDataEsentialInfoListener,
+        PublicHomepageFragment.OnPostListener, RemaindersFragment.OnPostListener,
+        WelfareAllPlansFragment.OnItemPlanSelectedListener,
+        CurrentPlanFragment.OnItemExerciseSelectedListener, StressFragment.OnPostListener,
+        HomepageFragment.UpdateDilemmaListener{
 
-    static final int VIDEO_YOUTUBE_REQUEST = 1;
-    static final int VIDEO_TEST_REQUEST = 2;
     static final int PLAN_EXERCISE_REQUEST = 4;
     static final int ADD_EVENT_REQUEST = 5;
 
@@ -108,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
                 if (menuItem.getItemId() == R.id.nav_customise) {
                     FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
                     xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
-
                 }
 
                 if (menuItem.getItemId() == R.id.nav_essential_information) {
@@ -183,24 +176,16 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
     }
 
     /************Module Essential Info*******/
-
-    //Test item has been clicked
     @Override
-    public void onItemSelected(Test test) {
-        Intent intent = new Intent(this, TestActivity.class);
-        intent.putExtra("TEST", test);
-        startActivityForResult(intent, VIDEO_TEST_REQUEST);
+    public void updateDataEsentialInfo(int positionViewPager) {
+        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_PAGER_POSITION", positionViewPager);
+        MEssentialInfoFragment fragment = new MEssentialInfoFragment();
+        fragment.setArguments(bundle);
+        xfragmentTransaction.replace(R.id.container_view, fragment).commit();
     }
 
-    //Video item has been clicked
-    @Override
-    public void onItemVideoSelected(String urlName, String videoName, boolean isWatched) {
-        Intent intent = new Intent(this, VideoYoutubeActivity.class);
-        intent.putExtra("URL", urlName);
-        intent.putExtra("VIDEO_NAME", videoName);
-        intent.putExtra("IS_WATCHED", isWatched);
-        startActivityForResult(intent, VIDEO_YOUTUBE_REQUEST);
-    }
 
     /**************Module Leisure***************/
     /*****Homepage*****/
@@ -268,33 +253,12 @@ public class MainActivity extends AppCompatActivity implements TestsFragment.OnI
         xfragmentTransaction.replace(R.id.container_view, fragment).commit();
     }
 
-
     /****************All modules *******************/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /**************Module Essential information***************/
-        if (requestCode == VIDEO_YOUTUBE_REQUEST) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    if (data.getBooleanExtra("IS_UPDATED", true)) {
-                        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                        xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
-                    }
-                }
-            }
-        } else if (requestCode == VIDEO_TEST_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    if (data.getBooleanExtra("IS_UPDATED", true)) {
-                        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                        xfragmentTransaction.replace(R.id.container_view, new MEssentialInfoFragment()).commit();
-                    }
-                }
-            }
-            /*************Module Welfare****************/
-        } else if (requestCode == PLAN_EXERCISE_REQUEST) {
+        /*************Module Welfare****************/
+         if (requestCode == PLAN_EXERCISE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
                     if (data.getBooleanExtra("IS_PLAN_COMPLETED", true)) {

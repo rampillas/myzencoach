@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.domain.MEssentialInfo;
+package com.unir.grupo2.myzeancoach.domain.MLeisure;
 
 import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialDataRepository;
 import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialRepository;
@@ -10,11 +10,11 @@ import rx.Observable;
  * Created by Cesar on 15/03/2017.
  */
 
-public class RankingUseCase extends UseCase {
+public class AddInterestsUseCase extends UseCase {
 
     String token;
 
-    public RankingUseCase(String token) {
+    public AddInterestsUseCase(String token) {
         this.token = token;
     }
 

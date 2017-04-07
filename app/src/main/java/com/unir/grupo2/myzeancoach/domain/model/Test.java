@@ -33,7 +33,6 @@ public class Test implements Parcelable{
         out.writeString(description);
         out.writeInt(score);
         out.writeInt(isCompleted ? 1 : 0);
-       // out.writeTypedList(questions);
         out.writeList(questions);
 
     }
@@ -44,7 +43,6 @@ public class Test implements Parcelable{
         description = in.readString();
         score = in.readInt();
         isCompleted = (in.readInt() == 0) ? false : true;
-        //in.readTypedList(questions, Question.CREATOR);
         questions = new ArrayList<Question>();
 
         questions = in.readArrayList(Question.class.getClassLoader());

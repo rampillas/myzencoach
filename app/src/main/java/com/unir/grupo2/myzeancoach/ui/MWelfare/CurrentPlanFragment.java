@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
-import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.planList.ExerciseListAdapter;
 
 import java.util.List;
@@ -42,7 +41,7 @@ public class CurrentPlanFragment extends Fragment implements ExerciseListAdapter
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        if (context instanceof VideosFragment.OnItemVideoSelectedListener){
+        if (context instanceof CurrentPlanFragment.OnItemExerciseSelectedListener){
             onItemExerciseSelectedListener = (CurrentPlanFragment.OnItemExerciseSelectedListener) context;
         }else{
             throw new ClassCastException(context.toString() + " must implements CurrentPlanFragment.OnItemExerciseSelectedListener");

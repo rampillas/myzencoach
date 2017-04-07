@@ -51,13 +51,13 @@ public class EssentialDataRepository implements EssentialRepository {
     }
 
     @Override
-    public Observable<VideoListPojo> videos() {
-        return service.getVideos("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK");
+    public Observable<VideoListPojo> videos(String token) {
+        return service.getVideos(token);
     }
 
     @Override
-    public Observable<TestListPojo> tests() {
-        return service.getTest("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK");
+    public Observable<TestListPojo> tests(String token) {
+        return service.getTest(token);
     }
 
    @Override
@@ -71,7 +71,7 @@ public class EssentialDataRepository implements EssentialRepository {
     }
 
     @Override
-    public Observable<List<Ranking>> ranking() {
-        return service.getRanking("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK");
+    public Observable<List<Ranking>> ranking(String token) {
+        return service.getRanking(token);
     }
 }

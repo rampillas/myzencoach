@@ -15,10 +15,10 @@ import rx.Observable;
 
 
 public interface EssentialRepository {
-    Observable<VideoListPojo> videos();
-    Observable<TestListPojo> tests();
+    Observable<VideoListPojo> videos(String token);
+    Observable<TestListPojo> tests(String token);
     Observable<Void> updateTest(RequestBody body);
     Observable<Void> updateVideo(RequestBody body);
-    Observable<List<Ranking>> ranking();
+    Observable<List<Ranking>> ranking(String token);
 }
 

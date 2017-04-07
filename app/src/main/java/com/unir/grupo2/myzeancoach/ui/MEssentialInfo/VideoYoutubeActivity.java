@@ -85,14 +85,6 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
 
     private final class MyPlayerStateChangeListener implements YouTubePlayer.PlayerStateChangeListener {
 
-        private void updateLog(String prompt){
-            log +=  "Video player " + "\n" +
-                    prompt + "\n\n=====";
-            Toast.makeText(getApplicationContext(),
-                    log,
-                    Toast.LENGTH_SHORT).show();
-        };
-
         @Override
         public void onAdStarted() {
 
@@ -101,7 +93,6 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
         @Override
         public void onError(
                 com.google.android.youtube.player.YouTubePlayer.ErrorReason arg0) {
-            updateLog("onError(): " + arg0.toString());
         }
 
         @Override
@@ -115,7 +106,6 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
 
         @Override
         public void onVideoEnded() {
-            updateLog("onVideoEnded()");
             if (!isWatched){
                 String text = "{\n" +
                         "\t\"name\": \""+ videoName + "\",\n" +

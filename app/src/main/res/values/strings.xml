@@ -94,7 +94,6 @@
     <string name="preference_file_key">archivo_preferencias_no_traducir</string>
     <string name="PREFERENCES_USER">usuario_preferencias</string>
     <string name="PREFERENCES_PASSWORD">contrasena_de_registro_en_preferencias</string>
-    <string name="PREFERENCES_VIDEOS">videos_en_preferencias</string>
 
     <!-- Logout pantalla-->
     <string name="LOGOUT_LOGOUT">Salir</string>
@@ -215,6 +214,10 @@
     <!--Login-->
     <string name="user_created">Se ha registrado correctamente. Ya puede iniciar sesión</string>
     <string name="send">Enviar</string>
+
+    <!-- MODULE ESENTIAL INFORMATION-->
+    <string name="message_no_video">Aún no hay ningún video que el coach le sugiera ver</string>
+    <string name="message_no_ranking">El Ranking no esta disponible</string>
 
     <!--MODULE COOPERATIVE SOLUTIONS -->
     <string name="message_no_my_dilemmas">No tiene ningún dilema aceptado por su coach</string>
