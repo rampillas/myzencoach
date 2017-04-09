@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.Interest;
 
 import java.util.List;
 
@@ -16,18 +17,22 @@ import java.util.List;
 
 public class InterestListAdapter extends RecyclerView.Adapter<InteresItemViewHolder>  {
 
-    private List<InterestItem> interestItemList;
+    private List<Interest> interestItemList;
     private Context context;
+    private String[] categories;
 
-   /* public interface OnItemInterestClickListener{
-        public void onItemInterestClick(InterestItem interest);
+    public interface OnItemInterestClickListener{
+        public void onItemInterestClick(int position, boolean isToAdd);
     }
 
-    InterestListAdapter.OnItemInterestClickListener listener;*/
+    InterestListAdapter.OnItemInterestClickListener listener;
 
-    public InterestListAdapter(Context context, List<InterestItem> interestItemList) {
+    public InterestListAdapter(Context context, List<Interest> interestItemList, String[] categories,
+                               InterestListAdapter.OnItemInterestClickListener listener) {
         this.context = context;
         this.interestItemList = interestItemList;
+        this.categories = categories;
+        this.listener = listener;
     }
 
     @Override
@@ -39,14 +44,65 @@ public class InterestListAdapter extends RecyclerView.Adapter<InteresItemViewHol
     }
 
     @Override
-    public void onBindViewHolder(InteresItemViewHolder viewHolder, int position) {
-        InterestItem interestItem = interestItemList.get(position);
-        viewHolder.bind(interestItemList.get(position));
+    public void onBindViewHolder(InteresItemViewHolder viewHolder, final int position) {
+
+        String category;
+
+        switch (categories[position]){
+            case "viajes":
+                category = context.getString(R.string.array_category_trip);
+                break;
+            case "tecnologia":
+                category = context.getString(R.string.array_category_technology);
+                break;
+            case "naturaleza":
+                category = context.getString(R.string.array_category_nature);
+                break;
+            case "deportes":
+                category = context.getString(R.string.array_category_sport);
+                break;
+            case "salud":
+                category = context.getString(R.string.array_category_health);
+                break;
+            case "naval":
+                category = context.getString(R.string.array_category_naval);
+                break;
+            case "trabajo":
+                category = context.getString(R.string.array_category_work);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid category");
+        }
+
+        final InteresItemViewHolder itemHolder = (InteresItemViewHolder) viewHolder;
+
+        itemHolder.checkedTextView.setText(category);
+
+        boolean isChecked = false;
+        for (int i = 0; i < interestItemList.size(); i++){
+            if (interestItemList.get(i).getName().equals(category)){
+                isChecked = true;
+            }
+        }
+        itemHolder.checkedTextView.setChecked(isChecked);
+
+        itemHolder.checkedTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemHolder.checkedTextView.isChecked()) {
+                    itemHolder.checkedTextView.setChecked(false);
+                    listener.onItemInterestClick(position, false);
+                }else {
+                    itemHolder.checkedTextView.setChecked(true);
+                    listener.onItemInterestClick(position, true);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return interestItemList.size();
+        return categories.length;
     }
 }
 

@@ -22,25 +22,4 @@ public class InteresItemViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this,itemView);
     }
 
-    public void bind(final InterestItem interestItem) {
-
-        checkedTextView.setText(interestItem.getName());
-        checkedTextView.setChecked(interestItem.isChecked());
-
-        /*itemView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                listener.onItemPostClick(postItem);
-            }
-        });*/
-
-        checkedTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkedTextView.isChecked())
-                    checkedTextView.setChecked(false);
-                else
-                    checkedTextView.setChecked(true);
-            }
-        });
-    }
 }

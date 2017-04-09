@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.CommentEvent;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ import java.util.List;
 public class CommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
-    private List<CommentItem> commentItemList;
+    private List<CommentEvent> commentItemList;
 
-    public CommentListAdapter(Context context, List<CommentItem> commentItemList) {
+    public CommentListAdapter(Context context, List<CommentEvent> commentItemList) {
         this.context = context;
         this.commentItemList = commentItemList;
     }
@@ -36,7 +37,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         if (holder instanceof CommentItemViewHolder) {
 
-            final CommentItem commentItem = commentItemList.get(position);
+            final CommentEvent commentItem = commentItemList.get(position);
             CommentItemViewHolder itemHolder = (CommentItemViewHolder) holder;
 
             if (position == 0) {

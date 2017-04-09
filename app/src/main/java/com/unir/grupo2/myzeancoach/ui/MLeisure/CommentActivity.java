@@ -15,10 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.model.CommentEvent;
+import com.unir.grupo2.myzeancoach.domain.model.Event;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentItem;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.commentList.CommentListAdapter;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventItem;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +26,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.unir.grupo2.myzeancoach.R.string.post;
 
 /**
  * Created by Cesar on 13/03/2017.
@@ -38,7 +40,7 @@ public class CommentActivity extends AppCompatActivity {
     @BindView(R.id.error_layout) LinearLayout errorLayout;
     @BindView(R.id.add_comment_editText) EditText addCommentEditText;
 
-    private List<CommentItem> commentItemList;
+    private List<CommentEvent> commentItemList;
     private CommentListAdapter commentListAdapter;
 
     @Override
@@ -51,9 +53,9 @@ public class CommentActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         Intent intent = getIntent();
-        EventItem post = (EventItem) intent.getParcelableExtra("POST");
+        Event event = (Event) intent.getParcelableExtra("POST");
 
-        commentItemList = post.getComments();
+        commentItemList = event.getComments();
 
         if (commentItemList != null && commentItemList.size() >0){
             setUpRecyclerView();
@@ -74,23 +76,23 @@ public class CommentActivity extends AppCompatActivity {
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if(event.getRawX() >= (addCommentEditText.getRight() - addCommentEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
 
-                        if(addCommentEditText.getText().toString().trim().length() == 0){
+                       /* if(addCommentEditText.getText().toString().trim().length() == 0){
                             showDialogFillOutField();
                         }else{
-                            CommentItem newComment = new CommentItem(new Date().toString(), addCommentEditText.getText().toString());
+                            CommentEvent newComment = new CommentEvent(new Date().toString(), addCommentEditText.getText().toString());
 
                             if (commentItemList != null){
                                 commentItemList.add(newComment);
                                 commentListAdapter.notifyItemInserted(commentItemList.size() - 1);
                             }else{
-                                commentItemList = new ArrayList<CommentItem>();
+                                commentItemList = new ArrayList<CommentEvent>();
                                 commentItemList.add(newComment);
                                 setUpRecyclerView();
                             }
 
                             Toast.makeText(getBaseContext(), "gracias por añadir un comentario", Toast.LENGTH_LONG).show();
                             addCommentEditText.setText("");
-                        }
+                        }*/
 
                         Utils.closeSoftKeyboard(CommentActivity.this);
 

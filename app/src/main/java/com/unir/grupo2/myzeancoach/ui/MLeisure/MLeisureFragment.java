@@ -23,6 +23,8 @@ public class MLeisureFragment extends Fragment {
     public static ViewPager viewPager;
     public static int int_items = 2 ;
 
+    private int positionViewPager = -1;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,6 +34,11 @@ public class MLeisureFragment extends Fragment {
         View x =  inflater.inflate(R.layout.tab_layout,null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            positionViewPager = bundle.getInt("VIEW_PAGER_POSITION");
+        }
 
         /**
          *Set an Apater for the View Pager
@@ -49,6 +56,10 @@ public class MLeisureFragment extends Fragment {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
+
+        if (positionViewPager != -1){
+            viewPager.setCurrentItem(positionViewPager);
+        }
 
         return x;
 

@@ -41,6 +41,12 @@ public interface LeisureAPIService {
                                 @Header("Authorization") String token,
                                 @Body RequestBody body);
 
+    @POST("/freetime/events/{username}/deleteInterestsUser/")
+    Observable<Void> deleteAllIntereses(@Path("username") String username,
+                                        @Header("Content-Type") String contentType,
+                                        @Header("Authorization") String token,
+                                        @Body RequestBody body);
+
     @POST("/freetime/events/{username}/addInterestsUser/")
     Observable<Void> putInterest(@Path("username") String username,
                                  @Header("Content-Type") String contentType,
@@ -59,6 +65,6 @@ public interface LeisureAPIService {
 
     @DELETE("/freetime/events/")
     Observable<Void> deleteEvent(@Header("Content-Type") String contentType,
-                                @Header("Authorization") String token,
-                                @Body RequestBody body);
+                                 @Header("Authorization") String token,
+                                 @Body RequestBody body);
 }

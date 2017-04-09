@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_event_categories">
+        <item>viajes</item>
+        <item>tecnologia</item>
+        <item>naturaleza</item>
+        <item>deportes</item>
+        <item>salud</item>
+        <item>naval</item>
+        <item>trabajo</item>
+    </string-array>
+</resources>

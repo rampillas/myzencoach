@@ -18,6 +18,7 @@ public interface LeisureRepository {
     Observable<Event> deleteLike(String userName, String token, RequestBody body);
     Observable<Void> createComment(String userName, String token, RequestBody body);
     Observable<Void> addInterest(String userName, String token, RequestBody body);
+    Observable<Void> deleteAllInterest(String userName, String token, RequestBody body);
     Observable<InterestListPojo> interests(String userName, String token);
     Observable<EventListPojo> events(String userName, String token);
     Observable<Void> removeEvent(String token, RequestBody body);

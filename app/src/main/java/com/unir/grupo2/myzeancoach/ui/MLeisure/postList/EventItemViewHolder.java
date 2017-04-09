@@ -17,13 +17,13 @@ import butterknife.ButterKnife;
 public class EventItemViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.date_textView) TextView dateTextView;
+    @BindView(R.id.nick_textView) TextView nickTextView;
     @BindView(R.id.title_textView) TextView titleTextView;
     @BindView(R.id.category_textView) TextView categoryTextView;
     @BindView(R.id.description_textView) TextView descriptionTextView;
     @BindView(R.id.like_number_textView) TextView likeNumberTextView;
     @BindView(R.id.comments_number_textView) TextView commentNumberTextView;
-    @BindView(R.id.like_button)
-    Button likeButton;
+    @BindView(R.id.like_button) Button likeButton;
     @BindView(R.id.comment_button) Button commentButton;
 
 

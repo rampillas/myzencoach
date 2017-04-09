@@ -77,6 +77,11 @@ public class LeisureDataRepository implements LeisureRepository{
     }
 
     @Override
+    public Observable<Void> deleteAllInterest(String userName, String token, RequestBody body) {
+        return service.deleteAllIntereses(userName,CONTENT_TYPE,token,body);
+    }
+
+    @Override
     public Observable<InterestListPojo> interests(String userName, String token) {
         return service.getInterest(userName,CONTENT_TYPE,token);
     }

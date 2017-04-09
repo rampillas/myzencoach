@@ -73,4 +73,9 @@ public class Utils {
         }
     }
 
+    public static String covertUserNameBackend(String userName){
+        String[] parts = userName.trim().split("users/");
+        return parts[1].substring(0, parts[1].length() - 1);
+    }
+
 }

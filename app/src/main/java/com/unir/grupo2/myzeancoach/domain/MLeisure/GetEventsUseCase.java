@@ -1,10 +1,16 @@
 package com.unir.grupo2.myzeancoach.domain.MLeisure;
 
-import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialDataRepository;
-import com.unir.grupo2.myzeancoach.data.MEssentialInfo.EssentialRepository;
+import com.unir.grupo2.myzeancoach.data.MLeisure.LeisureDataRepository;
+import com.unir.grupo2.myzeancoach.data.MLeisure.LeisureRepository;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
+import com.unir.grupo2.myzeancoach.domain.model.Event;
+import com.unir.grupo2.myzeancoach.domain.model.EventListPojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
+
+import java.util.ArrayList;
 
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Created by Cesar on 15/03/2017.
@@ -12,15 +18,31 @@ import rx.Observable;
 
 public class GetEventsUseCase extends UseCase {
 
-    String token;
+    private String username;
+    private String token;
 
-    public GetEventsUseCase(String token) {
+    public GetEventsUseCase(String username, String token) {
+        this.username = username;
         this.token = token;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
-        EssentialRepository repo = EssentialDataRepository.getInstance();
-        return repo.ranking(token).first();
+        LeisureRepository repo = LeisureDataRepository.getInstance();
+        return repo.events(username, token).map(new Func1<EventListPojo, ArrayList<Event>>() {
+            @Override
+            public ArrayList<Event> call(EventListPojo eventListPojo) {
+
+                ArrayList<Event> events = new ArrayList<>();
+
+                for(int i = 0; i < eventListPojo.getEvents().size(); i++){
+                    Event event = eventListPojo.getEvents().get(i);
+                    event.setDate(Utils.dateFormat(eventListPojo.getEvents().get(i).getDate()));
+                    event.setUser(Utils.covertUserNameBackend(eventListPojo.getEvents().get(i).getUser()));
+                    events.add(event);
+                }
+                return events;
+            }
+        });
     }
 }

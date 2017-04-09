@@ -1,12 +1,16 @@
 
 package com.unir.grupo2.myzeancoach.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Event {
+public class Event implements Parcelable{
 
     @SerializedName("user")
     @Expose
@@ -26,9 +30,52 @@ public class Event {
     @SerializedName("category")
     @Expose
     private String category;
+    @SerializedName("user_like")
+    @Expose
+    private UserLike userLike;
     @SerializedName("comments")
     @Expose
-    private List<Comment> comments = null;
+    private List<CommentEvent> comments = null;
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(user);
+        out.writeString(date);
+        out.writeString(title);
+        out.writeString(description);
+        out.writeInt(likes);
+        out.writeString(category);
+        out.writeValue(userLike);
+        out.writeList(comments);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Event(Parcel in) {
+        user = in.readString();
+        date = in.readString();
+        title = in.readString();
+        description = in.readString();
+        likes = in.readInt();
+        category = in.readString();
+        userLike = (UserLike) in.readValue(UserLike.class.getClassLoader());
+        comments = new ArrayList<CommentEvent>();
+        comments = in.readArrayList(CommentEvent.class.getClassLoader());
+    }
+
+    public int describeContents() {
+        return this.hashCode();
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static final Creator<Event> CREATOR =
+            new Creator<Event>() {
+                public Event createFromParcel(Parcel in) {
+                    return new Event(in);
+                }
+
+                public Event[] newArray(int size) {
+                    return new Event[size];
+                }
+            };
 
     public String getUser() {
         return user;
@@ -78,11 +125,19 @@ public class Event {
         this.category = category;
     }
 
-    public List<Comment> getComments() {
+    public UserLike getUserLike() {
+        return userLike;
+    }
+
+    public void setUserLike(UserLike userLike) {
+        this.userLike = userLike;
+    }
+
+    public List<CommentEvent> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(List<CommentEvent> comments) {
         this.comments = comments;
     }
 

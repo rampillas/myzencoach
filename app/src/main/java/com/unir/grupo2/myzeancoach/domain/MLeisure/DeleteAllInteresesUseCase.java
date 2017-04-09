@@ -11,13 +11,13 @@ import rx.Observable;
  * Created by Cesar on 15/03/2017.
  */
 
-public class AddInterestsUseCase extends UseCase {
+public class DeleteAllInteresesUseCase extends UseCase {
 
     String userName;
     String token;
     RequestBody body;
 
-    public AddInterestsUseCase(String userName, String token, RequestBody body) {
+    public DeleteAllInteresesUseCase(String userName, String token, RequestBody body) {
         this.userName = userName;
         this.token = token;
         this.body = body;
@@ -26,6 +26,6 @@ public class AddInterestsUseCase extends UseCase {
     @Override
     protected Observable buildUseCaseObservable() {
         LeisureRepository repo = LeisureDataRepository.getInstance();
-        return repo.addInterest(userName, token, body).first();
+        return repo.deleteAllInterest(userName, token, body).first();
     }
 }

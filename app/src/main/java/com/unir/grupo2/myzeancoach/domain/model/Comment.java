@@ -1,4 +1,3 @@
-
 package com.unir.grupo2.myzeancoach.domain.model;
 
 import android.os.Parcel;

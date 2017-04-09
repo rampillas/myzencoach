@@ -37,11 +37,8 @@ import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.Remainde
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList.StressQuestionObject;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.AddPostActivity;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.CommentActivity;
+import com.unir.grupo2.myzeancoach.ui.MLeisure.InterestsFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.MLeisureFragment;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.PublicHomepageFragment;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventItem;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.CurrentPlanFragment;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.MainExerciseActivity;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.WelfareAllPlansFragment;
@@ -55,13 +52,11 @@ import butterknife.ButterKnife;
 import me.pushy.sdk.Pushy;
 
 public class MainActivity extends AppCompatActivity implements VideosFragment.UpdateDataEsentialInfoListener,
-        PublicHomepageFragment.OnPostListener, RemaindersFragment.OnPostListener,
+        InterestsFragment.UpdateEventsListener, HomepageFragment.UpdateDilemmaListener, RemaindersFragment.OnPostListener,
         WelfareAllPlansFragment.OnItemPlanSelectedListener,
-        CurrentPlanFragment.OnItemExerciseSelectedListener, StressFragment.OnPostListener,
-        HomepageFragment.UpdateDilemmaListener{
+        CurrentPlanFragment.OnItemExerciseSelectedListener, StressFragment.OnPostListener{
 
     static final int PLAN_EXERCISE_REQUEST = 4;
-    static final int ADD_EVENT_REQUEST = 5;
 
     // ui
     @BindView(R.id.drawer_layout)
@@ -188,31 +183,14 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
 
 
     /**************Module Leisure***************/
-    /*****Homepage*****/
-    //Add post button has been clicked
     @Override
-    public void onAddEventSelected() {
-        Intent intent = new Intent(this, AddPostActivity.class);
-        startActivityForResult(intent, ADD_EVENT_REQUEST);
-    }
-
-    @Override
-    public void onNumberLikePostSelected(EventItem post) {
-
-    }
-
-    @Override
-    public void onCommentPostSelected(EventItem post) {
-        Intent intent = new Intent(this, CommentActivity.class);
-        intent.putExtra("POST", post);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onNumberCommentPostSelected(EventItem post) {
-        Intent intent = new Intent(this, CommentActivity.class);
-        intent.putExtra("POST", post);
-        startActivity(intent);
+    public void updateEvents(int positionViewPager) {
+        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putInt("VIEW_PAGER_POSITION", positionViewPager);
+        MLeisureFragment fragment = new MLeisureFragment();
+        fragment.setArguments(bundle);
+        xfragmentTransaction.replace(R.id.container_view, fragment).commit();
     }
 
     /*************Module Welfare**************************/
@@ -267,17 +245,6 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
                     } else {
                         PlanWelfare plan = data.getParcelableExtra("PLAN");
                         launchCurrentPlanFragment(plan);
-                    }
-                }
-            }
-            /************Module Leisure******************/
-        } else if (requestCode == ADD_EVENT_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    EventItem event = data.getParcelableExtra("EVENT_NEW");
-                    if (event != null) {
-                        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-                        xfragmentTransaction.replace(R.id.container_view, new PublicHomepageFragment()).commit();
                     }
                 }
             }

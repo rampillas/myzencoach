@@ -10,14 +10,14 @@ public class EventListPojo {
 
     @SerializedName("results")
     @Expose
-    private List<Event> results = null;
+    private List<Event> events = null;
 
-    public List<Event> getResults() {
-        return results;
+    public List<Event> getEvents() {
+        return events;
     }
 
-    public void setResults(List<Event> results) {
-        this.results = results;
+    public void setResults(List<Event> events) {
+        this.events = events;
     }
 
 }

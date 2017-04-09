@@ -181,6 +181,7 @@
     <string name="PREFERENCES_EMOTICON">emoticon_en_preferencias(no traducir)</string>
     <string name="PREFERENCES_TOKEN">token_preferencias_key(no traducir)</string>
     <string name="PREFERENCES_CURRENT_PLAN_WELFARE">current_plan_welfare(no traducir)</string>
+    <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
 
 
     <string name="title_activity_add_remainder">AddRemainderActivity</string>
@@ -263,5 +264,13 @@
 
     <!--Leisure-->
     <string name="alert_fill_out_comment">Por favor, inserte un comentario</string>
+<string name="array_category_trip">viajes</string>
+<string name="array_category_technology">tecnologia</string>
+<string name="array_category_nature">naturaleza</string>
+<string name="array_category_sport">deportes</string>
+<string name="array_category_health">salud</string>
+<string name="array_category_naval">naval</string>
+<string name="array_category_work">trabajo</string>
+<string name="alert_fill_out_fields_event">Por favor, inserte un título, una descripción y seleccione una categoria para el evento que deseas compartir</string>
 
-</resources>
+    </resources>
