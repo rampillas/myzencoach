@@ -8,7 +8,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Event implements Parcelable{
 
@@ -35,7 +34,7 @@ public class Event implements Parcelable{
     private UserLike userLike;
     @SerializedName("comments")
     @Expose
-    private List<CommentEvent> comments = null;
+    private ArrayList<CommentEvent> comments = null;
 
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(user);
@@ -133,11 +132,11 @@ public class Event implements Parcelable{
         this.userLike = userLike;
     }
 
-    public List<CommentEvent> getComments() {
+    public ArrayList<CommentEvent> getComments() {
         return comments;
     }
 
-    public void setComments(List<CommentEvent> comments) {
+    public void setComments(ArrayList<CommentEvent> comments) {
         this.comments = comments;
     }
 

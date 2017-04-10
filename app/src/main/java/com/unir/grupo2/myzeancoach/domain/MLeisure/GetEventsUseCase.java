@@ -39,6 +39,11 @@ public class GetEventsUseCase extends UseCase {
                     Event event = eventListPojo.getEvents().get(i);
                     event.setDate(Utils.dateFormat(eventListPojo.getEvents().get(i).getDate()));
                     event.setUser(Utils.covertUserNameBackend(eventListPojo.getEvents().get(i).getUser()));
+                    if (event.getComments() != null && !event.getComments().isEmpty()){
+                        for (int j = 0; j < event.getComments().size(); j++){
+                            event.getComments().get(j).setDate(Utils.dateFormat(event.getComments().get(j).getDate()));
+                        }
+                    }
                     events.add(event);
                 }
                 return events;

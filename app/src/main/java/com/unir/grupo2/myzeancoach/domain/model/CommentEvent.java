@@ -18,6 +18,12 @@ public class CommentEvent implements Parcelable{
     @Expose
     private String description;
 
+    public CommentEvent(String user, String date, String description){
+        this.user = user;
+        this.date = date;
+        this.description = description;
+    }
+
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(user);
         out.writeString(date);

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Interest;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 
 import java.util.List;
 
@@ -46,41 +47,13 @@ public class InterestListAdapter extends RecyclerView.Adapter<InteresItemViewHol
     @Override
     public void onBindViewHolder(InteresItemViewHolder viewHolder, final int position) {
 
-        String category;
-
-        switch (categories[position]){
-            case "viajes":
-                category = context.getString(R.string.array_category_trip);
-                break;
-            case "tecnologia":
-                category = context.getString(R.string.array_category_technology);
-                break;
-            case "naturaleza":
-                category = context.getString(R.string.array_category_nature);
-                break;
-            case "deportes":
-                category = context.getString(R.string.array_category_sport);
-                break;
-            case "salud":
-                category = context.getString(R.string.array_category_health);
-                break;
-            case "naval":
-                category = context.getString(R.string.array_category_naval);
-                break;
-            case "trabajo":
-                category = context.getString(R.string.array_category_work);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid category");
-        }
-
         final InteresItemViewHolder itemHolder = (InteresItemViewHolder) viewHolder;
 
-        itemHolder.checkedTextView.setText(category);
+        itemHolder.checkedTextView.setText(Utils.getCategoryEvent(context, categories[position]));
 
         boolean isChecked = false;
         for (int i = 0; i < interestItemList.size(); i++){
-            if (interestItemList.get(i).getName().equals(category)){
+            if (interestItemList.get(i).getName().equals(categories[position])){
                 isChecked = true;
             }
         }

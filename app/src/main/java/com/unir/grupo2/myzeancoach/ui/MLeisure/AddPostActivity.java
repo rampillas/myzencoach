@@ -77,7 +77,7 @@ public class AddPostActivity extends AppCompatActivity {
         final RadioButton[] rb = new RadioButton[8];
         for (int i = 0; i < categories.length; i++) {
             rb[i] = new RadioButton(this);
-            rb[i].setText(categories[i]);
+            rb[i].setText(Utils.getCategoryEvent(this, categories[i]));
             rb[i].setId(i);
             categoryRadioGroup.addView(rb[i]);
         }

@@ -83,9 +83,6 @@ public class LoginChecker {
                                 Crashlytics.setUserName(rb.getUsername());
                                 e.printStackTrace();
                             }
-
-
-
                         } else {
                             showWrongPassword(loginActivity);
                         }

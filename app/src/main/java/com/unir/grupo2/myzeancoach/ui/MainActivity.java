@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -46,6 +48,7 @@ import com.unir.grupo2.myzeancoach.ui.profil.ProfilFragment;
 
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setLanguage();
+
         Pushy.listen(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -86,7 +92,14 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
          */
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+
+        Intent intent = getIntent();
+        if (intent != null && intent.getBooleanExtra("GO_TO_PROFILE",false)){
+            //Once the app language has been changed, mainActivity is Refreshed and ProfilFragment is launched
+            fragmentTransaction.replace(R.id.container_view, new ProfilFragment()).commit();
+        }else{
+            fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+        }
 
         //Setup click events on the Navigation View Items.
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -163,6 +176,38 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
 
         mDrawerToggle.syncState();
 
+    }
+
+    private void setLanguage(){
+
+        String languageSharedPregerence = Utils.getLanguageFromPreference(this);
+        String languageRight = "";
+
+        if(languageSharedPregerence != null && !equals("")){
+            languageRight = languageSharedPregerence;
+        }else{
+            String localeLanguage = Locale.getDefault().getDisplayLanguage();
+            switch (localeLanguage){
+                case "English":
+                    languageRight = "en";
+                    break;
+                case "español":
+                    languageRight = "es";
+                    break;
+                case "italiano":
+                    languageRight = "it";
+                    break;
+                default:
+                    languageRight = "en";
+            }
+            Utils.saveLanguagePreference(languageRight,this);
+        }
+
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        android.content.res.Configuration conf = res.getConfiguration();
+        conf.locale = new Locale(languageRight);
+        res.updateConfiguration(conf, dm);
     }
 
     private void lauchLoginActivity() {

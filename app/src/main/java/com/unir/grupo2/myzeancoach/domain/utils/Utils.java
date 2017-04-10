@@ -31,7 +31,6 @@ public class Utils {
     }
 
     public static String getUserFromPreference(Context context){
-
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
@@ -39,11 +38,26 @@ public class Utils {
     }
 
     public static String getTokenFromPreference(Context context){
-
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         return sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN),null);
+    }
+
+    public static void saveLanguagePreference(String language, Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(context.getString(R.string.PREFERENCES_LANGUAGE), language);
+        editor.commit();
+    }
+
+    public static String getLanguageFromPreference(Context context){
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        return sharedPref.getString(context.getString(R.string.PREFERENCES_LANGUAGE),null);
     }
 
     public static String dateFormat(String dateString){
@@ -76,6 +90,28 @@ public class Utils {
     public static String covertUserNameBackend(String userName){
         String[] parts = userName.trim().split("users/");
         return parts[1].substring(0, parts[1].length() - 1);
+    }
+
+    public static String getCategoryEvent(Context context, String category){
+        switch (category){
+            case "viajes":
+                return context.getString(R.string.array_category_trip);
+            case "tecnologia":
+                return context.getString(R.string.array_category_technology);
+            case "naturaleza":
+                return context.getString(R.string.array_category_nature);
+            case "deportes":
+                return context.getString(R.string.array_category_sport);
+            case "salud":
+                return context.getString(R.string.array_category_health);
+            case "naval":
+                return context.getString(R.string.array_category_naval);
+            case "trabajo":
+                return context.getString(R.string.array_category_work);
+            default:
+                throw new IllegalArgumentException("Invalid category");
+        }
+
     }
 
 }

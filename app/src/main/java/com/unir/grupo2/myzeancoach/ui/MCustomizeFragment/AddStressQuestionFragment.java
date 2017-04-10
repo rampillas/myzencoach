@@ -97,7 +97,7 @@ public class AddStressQuestionFragment extends Fragment {
             showLoading();
             new SetPersonalQuestionUseCase("Bearer " + token, rb).execute(new AddStressQuestionFragment.AddRemainderSubscriber());
         } else {
-            Toast.makeText(getContext(), getString(R.string.REMAINDERS_EMPTY_ADD), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.alert_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }
 
     }

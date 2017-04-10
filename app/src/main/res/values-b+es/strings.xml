@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">MyZenCoach</string>
-    <string name="OK">OK</string>
 
     <!-- General -->
+    <string name="app_name">MyZenCoach</string>
+    <string name="OK">OK</string>
     <string name="loading_message">Cargando …</string>
     <string name="error_message">Error en la carga de datos</string>
     <string name="error_icon_description">Ha ocurrido un error</string>
@@ -17,6 +17,9 @@
     <string name="leisure">Ocio y tiempo libre</string>
     <string name="stress_detection">Detección de estrés</string>
     <string name="reminders">Recordatorios</string>
+    <string name="puntuaction">Puntuación</string>
+    <string name="login">Login</string>
+    <string name="interests">Intereses</string>
     <string name="videos">Videos</string>
     <string name="tests">Tests</string>
     <string name="ranking">Ranking</string>
@@ -25,23 +28,147 @@
     <string name="coach">Coach</string>
     <string name="weekly_exercise">Ejercicio semanal</string>
     <string name="rate">Valoración</string>
-    <string name="test_completed_dialog">El test se ha guardado y enviado correctamente. Recuerde que
-    podrá volver a realizar el test tantas veces como desee</string>
-    <string name="puntuaction">Puntuación</string>
-    <string name="login">Login</string>
-    <string name="interests">Intereses</string>
+    <string name="profil">Perfil</string>
+    <string name="logout">Cerrar sesión</string>
 
+    <!--MODULE 1 : Customize -->
+    <string name="REMAINDERS_HELLO_USER">Hola</string>
+    <string name="REMAINDERS_TASK_REMAIN">Tareas para pasar de nivel</string>
+    <string name="REMAINDERS_YOUR_TASK">Tus tareas</string>
+    <string name="REMAINDERS_MASK_AS_DONE">Marcar como completa</string>
+    <string name="stress_add">Añadir Preguntas</string>
+    <string name="STRESS_QUESTION_ADD">Pregunta</string>
+    <string name="STRESS_OPTION_1">Opcion 1</string>
+    <string name="STRESS_OPTION_2">Opcion 2</string>
+    <string name="STRESS_OPTION_3">Opcion 3</string>
+    <string name="STRESS_OPTION_4">Opcion 4</string>
+    <string name="STRESS_TIPS">Opcion 1 - azul, Opcion 2 - amarillo, Opcion 3 - rojo, Opcion 4 - naranja</string>
+    <string name="REMAINDERS_LEVEL">NIVEL:</string>
+    <string name="week_info">semana: %1$d</string>
+    <string name="remainders_add">Nuevo Recordatorio</string>
+    <string name="REMAINDERS_ADD_TITLE">Título</string>
+    <string name="REMAINDERS_ADD_DESCRIPTION">Descripción del recordatorio</string>
+    <string name="REMAINDERS_ADD_WHEN">fecha del recordatorio</string>
+    <string name="REMAINDERS_ADD_INSERT_DATE">Introduce fecha</string>
+    <string name="REMAINDERS_ADD_WHEN_HOUR">Hora del recordatorio</string>
+    <string name="REMAINDERS_ADD_INSERT_TIME">introduce hora</string>
+    <string name="SAVE">Guardar</string>
+    <string name="title_activity_add_remainder">AddRemainderActivity</string>
 
-    <!-- essential_information-->
+    <!---MODULE 2 : Essential information -->
     <string name="score_info">%1$d puntos</string>
     <string name="completed">Completado</string>
     <string name="uncompleted">Pendiente</string>
     <string name="question_number">Pregunta %1$d de %2$d</string>
     <string name="test_name">Test: %1sd</string>
     <string name="send_to_rate">Enviar para calificar</string>
-    <string name="no_available_test">No hay ningún test disponible. Para acceder al test de un video,
-    debe ver el video correspondiente por completo.</string>
+    <string name="no_available_test">No hay ningún test disponible. Para acceder al test de un video, debe ver el video correspondiente por completo.</string>
     <string name="error_update_video">Error al actualizar el video</string>
+    <string name="test_completed_dialog">El test se ha guardado y enviado correctamente. Recuerde que podrá volver a realizar el test tantas veces como desee</string>
+    <string name="dialog_massage_no_youtube_url_video">La URL del video debe ser de Youtube</string>
+    <string name="message_no_video">Aún no hay ningún video que el coach le sugiera ver</string>
+    <string name="message_no_ranking">El Ranking no esta disponible</string>
+
+    <!-- MOUDLE 3 : Cooperative Solution -->
+    <string name="write_feedback">Proporciona un feedback a la solución elegida</string>
+    <string name="message_no_my_dilemmas">No tiene ningún dilema aceptado por su coach</string>
+    <string name="message_no_coach_dilemmas">No tiene ningún dilema en mediación con su coach. Si lo desea, puede añadir uno</string>
+    <string name="message_no_muro_dilemmas">Aún no existe ningún dilema</string>
+    <string name="number_solutions_plural">%1$d soluciones</string>
+    <string name="number_solutions_singular">1 solución</string>
+    <string name="message_no_solutions">Aún no se ha proporcionado ninguna solución</string>
+    <string name="suggestion_coach">Sugerencias del Coach:</string>
+    <string name="dilemma_title">Título del dilema</string>
+    <string name="dilemma_description">Describe su dilema...</string>
+    <string name="save_dilemma">Guardar dilema</string>
+    <string name="update_dilemma">Modificar dilema</string>
+    <string name="alert_fill_out_fields">Por favor, inserte un título y una descripción del dilema que desea plantear</string>
+    <string name="alert_title_dilemma_sent">Dilema enviado</string>
+    <string name="alert_title_dilemma_updated">Dilema modificado</string>
+    <string name="alert_message_dilemma_sent">Su coach le respondera lo antes posible. ¡Gracias por compartir!</string>
+    <string name="solution">Solución</string>
+    <string name="solution_hint">Introduzca su propuesta para solucionar el dilema</string>
+    <string name="pros">Pros</string>
+    <string name="pros_hint">Escriba brevemente al menos un pro</string>
+    <string name="cons">Contras</string>
+    <string name="cons_hint">Escriba brevemente al menos una contra</string>
+    <string name="save_solution">Guardar solución</string>
+    <string name="alert_fill_out_all_fields">Por favor, rellene todos los campos</string>
+    <string name="alert_title_solution_added">Solución añadida</string>
+    <string name="alert_message_solution_added">¡Gracias por ayudar a tus compañeros!</string>
+    <string name="feedback_dilemma">Feedback</string>
+    <string name="alert_fill_out_feedback">Por favor, proporcione feedback</string>
+    <string name="alert_title_feedback_completed">Dilema completado</string>
+    <string name="alert_description_feedback_completed">Muchas gracias por proporcionar feedback. Esperamos que haya resuelto su dilema.</string>
+    <string name="alert_like">Por favor, ponga en practica la porpuesta seleccionada y proporcione feedback, si es posible, en menos de una semana</string>
+    <string name="feedback"><b>Feedback:</b> %1$s</string>
+    <string name="state_waiting_for_answer">Esperando la respuesta del coach</string>
+    <string name="state_refused">Denegado\nVer sugerencias del coach...</string>
+    <string name="state_acepted">Ayudame a solucionarlo</string>
+    <string name="state_feedback_1">Esperando feedback</string>
+    <string name="state_feedback_2">Ha pasado más de 1 semana. Proporcione feedback por favor.</string>
+    <string name="state_completed">Finalizado</string>
+
+    <!--MODULE 4: Welfare-->
+    <string name="choose_plan">Elige un plan</string>
+    <string name="ongoing_plan">Comenzado</string>
+    <string name="choose_ongoing_one">Solo puedes seleccionar el plan que ya has comenzado</string>
+    <string name="week_number">Semana %1d</string>
+    <string name="question_answer">Escriba su respuesta</string>
+    <string name="exercise_rate_number">¿Qué le ha parecido el ejercicio?</string>
+    <string name="exercise_rate_string">Por favor, proporcione una valoracion del ejercicio.</string>
+    <string name="send_survey">Enviar valoración</string>
+    <string name="dialog_title_survey_sent">Ejercicio completado</string>
+    <string name="dialog_title_survey_sent_plan_over">Ejercicio y plan completados</string>
+    <string name="dialog_message_survey_sent">Enhorabuena por realizar el ejercicio de la semana y gracias por mandarnos su valoración</string>
+    <string name="dialog_message_survey_sent_over">Enhorabuena por realizar el ejercicio de la semana y finalizar el plan. Gracias por mandarnos su valoración</string>
+    <string name="alert_plan_chosen">El plan seleccionado se ha guardado en sus preferencias. Podrá volver a ver la lista de planes al finalizar el plan seleccionado o al cerrar sesión</string>
+    <string name="error_update_survey">Error al guardar su valoración</string>
+    <string name="alert_check_fields_empty">Responda a todas las preguntas por favor.</string>
+    <string name="dialog_title_url_no_valid">URL no válida</string>
+    <string name="dialog_massage_no_youtube_url_audio">La URL del audio debe ser de Youtube</string>
+    <string name="dialog_title_no_plans_available">No hay planes disponibles</string>
+    <string name="dialog_message_no_plans_available">Le sugerimos esperar hasta que haya un plan disponible para usted. Perdone las molestias</string>
+
+    <!--MODULE 5 : Leisure -->
+    <string name="like">Me gusta</string>
+    <string name="comment">Comentar</string>
+    <string name="title">Título</string>
+    <string name="description">Descripción. ¿Qué estás pensando?</string>
+    <string name="category">Elige una categoría</string>
+    <string name="post">Publicar</string>
+    <string name="public_homepage">Muro</string>
+    <string name="set_up_your_interests">Selecciona los intereses que sean de tu preferencia</string>
+    <string name="save_interests">Guardar intereses</string>
+    <string name="write_comment">Escribe un comentario...</string>
+    <string name="number_comments">%1$d comentarios</string>
+    <string name="alert_fill_out_comment">Por favor, inserte un comentario</string>
+    <string name="array_category_trip">viajes</string>
+    <string name="array_category_technology">tecnologia</string>
+    <string name="array_category_nature">naturaleza</string>
+    <string name="array_category_sport">deportes</string>
+    <string name="array_category_health">salud</string>
+    <string name="array_category_naval">naval</string>
+    <string name="array_category_work">trabajo</string>
+    <string name="alert_fill_out_fields_event">Por favor, inserte un título, una descripción y seleccione una categoria para el evento que deseas compartir</string>
+    <string name="message_no_event">No hay eventos disponibles para los intereses elegidos</string>
+
+    <!--Profile-->
+    <string name="emoticon_very_happy">Feliz</string>
+    <string name="emoticon_happy">Muy feliz</string>
+    <string name="emoticon_in_love">Enamorado</string>
+    <string name="emoticon_laughing">Riendo</string>
+    <string name="emoticon_sat">Triste</string>
+    <string name="emoticon_disappointed">Decepcionado</string>
+    <string name="emoticon_angry">Enfadado</string>
+    <string name="emoticon_crying">Llorando</string>
+    <string name="how_you_feeling"><b>¿Cómo te sientes?</b>\nDesliza el dedo horizontalmente para ver mas estados.</string>
+    <string name="choose_language"><b>Elige un idioma</b></string>
+    <string name="save_changes">Guardar cambios</string>
+    <string name="spanish">Español</string>
+    <string name="english">Inglés</string>
+    <string name="italian">Italiano</string>
+    <string name="data_saved">Los datos se han guardado correctamente</string>
 
     <!-- LOGIN -->
     <string name="LOGIN_TEXT_USER">Nombre de usuario</string>
@@ -52,6 +179,8 @@
     <string name="LOGIN_CREATE_ACCOUNT_BUTTON">Registrate</string>
     <string name="LOGIN_BAD_LOGIN">Usuario o contraseña incorrecta</string>
     <string name="LOGIN_ERROR_SERVER">Error al conectar con el servidor :(</string>
+    <string name="user_created">Se ha registrado correctamente. Ya puede iniciar sesión</string>
+    <string name="send">Enviar</string>
 
     <!-- SIGNUP -->
     <string name="SIGNUP_INCORRECT_DATA">Faltan valores por añadir o son incorrectos, por favor reviselos.</string>
@@ -85,17 +214,6 @@
         <item>Doctorado</item>
     </string-array>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
-    <!-- Preferencias -->
-    <string name="preference_file_key">archivo_preferencias_no_traducir</string>
-    <string name="PREFERENCES_USER">usuario_preferencias</string>
-    <string name="PREFERENCES_PASSWORD">contrasena_de_registro_en_preferencias</string>
-    <string name="PREFERENCES_VIDEOS">videos_en_preferencias</string>
-
     <!-- Logout pantalla-->
     <string name="LOGOUT_LOGOUT">Salir</string>
     <string name="LOGOUT_EDIT">Editar</string>
@@ -112,121 +230,13 @@
     <string name="LOGIN_EMAIL_SEND">Le hemos enviado un correo para recuperar su contraseña. </string>
     <string name="SIGNUP_USER_NOT_EXITS">El usuario no esta registrado</string>
 
-    <!--Leisure -->
-    <string name="like">Me gusta</string>
-    <string name="comment">Comentar</string>
-    <string name="title">Título</string>
-    <string name="description">Descripción. ¿Qué estás pensando?</string>
-    <string name="category">Elige una categoría</string>
-    <string name="post">Publicar</string>
-    <string name="public_homepage">Muro</string>
-    <string name="set_up_your_interests">Selecciona los intereses que sean de tu preferencia</string>
-    <string name="save_interests">Guardar intereses</string>
-    <string name="write_comment">Escribe un comentario...</string>
-    <string name="number_comments">%1$d comentarios</string>
-
-    <!--Remainders -->
-    <string name="REMAINDERS_HELLO_USER">Hola</string>
-    <string name="REMAINDERS_TASK_REMAIN">Tareas para pasar de nivel</string>
-    <string name="REMAINDERS_YOUR_TASK">Tus tareas</string>
-    <string name="REMAINDERS_MASK_AS_DONE">Marcar como completa</string>
-    <string name="hello_world">messagePlan</string>
-
-    <!--MWelfare -->
-    <string name="week_info">semana: %1$d</string>
-    <string name="remainders_add">Nuevo Recordatorio</string>
-    <string name="REMAINDERS_ADD_TITLE">Título</string>
-    <string name="REMAINDERS_ADD_DESCRIPTION">Descripción del recordatorio</string>
-    <string name="REMAINDERS_ADD_WHEN">fecha del recordatorio</string>
-    <string name="REMAINDERS_ADD_INSERT_DATE">Introduce fecha</string>
-    <string name="REMAINDERS_ADD_WHEN_HOUR">Hora del recordatorio</string>
-    <string name="REMAINDERS_ADD_INSERT_TIME">introduce hora</string>
-    <string name="SAVE">Guardar</string>
-
-    <!-- Cooperative Solution -->
-    <string name="write_feedback">Proporciona un feedback a la solución elegida</string>
-
-
-    <!--********* NEW WORDS ******-->
-    <!--Leisure -->
-    <string name="feedback"><b>Feedback:</b> %1$s</string>
-    <string name="state_waiting_for_answer">Esperando por la respuesta del coach</string>
-    <string name="state_refused">Denegado</string>
-    <string name="state_acepted">Ayudame a solucionarlo</string>
-    <string name="state_feedback_1">Esperando feedback</string>
-    <string name="state_feedback_2">Ha pasado más de 1 semana. Proporcione feedback por favor.</string>
-    <string name="state_completed">Finalizado</string>
-
-    <!-- DrawerMenu and SwipeTabs -->
-    <string name="profil">Perfil</string>
-    <string name="logout">Cerrar sesión</string>
-
-    <!--Profile-->
-    <string name="emoticon_very_happy">Feliz</string>
-    <string name="emoticon_happy">Muy feliz</string>
-    <string name="emoticon_in_love">Enamorado</string>
-    <string name="emoticon_laughing">Riendo</string>
-    <string name="emoticon_sat">Triste</string>
-    <string name="emoticon_disappointed">Decepcionado</string>
-    <string name="emoticon_angry">Enfadado</string>
-    <string name="emoticon_crying">Llorando</string>
-    <string name="how_you_feeling"><b>¿Cómo te sientes?</b>\nDesliza el dedo horizontalmente para ver mas estados.</string>
-    <string name="choose_language"><b>Elige un idioma</b></string>
-    <string name="save_changes">Guardar cambios</string>
-    <string name="spanish">Español</string>
-    <string name="english">Inglés</string>
-    <string name="italian">Italiano</string>
-    <string name="data_saved">Los datos se han guardado correctamente</string>
-
-    <!--preferences-->
+    <!-- Preferencias -->
+    <string name="preference_file_key">archivo_preferencias_no_traducir</string>
+    <string name="PREFERENCES_USER">usuario_preferencias</string>
+    <string name="PREFERENCES_PASSWORD">contrasena_de_registro_en_preferencias</string>
     <string name="PREFERENCES_EMOTICON">emoticon_en_preferencias(no traducir)</string>
     <string name="PREFERENCES_TOKEN">token_preferencias_key(no traducir)</string>
     <string name="PREFERENCES_CURRENT_PLAN_WELFARE">current_plan_welfare(no traducir)</string>
-
-
-    <string name="title_activity_add_remainder">AddRemainderActivity</string>
-
-    <!--Welfare-->
-    <string name="choose_plan">Elige un plan</string>
-    <string name="ongoing_plan">Comenzado</string>
-    <string name="choose_ongoing_one">Solo puedes seleccionar el plan que ya has comenzado</string>
-    <string name="week_number">Semana %1d</string>
-    <string name="question_answer">Escriba su respuesta</string>
-    <string name="exercise_rate_number">¿Qué le ha parecido el ejercicio?</string>
-    <string name="exercise_rate_string">Por favor, proporcione una valoracion del ejercicio.</string>
-    <string name="send_survey">Enviar valoración</string>
-    <string name="dialog_title_survey_sent">Ejercicio completado</string>
-    <string name="dialog_title_survey_sent_plan_over">Ejercicio y plan completados</string>
-    <string name="dialog_message_survey_sent">Enhorabuena por realizar el ejercicio de la semana y gracias por mandarnos su valoración</string>
-    <string name="dialog_message_survey_sent_over">Enhorabuena por realizar el ejercicio de la semana y finalizar el plan. Gracias por mandarnos su valoración</string>
-    <string name="alert_plan_chosen">El plan seleccionado se ha guardado en sus preferencias. Podrá volver a ver la lista de planes al finalizar el plan seleccionado o al cerrar sesión</string>
-    <string name="error_update_survey">Error al guardar su valoración</string>
-    <string name="alert_check_fields_empty">Responda a todas las preguntas por favor.</string>
-    <string name="dialog_title_url_no_valid">URL no válida</string>
-    <string name="dialog_massage_no_youtube_url_audio">La URL del audio debe ser de Youtube</string>
-    <string name="dialog_title_no_plans_available">No hay planes disponibles</string>
-    <string name="dialog_message_no_plans_available">Le sugerimos esperar hasta que haya un plan disponible para usted. Perdone las molestias</string>
-
-    <!-- essential_information-->
-    <string name="dialog_massage_no_youtube_url_video">La URL del video debe ser de Youtube</string>
-    <string name="REMAINDERS_EMPTY_ADD">Por favor rellena todoslos campos</string>
-
-    <!-- MORE NEW WORDS-->
-    <!--Login-->
-    <string name="user_created">Se ha registrado correctamente. Ya puede iniciar sesión</string>
-
-    <!--MODULE COOPERATIVE SOLUTIONS -->
-    <string name="message_no_my_dilemmas">No tiene ningún dilema aceptado por su coach</string>
-    <string name="message_no_coach_dilemmas">No tiene ningún dilema en mediación con su coach. Si lo desea, puede añadir uno</string>
-    <string name="message_no_muro_dilemmas">Aún no existe ningún dilema</string>
-
-    <!--MODULE CUSTOMIZE -->
-    <string name="stress_add">Añadir Preguntas</string>
-    <string name="STRESS_QUESTION_ADD">Pregunta</string>
-    <string name="STRESS_OPTION_1">Opcion 1</string>
-    <string name="STRESS_OPTION_2">Opcion 2</string>
-    <string name="STRESS_OPTION_4">Opcion 4</string>
-    <string name="STRESS_TIPS">Opcion 1 - azul, Opcion 2 - amarillo, Opcion 3 - rojo, Opcion 4 - naranja</string>
-    <string name="REMAINDERS_LEVEL">NIVEL:</string>
+    <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
 
 </resources>

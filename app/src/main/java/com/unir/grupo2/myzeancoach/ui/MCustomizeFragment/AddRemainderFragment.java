@@ -132,7 +132,7 @@ public class AddRemainderFragment extends Fragment {
             showLoading();
             new NewRemainderUserCase(user, "Bearer " + token, rb).execute(new AddRemainderFragment.AddRemainderSubscriber());
         } else {
-            Toast.makeText(getContext(), getString(R.string.REMAINDERS_EMPTY_ADD), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.alert_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }
 
     }

@@ -1,7 +1,9 @@
 package com.unir.grupo2.myzeancoach.ui.profil;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -21,10 +24,13 @@ import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.Profil.EmoticonUseCase;
 import com.unir.grupo2.myzeancoach.domain.Profil.UpdateEmoticonUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Emoticon;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
+import com.unir.grupo2.myzeancoach.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,11 +59,15 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     Button saveButton;
     @BindView(R.id.content_layout)
     RelativeLayout contentLayout;
+    @BindView(R.id.spanish_radio) RadioButton spanishRadioButton;
+    @BindView(R.id.english_radio) RadioButton englishRadioButton;
+    @BindView(R.id.italian_radio) RadioButton italianRadioButton;
 
     private List<String> emoticonItemList;
     private EmoticonsListAdapter emoticonListAdapter;
 
-    private String languageSelected;
+    private String languagePreference;
+    private String languageSelected = "";
     private String emoticonSelected;
     private Emoticon emoticon;
     private String emoticonSharedPre;
@@ -71,9 +81,9 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     final static String ANGRY = "angry";
     final static String CRYING = "crying";
 
-    private final static String SPANISH = "spanish";
-    private final static String ENGLISH = "english";
-    private final static String ITALIAN = "italian";
+    private final static String SPANISH = "es";
+    private final static String ENGLISH = "en";
+    private final static String ITALIAN = "it";
 
     @Nullable
     @Override
@@ -82,6 +92,8 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         ButterKnife.bind(this, view);
 
         getEmoticon();
+
+        languagePreference = Utils.getLanguageFromPreference(getActivity());
 
         emoticonsListRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager
@@ -102,6 +114,23 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
 
         emoticonListAdapter = new EmoticonsListAdapter(getContext(), emoticonItemList, this);
         emoticonsListRecyclerView.setAdapter(emoticonListAdapter);
+
+        if (languagePreference != null && !languagePreference.equals("")){
+            switch (languagePreference){
+                case ENGLISH:
+                    languageSelected = ENGLISH;
+                    englishRadioButton.setChecked(true);
+                    break;
+                case SPANISH:
+                    languageSelected = SPANISH;
+                    spanishRadioButton.setChecked(true);
+                    break;
+                case ITALIAN:
+                    languageSelected = ITALIAN;
+                    italianRadioButton.setChecked(true);
+                    break;
+            }
+        }
 
         languageRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -135,9 +164,13 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         }
         if (isUpdateData){
             saveEmoticon();
+        }else{
+            if (languageSelected != null && !languageSelected.equals(languagePreference)){
+                Utils.saveLanguagePreference(languageSelected, getActivity());
+                changeLanguage(languageSelected);
+                Toast.makeText(getActivity(), getString(R.string.data_saved), Toast.LENGTH_LONG).show();
+            }
         }
-
-        //********UDPDATE LANGUAGE ******
     }
 
     private void getEmoticon() {
@@ -152,7 +185,7 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
             new EmoticonUseCase().execute(new EmoticonSubscriber());
         }else{
             showLoading();
-            emoticonSelected = emoticonShared;
+            emoticonSharedPre = emoticonShared;
             setEmoticonImage(emoticonShared);
             showContent();
         }
@@ -201,6 +234,31 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
             setEmoticonImage(emoticon.getName());
             emoticonSelected = emoticon.getName();
         }
+    }
+
+    private void changeLanguage(String language){
+        Locale locale;
+        Configuration config = new Configuration();
+
+        switch(language){
+            case ENGLISH:
+                locale = new Locale(ENGLISH);
+                config.locale =locale;
+                break;
+            case SPANISH:
+                locale = new Locale(SPANISH);
+                config.locale =locale;
+                break;
+            case ITALIAN:
+                locale = new Locale(ITALIAN);
+                config.locale =locale;
+                break;
+        }
+        getResources().updateConfiguration(config, null);
+        Intent refresh = new Intent(getActivity(), MainActivity.class);
+        refresh.putExtra("GO_TO_PROFILE", true);
+        startActivity(refresh);
+        getActivity().finish();
     }
 
     @Override
@@ -323,6 +381,10 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         public void onNext(Emoticon emoticon) {
             Toast.makeText(getActivity(), getString(R.string.data_saved), Toast.LENGTH_LONG).show();
             saveEmoticonSharedPreference(emoticon.getName());
+            if (languageSelected != null && !languageSelected.equals(languagePreference)){
+                Utils.saveLanguagePreference(languageSelected, getContext());
+                changeLanguage(languageSelected);
+            }
         }
     }
 }

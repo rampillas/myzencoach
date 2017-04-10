@@ -13,12 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MLeisure.AddLikeUseCase;
 import com.unir.grupo2.myzeancoach.domain.MLeisure.GetEventsUseCase;
+import com.unir.grupo2.myzeancoach.domain.MLeisure.RemoveLikeUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Event;
+import com.unir.grupo2.myzeancoach.domain.model.UserLike;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.postList.EventListAdapter;
 
@@ -33,7 +34,6 @@ import okhttp3.RequestBody;
 import rx.Subscriber;
 
 import static android.app.Activity.RESULT_OK;
-import static com.unir.grupo2.myzeancoach.R.string.post;
 
 /**
  * Created by Cesar on 22/02/2017.
@@ -42,9 +42,7 @@ import static com.unir.grupo2.myzeancoach.R.string.post;
 public class PublicHomepageFragment extends Fragment implements EventListAdapter.OnEventClickListener {
 
     static final int ADD_EVENT_REQUEST = 5;
-
-    List<Event> eventItemList;
-    EventListAdapter postListAdapter;
+    static final int COMMENTS_REQUEST = 6;
 
     @BindView(R.id.post_recycler_view)
     RecyclerView postListRecyclerView;
@@ -56,6 +54,11 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
     LinearLayout noEventLayout;
     @BindView(R.id.floating_action_button)
     FloatingActionButton floatingActionButton;
+
+    List<Event> eventItemList;
+    EventListAdapter postListAdapter;
+
+    private int updatePosition;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
@@ -76,25 +79,14 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
     @Override
     public void onAddCommentEventClick(Event event) {
         Intent intent = new Intent(getActivity(), CommentActivity.class);
-        intent.putExtra("POST", post);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onNumberCommentEventClick(Event event) {
-        Intent intent = new Intent(getActivity(), CommentActivity.class);
-        intent.putExtra("POST", post);
-        startActivity(intent);
+        intent.putExtra("EVENT", event);
+        startActivityForResult(intent, COMMENTS_REQUEST);
     }
 
     @Override
     public void onLikeEventClick(Event event, int position, boolean isAddLike) {
-
-        if (isAddLike) {
-            addLikeData(event);
-        } else {
-            removeLikeData();
-        }
+        this.updatePosition = position;
+        updateLikeData(isAddLike, event);
     }
 
     @OnClick(R.id.floating_action_button)
@@ -112,7 +104,8 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
         new GetEventsUseCase(userName, token).execute(new EventSubscriber());
     }
 
-    private void addLikeData(Event event) {
+    private void updateLikeData(boolean isAddLike, Event event){
+
         showLoading();
 
         String userName = Utils.getUserFromPreference(getActivity());
@@ -123,24 +116,37 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
                 "\t\"title\": \"" + event.getTitle() + "\"\n" +
                 "}\n";
 
-        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), text);
+        RequestBody body;
 
-        new AddLikeUseCase(userName, token, body).execute(new AddLikeSubscriber());
+        if (isAddLike){
+            body = RequestBody.create(MediaType.parse("text/plain"), text);
+            new AddLikeUseCase(userName, token, body).execute(new AddLikeSubscriber());
+        }else{
+            body = RequestBody.create(MediaType.parse("text/plain"), text);
+            new RemoveLikeUseCase(userName, token, body).execute(new RemoveLikeSubscriber());
+        }
     }
-
-    private void removeLikeData() {
-
-    }
-
 
     private void loadList(ArrayList<Event> eventList) {
         this.eventItemList = eventList;
         if (eventItemList != null && !eventItemList.isEmpty()) {
             postListAdapter = new EventListAdapter(getContext(), eventItemList, this);
             postListRecyclerView.setAdapter(postListAdapter);
+            showContent();
         } else {
             showNoEvent();
         }
+    }
+
+    private void uploadListLike(boolean isToAdd, Event event){
+        UserLike userLike = new UserLike();
+        userLike.setIsLiked(isToAdd);
+        userLike.setUser(Utils.getUserFromPreference(getActivity()));
+        userLike.setEvent(event.getTitle());
+        event.setUserLike(userLike);
+
+        eventItemList.set(updatePosition, event);
+        postListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -151,14 +157,30 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
                 if (data != null) {
                     Event event = data.getParcelableExtra("EVENT_NEW");
                     if (event != null) {
-                        if(eventItemList == null){
+                        if(eventItemList == null || eventItemList.isEmpty()){
                             eventItemList = new ArrayList<>();
                             eventItemList.add(event);
                             postListAdapter = new EventListAdapter(getContext(), eventItemList, this);
                             postListRecyclerView.setAdapter(postListAdapter);
+                            showContent();
                         }else{
                             eventItemList.add(event);
                             postListAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+            }
+        }else if (requestCode == COMMENTS_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    Event event = data.getParcelableExtra("EVENT");
+                    if (event != null) {
+                        for (int i = 0; i < eventItemList.size(); i++){
+                            if (eventItemList.get(i).getTitle().equals(event.getTitle())){
+                                eventItemList.set(i, event);
+                                postListAdapter.notifyDataSetChanged();
+                                break;
+                            }
                         }
                     }
                 }
@@ -174,6 +196,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
         postListRecyclerView.setVisibility(View.GONE);
         loadingLayout.setVisibility(View.GONE);
         noEventLayout.setVisibility(View.GONE);
+        floatingActionButton.setVisibility(View.GONE);
     }
 
     /**
@@ -184,6 +207,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
         postListRecyclerView.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
         noEventLayout.setVisibility(View.GONE);
+        floatingActionButton.setVisibility(View.GONE);
     }
 
     /**
@@ -191,6 +215,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
      */
     public void showContent() {
         postListRecyclerView.setVisibility(View.VISIBLE);
+        floatingActionButton.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
         noEventLayout.setVisibility(View.GONE);
@@ -198,6 +223,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
 
     public void showNoEvent() {
         noEventLayout.setVisibility(View.VISIBLE);
+        floatingActionButton.setVisibility(View.VISIBLE);
         postListRecyclerView.setVisibility(View.GONE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
@@ -209,7 +235,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
         //Show the listView
         @Override
         public void onCompleted() {
-            showContent();
+
         }
 
         //Show the error
@@ -243,8 +269,31 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
         //Update listview datas
         @Override
         public void onNext(Event event) {
-            Toast.makeText(getActivity(), "asd", Toast.LENGTH_SHORT).show();
+            uploadListLike(true, event);
         }
     }
+
+    private final class RemoveLikeSubscriber extends Subscriber<Event> {
+        //3 callbacks
+
+        //Show the listView
+        @Override
+        public void onCompleted() {
+            showContent();
+        }
+
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+            showError();
+        }
+
+        //Update listview datas
+        @Override
+        public void onNext(Event event) {
+            uploadListLike(false, event);
+        }
+    }
+
 }
 

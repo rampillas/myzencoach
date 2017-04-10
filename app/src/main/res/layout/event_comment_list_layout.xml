@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context="com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment">
+    tools:context="com.unir.grupo2.myzeancoach.ui.MLeisure.PublicHomepageFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/comment_recycler_view"
+    <RelativeLayout
+        android:id="@+id/content_relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/add_comment_editText"/>
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context="com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment">
 
-    <EditText
-        android:id="@+id/add_comment_editText"
-        android:layout_width="match_parent"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:drawableRight="@mipmap/ic_send_black_24dp"
-        android:drawablePadding="5dp"
-        android:hint="@string/write_comment"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/comment_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/add_comment_editText"
+            android:layout_alignParentTop="true"
+            android:scrollbars="vertical"/>
+
+        <EditText
+            android:id="@+id/add_comment_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/ic_send_black_24dp"
+            android:hint="@string/write_comment"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/loading_layout"
@@ -35,15 +43,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/loading_message" />
+            android:text="@string/loading_message"/>
     </LinearLayout>
 
     <LinearLayout
@@ -54,20 +64,21 @@
         android:clickable="true"
         android:orientation="vertical"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_gravity="center"
-            android:tint="#c3c3c3"
+            android:contentDescription="@string/error_icon_description"
             android:src="@drawable/ic_error_black_24px"
-            android:contentDescription="@string/error_icon_description" />
+            android:tint="#c3c3c3"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="@string/error_message"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="@string/error_message" />
+            android:textStyle="bold"/>
     </LinearLayout>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
