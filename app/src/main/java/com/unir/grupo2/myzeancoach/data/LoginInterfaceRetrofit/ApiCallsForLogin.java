@@ -18,39 +18,40 @@ import rx.Observable;
  */
 
 
-public interface ApiCallsForLogin{
+public interface ApiCallsForLogin {
 
     @Headers("Content-Type: application/json")
     @POST("login/")
-    // se ha creado un objeto register body para que la informacion del cuerpo pueda viajar ademas de quitar la etiqueta @FormUrlEncoded
-    Observable<Token> loginUser(@Body RegisterBody rb) ;
+        // se ha creado un objeto register body para que la informacion del cuerpo pueda viajar ademas de quitar la etiqueta @FormUrlEncoded
+    Observable<Token> loginUser(@Body RegisterBody rb);
 
 
     //recuperar usuario
     @Headers("Content-Type: application/json")
     @GET("users/{username}")
     // se ha creado un objeto register body para que la informacion del cuerpo pueda viajar ademas de quitar la etiqueta @FormUrlEncoded
-    Observable<User> userData(@Path("username") String user, @Header("Authorization") String access_token) ;
+    Observable<User> userData(@Path("username") String user, @Header("Authorization") String access_token);
     //Observable<Token> loginUser(@Body RequestBody body);
 
     @Headers("Content-Type: application/json")
     @POST("/password-recovery/")
-    Observable<Void> forgetPass(@Body RecoveryPasswordObject rpo) ;
+    Observable<Void> forgetPass(@Body RecoveryPasswordObject rpo);
 
     @FormUrlEncoded
     @POST("/users/")
     Observable<User> createUser(@Field("username") String Usuario,
-                                       @Field("email") String Email,
-                                       @Field("first_name") String Nombre,
-                                       @Field("last_name") String Apellido,
-                                       @Field("password") String Contrasena,
-                                       @Field("birthday") String Nacimiento,
-                                       @Field("gender") String Sexo,
-                                       @Field("country") String Pais,
-                                       @Field("city") String Ciudad,
-                                       @Field("description") String Descripcion,
-                                       @Field("rural_zone") String Zona,
-                                       @Field("change_country") String CambioPais,
-                                       @Field("level_studies") String Estudios);
+                                @Field("email") String Email,
+                                @Field("first_name") String Nombre,
+                                @Field("last_name") String Apellido,
+                                @Field("password") String Contrasena,
+                                @Field("birthday") String Nacimiento,
+                                @Field("gender") String Sexo,
+                                @Field("country") String Pais,
+                                @Field("city") String Ciudad,
+                                @Field("description") String Descripcion,
+                                @Field("rural_zone") String Zona,
+                                @Field("change_country") String CambioPais,
+                                @Field("level_studies") String Estudios,
+                                @Field("notification_token") String notificationToken);
 
 }

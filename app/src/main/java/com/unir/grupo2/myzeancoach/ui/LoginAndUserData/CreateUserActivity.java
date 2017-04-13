@@ -3,8 +3,10 @@ package com.unir.grupo2.myzeancoach.ui.LoginAndUserData;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,6 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
+import me.pushy.sdk.Pushy;
 
 /**
  * Created by Cesar on 26/03/2017.
@@ -96,6 +99,8 @@ public class CreateUserActivity extends AppCompatActivity{
     LinearLayout errorLayout;
     @BindView(R.id.createUserLayout)
     LinearLayout createUserLayout;
+
+    String deviceToken;
 
     //iniciamos los radio buttons
     @OnClick(R.id.radio_si)
@@ -189,11 +194,8 @@ public class CreateUserActivity extends AppCompatActivity{
                 if (validator.validateUsername(usuarioValor) &&
                         validator.validateEmail(emailValor) &&
                         validator.validatePassword(usuarioValor, passwordValor)) {
-                    CreateUserServer registerUser = new CreateUserServer();
-
                     showLoading();
-                    registerUser.newUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor,
-                            nacimientoValor, sexoValor, paisValor, ciudadValor, "empleado", zonaValor, siNoValor, estudiosValor, this);
+                    new RegisterForPushNotificationsAsync().execute();
 
                 }
             } catch (InvalidEmailFormatException e) { // Catch all exceptions you're interested to handle
@@ -205,8 +207,7 @@ public class CreateUserActivity extends AppCompatActivity{
             } catch (InvalidPasswordFormatException e) { // Catch all exceptions you're interested to handle
                 CreateUserServer registerUser = new CreateUserServer();
                 showLoading();
-                registerUser.newUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor,
-                        nacimientoValor, sexoValor, paisValor, ciudadValor, "empleado", zonaValor, siNoValor, estudiosValor, this);
+                new RegisterForPushNotificationsAsync().execute();
             } catch (InvalidPasswordLengthException e) { // Catch all exceptions you're interested to handle
                 Toast.makeText(this, getResources().getString(R.string.SIGNUP_ERROR_PASSWORD_LEN), Toast.LENGTH_LONG).show();
             } catch (NullPasswordException e) { // Catch all exceptions you're interested to handle
@@ -270,6 +271,14 @@ public class CreateUserActivity extends AppCompatActivity{
 // Apply the adapter to the spinner
         estudios.setAdapter(adapter);
 
+    }
+
+    private void sendUserData(String token){
+        deviceToken = token;
+        CreateUserServer registerUser = new CreateUserServer();
+
+        registerUser.newUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor,
+                nacimientoValor, sexoValor, paisValor, ciudadValor, "empleado", zonaValor, siNoValor, estudiosValor, deviceToken, this);
     }
 
     public void showFieldsIntoCases(User userObject) {
@@ -350,6 +359,49 @@ public class CreateUserActivity extends AppCompatActivity{
         intent.putExtra("USER_NAME", userName);
         setResult(Activity.RESULT_OK, intent);
         finish();
+    }
+
+    // ------------------------ Push Notifications -------------------------- //
+    private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Wrapper> {
+        protected Wrapper doInBackground(Void... params) {
+            Wrapper wrapper = new Wrapper();
+            String deviceToken;
+            try {
+                // Assign a unique token to this device
+                deviceToken = Pushy.register(getApplicationContext());
+                // Log it for debugging purposes
+                Log.d("MyApp", "Pushy device token: " + deviceToken);
+
+            }
+            catch (Exception exc) {
+                // Return exc to onPostExecute
+                wrapper.deviceToken = null;
+                wrapper.exception = exc;
+                return wrapper;
+            }
+
+            // Success
+            wrapper.exception = null;
+            wrapper.deviceToken = deviceToken;
+            return wrapper;
+        }
+
+        @Override
+        protected void onPostExecute(Wrapper wrapper) {
+            // Failed?
+            if (wrapper.deviceToken == null && wrapper.exception != null) {
+                Log.e("Notifications error: ", wrapper.toString());
+                showError();
+                return;
+            }else{
+                sendUserData(wrapper.deviceToken);
+            }
+        }
+    }
+
+    public class Wrapper {
+        public Exception exception;
+        public String deviceToken;
     }
 
 }

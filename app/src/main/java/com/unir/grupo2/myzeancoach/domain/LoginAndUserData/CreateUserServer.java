@@ -25,11 +25,11 @@ public class CreateUserServer {
     public void newUser(String usuarioValor, String emailValor, String nombreValor, String apellidoValor,
                         String passwordValor, String nacimientoValor, String sexoValor, String paisValor,
                         String ciudadValor, String descripcionValor, String zonaValor, String cambioPaisValor,
-                        String estudiosValor, final CreateUserActivity createUserActivity) {
+                        String estudiosValor, String notificationToken, final CreateUserActivity createUserActivity) {
 
         // RxJava
         conexioAPI.createUser(usuarioValor, emailValor, nombreValor, apellidoValor, passwordValor, nacimientoValor,
-                sexoValor, paisValor, ciudadValor, descripcionValor, zonaValor, cambioPaisValor, estudiosValor).subscribeOn(Schedulers.io())
+                sexoValor, paisValor, ciudadValor, descripcionValor, zonaValor, cambioPaisValor, estudiosValor, notificationToken).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<User>() {
                     @Override

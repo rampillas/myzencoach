@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -18,7 +17,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
@@ -47,7 +45,6 @@ import com.unir.grupo2.myzeancoach.ui.MWelfare.WelfareAllPlansFragment;
 import com.unir.grupo2.myzeancoach.ui.profil.ProfilFragment;
 
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -83,9 +80,6 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
             // Pushy SDK will be able to persist the device token in the external storage
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
-        new RegisterForPushNotificationsAsync().execute();
-
-
 
         /**
          * Lets inflate the very first fragment
@@ -331,41 +325,6 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
         //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
-    }
-
-    // ------------------------ Push Notifications -------------------------- //
-    private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Exception> {
-        protected Exception doInBackground(Void... params) {
-            try {
-                // Assign a unique token to this device
-                String deviceToken = Pushy.register(getApplicationContext());
-
-                // Log it for debugging purposes
-                Log.d("MyApp", "Pushy device token: " + deviceToken);
-
-                // Send the token to your backend server via an HTTP GET request
-                new URL("https://{YOUR_API_HOSTNAME}/register/device?token=" + deviceToken).openConnection();
-            }
-            catch (Exception exc) {
-                // Return exc to onPostExecute
-                return exc;
-            }
-
-            // Success
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Exception exc) {
-            // Failed?
-            if (exc != null) {
-                // Show error as toast message
-                Log.e("Notifications error: ", exc.toString());
-                return;
-            }
-
-            // Succeeded, do something to alert the user
-        }
     }
 
 }
