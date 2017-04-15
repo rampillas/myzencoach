@@ -1,12 +1,10 @@
 package com.unir.grupo2.myzeancoach.ui.MWelfare;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,7 +37,7 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
 
     @BindView(R.id.plan_list_recycler_view) RecyclerView planListRecyclerView;
     @BindView(R.id.loading_layout) LinearLayout loadingLayout;
-    @BindView(R.id.error_layout) LinearLayout errorLayout;
+    @BindView(R.id.no_plan_layout) LinearLayout noPlanLayout;
 
     WelfareAllPlansFragment.OnItemPlanSelectedListener onItemplanSelectedListener;
 
@@ -79,30 +77,26 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
 
     private void updateList(List<PlanWelfare> planList){
 
-        //Check if there some plan has already been finished
-        List<PlanWelfare> planListNoFinished = new ArrayList<>();
-        for (int i = 0; i < planList.size();i++){
-            if (!planList.get(i).getIsFinished()){
-                planListNoFinished.add(planList.get(i));
+        if (planList == null){
+            showNoPlan();
+        }else{
+            //Check if there some plan has already been finished
+            List<PlanWelfare> planListNoFinished = new ArrayList<>();
+            for (int i = 0; i < planList.size();i++){
+                if (!planList.get(i).getIsFinished()){
+                    planListNoFinished.add(planList.get(i));
+                }
+            }
+            planItemList = planListNoFinished;
+
+            if (!planItemList.isEmpty()){
+                palnListAdapter = new AllPlanListAdapter(getActivity(),planItemList,this);
+                planListRecyclerView.setAdapter(palnListAdapter);
+                showContent();
+            }else{
+                showNoPlan();
             }
         }
-        planItemList = planListNoFinished;
-
-        if (!planItemList.isEmpty()){
-            palnListAdapter = new AllPlanListAdapter(getActivity(),planItemList,this);
-            planListRecyclerView.setAdapter(palnListAdapter);
-        }else{
-            new AlertDialog.Builder(getContext())
-                    .setTitle(getString(R.string.dialog_title_no_plans_available))
-                    .setMessage(getString(R.string.dialog_message_no_plans_available))
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    })
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
-        }
-
     }
 
     @Override
@@ -126,10 +120,10 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
     /**
      * Method used to show error view
      */
-    public void showError() {
+    public void showNoPlan() {
+        noPlanLayout.setVisibility(View.VISIBLE);
         planListRecyclerView.setVisibility(View.GONE);
         loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -138,7 +132,7 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
     public void showLoading() {
         loadingLayout.setVisibility(View.VISIBLE);
         planListRecyclerView.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
+        noPlanLayout.setVisibility(View.GONE);
     }
 
     /**
@@ -147,7 +141,7 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
     public void showContent() {
         planListRecyclerView.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
+        noPlanLayout.setVisibility(View.GONE);
     }
 
 
@@ -156,12 +150,12 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
 
         //Show the listView
         @Override public void onCompleted() {
-            showContent();
+
         }
 
         //Show the error
         @Override public void onError(Throwable e) {
-            showError();
+            showNoPlan();
         }
 
         //Update listview datas

@@ -35,8 +35,6 @@ public class MCooperativeSolFragment extends Fragment {
     LinearLayout contentLinearLayout;
     @BindView(R.id.loading_layout)
     LinearLayout loadingLayout;
-    @BindView(R.id.error_layout)
-    LinearLayout errorLayout;
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
@@ -109,21 +107,11 @@ public class MCooperativeSolFragment extends Fragment {
     }
 
     /**
-     * Method used to show error view
-     */
-    public void showError() {
-        contentLinearLayout.setVisibility(View.GONE);
-        loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
-    }
-
-    /**
      * Method used to show the loading view
      */
     public void showLoading() {
         loadingLayout.setVisibility(View.VISIBLE);
         contentLinearLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
     }
 
     /**
@@ -132,7 +120,6 @@ public class MCooperativeSolFragment extends Fragment {
     public void showContent() {
         contentLinearLayout.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
     }
 
     class MyAdapter extends FragmentPagerAdapter {
@@ -207,7 +194,8 @@ public class MCooperativeSolFragment extends Fragment {
         //Show the error
         @Override
         public void onError(Throwable e) {
-            showError();
+            startViewPager();
+            showContent();
         }
 
         //Update listview datas

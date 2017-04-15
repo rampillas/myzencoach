@@ -14,6 +14,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
+
 /**
  * Created by Cesar on 09/03/2017.
  */
@@ -42,7 +44,7 @@ public class LeisureDataRepository implements LeisureRepository{
                 .addInterceptor(interceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://demendezr.pythonanywhere.com/")
+                .baseUrl(URL_SERVER)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)

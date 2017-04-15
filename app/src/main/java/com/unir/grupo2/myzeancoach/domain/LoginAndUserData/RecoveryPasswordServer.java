@@ -12,13 +12,15 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
+
 /**
  * Created by andres on 28/02/2017.
  */
 
 public class RecoveryPasswordServer {
     RetrofitClient apiRetrofitConexion = new RetrofitClient();
-    Retrofit retrofit = apiRetrofitConexion.getClient("http://demendezr.pythonanywhere.com/");
+    Retrofit retrofit = apiRetrofitConexion.getClient(URL_SERVER);
     ApiCallsForLogin apiConexion =retrofit.create(ApiCallsForLogin.class);
     public void recoveryPass(String usuario, final RecoveryPasswordActivity recoveryPasswordActivity) {
 

@@ -47,18 +47,12 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
 
     @BindView(R.id.emoticons_recycler_view)
     RecyclerView emoticonsListRecyclerView;
-    @BindView(R.id.loading_layout)
-    LinearLayout loadingLayout;
-    @BindView(R.id.error_layout)
-    LinearLayout errorLayout;
-    @BindView(R.id.emoticon_imageView)
-    ImageView emoticonImageView;
-    @BindView(R.id.language_radioGroup)
-    RadioGroup languageRadioGroup;
-    @BindView(R.id.save_button)
-    Button saveButton;
-    @BindView(R.id.content_layout)
-    RelativeLayout contentLayout;
+    @BindView(R.id.loading_layout) LinearLayout loadingLayout;
+    @BindView(R.id.emoticon_layout) LinearLayout emoticonLayout;
+    @BindView(R.id.emoticon_imageView) ImageView emoticonImageView;
+    @BindView(R.id.language_radioGroup) RadioGroup languageRadioGroup;
+    @BindView(R.id.save_button) Button saveButton;
+    @BindView(R.id.content_layout) RelativeLayout contentLayout;
     @BindView(R.id.spanish_radio) RadioButton spanishRadioButton;
     @BindView(R.id.english_radio) RadioButton englishRadioButton;
     @BindView(R.id.italian_radio) RadioButton italianRadioButton;
@@ -304,10 +298,10 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     /**
      * Method used to show error view
      */
-    public void showError() {
-        contentLayout.setVisibility(View.GONE);
+    public void showContentNoEmoticon() {
+        contentLayout.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
+        emoticonLayout.setVisibility(View.GONE);
     }
 
     /**
@@ -316,7 +310,7 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     public void showLoading() {
         loadingLayout.setVisibility(View.VISIBLE);
         contentLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
+        emoticonLayout.setVisibility(View.GONE);
     }
 
     /**
@@ -324,8 +318,8 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
      */
     public void showContent() {
         contentLayout.setVisibility(View.VISIBLE);
+        emoticonLayout.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
     }
 
     public void saveEmoticonSharedPreference(String emoticonName){
@@ -351,7 +345,7 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         //Show the error
         @Override
         public void onError(Throwable e) {
-            showError();
+            showContentNoEmoticon();
         }
 
         //Update listview datas
@@ -373,7 +367,7 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         //Show the error
         @Override
         public void onError(Throwable e) {
-            showError();
+            Toast.makeText(getContext(), getActivity().getString(R.string.error_message),Toast.LENGTH_LONG).show();
         }
 
         //Update listview datas

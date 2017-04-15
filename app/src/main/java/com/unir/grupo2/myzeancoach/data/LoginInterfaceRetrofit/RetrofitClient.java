@@ -8,6 +8,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
+
 /**
  * Created by andres on 28/02/2017.
  */
@@ -36,7 +38,7 @@ public class RetrofitClient {
                     .addInterceptor(loggingInterceptor).build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://demendezr.pythonanywhere.com/")
+                    .baseUrl(URL_SERVER)
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .client(okHttpClient)

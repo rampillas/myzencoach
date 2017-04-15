@@ -17,6 +17,12 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.CLIENT_WEB;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.PARAM_PASSWORD;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.PARAM_READ_WRITE;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.SECRET_WEB;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
+
 /**
  * Created by andres on 28/02/2017.
  */
@@ -36,7 +42,7 @@ public class LoginChecker {
     }
 
     RetrofitClient conexionAPIretrofit = new RetrofitClient();
-    Retrofit retrofit = conexionAPIretrofit.getClient("http://demendezr.pythonanywhere.com/");
+    Retrofit retrofit = conexionAPIretrofit.getClient(URL_SERVER);
     ApiCallsForLogin apiConexion = retrofit.create(ApiCallsForLogin.class);
 
 
@@ -44,7 +50,7 @@ public class LoginChecker {
 
         loginActivity.showLoading();
         // RxJava
-        final RegisterBody rb = new RegisterBody("clientweb2231", "secretweb2231", user, pass, "password", "read+write");
+        final RegisterBody rb = new RegisterBody(CLIENT_WEB, SECRET_WEB, user, pass, PARAM_PASSWORD, PARAM_READ_WRITE);
         apiConexion.loginUser(rb).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Token>() {
                     @Override

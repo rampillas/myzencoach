@@ -57,11 +57,7 @@ public class CoachFragment extends Fragment implements CoachListAdapter.OnDilemm
         coachDilemmaItemList = bundle.getParcelableArrayList("COACH_DILEMMAS");
 
         if (coachDilemmaItemList != null && !coachDilemmaItemList.isEmpty()){
-            dilemmaPostListRecyclerView.setHasFixedSize(true);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-            dilemmaPostListRecyclerView.setLayoutManager(linearLayoutManager);
-            coachDilemmaListAdapter = new CoachListAdapter(getContext(),coachDilemmaItemList, this);
-            dilemmaPostListRecyclerView.setAdapter(coachDilemmaListAdapter);
+            setListView();
             showContent();
         }else{
             showNoDilemma();
@@ -84,6 +80,14 @@ public class CoachFragment extends Fragment implements CoachListAdapter.OnDilemm
         startActivityForResult(intent,DILEMMA_UPDATE_REQUEST);
     }
 
+    private void setListView(){
+        dilemmaPostListRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        dilemmaPostListRecyclerView.setLayoutManager(linearLayoutManager);
+        coachDilemmaListAdapter = new CoachListAdapter(getContext(),coachDilemmaItemList, this);
+        dilemmaPostListRecyclerView.setAdapter(coachDilemmaListAdapter);
+    }
+
     public void showNoDilemma() {
         noDilemmaLayout.setVisibility(View.VISIBLE);
         dilemmaPostListRecyclerView.setVisibility(View.GONE);
@@ -104,8 +108,17 @@ public class CoachFragment extends Fragment implements CoachListAdapter.OnDilemm
             if (resultCode == RESULT_OK) {
                 if (data != null) {
                     Dilemma dilemmaNew = data.getParcelableExtra("DILEMMA_NEW");
-                    coachDilemmaItemList.add(dilemmaNew);
-                    coachDilemmaListAdapter.notifyDataSetChanged();
+                    if (coachDilemmaItemList == null || coachDilemmaItemList.isEmpty()){
+                        if (coachDilemmaItemList == null){
+                            coachDilemmaItemList = new ArrayList<>();
+                        }
+                        coachDilemmaItemList.add(dilemmaNew);
+                        setListView();
+                        showContent();
+                    }else{
+                        coachDilemmaItemList.add(dilemmaNew);
+                        coachDilemmaListAdapter.notifyDataSetChanged();
+                    }
                 }
             }
         }else if (requestCode == DILEMMA_UPDATE_REQUEST){
@@ -119,69 +132,5 @@ public class CoachFragment extends Fragment implements CoachListAdapter.OnDilemm
             }
         }
     }
-
-
-/*
-    private void updateData() {
-        showLoading();
-        //we must pass a real token**
-        new VideosUseCase("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK").execute(new VideosSubscriber());
-    }
-
-    /**
-     * Method used to show error view
-     */
-  /*  public void showError() {
-        postListRecyclerView.setVisibility(View.GONE);
-        loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * Method used to show the loading view
-     */
-  /*  public void showLoading() {
-        loadingLayout.setVisibility(View.VISIBLE);
-        postListRecyclerView.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
-    }
-
-    /**
-     * Method used to show the listView
-     */
- /*   public void showContent() {
-        postListRecyclerView.setVisibility(View.VISIBLE);
-        loadingLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
-    }
-
-
-    private void updateList(List<PostItem> postList){
-        postItemList = postList;
-        postListAdapter = new VideoListAdapter(getContext(),postItemList, this);
-        postListRecyclerView.setAdapter(postListAdapter);
-    }
-
-    */
-
-    /*private final class PostsSubscriber extends Subscriber<List<PostItem>> {
-        //3 callbacks
-
-        //Show the listView
-        @Override public void onCompleted() {
-            showContent();
-        }
-
-        //Show the error
-        @Override public void onError(Throwable e) {
-            showError();
-        }
-
-        //Update listview datas
-        @Override
-        public void onNext(List<PostItem> postList) {
-            updateList(postList);
-        }
-    }*/
 }
 

@@ -12,6 +12,8 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
+
 /**
  * Created by andres on 28/02/2017.
  */
@@ -19,7 +21,7 @@ import rx.schedulers.Schedulers;
 public class CreateUserServer {
 
     RetrofitClient conexionAPIretrofit = new RetrofitClient();
-    Retrofit retrofit = conexionAPIretrofit.getClient("http://demendezr.pythonanywhere.com/");
+    Retrofit retrofit = conexionAPIretrofit.getClient(URL_SERVER);
     ApiCallsForLogin conexioAPI = retrofit.create(ApiCallsForLogin.class);
 
     public void newUser(String usuarioValor, String emailValor, String nombreValor, String apellidoValor,
