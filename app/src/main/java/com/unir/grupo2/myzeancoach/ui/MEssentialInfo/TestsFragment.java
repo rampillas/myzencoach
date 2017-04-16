@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -12,7 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
@@ -36,8 +39,16 @@ public class TestsFragment extends Fragment implements TesttListAdapter.OnItemCl
     static final int VIDEO_TEST_REQUEST = 2;
 
     @BindView(R.id.test_recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.content_layout) RelativeLayout contentRelativeLayout;
+    @BindView(R.id.loadItemsLayout_recyclerView) RelativeLayout loadingDataRelativeLayout;
     @BindView(R.id.no_tests_layout) LinearLayout noTestLayout;
     @BindView(R.id.message_textView) TextView messageNoDielmmaTextView;
+
+    private LinearLayoutManager linearLayoutManager;
+
+    // Variables for scroll listener
+    private boolean userScrolled = true;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     VideosFragment.UpdateDataEsentialInfoListener updateDataListener;
 
@@ -64,7 +75,7 @@ public class TestsFragment extends Fragment implements TesttListAdapter.OnItemCl
         if (testItemList != null && !testItemList.isEmpty()){
 
             recyclerView.setHasFixedSize(true);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(linearLayoutManager);
             TesttListAdapter testsListAdapter = new TesttListAdapter(getContext(), testItemList, this);
             recyclerView.setAdapter(testsListAdapter);
@@ -103,13 +114,83 @@ public class TestsFragment extends Fragment implements TesttListAdapter.OnItemCl
 
     public void showNoDilemma() {
         noTestLayout.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.GONE);
+        contentRelativeLayout.setVisibility(View.GONE);
         messageNoDielmmaTextView.setText(getString(R.string.no_available_test));
     }
 
     public void showContent() {
-        recyclerView.setVisibility(View.VISIBLE);
+        contentRelativeLayout.setVisibility(View.VISIBLE);
         noTestLayout.setVisibility(View.GONE);
+    }
+
+    //Pagination
+    // Implement scroll listener
+    private void implementScrollListener() {
+        recyclerView
+                .addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView,
+                                                     int newState) {
+
+                        super.onScrollStateChanged(recyclerView, newState);
+
+                        // If scroll state is touch scroll then set userScrolled
+                        // true
+                        if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                            userScrolled = true;
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx,
+                                           int dy) {
+
+                        super.onScrolled(recyclerView, dx, dy);
+                        // Here get the child count, item count and visibleitems
+                        // from layout manager
+
+                        visibleItemCount = linearLayoutManager.getChildCount();
+                        totalItemCount = linearLayoutManager.getItemCount();
+                        pastVisiblesItems = linearLayoutManager.findFirstVisibleItemPosition();
+
+                        // Now check if userScrolled is true and also check if
+                        // the item is end then update recycler view and set
+                        // userScrolled to false
+                        if (userScrolled
+                                && (visibleItemCount + pastVisiblesItems) == totalItemCount) {
+                            userScrolled = false;
+
+                            updateRecyclerView();
+                        }
+
+                    }
+
+                });
+
+    }
+
+    // Method for repopulating recycler view
+    private void updateRecyclerView() {
+
+        // Show Progress Layout
+        loadingDataRelativeLayout.setVisibility(View.VISIBLE);
+
+        // Handler to show refresh for a period of time you can use async task
+        // while commnunicating serve
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                // After adding new data hide the view.
+                loadingDataRelativeLayout.setVisibility(View.GONE);
+
+            }
+        }, 8000);
     }
 
 }

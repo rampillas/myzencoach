@@ -6,6 +6,7 @@
     <string name="loading_message">Loading…</string>
     <string name="error_message">Error in uploading data</string>
     <string name="error_icon_description">An error occured</string>
+    <string name="loading_more_data">Loading more data...</string>
 
     <!-- DrawerMenu and SwipeTabs -->
     <string name="opened">Opened</string>

@@ -6,6 +6,7 @@
     <string name="loading_message">Caricando …</string>
     <string name="error_message">Errore nel caricamento dati</string>
     <string name="error_icon_description">Si è verificato un errore</string>
+    <string name="loading_more_data">Caricando ulteriori dati...</string>
 
     <!-- DrawerMenu and SwipeTabs -->
     <string name="open">Aperto</string>
