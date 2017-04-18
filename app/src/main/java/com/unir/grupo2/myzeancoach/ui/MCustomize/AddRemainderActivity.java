@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment;
+package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

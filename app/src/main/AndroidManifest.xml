@@ -71,7 +71,7 @@
             android:theme="@style/AppThemeActionBar"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.MCustomizeFragment.AddRemainderActivity"
+            android:name=".ui.MCustomize.AddRemainderActivity"
             android:screenOrientation="portrait"></activity>
         <!-- Pushy Declarations -->
 

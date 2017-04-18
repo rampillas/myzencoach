@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment;
+package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,8 +25,8 @@ import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.SetAnswer
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.UpdateQuestionsListUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.StressCoachResponse;
 import com.unir.grupo2.myzeancoach.domain.model.StressQuestion;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList.StressListAdapter;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList.StressQuestionObject;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList.StressListAdapter;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList.StressQuestionObject;
 
 import java.util.ArrayList;
 import java.util.List;

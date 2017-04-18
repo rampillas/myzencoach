@@ -28,13 +28,13 @@ import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderActivity;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddStressQuestionFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.StressFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList.StressQuestionObject;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.AddRemainderActivity;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.AddStressQuestionActivity;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.MCustomizeFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.RemaindersFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.StressFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList.RemainderItemObject;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList.StressQuestionObject;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.InterestsFragment;
@@ -311,8 +311,8 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
 
     @Override
     public void onNewQuestionSelected() {
-        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-        xfragmentTransaction.replace(R.id.container_view, new AddStressQuestionFragment()).commit();
+       Intent newQuestion =new Intent(this, AddStressQuestionActivity.class);
+        startActivity(newQuestion);
 
     }
 
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     @Override
     public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-        //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+        //xfragmentTransaction.replace(R.id.container_view, new MCustomize()).commit();
     }
 
 }

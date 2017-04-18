@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList;
+package com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;

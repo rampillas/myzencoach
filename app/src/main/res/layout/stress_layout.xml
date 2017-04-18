@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment">
+        tools:context="com.unir.grupo2.myzeancoach.ui.MCustomize.MCustomizeFragment">
 
     <RelativeLayout
         android:id="@+id/content"

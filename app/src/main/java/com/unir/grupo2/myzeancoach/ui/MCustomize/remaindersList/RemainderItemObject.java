@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList;
+package com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList;
 
 /**
  * Created by andres on 19/03/2017.

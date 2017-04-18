@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList;
+package com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

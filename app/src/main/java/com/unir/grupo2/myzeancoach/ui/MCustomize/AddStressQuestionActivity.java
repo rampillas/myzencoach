@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment;
+package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +31,7 @@ import rx.Subscriber;
  * Created by andres on 29/03/2017.
  */
 
-public class AddStressQuestionFragment extends AppCompatActivity {
+public class AddStressQuestionActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.stressQuestion)
     EditText stressTitle;
@@ -93,7 +93,7 @@ public class AddStressQuestionFragment extends AppCompatActivity {
             Log.d("BODY: ", bodyString);
             RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);
             showLoading();
-            new SetPersonalQuestionUseCase("Bearer " + token, rb).execute(new AddStressQuestionFragment.AddRemainderSubscriber());
+            new SetPersonalQuestionUseCase("Bearer " + token, rb).execute(new AddStressQuestionActivity.AddRemainderSubscriber());
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.alert_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }

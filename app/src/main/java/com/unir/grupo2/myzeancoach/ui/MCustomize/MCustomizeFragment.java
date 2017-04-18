@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment;
+package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.ui.MLeisure.InterestsFragment;
 
 /**
  * Created by Cesar on 22/02/2017.

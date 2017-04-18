@@ -1,4 +1,4 @@
-package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment;
+package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -25,8 +25,8 @@ import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.SetRe
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.UpdateListUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
 import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemaindersListAdapter;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList.RemainderItemObject;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList.RemaindersListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
