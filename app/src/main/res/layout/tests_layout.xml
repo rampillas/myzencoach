@@ -7,11 +7,28 @@
     android:fitsSystemWindows="true"
     tools:context="com.unir.grupo2.myzeancoach.ui.MEssentialInfo.TestsFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/test_recycler_view"
+    <RelativeLayout
+        android:id="@+id/content_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/test_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"/>
+
+        <!-- include progress layout that will be displayed while loading more data -->
+        <!-- initially it is hidden -->
+        <include
+            android:id="@+id/loadItemsLayout_recyclerView"
+            layout="@layout/progress_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/no_tests_layout"
@@ -23,19 +40,21 @@
         android:clickable="true"
         android:orientation="vertical"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:layout_gravity="center"
-            android:tint="#c3c3c3"
+            android:contentDescription="@string/error_icon_description"
             android:src="@drawable/ic_error_black_24px"
-            android:contentDescription="@string/error_icon_description" />
+            android:tint="#c3c3c3"/>
+
         <TextView
             android:id="@+id/message_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
             android:textSize="16sp"
             android:textStyle="bold"/>
     </LinearLayout>

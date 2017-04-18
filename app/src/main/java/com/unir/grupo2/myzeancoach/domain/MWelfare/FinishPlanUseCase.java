@@ -13,17 +13,19 @@ import rx.Observable;
 
 public class FinishPlanUseCase extends UseCase {
 
-    private RequestBody body;
     private String username;
+    private String token;
+    private RequestBody body;
 
-    public FinishPlanUseCase(String username, RequestBody body) {
-        this.body = body;
+    public FinishPlanUseCase(String username, String token, RequestBody body) {
         this.username = username;
+        this.token = token;
+        this.body = body;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
         WelfareRepository repo = WelfareDataRepository.getInstance();
-        return repo.finishPlan(username,body).first();
+        return repo.finishPlan(username,token,body).first();
     }
 }

@@ -11,4 +11,7 @@ public class Constants {
     public static final String SECRET_WEB = "secretweb2231";
     public static final String PARAM_PASSWORD = "password";
     public static final String PARAM_READ_WRITE = "read+write";
+    public static final String CONTENT_TYPE = "application/json";
+    public static final String PRE_TOKEN = "Bearer ";
+    public static final String BASE_URL_WELFARE_ALL_PLANS = "/minfulness/plans/";
 }

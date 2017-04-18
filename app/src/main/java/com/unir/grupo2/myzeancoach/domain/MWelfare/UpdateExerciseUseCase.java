@@ -14,14 +14,16 @@ import rx.Observable;
 public class UpdateExerciseUseCase extends UseCase {
 
     private RequestBody body;
+    private String token;
 
-    public UpdateExerciseUseCase(RequestBody body) {
+    public UpdateExerciseUseCase(RequestBody body, String token) {
         this.body = body;
+        this.token = token;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
         WelfareRepository repo = WelfareDataRepository.getInstance();
-        return repo.updateExercise(body).first();
+        return repo.updateExercise(body, token).first();
     }
 }

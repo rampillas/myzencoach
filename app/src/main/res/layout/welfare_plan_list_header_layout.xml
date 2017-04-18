@@ -10,5 +10,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/choose_plan"
-        android:textSize="@dimen/letra_menos_grande"/>
+        android:textSize="@dimen/letra_menos_grande"
+        android:textColor="@color/colorAccent"/>
 </LinearLayout>

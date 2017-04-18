@@ -28,10 +28,10 @@ public class Comment implements Parcelable {
     @SerializedName("date_feedback")
     @Expose
     private String dateFeedback;
-    @SerializedName("pros")
+    @SerializedName("pro_dilemmas")
     @Expose
     private ArrayList<Pro> pros = null;
-    @SerializedName("cons")
+    @SerializedName("con_dilemmas")
     @Expose
     private ArrayList<Cons> cons = null;
 

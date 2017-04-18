@@ -1,6 +1,7 @@
 package com.unir.grupo2.myzeancoach.data.MWelfare;
 
 import com.unir.grupo2.myzeancoach.domain.model.PlanListWelfarePojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -50,18 +51,18 @@ public class WelfareDataRepository implements WelfareRepository {
     }
 
     @Override
-    public Observable<PlanListWelfarePojo> allPlans() {
-        return service.getAllPlans("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK");
+    public Observable<PlanListWelfarePojo> allPlans(String url, String token) {
+        return service.getAllPlans(url, token);
     }
 
     @Override
-    public Observable<Void> updateExercise(RequestBody body) {
-        return service.putExercise("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK",body);
+    public Observable<Void> updateExercise(RequestBody body, String token) {
+        return service.putExercise(Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
-    public Observable<Void> finishPlan(String username, RequestBody body) {
-        return service.finishPostPlan(username, "application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK",body);
+    public Observable<Void> finishPlan(String username, String token,RequestBody body) {
+        return service.finishPostPlan(username, Constants.CONTENT_TYPE,token,body);
     }
 
 }

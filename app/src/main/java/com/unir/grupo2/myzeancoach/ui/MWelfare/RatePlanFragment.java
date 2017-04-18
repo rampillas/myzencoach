@@ -23,6 +23,8 @@ import com.unir.grupo2.myzeancoach.domain.MWelfare.FinishPlanUseCase;
 import com.unir.grupo2.myzeancoach.domain.MWelfare.UpdateExerciseUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MWelfare.rateList.RatePlanListAdapter;
 
 import butterknife.BindView;
@@ -138,7 +140,7 @@ public class RatePlanFragment extends Fragment implements RatePlanListAdapter.On
         RequestBody body =
                 RequestBody.create(MediaType.parse("text/plain"), text);
 
-        new UpdateExerciseUseCase(body).execute(new ExerciseSubscriber());
+        new UpdateExerciseUseCase(body,Constants.PRE_TOKEN +  Utils.getTokenFromPreference(getActivity())).execute(new ExerciseSubscriber());
     }
 
     /**
@@ -219,7 +221,7 @@ public class RatePlanFragment extends Fragment implements RatePlanListAdapter.On
         RequestBody body =
                 RequestBody.create(MediaType.parse("text/plain"), text);
 
-        new FinishPlanUseCase("ceo", body).execute(new FinishPlanSubscriber());
+        new FinishPlanUseCase("ceo", Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity()), body).execute(new FinishPlanSubscriber());
     }
 
     private void setReturnData(boolean isPlanOver) {

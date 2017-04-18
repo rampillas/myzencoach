@@ -3,6 +3,7 @@ package com.unir.grupo2.myzeancoach.data.MLeisure;
 import com.unir.grupo2.myzeancoach.domain.model.Event;
 import com.unir.grupo2.myzeancoach.domain.model.EventListPojo;
 import com.unir.grupo2.myzeancoach.domain.model.InterestListPojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +24,6 @@ import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
 public class LeisureDataRepository implements LeisureRepository{
 
     LeisureAPIService service;
-    private static final String CONTENT_TYPE = "application/json";
 
     private static final LeisureDataRepository INSTANCE = new LeisureDataRepository();
 
@@ -55,46 +55,46 @@ public class LeisureDataRepository implements LeisureRepository{
 
     @Override
     public Observable<Event> createEvent(String token, RequestBody body) {
-        return service.putEvent(CONTENT_TYPE,token,body);
+        return service.putEvent(Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Event> addLike(String userName, String token, RequestBody body) {
-        return service.putLike(userName,CONTENT_TYPE,token,body);
+        return service.putLike(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Event> deleteLike(String userName, String token, RequestBody body) {
-        return service.deleteLike(userName,CONTENT_TYPE,token,body);
+        return service.deleteLike(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> createComment(String userName, String token, RequestBody body) {
-        return service.putComment(userName,CONTENT_TYPE,token,body);
+        return service.putComment(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> addInterest(String userName, String token, RequestBody body) {
-        return service.putInterest(userName,CONTENT_TYPE,token,body);
+        return service.putInterest(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> deleteAllInterest(String userName, String token, RequestBody body) {
-        return service.deleteAllIntereses(userName,CONTENT_TYPE,token,body);
+        return service.deleteAllIntereses(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<InterestListPojo> interests(String userName, String token) {
-        return service.getInterest(userName,CONTENT_TYPE,token);
+        return service.getInterest(userName,Constants.CONTENT_TYPE,token);
     }
 
     @Override
     public Observable<EventListPojo> events(String userName, String token) {
-        return service.getEvents(userName,CONTENT_TYPE,token);
+        return service.getEvents(userName,Constants.CONTENT_TYPE,token);
     }
 
     @Override
     public Observable<Void> removeEvent(String token, RequestBody body) {
-        return service.deleteEvent(CONTENT_TYPE,token,body);
+        return service.deleteEvent(Constants.CONTENT_TYPE,token,body);
     }
 }

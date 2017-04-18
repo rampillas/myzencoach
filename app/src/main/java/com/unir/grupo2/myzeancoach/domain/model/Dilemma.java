@@ -29,10 +29,10 @@ public class Dilemma implements Parcelable {
     @SerializedName("state")
     @Expose
     private String state;
-    @SerializedName("comments")
+    @SerializedName("dilemmas")
     @Expose
     private ArrayList<Comment> comments = null;
-    @SerializedName("comments_coach")
+    @SerializedName("dilemmas_coach")
     @Expose
     private ArrayList<CommentsCoach> commentsCoach = null;
 

@@ -11,8 +11,8 @@ import rx.Observable;
 
 
 public interface WelfareRepository {
-    Observable<PlanListWelfarePojo> allPlans();
-    Observable<Void> updateExercise(RequestBody body);
-    Observable<Void> finishPlan(String username, RequestBody body);
+    Observable<PlanListWelfarePojo> allPlans(String url, String token);
+    Observable<Void> updateExercise(RequestBody body,String token);
+    Observable<Void> finishPlan(String username,String token, RequestBody body);
 }
 
