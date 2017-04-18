@@ -10,6 +10,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -22,8 +23,8 @@ public interface ApiCallsRemainders {
     Observable<RewardsListPojo> getRewards(@Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
-    @GET("personalization/reminders")
-    Observable<RemaindersListPojo> getRemainders(@Header("Authorization") String token);
+    @GET
+    Observable<RemaindersListPojo> getRemainders(@Url String url, @Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
     @POST("personalization/reminders/{username}/updateReminder/")

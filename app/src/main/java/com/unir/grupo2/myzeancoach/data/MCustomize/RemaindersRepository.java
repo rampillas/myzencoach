@@ -11,7 +11,7 @@ import rx.Observable;
  */
 
 public interface RemaindersRepository {
-    Observable<RemaindersListPojo> allRemainders(String token);
+    Observable<RemaindersListPojo> allRemainders(String url,String token);
     Observable<Void> setIsFinished(String user,RequestBody body,String token);
     Observable<Void> addObservations(String username,RequestBody body,String token);
     Observable<Void> addNewRemainder(String username, RequestBody body, String token);

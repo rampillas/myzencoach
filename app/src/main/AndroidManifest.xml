@@ -73,6 +73,9 @@
         <activity
             android:name=".ui.MCustomize.AddRemainderActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.MCustomize.AddStressQuestionActivity"
+            android:screenOrientation="portrait"></activity>
         <!-- Pushy Declarations -->
 
         <!-- Pushy Notification Receiver -->

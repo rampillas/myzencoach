@@ -37,13 +37,18 @@ import static com.unir.grupo2.myzeancoach.domain.utils.Constants.BASE_URL_WELFAR
  * Created by Cesar on 19/03/2017.
  */
 
-public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdapter.OnItemPlanClickListener{
+public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdapter.OnItemPlanClickListener {
 
-    @BindView(R.id.plan_list_recycler_view) RecyclerView planListRecyclerView;
-    @BindView(R.id.content_layout) RelativeLayout contentRelativeLayout;
-    @BindView(R.id.loading_layout) LinearLayout loadingLayout;
-    @BindView(R.id.no_plan_layout) LinearLayout noPlanLayout;
-    @BindView(R.id.loadItemsLayout_recyclerView) RelativeLayout loadingDataRelativeLayout;
+    @BindView(R.id.plan_list_recycler_view)
+    RecyclerView planListRecyclerView;
+    @BindView(R.id.content_layout)
+    RelativeLayout contentRelativeLayout;
+    @BindView(R.id.loading_layout)
+    LinearLayout loadingLayout;
+    @BindView(R.id.no_plan_layout)
+    LinearLayout noPlanLayout;
+    @BindView(R.id.loadItemsLayout_recyclerView)
+    RelativeLayout loadingDataRelativeLayout;
 
     List<PlanWelfare> planItemList;
     AllPlanListAdapter palnListAdapter;
@@ -56,16 +61,16 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
 
     WelfareAllPlansFragment.OnItemPlanSelectedListener onItemplanSelectedListener;
 
-    public interface OnItemPlanSelectedListener{
+    public interface OnItemPlanSelectedListener {
         void onItemPlanSelected(PlanWelfare plan);
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof WelfareAllPlansFragment.OnItemPlanSelectedListener){
+        if (context instanceof WelfareAllPlansFragment.OnItemPlanSelectedListener) {
             onItemplanSelectedListener = (WelfareAllPlansFragment.OnItemPlanSelectedListener) context;
-        }else{
+        } else {
             throw new ClassCastException(context.toString() + " must implements WelfareAllPlansFragment.OnItemPlanSelectedListener");
         }
     }
@@ -73,7 +78,7 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.welfare_plan_list_layout,null);
+        View view = inflater.inflate(R.layout.welfare_plan_list_layout, null);
         ButterKnife.bind(this, view);
 
         planListRecyclerView.setHasFixedSize(true);
@@ -85,21 +90,21 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
         return view;
     }
 
-    private void requestData(String url, boolean isFirstTime){
-        if (isFirstTime){
+    private void requestData(String url, boolean isFirstTime) {
+        if (isFirstTime) {
             showLoading();
-        }else{
+        } else {
             loadingDataRelativeLayout.setVisibility(View.VISIBLE);
         }
 
         new AllPlansUseCase(url, Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity())).execute(new AllPlansSubscriber());
     }
 
-    private void updateList(PlanListWelfarePojo planListPojo){
+    private void updateList(PlanListWelfarePojo planListPojo) {
 
-        if (planListPojo == null || planListPojo.getCount() <= 0){
+        if (planListPojo == null || planListPojo.getCount() <= 0) {
             showNoPlan();
-        }else{
+        } else {
 
             nextData = planListPojo.getNext();
 
@@ -107,28 +112,28 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
 
             //Check if there some plan has already been finished
             List<PlanWelfare> planListNoFinished = new ArrayList<>();
-            for (int i = 0; i < planList.size();i++){
-                if (!planList.get(i).getIsFinished()){
+            for (int i = 0; i < planList.size(); i++) {
+                if (!planList.get(i).getIsFinished()) {
                     planListNoFinished.add(planList.get(i));
                 }
             }
 
             //First time data are requested
-            if (planItemList == null){
+            if (planItemList == null) {
 
                 planItemList = planListNoFinished;
 
-                if (!planItemList.isEmpty()){
-                    palnListAdapter = new AllPlanListAdapter(getActivity(),planItemList,this);
+                if (!planItemList.isEmpty()) {
+                    palnListAdapter = new AllPlanListAdapter(getActivity(), planItemList, this);
                     planListRecyclerView.setAdapter(palnListAdapter);
                     implementScrollListener();
                     showContent();
-                }else{
+                } else {
                     showNoPlan();
                 }
                 //No first time
-            }else{
-                for(PlanWelfare plan : planListNoFinished){
+            } else {
+                for (PlanWelfare plan : planListNoFinished) {
                     planItemList.add(plan);
                 }
                 loadingDataRelativeLayout.setVisibility(View.GONE);
@@ -195,7 +200,7 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
                                 && (visibleItemCount + pastVisiblesItems) == totalItemCount) {
                             userScrolled = false;
 
-                            if (nextData != null){
+                            if (nextData != null) {
                                 requestData(nextData, false);
                             }
                         }
@@ -235,19 +240,21 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
         //3 callbacks
 
         //Show the listView
-        @Override public void onCompleted() {
+        @Override
+        public void onCompleted() {
 
         }
 
         //Show the error
-        @Override public void onError(Throwable e) {
+        @Override
+        public void onError(Throwable e) {
             showNoPlan();
         }
 
         //Update listview datas
         @Override
         public void onNext(PlanListWelfarePojo plansListPojo) {
-           updateList(plansListPojo);
+            updateList(plansListPojo);
         }
     }
 

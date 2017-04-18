@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -24,7 +25,9 @@ import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.SetRe
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.SetRewardsUseCase;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.UpdateListUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
+import com.unir.grupo2.myzeancoach.domain.model.RemaindersListPojo;
 import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList.RemainderItemObject;
 import com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList.RemaindersListAdapter;
 
@@ -60,6 +63,14 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     @Nullable
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
+    @Nullable
+    @BindView(R.id.noplan)
+    LinearLayout noPlan;
+
+    // Variables for scroll listener
+    private boolean userScrolled = true;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private String nextData = null;
 
     @OnClick(R.id.floatingActionButton)
     public void openNewRemainder() {
@@ -70,9 +81,11 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     static String tokenActivo = "";
     static RemainderItemObject remainderItemInUse = null;
     //elements from database
-    List<RemainderItem> remainderItemList;
+    RemaindersListPojo remainderItemList = null;
     //local elements for view holder
     private List<RemainderItemObject> remainders;
+    List<RemainderItem> remainderItemsList=null;
+    LinearLayoutManager layoutManager;
 
     RemaindersFragment.OnPostListener postListener;
 
@@ -101,9 +114,9 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.remainders_layout, null);
         ButterKnife.bind(this, view);
-        updatedata();
+        updatedata("http://demendezr.pythonanywhere.com/personalization/reminders/", true);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         return view;
     }
@@ -118,18 +131,19 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         new GetRewardsUseCase("Bearer " + token).execute(new RemaindersFragment.AwardsSuscriber());
     }
 
-    private void updatedata() {
+    private void updatedata(String url, boolean isFirstTime) {
         showLoading();
         Context context = getActivity();
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
         Log.d("Access TOKEN: ", token);
-        new UpdateListUseCase("Bearer " + token).execute(new RemaindersFragment.RemaindersSubscriber());
+
+        new UpdateListUseCase(url, "Bearer " + token).execute(new RemaindersFragment.RemaindersSubscriber());
 
     }
 
-    private final class RemaindersSubscriber extends Subscriber<List<RemainderItem>> {
+    private final class RemaindersSubscriber extends Subscriber<RemaindersListPojo> {
         //3 callbacks
         //Show the listView
         @Override
@@ -140,13 +154,14 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         //Show the error
         @Override
         public void onError(Throwable e) {
+            e.printStackTrace();
             Log.e("ERROR REMINDERS ", e.toString());
             showError();
         }
 
         //Update listview datas
         @Override
-        public void onNext(List<RemainderItem> remainderItems) {
+        public void onNext(RemaindersListPojo remainderItems) {
             updateList(remainderItems);
         }
     }
@@ -211,23 +226,106 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         }
     }
 
-    private void updateList(List<RemainderItem> remainderItemList) {
+    private void updateList(RemaindersListPojo remainderItemList) {
         Log.d("updateList", "updateList1");
         this.remainderItemList = remainderItemList;
 
-        remainders = new ArrayList<RemainderItemObject>();
-        if (remainderItemList != null && remainderItemList.size() > 0) {
-            for (int i = 0; i < this.remainderItemList.size(); i++) {
-                RemainderItem remainderItem = remainderItemList.get(i);
-                Log.w("IS_Finished: ", String.valueOf(remainderItem.isFinished()));
-                RemainderItemObject remainderItemObject = new RemainderItemObject(remainderItem.getTitle(), remainderItem.getDescription(), remainderItem.isFinished(), remainderItem.getUser());
-                remainders.add(remainderItemObject);
+
+        // use a linear layout manager
+
+        if (remainderItemList == null || remainderItemList.getCount() <= 0) {
+            showNoPlan();
+        } else {
+
+            nextData = remainderItemList.getNext();
+
+            List<RemainderItem> remainderItems = remainderItemList.getRemainderItems();
+            Log.d("NUMBER REMAINDERS: ", String.valueOf(remainderItems.size()));
+            //Check if there some plan has already been finished
+            List<RemainderItem> listNoFinished = new ArrayList<>();
+            for (int i = 0; i < remainderItems.size(); i++) {
+                //se añaden todos
+                if (true) {
+                    listNoFinished.add(remainderItems.get(i));
+                }
+            }
+            //First time data are requested
+            if (remainderItemsList == null) {
+
+                remainderItemsList = listNoFinished;
+
+                if (!remainderItemsList.isEmpty()) {
+                    remainders=new ArrayList<RemainderItemObject>();
+                    for(RemainderItem item : remainderItemsList){
+                        RemainderItemObject rio = new RemainderItemObject(item.getTitle(),item.getDescription(),item.isFinished(), Utils.getUserFromPreference(getContext()));
+                        remainders.add(rio);
+                    }
+                    remaindersListAdapter = new RemaindersListAdapter(getContext(), remainders, this);
+                    recyclerView.setAdapter(remaindersListAdapter);
+                    implementScrollListener();
+                    showContent();
+                } else {
+                    showNoPlan();
+                }
+                //No first time
+            } else {
+                for (RemainderItem item : listNoFinished) {
+                    remainderItemsList.add(item);
+                    RemainderItemObject rio = new RemainderItemObject(item.getTitle(),item.getDescription(),item.isFinished(), Utils.getUserFromPreference(getContext()));
+                    remainders.add(rio);
+                }
+                remaindersListAdapter.notifyDataSetChanged();
             }
         }
-        // use a linear layout manager
-        remaindersListAdapter = new RemaindersListAdapter(getContext(), remainders, this);
-        recyclerView.setAdapter(remaindersListAdapter);
     }
+
+    private void implementScrollListener() {
+        recyclerView
+                .addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView,
+                                                     int newState) {
+
+                        super.onScrollStateChanged(recyclerView, newState);
+
+                        // If scroll state is touch scroll then set userScrolled
+                        // true
+                        if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                            userScrolled = true;
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx,
+                                           int dy) {
+
+                        super.onScrolled(recyclerView, dx, dy);
+                        // Here get the child count, item count and visibleitems
+                        // from layout manager
+
+                        visibleItemCount = layoutManager.getChildCount();
+                        totalItemCount = layoutManager.getItemCount();
+                        pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+
+                        // Now check if userScrolled is true and also check if
+                        // the item is end then update recycler view and set
+                        // userScrolled to false
+                        if (userScrolled
+                                && (visibleItemCount + pastVisiblesItems) == totalItemCount) {
+                            userScrolled = false;
+
+                            if (nextData != null) {
+                                updatedata(nextData, true);
+                            }
+                        }
+                    }
+
+                });
+    }
+
 
     private void setrewardspoints(List<RewardsItem> rewardsItemList) {
         int totalPoints = 0;
@@ -235,11 +333,11 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
             totalPoints += Integer.valueOf(rewardsItemList.get(i).getPoints());
         }
         Log.d("PUNTOS", String.valueOf(totalPoints));
-        int level = (totalPoints/10)+1;
-        int progressPoints =totalPoints%10;
-        progressBar.setProgress(progressPoints*10);
+        int level = (totalPoints / 10) + 1;
+        int progressPoints = totalPoints % 10;
+        progressBar.setProgress(progressPoints * 10);
         String texto = remainTaskNextLevel.getText().toString();
-        remainTaskNextLevel.setText(getResources().getString(R.string.REMAINDERS_LEVEL)+" "+String.valueOf(level+"\n "+(10-progressPoints))+" "+texto);
+        remainTaskNextLevel.setText(getResources().getString(R.string.REMAINDERS_LEVEL) + " " + String.valueOf(level + "\n " + (10 - progressPoints)) + " " + texto);
         showContent();
     }
 
@@ -259,6 +357,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         recyclerView.setVisibility(View.GONE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.VISIBLE);
+        noPlan.setVisibility(View.GONE);
     }
 
     /**
@@ -268,6 +367,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         loadingLayout.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
+        noPlan.setVisibility(View.GONE);
     }
 
     /**
@@ -277,6 +377,17 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         recyclerView.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
+        noPlan.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method used to show error view
+     */
+    public void showNoPlan() {
+        noPlan.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
     }
 
     @Override

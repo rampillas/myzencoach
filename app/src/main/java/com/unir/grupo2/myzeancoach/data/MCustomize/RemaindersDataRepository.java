@@ -51,8 +51,8 @@ public class RemaindersDataRepository implements RemaindersRepository {
     }
 
     @Override
-    public Observable<RemaindersListPojo> allRemainders(String token) {
-        return service.getRemainders(token);
+    public Observable<RemaindersListPojo> allRemainders(String url ,String token) {
+        return service.getRemainders(url,token);
     }
 
     @Override
