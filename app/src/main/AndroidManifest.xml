@@ -70,6 +70,9 @@
             android:name=".ui.MWelfare.MainExerciseActivity"
             android:theme="@style/AppThemeActionBar"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MCustomizeFragment.AddRemainderActivity"
+            android:screenOrientation="portrait"></activity>
         <!-- Pushy Declarations -->
 
         <!-- Pushy Notification Receiver -->

@@ -28,7 +28,7 @@ import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderActivity;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddStressQuestionFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
 import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
@@ -299,8 +299,8 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
 
     @Override
     public void onAddRemainderSelected() {
-        FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-        xfragmentTransaction.replace(R.id.container_view, new AddRemainderFragment()).commit();
+        Intent newRemainder = new Intent(this, AddRemainderActivity.class);
+        startActivity(newRemainder);
     }
 
     @Override

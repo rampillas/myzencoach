@@ -10,17 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="20dp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/reminders"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/letra_grande" />
-
     <Space
         android:layout_width="match_parent"
         android:layout_height="20dp" />

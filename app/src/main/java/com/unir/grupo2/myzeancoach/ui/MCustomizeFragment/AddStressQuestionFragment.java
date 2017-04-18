@@ -1,18 +1,15 @@
 package com.unir.grupo2.myzeancoach.ui.MCustomizeFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,6 +17,7 @@ import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.SetPersonalQuestionUseCase;
+import com.unir.grupo2.myzeancoach.ui.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +31,7 @@ import rx.Subscriber;
  * Created by andres on 29/03/2017.
  */
 
-public class AddStressQuestionFragment extends Fragment {
+public class AddStressQuestionFragment extends AppCompatActivity {
     @Nullable
     @BindView(R.id.stressQuestion)
     EditText stressTitle;
@@ -66,7 +64,7 @@ public class AddStressQuestionFragment extends Fragment {
     @Nullable
     @OnClick(R.id.okButton)
     public void addReminder() {
-        SharedPreferences sharedPref = getContext().getSharedPreferences(
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
         String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
@@ -97,7 +95,7 @@ public class AddStressQuestionFragment extends Fragment {
             showLoading();
             new SetPersonalQuestionUseCase("Bearer " + token, rb).execute(new AddStressQuestionFragment.AddRemainderSubscriber());
         } else {
-            Toast.makeText(getContext(), getString(R.string.alert_fill_out_all_fields), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.alert_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -108,9 +106,7 @@ public class AddStressQuestionFragment extends Fragment {
         @Override
         public void onCompleted() {
             showContent();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+            startMain();
         }
 
         //Show the error
@@ -151,12 +147,23 @@ public class AddStressQuestionFragment extends Fragment {
         errorLayout.setVisibility(View.GONE);
     }
 
+    private void startMain() {
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.stress_add_quesion, null);
-        ButterKnife.bind(this, view);
-        return view;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.stress_add_quesion);
+        ButterKnife.bind(this);
+        showContent();
     }
 }

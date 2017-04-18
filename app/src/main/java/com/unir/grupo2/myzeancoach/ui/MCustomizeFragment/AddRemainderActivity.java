@@ -9,13 +9,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,6 +25,7 @@ import android.widget.Toast;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.NewRemainderUserCase;
 import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
+import com.unir.grupo2.myzeancoach.ui.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +35,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
-public class AddRemainderFragment extends Fragment {
+public class AddRemainderActivity extends AppCompatActivity  {
     @Nullable
     @BindView(R.id.remainderTitle)
     EditText remainderTitle;
@@ -70,7 +69,7 @@ public class AddRemainderFragment extends Fragment {
     @Nullable
     @OnClick(R.id.datePickerText)
     public void clickDate() {
-        elegirFecha = new DatePickerDialog(getActivity(), datePickerDialog, 2017, 1, 1);
+        elegirFecha = new DatePickerDialog(this, datePickerDialog, 2017, 1, 1);
         elegirFecha.show();
     }
 
@@ -87,7 +86,7 @@ public class AddRemainderFragment extends Fragment {
     @Nullable
     @OnClick(R.id.datePickerTextHour)
     public void clickHour() {
-        elegirHora = new TimePickerDialog(getActivity(), hourPickerDialog, 12, 0, true);
+        elegirHora = new TimePickerDialog(this, hourPickerDialog, 12, 0, true);
         elegirHora.show();
     }
 
@@ -102,7 +101,7 @@ public class AddRemainderFragment extends Fragment {
     @Nullable
     @OnClick(R.id.okButton)
     public void addReminder() {
-        SharedPreferences sharedPref = getContext().getSharedPreferences(
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
         String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
@@ -130,12 +129,14 @@ public class AddRemainderFragment extends Fragment {
             body.setTime(datePickerTextHour.getText().toString());
             body.setFrequency("everyday");
             showLoading();
-            new NewRemainderUserCase(user, "Bearer " + token, rb).execute(new AddRemainderFragment.AddRemainderSubscriber());
+            new NewRemainderUserCase(user, "Bearer " + token, rb).execute(new AddRemainderActivity.AddRemainderSubscriber());
         } else {
-            Toast.makeText(getContext(), getString(R.string.alert_fill_out_all_fields), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.alert_fill_out_all_fields), Toast.LENGTH_LONG).show();
         }
 
     }
+
+
 
     private final class AddRemainderSubscriber extends Subscriber<Void> {
         //3 callbacks
@@ -143,9 +144,8 @@ public class AddRemainderFragment extends Fragment {
         @Override
         public void onCompleted() {
             showContent();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+            startMain();
+
         }
 
         //Show the error
@@ -160,6 +160,16 @@ public class AddRemainderFragment extends Fragment {
             //volvemos al fragment de los remainders
 
         }
+    }
+
+    private void startMain() {
+        Intent mainActivity= new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     public void showError() {
@@ -189,10 +199,12 @@ public class AddRemainderFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.remainders_add_layout, null);
-        ButterKnife.bind(this, view);
-        return view;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.remainders_add_layout);
+        ButterKnife.bind(this);
+        showContent();
+
     }
 
 }
