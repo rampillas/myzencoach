@@ -55,6 +55,7 @@
     <string name="REMAINDERS_ADD_INSERT_TIME">Selezioni l\'ora</string>
     <string name="SAVE">Salvare</string>
     <string name="title_activity_add_remainder">AddRemainderActivity</string>
+    <string name="REMAINDERS_NO_REMAINDER">Ci dispiace, non sono ancora disponibili nuovi promemoria</string>
 
     <!---MODULE 2 : Essential information -->
     <string name="score_info">%1$d punti</string>
