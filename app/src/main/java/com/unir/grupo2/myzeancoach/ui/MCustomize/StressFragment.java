@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -25,6 +26,7 @@ import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.SetAnswer
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.UpdateQuestionsListUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.StressCoachResponse;
 import com.unir.grupo2.myzeancoach.domain.model.StressQuestion;
+import com.unir.grupo2.myzeancoach.domain.model.StressQuestionsListPojo;
 import com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList.StressListAdapter;
 import com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList.StressQuestionObject;
 
@@ -58,13 +60,27 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
     @Nullable
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
-    StressListAdapter stressListAdapter;
+    @Nullable
+    @BindView(R.id.noplan)
+    LinearLayout noPlan;
     static String tokenActivo = "";
     static StressQuestionObject stressQuestionObjectInUse = null;
     //elements from database
     List<StressQuestion> stressQuestionsList;
     //local elements for view holder
     private List<StressQuestionObject> stressQuestionObjectList;
+
+    // Variables for scroll listener
+    private boolean userScrolled = true;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private String nextData = null;
+    StressListAdapter stressListAdapter;
+
+    StressQuestionsListPojo stressQuestionsListPojo = null;
+    //local elements for view holder
+    private List<StressQuestionObject> stressQuestions;
+    List<StressQuestion> stressQuestionList = null;
+    LinearLayoutManager layoutManager;
 
     StressFragment.OnPostListener postListener;
     StressQuestionObject stressQuestionActive = null;
@@ -136,25 +152,25 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         View view = inflater.inflate(R.layout.stress_layout, null);
         ButterKnife.bind(this, view);
         Log.d("StressFragment:", " created");
-        updatedata();
+        updatedata("http://demendezr.pythonanywhere.com/personalization/stress/");
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         return view;
     }
 
-    private void updatedata() {
+    private void updatedata(String url) {
         showLoading();
         Context context = getActivity();
         SharedPreferences sharedPref = context.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
         Log.d("Stress token: ", token);
-        new UpdateQuestionsListUseCase("Bearer " + token).execute(new StressFragment.QuestionsSubscriber());
+        new UpdateQuestionsListUseCase(url, "Bearer " + token).execute(new StressFragment.QuestionsSubscriber());
 
     }
 
-    private final class QuestionsSubscriber extends Subscriber<List<StressQuestion>> {
+    private final class QuestionsSubscriber extends Subscriber<StressQuestionsListPojo> {
         //3 callbacks
         //Show the listView
         @Override
@@ -164,13 +180,14 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         //Show the error
         @Override
         public void onError(Throwable e) {
-            Log.e("ERROR REMINDERS ", e.toString());
+            Log.e("ERROR STRESS ", e.toString());
+            e.printStackTrace();
             showError();
         }
 
         //Update listview datas
         @Override
-        public void onNext(List<StressQuestion> stressQuestions) {
+        public void onNext(StressQuestionsListPojo stressQuestions) {
             updateList(stressQuestions);
         }
     }
@@ -258,7 +275,112 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
                 .show();
     }
 
-    private void updateList(List<StressQuestion> stressQuestions) {
+    private void updateList(StressQuestionsListPojo stressQuestionsListPojo) {
+        Log.d("updateList", "updateList1");
+        this.stressQuestionsListPojo = stressQuestionsListPojo;
+
+
+        // use a linear layout manager
+
+        if (stressQuestionsListPojo == null || stressQuestionsListPojo.getCount() <= 0) {
+            showNoPlan();
+        } else {
+
+            nextData = stressQuestionsListPojo.getNext();
+
+            List<StressQuestion> stressQuestions = stressQuestionsListPojo.getResults();
+            Log.d("NUMBER Stress: ", String.valueOf(stressQuestions.size()));
+            //Check if there some plan has already been finished
+            List<StressQuestion> listNoFinished = new ArrayList<>();
+            for (StressQuestion question : stressQuestions) {
+                //se añaden todos
+                if (true) {
+                    listNoFinished.add(question);
+                    Log.d("AÑADIDO", question.getDescription());
+                }
+            }
+            //First time data are requested
+            if (stressQuestionList == null) {
+                stressQuestionList = listNoFinished;
+                stressQuestionObjectList = new ArrayList<>();
+                if (!listNoFinished.isEmpty()) {
+                    this.stressQuestions = new ArrayList<StressQuestionObject>();
+                    for (int i = 0; i < listNoFinished.size(); i++) {
+                        StressQuestion stressQuestionItem = listNoFinished.get(i);
+                        StressQuestionObject stressQuestionObject = new StressQuestionObject(stressQuestionItem.getDescription(), stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
+                        stressQuestionObjectList.add(stressQuestionObject);
+                        if (i == this.stressQuestions.size() - 1) {
+                            StressQuestionObject lastStressQuestionObject = new StressQuestionObject("ENDELEMENT", stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
+                            stressQuestionObjectList.add(lastStressQuestionObject);
+                        }
+                    }
+                    stressListAdapter = new StressListAdapter(getContext(), stressQuestionObjectList, this);
+                    recyclerView.setAdapter(stressListAdapter);
+                    showContent();
+                    implementScrollListener();
+                } else {
+                    showNoPlan();
+                }
+                //No first time
+            } else {
+                for (StressQuestion question : listNoFinished) {
+                    stressQuestionList.add(question);
+                    StressQuestionObject rio = new StressQuestionObject(question.getDescription(), question.getUserAnswer(), question.getQuestions());
+                    this.stressQuestions.add(rio);
+                }
+                stressListAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    private void implementScrollListener() {
+        recyclerView
+                .addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView,
+                                                     int newState) {
+
+                        super.onScrollStateChanged(recyclerView, newState);
+
+                        // If scroll state is touch scroll then set userScrolled
+                        // true
+                        if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                            userScrolled = true;
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx,
+                                           int dy) {
+
+                        super.onScrolled(recyclerView, dx, dy);
+                        // Here get the child count, item count and visibleitems
+                        // from layout manager
+
+                        visibleItemCount = layoutManager.getChildCount();
+                        totalItemCount = layoutManager.getItemCount();
+                        pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+
+                        // Now check if userScrolled is true and also check if
+                        // the item is end then update recycler view and set
+                        // userScrolled to false
+                        if (userScrolled
+                                && (visibleItemCount + pastVisiblesItems) == totalItemCount) {
+                            userScrolled = false;
+
+                            if (nextData != null) {
+                                updatedata(nextData);
+                            }
+                        }
+                    }
+
+                });
+    }
+
+    private void updateList2(List<StressQuestion> stressQuestions) {
         Log.d("updateList", "updateList1");
         this.stressQuestionsList = stressQuestions;
 
@@ -284,6 +406,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
      * Method used to show error view
      */
     public void showError() {
+        noPlan.setVisibility(View.GONE);
         content.setVisibility(View.GONE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.VISIBLE);
@@ -293,6 +416,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
      * Method used to show the loading view
      */
     public void showLoading() {
+        noPlan.setVisibility(View.GONE);
         loadingLayout.setVisibility(View.VISIBLE);
         content.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
@@ -302,8 +426,19 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
      * Method used to show the listView
      */
     public void showContent() {
+        noPlan.setVisibility(View.GONE);
         content.setVisibility(View.VISIBLE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.GONE);
+    }
+
+    /**
+     * Method used to show error view
+     */
+    public void showNoPlan() {
+        noPlan.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+        loadingLayout.setVisibility(View.GONE);
     }
 }

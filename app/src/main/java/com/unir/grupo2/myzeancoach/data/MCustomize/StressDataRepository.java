@@ -57,8 +57,8 @@ public class StressDataRepository implements StressRepository {
     }
 
     @Override
-    public Observable<StressQuestionsListPojo> getStressQuestions(String token) {
-        return service.getQuestions(token);
+    public Observable<StressQuestionsListPojo> getStressQuestions(String url,String token) {
+        return service.getQuestions(url,token);
     }
 
     @Override

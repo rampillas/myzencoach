@@ -13,7 +13,7 @@ public class StressQuestionsListPojo {
 
     @SerializedName("next")
     @Expose
-    private Object next;
+    private String next;
 
     @SerializedName("previous")
     @Expose
@@ -27,11 +27,11 @@ public class StressQuestionsListPojo {
     @Expose
     private List<StressQuestion> results;
 
-    public void setNext(Object next) {
+    public void setNext(String next) {
         this.next = next;
     }
 
-    public Object getNext() {
+    public String getNext() {
         return next;
     }
 

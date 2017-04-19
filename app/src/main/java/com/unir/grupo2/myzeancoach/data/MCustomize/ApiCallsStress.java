@@ -10,6 +10,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -22,8 +23,8 @@ public interface ApiCallsStress {
     Observable<Void> setQuestion(@Header("Authorization") String token, @Body RequestBody body);
 
     @Headers("Content-Type: application/json")
-    @GET("/personalization/stress/")
-    Observable<StressQuestionsListPojo> getQuestions(@Header("Authorization") String token);
+    @GET
+    Observable<StressQuestionsListPojo> getQuestions(@Url String url, @Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
     @POST("personalization/stress/{username}/registerAnswerUser/")

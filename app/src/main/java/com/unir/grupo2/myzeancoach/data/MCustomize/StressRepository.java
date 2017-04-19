@@ -12,7 +12,7 @@ import rx.Observable;
 
 public interface StressRepository {
     Observable<Void> addQuestions(RequestBody body,String token);
-    Observable<StressQuestionsListPojo> getStressQuestions(String token);
+    Observable<StressQuestionsListPojo> getStressQuestions(String url,String token);
     Observable<Void> setAnswers(String username,RequestBody body,String token);
     Observable<StressCoachResponsePojo> getResponseCoach(String token);
 }

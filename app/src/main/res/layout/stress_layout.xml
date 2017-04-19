@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context="com.unir.grupo2.myzeancoach.ui.MCustomize.MCustomizeFragment">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.unir.grupo2.myzeancoach.ui.MCustomize.MCustomizeFragment">
 
     <RelativeLayout
         android:id="@+id/content"
@@ -26,11 +25,10 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/estress_recycler_view"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_below="@+id/space"
-            android:layout_above="@id/floatingActionButton"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical" />
+            android:layout_above="@id/floatingActionButton"
+            android:layout_below="@+id/space"
+            android:layout_marginTop="@dimen/activity_vertical_margin" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionButton"
@@ -87,6 +85,33 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/error_message"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/noplan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/error_icon_description"
+            android:src="@drawable/ic_error_black_24px"
+            android:tint="#c3c3c3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/REMAINDERS_NO_REMAINDER"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
