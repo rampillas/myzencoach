@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,35 +30,35 @@ public class EmoticonsItemViewHolder extends RecyclerView.ViewHolder {
                      final EmoticonsListAdapter.OnItemEmoticonClickListener listener, Context context) {
 
         switch (emoticonName) {
-            case ProfilFragment.VERY_HAPPY:
+            case Constants.VERY_HAPPY:
                 emoticonImageView.setImageResource(R.mipmap.ic_very_happy);
                 nameTextView.setText(context.getString(R.string.emoticon_very_happy));
                 break;
-            case ProfilFragment.HAPPY:
+            case Constants.HAPPY:
                 emoticonImageView.setImageResource(R.mipmap.ic_happy);
                 nameTextView.setText(context.getString(R.string.emoticon_happy));
                 break;
-            case ProfilFragment.IN_LOVE:
+            case Constants.IN_LOVE:
                 emoticonImageView.setImageResource(R.mipmap.ic_in_love);
                 nameTextView.setText(context.getString(R.string.emoticon_in_love));
                 break;
-            case ProfilFragment.LAUGHING:
+            case Constants.LAUGHING:
                 emoticonImageView.setImageResource(R.mipmap.ic_laughing);
                 nameTextView.setText(context.getString(R.string.emoticon_laughing));
                 break;
-            case ProfilFragment.SAT:
+            case Constants.SAT:
                 emoticonImageView.setImageResource(R.mipmap.ic_sat);
                 nameTextView.setText(context.getString(R.string.emoticon_sat));
                 break;
-            case ProfilFragment.DISAPPOINTED:
+            case Constants.DISAPPOINTED:
                 emoticonImageView.setImageResource(R.mipmap.ic_disappointed);
                 nameTextView.setText(context.getString(R.string.emoticon_disappointed));
                 break;
-            case ProfilFragment.CRYING:
+            case Constants.CRYING:
                 emoticonImageView.setImageResource(R.mipmap.ic_crying);
                 nameTextView.setText(context.getString(R.string.emoticon_crying));
                 break;
-            case ProfilFragment.ANGRY:
+            case Constants.ANGRY:
                 emoticonImageView.setImageResource(R.mipmap.ic_angry);
                 nameTextView.setText(context.getString(R.string.emoticon_angry));
                 break;

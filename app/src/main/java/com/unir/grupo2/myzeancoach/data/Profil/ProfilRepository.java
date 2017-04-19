@@ -12,7 +12,7 @@ import rx.Observable;
 
 
 public interface ProfilRepository {
-    Observable<EmoticonListPojo> emoticon();
-    Observable<Emoticon> updateEmoticon(RequestBody body);
+    Observable<EmoticonListPojo> emoticon(String token);
+    Observable<Emoticon> updateEmoticon(String token, RequestBody body);
 }
 

@@ -13,15 +13,17 @@ import rx.Observable;
 
 public class UpdateEmoticonUseCase extends UseCase {
 
+    private String token;
     private RequestBody body;
 
-    public UpdateEmoticonUseCase(RequestBody body) {
+    public UpdateEmoticonUseCase(String token, RequestBody body) {
+        this.token = token;
         this.body = body;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
         ProfilRepository repo = ProfilDataRepository.getInstance();
-        return repo.updateEmoticon(body).first();
+        return repo.updateEmoticon(token, body).first();
     }
 }

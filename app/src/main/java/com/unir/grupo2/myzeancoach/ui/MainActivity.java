@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
@@ -172,6 +173,11 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+    }
+
     private void setLanguage(){
 
         String languageSharedPregerence = Utils.getLanguageFromPreference(this);
@@ -183,16 +189,16 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
             String localeLanguage = Locale.getDefault().getDisplayLanguage();
             switch (localeLanguage){
                 case "English":
-                    languageRight = "en";
+                    languageRight = Constants.ENGLISH;
                     break;
                 case "español":
-                    languageRight = "es";
+                    languageRight = Constants.SPANISH;
                     break;
                 case "italiano":
-                    languageRight = "it";
+                    languageRight = Constants.ITALIAN;
                     break;
                 default:
-                    languageRight = "en";
+                    languageRight = Constants.ITALIAN;
             }
             Utils.saveLanguagePreference(languageRight,this);
         }

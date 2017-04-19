@@ -156,8 +156,8 @@
     <string name="message_no_event">Non ci sono eventi disponibili per gli interessi selezionati></string>
 
     <!--Profile-->
-    <string name="emoticon_very_happy">Felice</string>
-    <string name="emoticon_happy"> Felicissimo</string>
+    <string name="emoticon_very_happy">Felicissimo</string>
+    <string name="emoticon_happy">Felice</string>
     <string name="emoticon_in_love">Innamorato</string>
     <string name="emoticon_laughing">Rido</string>
     <string name="emoticon_sat">Triste</string>

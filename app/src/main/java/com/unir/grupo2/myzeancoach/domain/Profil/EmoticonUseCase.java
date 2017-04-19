@@ -15,13 +15,16 @@ import rx.functions.Func1;
 
 public class EmoticonUseCase extends UseCase {
 
-    public EmoticonUseCase() {
+    private String token;
+
+    public EmoticonUseCase(String token) {
+        this.token = token;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
         ProfilRepository repo = ProfilDataRepository.getInstance();
-        return repo.emoticon().map(new Func1<EmoticonListPojo, Emoticon>() {
+        return repo.emoticon(token).map(new Func1<EmoticonListPojo, Emoticon>() {
             @Override
             public Emoticon call(EmoticonListPojo emoticonListPojo) {
 

@@ -24,6 +24,7 @@ import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.Profil.EmoticonUseCase;
 import com.unir.grupo2.myzeancoach.domain.Profil.UpdateEmoticonUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Emoticon;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MainActivity;
 
@@ -38,6 +39,18 @@ import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
+
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.ANGRY;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.CRYING;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.DISAPPOINTED;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.ENGLISH;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.HAPPY;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.IN_LOVE;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.ITALIAN;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.LAUGHING;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.SAT;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.SPANISH;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.VERY_HAPPY;
 
 /**
  * Created by Cesar on 18/03/2017.
@@ -66,19 +79,6 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
     private Emoticon emoticon;
     private String emoticonSharedPre;
 
-    final static String VERY_HAPPY = "very_happy";
-    final static String HAPPY = "happy";
-    final static String IN_LOVE = "in_love";
-    final static String LAUGHING = "laughing";
-    final static String SAT = "sat";
-    final static String DISAPPOINTED = "disappointed";
-    final static String ANGRY = "angry";
-    final static String CRYING = "crying";
-
-    private final static String SPANISH = "es";
-    private final static String ENGLISH = "en";
-    private final static String ITALIAN = "it";
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,14 +96,14 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         emoticonsListRecyclerView.setLayoutManager(layoutManager);
 
         emoticonItemList = new ArrayList<String>() {{
-            add(VERY_HAPPY);
-            add(HAPPY);
-            add(IN_LOVE);
-            add(LAUGHING);
-            add(SAT);
-            add(DISAPPOINTED);
-            add(ANGRY);
-            add(CRYING);
+            add(Constants.VERY_HAPPY);
+            add(Constants.HAPPY);
+            add(Constants.IN_LOVE);
+            add(Constants.LAUGHING);
+            add(Constants.SAT);
+            add(Constants.DISAPPOINTED);
+            add(Constants.ANGRY);
+            add(Constants.CRYING);
         }};
 
         emoticonListAdapter = new EmoticonsListAdapter(getContext(), emoticonItemList, this);
@@ -111,16 +111,16 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
 
         if (languagePreference != null && !languagePreference.equals("")){
             switch (languagePreference){
-                case ENGLISH:
-                    languageSelected = ENGLISH;
+                case Constants.ENGLISH:
+                    languageSelected = Constants.ENGLISH;
                     englishRadioButton.setChecked(true);
                     break;
-                case SPANISH:
-                    languageSelected = SPANISH;
+                case Constants.SPANISH:
+                    languageSelected = Constants.SPANISH;
                     spanishRadioButton.setChecked(true);
                     break;
-                case ITALIAN:
-                    languageSelected = ITALIAN;
+                case Constants.ITALIAN:
+                    languageSelected = Constants.ITALIAN;
                     italianRadioButton.setChecked(true);
                     break;
             }
@@ -176,7 +176,8 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
 
         if (emoticonShared == null){
             showLoading();
-            new EmoticonUseCase().execute(new EmoticonSubscriber());
+            String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity());
+            new EmoticonUseCase(token).execute(new EmoticonSubscriber());
         }else{
             showLoading();
             emoticonSharedPre = emoticonShared;
@@ -190,16 +191,16 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         boolean isPositive = false;
 
             switch (emoticonSelected) {
-                case VERY_HAPPY:
-                case HAPPY:
-                case IN_LOVE:
-                case LAUGHING:
+                case Constants.VERY_HAPPY:
+                case Constants.HAPPY:
+                case Constants.IN_LOVE:
+                case Constants.LAUGHING:
                     isPositive= true;
                     break;
-                case DISAPPOINTED:
-                case SAT:
-                case CRYING:
-                case ANGRY:
+                case Constants.DISAPPOINTED:
+                case Constants.SAT:
+                case Constants.CRYING:
+                case Constants.ANGRY:
                     isPositive= false;
                     break;
                 default:
@@ -216,8 +217,9 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
                 "}";
 
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"), text);
+        String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity());
 
-        new UpdateEmoticonUseCase(body).execute(new UpdateEmoticonSubscriber());
+        new UpdateEmoticonUseCase(token, body).execute(new UpdateEmoticonSubscriber());
     }
 
     private void showEmoticon(Emoticon emoticon) {
@@ -235,16 +237,16 @@ public class ProfilFragment extends Fragment implements EmoticonsListAdapter.OnI
         Configuration config = new Configuration();
 
         switch(language){
-            case ENGLISH:
-                locale = new Locale(ENGLISH);
+            case Constants.ENGLISH:
+                locale = new Locale(Constants.ENGLISH);
                 config.locale =locale;
                 break;
-            case SPANISH:
-                locale = new Locale(SPANISH);
+            case Constants.SPANISH:
+                locale = new Locale(Constants.SPANISH);
                 config.locale =locale;
                 break;
-            case ITALIAN:
-                locale = new Locale(ITALIAN);
+            case Constants.ITALIAN:
+                locale = new Locale(Constants.ITALIAN);
                 config.locale =locale;
                 break;
         }

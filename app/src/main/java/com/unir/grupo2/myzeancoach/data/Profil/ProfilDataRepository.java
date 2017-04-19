@@ -2,6 +2,7 @@ package com.unir.grupo2.myzeancoach.data.Profil;
 
 import com.unir.grupo2.myzeancoach.domain.model.Emoticon;
 import com.unir.grupo2.myzeancoach.domain.model.EmoticonListPojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -51,13 +52,13 @@ public class ProfilDataRepository implements ProfilRepository {
     }
 
     @Override
-    public Observable<EmoticonListPojo> emoticon() {
-        return service.getEmoticon("Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK");
+    public Observable<EmoticonListPojo> emoticon(String token) {
+        return service.getEmoticon(token);
     }
 
     @Override
-    public Observable<Emoticon> updateEmoticon(RequestBody body) {
-        return service.createEmoticon("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK",body);
+    public Observable<Emoticon> updateEmoticon(String token, RequestBody body) {
+        return service.createEmoticon(Constants.CONTENT_TYPE,token,body);
     }
 
 }
