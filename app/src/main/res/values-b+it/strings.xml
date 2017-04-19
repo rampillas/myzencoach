@@ -239,5 +239,6 @@
     <string name="PREFERENCES_TOKEN">token_preferencias_key(no traducir)</string>
     <string name="PREFERENCES_CURRENT_PLAN_WELFARE">current_plan_welfare(no traducir)</string>
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
+    <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
 
 </resources>

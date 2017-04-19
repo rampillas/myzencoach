@@ -28,12 +28,13 @@ import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.HomepageFragment;
 import com.unir.grupo2.myzeancoach.ui.MCooperativeSol.MCooperativeSolFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.AddRemainderActivity;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.MCustomizeFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.RemaindersFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.StressFragment;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.remaindersList.RemainderItemObject;
-import com.unir.grupo2.myzeancoach.ui.MCustomizeFragment.stressQuestionsList.StressQuestionObject;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.AddRemainderActivity;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.AddStressQuestionActivity;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.MCustomizeFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.RemaindersFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.StressFragment;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList.RemainderItemObject;
+import com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList.StressQuestionObject;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.MEssentialInfoFragment;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.VideosFragment;
 import com.unir.grupo2.myzeancoach.ui.MLeisure.InterestsFragment;
@@ -208,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         startActivity(intent);
     }
 
-    /************Module Essential Info*******/
+    /*****Module Essential Info**/
     @Override
     public void updateDataEsentialInfo(int positionViewPager) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
@@ -220,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     }
 
 
-    /**************Module Leisure***************/
+    /*****Module Leisure******/
     @Override
     public void updateEvents(int positionViewPager) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         xfragmentTransaction.replace(R.id.container_view, fragment).commit();
     }
 
-    /*************Module Welfare**************************/
+    /******Module Welfare*********/
     private void launchMainExerciseActivity(ExerciseWelfare exerciseWelfare) {
         Intent intent = new Intent(this, MainExerciseActivity.class);
         intent.putExtra("EXERCISE", exerciseWelfare);
@@ -258,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         launchCurrentPlanFragment(plan);
     }
 
-    /****************Module cooperative solutions *************************/
+    /*******Module cooperative solutions **********/
     @Override
     public void updateDilemma(int position) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
@@ -269,12 +270,12 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         xfragmentTransaction.replace(R.id.container_view, fragment).commit();
     }
 
-    /****************All modules *******************/
+    /*******All modules ********/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*************Module Welfare****************/
-         if (requestCode == PLAN_EXERCISE_REQUEST) {
+        /******Module Welfare*****/
+        if (requestCode == PLAN_EXERCISE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
                     if (data.getBooleanExtra("IS_PLAN_COMPLETED", true)) {
@@ -293,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         }
     }
 
-    /**************Module Customize Fragment***************/
+    /*****Module Customize Fragment******/
     @Override
     public void onItemRemainderSelected(RemainderItemObject remainderItem) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
@@ -314,8 +315,8 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
 
     @Override
     public void onNewQuestionSelected() {
-     //   FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-     //   xfragmentTransaction.replace(R.id.container_view, new AddStressQuestionFragment()).commit();
+        Intent newQuestion =new Intent(this, AddStressQuestionActivity.class);
+        startActivity(newQuestion);
 
     }
 
@@ -327,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     @Override
     public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
-        //xfragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+        //xfragmentTransaction.replace(R.id.container_view, new MCustomize()).commit();
     }
 
 }

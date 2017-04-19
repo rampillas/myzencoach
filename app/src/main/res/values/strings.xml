@@ -55,6 +55,7 @@
     <string name="REMAINDERS_ADD_INSERT_TIME">enter time</string>
     <string name="SAVE">Save</string>
     <string name="title_activity_add_remainder">AddRemainderActivity</string>
+    <string name="REMAINDERS_NO_REMAINDER">There is no reminder yet</string>
 
     <!---MODULE 2 : Essential information -->
     <string name="score_info">%1$d Mark</string>
@@ -240,6 +241,5 @@
     <string name="PREFERENCES_CURRENT_PLAN_WELFARE">current_plan_welfare(no traducir)</string>
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
     <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
-    <string name="REMAINDERS_NO_REMAINDER">Lo sentimos, aún no hay recordatorios para mostrar</string>
 
 </resources>
