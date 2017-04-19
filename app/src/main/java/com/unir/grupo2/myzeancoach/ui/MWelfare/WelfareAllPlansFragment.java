@@ -1,10 +1,12 @@
 package com.unir.grupo2.myzeancoach.ui.MWelfare;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -85,6 +87,13 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
         layoutManager = new LinearLayoutManager(getContext());
         planListRecyclerView.setLayoutManager(layoutManager);
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            if (bundle.getBoolean("IS_PLAN_FINISHED")){
+                showDialogPlanOver();
+            }
+        }
+
         requestData(BASE_URL_WELFARE_ALL_PLANS, true);
 
         return view;
@@ -158,6 +167,19 @@ public class WelfareAllPlansFragment extends Fragment implements AllPlanListAdap
         Toast.makeText(getContext(), getString(R.string.alert_plan_chosen), Toast.LENGTH_LONG).show();
 
         onItemplanSelectedListener.onItemPlanSelected(plan);
+    }
+
+    private void showDialogPlanOver() {
+        new AlertDialog.Builder(getContext())
+                .setTitle(getString(R.string.dialog_title_survey_sent_plan_over))
+                .setMessage(getString(R.string.dialog_message_survey_sent_over))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //getActivity().finish();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
     }
 
     //Pagination

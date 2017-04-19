@@ -3,6 +3,7 @@ package com.unir.grupo2.myzeancoach.data.MEssentialInfo;
 import com.unir.grupo2.myzeancoach.domain.model.Ranking;
 import com.unir.grupo2.myzeancoach.domain.model.TestListPojo;
 import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -53,23 +54,23 @@ public class EssentialDataRepository implements EssentialRepository {
     }
 
     @Override
-    public Observable<VideoListPojo> videos(String token) {
-        return service.getVideos(token);
+    public Observable<VideoListPojo> videos(String url, String token) {
+        return service.getVideos(url, token);
     }
 
     @Override
-    public Observable<TestListPojo> tests(String token) {
-        return service.getTest(token);
+    public Observable<TestListPojo> tests(String url, String token) {
+        return service.getTest(url, token);
     }
 
    @Override
-    public Observable<Void> updateTest(RequestBody body) {
-        return service.putTest("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK", body);
+    public Observable<Void> updateTest(String token, RequestBody body) {
+        return service.putTest(Constants.CONTENT_TYPE, token, body);
     }
 
     @Override
-    public Observable<Void> updateVideo(RequestBody body) {
-        return service.putVideo("application/json","Bearer XID9TUxqU76zWc2wWDMqVFy2dFDdrK", body);
+    public Observable<Void> updateVideo(String token, RequestBody body) {
+        return service.putVideo(Constants.CONTENT_TYPE, token, body);
     }
 
     @Override

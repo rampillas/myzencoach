@@ -129,6 +129,7 @@
     <string name="dialog_title_url_no_valid">URL non valido</string>
     <string name="dialog_massage_no_youtube_url_audio">Gli URL degli audio sono supportati solo in formato YouTube URL</string>
     <string name="dialog_message_no_plans_available">Non ci sono piani disponibili al momento.\nLa invitiamo ad attendere l\'arrivo di nuovi piani disponibili. Ci scusiamo per l\'inconveniente</string>
+    <string name="alert_error_audio">Errore caricamento file audio</string>
 
     <!--MODULE 5 : Leisure -->
     <string name="like">Mi piace</string>

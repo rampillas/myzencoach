@@ -101,7 +101,7 @@ public class AddPostActivity extends AppCompatActivity {
         int radioButtonID = categoryRadioGroup.getCheckedRadioButtonId();
 
         if (titleEditText.getText().toString().trim().length() == 0 ||
-                descriptionEditText.toString().trim().length() == 0 ||
+                descriptionEditText.getText().toString().trim().length() == 0 ||
                 radioButtonID == -1){
 
             showDialogFillOutFields();

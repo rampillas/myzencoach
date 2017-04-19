@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -17,15 +16,21 @@ import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.TestsUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
+import com.unir.grupo2.myzeancoach.domain.model.TestListPojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.testList.TesttListAdapter;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -46,9 +51,13 @@ public class TestsFragment extends Fragment implements TesttListAdapter.OnItemCl
 
     private LinearLayoutManager linearLayoutManager;
 
+    private ArrayList<Test> testItemList;
+    private TesttListAdapter testsListAdapter;
+
     // Variables for scroll listener
     private boolean userScrolled = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private String nextData = null;
 
     VideosFragment.UpdateDataEsentialInfoListener updateDataListener;
 
@@ -70,16 +79,17 @@ public class TestsFragment extends Fragment implements TesttListAdapter.OnItemCl
         ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
-        ArrayList<Test> testItemList = bundle.getParcelableArrayList("TESTS");
+        testItemList = bundle.getParcelableArrayList("TESTS");
+        nextData = bundle.getString("NEXT_DATA_TEST");
 
         if (testItemList != null && !testItemList.isEmpty()){
 
             recyclerView.setHasFixedSize(true);
             linearLayoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(linearLayoutManager);
-            TesttListAdapter testsListAdapter = new TesttListAdapter(getContext(), testItemList, this);
+            testsListAdapter = new TesttListAdapter(getContext(), testItemList, this);
             recyclerView.setAdapter(testsListAdapter);
-
+            implementScrollListener();
             showContent();
         }else{
             showNoDilemma();
@@ -95,6 +105,21 @@ public class TestsFragment extends Fragment implements TesttListAdapter.OnItemCl
         startActivityForResult(intent, VIDEO_TEST_REQUEST);
     }
 
+    private void addToListView(TestListPojo testListPojo){
+        nextData = testListPojo.getNext();
+
+        for(int i = 0; i < testListPojo.getResults().size(); i++){
+            testItemList.add(testListPojo.getResults().get(i));
+        }
+        loadingDataRelativeLayout.setVisibility(View.GONE);
+        testsListAdapter.notifyDataSetChanged();
+    }
+
+    private void getMoreTestData(String url) {
+        loadingDataRelativeLayout.setVisibility(View.VISIBLE);
+        String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity());
+        new TestsUseCase(url, token).execute(new TestsFragment.TestsSubscriber());
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -162,35 +187,35 @@ public class TestsFragment extends Fragment implements TesttListAdapter.OnItemCl
                         if (userScrolled
                                 && (visibleItemCount + pastVisiblesItems) == totalItemCount) {
                             userScrolled = false;
-
-                            updateRecyclerView();
+                            if (nextData != null){
+                                getMoreTestData(nextData);
+                            }
                         }
 
                     }
 
                 });
-
     }
 
-    // Method for repopulating recycler view
-    private void updateRecyclerView() {
+    private final class TestsSubscriber extends Subscriber<TestListPojo> {
+        //3 callbacks
 
-        // Show Progress Layout
-        loadingDataRelativeLayout.setVisibility(View.VISIBLE);
+        @Override
+        public void onCompleted() {
 
-        // Handler to show refresh for a period of time you can use async task
-        // while commnunicating serve
+        }
 
-        new Handler().postDelayed(new Runnable() {
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+            Toast.makeText(getContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
+            loadingDataRelativeLayout.setVisibility(View.GONE);
+        }
 
-            @Override
-            public void run() {
-
-                // After adding new data hide the view.
-                loadingDataRelativeLayout.setVisibility(View.GONE);
-
-            }
-        }, 8000);
+        //Update listview datas
+        @Override
+        public void onNext(TestListPojo testListPojo) {
+            addToListView(testListPojo);
+        }
     }
-
 }

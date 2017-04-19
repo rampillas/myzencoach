@@ -32,11 +32,13 @@ public class TestItemViewHolder extends RecyclerView.ViewHolder {
         if (testItem.getIsCompleted()){
             isCOmpleted.setTextColor(itemView.getContext().getResources().getColor(R.color.greenApp));
             isCOmpleted.setText(R.string.completed);
+            scoreRatingBar.setRating(testItem.getScore());
             scoreRatingBar.setVisibility(View.VISIBLE);
         }else{
             isCOmpleted.setText(R.string.uncompleted);
+            isCOmpleted.setTextColor(itemView.getContext().getResources().getColor(R.color.redApp));
+            scoreRatingBar.setVisibility(View.GONE);
         }
-        scoreRatingBar.setRating(testItem.getScore());
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {

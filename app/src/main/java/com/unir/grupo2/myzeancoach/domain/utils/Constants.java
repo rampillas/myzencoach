@@ -14,4 +14,7 @@ public class Constants {
     public static final String CONTENT_TYPE = "application/json";
     public static final String PRE_TOKEN = "Bearer ";
     public static final String BASE_URL_WELFARE_ALL_PLANS = "/minfulness/plans/";
+    public static final String BASE_URL_VIDEOS = "/essential_information/videos/";
+    public static final String BASE_URL_TESTS_VIDEOS = "essential_information/survey";
+    public static final String YOUTUBE_KEY = "AIzaSyA5x5UI2cPPfivQWeY4bT7gdB-6Er1aO2Q";
 }

@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.UpdateTestUseCase;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.domain.model.Question;
 import com.unir.grupo2.myzeancoach.domain.model.Test;
@@ -88,7 +89,7 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         RequestBody body =
                 RequestBody.create(MediaType.parse("text/plain"), text);
 
-        new UpdateTestUseCase(body)
+        new UpdateTestUseCase(Constants.PRE_TOKEN + Utils.getTokenFromPreference(this), body)
                 .execute(new UpdateTestSubscriber());
     }
 

@@ -20,6 +20,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,8 +39,6 @@ public class ExercisePlanFragment extends Fragment {
 
     String fullUrlAudio;
     private String url;
-
-    private static final String YOUTUBE_KEY = "AIzaSyA5x5UI2cPPfivQWeY4bT7gdB-6Er1aO2Q";
 
     @Nullable
     @Override
@@ -88,7 +87,7 @@ public class ExercisePlanFragment extends Fragment {
             FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             transaction.add(R.id.youtube_layout, youTubePlayerFragment).commit();
 
-            youTubePlayerFragment.initialize(YOUTUBE_KEY, new YouTubePlayer.OnInitializedListener() {
+            youTubePlayerFragment.initialize(Constants.YOUTUBE_KEY, new YouTubePlayer.OnInitializedListener() {
 
                 @Override
                 public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
@@ -101,10 +100,9 @@ public class ExercisePlanFragment extends Fragment {
                 @Override
                 public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
                     String errorMessage = youTubeInitializationResult.toString();
-                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.alert_error_audio), Toast.LENGTH_LONG).show();
                     Log.d("errorMessage:", errorMessage);
                 }
-
             });
         }
     }

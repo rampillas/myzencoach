@@ -2,6 +2,7 @@ package com.unir.grupo2.myzeancoach.data.MCooperativeSol;
 
 import com.unir.grupo2.myzeancoach.domain.model.Dilemma;
 import com.unir.grupo2.myzeancoach.domain.model.DilemmaListPojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +23,6 @@ import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
 public class CooperativeDataRepository implements CooperativeRepository{
 
     CooperativeAPIService service;
-    private static final String CONTENT_TYPE = "application/json";
 
     private static final CooperativeDataRepository INSTANCE = new CooperativeDataRepository();
 
@@ -53,46 +53,46 @@ public class CooperativeDataRepository implements CooperativeRepository{
 
     @Override
     public Observable<DilemmaListPojo> allDilemmas(String userName, String token, RequestBody body) {
-        return service.getAllDilemmas(userName,CONTENT_TYPE,token,body);
+        return service.getAllDilemmas(userName, Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Dilemma> addDilemma(String token, RequestBody body) {
-        return service.createDilemma(CONTENT_TYPE,token,body);
+        return service.createDilemma(Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> amendDilemma(String userName, String token, RequestBody body) {
-        return service.updateDilemma(userName,CONTENT_TYPE,token,body);
+        return service.updateDilemma(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> addComment(String userName, String token, RequestBody body) {
-        return service.createComment(userName,CONTENT_TYPE,token,body);
+        return service.createComment(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> addPros(String userName, String token, RequestBody body) {
-        return service.createPros(userName,CONTENT_TYPE,token,body);
+        return service.createPros(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> addCons(String userName, String token, RequestBody body) {
-        return service.createCons(userName,CONTENT_TYPE,token,body);
+        return service.createCons(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> addLikeDilemma(String userName, String token, RequestBody body) {
-        return service.addLike(userName,CONTENT_TYPE,token,body);
+        return service.addLike(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> amendStatusDilemma(String userName, String token, RequestBody body) {
-        return service.updateStatusDilemma(userName,CONTENT_TYPE,token,body);
+        return service.updateStatusDilemma(userName,Constants.CONTENT_TYPE,token,body);
     }
 
     @Override
     public Observable<Void> addFeedback(String userName, String token, RequestBody body) {
-        return service.addFeedbackComment(userName,CONTENT_TYPE,token,body);
+        return service.addFeedbackComment(userName,Constants.CONTENT_TYPE,token,body);
     }
 }

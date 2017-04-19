@@ -8,16 +8,18 @@ import rx.Observable;
 
 public class VideosUseCase extends UseCase {
 
-    String token;
+    private String url;
+    private String token;
 
-    public VideosUseCase(String token) {
+    public VideosUseCase(String url, String token) {
+        this.url = url;
         this.token = token;
     }
 
     @Override
     protected Observable buildUseCaseObservable() {
         EssentialRepository repo = EssentialDataRepository.getInstance();
-        return repo.videos(token).first();
+        return repo.videos(url, token).first();
     }
 
 }

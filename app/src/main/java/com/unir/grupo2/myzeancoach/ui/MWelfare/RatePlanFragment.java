@@ -204,16 +204,18 @@ public class RatePlanFragment extends Fragment implements RatePlanListAdapter.On
                 .setMessage(message)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        //getActivity().finish();
+
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
-
     }
 
-    /*******************WRONG -> USAR USERNAME REAL*****************/
     private void launchFinishPlanUseCase() {
+
+        String userName = Utils.getUserFromPreference(getActivity());
+        String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity());
+
         String text = "{\n" +
                 "\t\"description_plan\": \"" + planAmended.getDescription() + "\"\n" +
                 "}\n";
@@ -221,7 +223,7 @@ public class RatePlanFragment extends Fragment implements RatePlanListAdapter.On
         RequestBody body =
                 RequestBody.create(MediaType.parse("text/plain"), text);
 
-        new FinishPlanUseCase("ceo", Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity()), body).execute(new FinishPlanSubscriber());
+        new FinishPlanUseCase(userName, token, body).execute(new FinishPlanSubscriber());
     }
 
     private void setReturnData(boolean isPlanOver) {
@@ -281,8 +283,7 @@ public class RatePlanFragment extends Fragment implements RatePlanListAdapter.On
         public void onNext(Void aVoid) {
             setReturnData(true);
             deletePlanOnSharedPreference();
-            showDialogExerciseOver(getString(R.string.dialog_title_survey_sent_plan_over),
-                    getString(R.string.dialog_message_survey_sent_over));
+            getActivity().finish();
         }
     }
 }

@@ -13,15 +13,17 @@ import rx.Observable;
 
 public class UpdateVideoUseCase extends UseCase{
 
+    private String token;
     private RequestBody body;
 
-    public UpdateVideoUseCase(RequestBody body) {
+    public UpdateVideoUseCase(String token, RequestBody body) {
+        this.token = token;
         this.body = body;
     }
 
     @Override
     protected Observable<Void> buildUseCaseObservable() {
         EssentialRepository repo = EssentialDataRepository.getInstance();
-        return repo.updateVideo(body).first();
+        return repo.updateVideo(token, body).first();
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -18,15 +17,21 @@ import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.VideosUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.Video;
+import com.unir.grupo2.myzeancoach.domain.model.VideoListPojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MEssentialInfo.videoList.VideoListAdapter;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -45,10 +50,13 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
     @BindView(R.id.loadItemsLayout_recyclerView) RelativeLayout loadingDataRelativeLayout;
 
     private LinearLayoutManager layoutManager;
+    private List<Video> videoItemList;
+    private VideoListAdapter videoListAdapter;
 
     // Variables for scroll listener
     private boolean userScrolled = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private String nextData = null;
 
     UpdateDataEsentialInfoListener updateDataListener;
 
@@ -74,14 +82,15 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
         ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
-        List<Video> videoItemList = bundle.getParcelableArrayList("VIDEOS");
+        videoItemList = bundle.getParcelableArrayList("VIDEOS");
+        nextData = bundle.getString("NEXT_DATA_VIDEO");
 
         if (videoItemList != null && !videoItemList.isEmpty()){
 
             videoListRecyclerView.setHasFixedSize(true);
             layoutManager = new GridLayoutManager(getContext(),2);
             videoListRecyclerView.setLayoutManager(layoutManager);
-            VideoListAdapter videoListAdapter = new VideoListAdapter(getContext(),videoItemList, this);
+            videoListAdapter = new VideoListAdapter(getContext(),videoItemList, this);
             videoListRecyclerView.setAdapter(videoListAdapter);
             implementScrollListener();
             showContent();
@@ -99,6 +108,22 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
         intent.putExtra("VIDEO_NAME", videoName);
         intent.putExtra("IS_WATCHED", isWatched);
         startActivityForResult(intent, VIDEO_YOUTUBE_REQUEST);
+    }
+
+    private void addToListView(VideoListPojo videoListPojo){
+        nextData = videoListPojo.getNext();
+
+        for (int i = 0; i < videoListPojo.getResults().size(); i++) {
+            videoItemList.add(videoListPojo.getResults().get(i));
+        }
+        loadingDataRelativeLayout.setVisibility(View.GONE);
+        videoListAdapter.notifyDataSetChanged();
+    }
+
+    private void getMoreVideosData(String url) {
+        loadingDataRelativeLayout.setVisibility(View.VISIBLE);
+        String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity());
+        new VideosUseCase(url, token).execute(new VideosSubscriber());
     }
 
     @Override
@@ -167,8 +192,9 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
                         if (userScrolled
                                 && (visibleItemCount + pastVisiblesItems) == totalItemCount) {
                             userScrolled = false;
-
-                            updateRecyclerView();
+                            if (nextData != null){
+                                getMoreVideosData(nextData);
+                            }
                         }
 
                     }
@@ -177,24 +203,24 @@ public class VideosFragment extends Fragment implements VideoListAdapter.OnItemV
 
     }
 
-    // Method for repopulating recycler view
-    private void updateRecyclerView() {
+    private final class VideosSubscriber extends Subscriber<VideoListPojo> {
+        //3 callbacks
 
-        // Show Progress Layout
-        loadingDataRelativeLayout.setVisibility(View.VISIBLE);
+        @Override public void onCompleted() {
 
-        // Handler to show refresh for a period of time you can use async task
-        // while commnunicating serve
+        }
 
-        new Handler().postDelayed(new Runnable() {
+        //Show the error
+        @Override public void onError(Throwable e) {
+            Toast.makeText(getContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
+            loadingDataRelativeLayout.setVisibility(View.GONE);
+        }
 
-            @Override
-            public void run() {
-
-                // After adding new data hide the view.
-                loadingDataRelativeLayout.setVisibility(View.GONE);
-
-            }
-        }, 8000);
+        //Update listview
+        //It is not the first data laoding
+        @Override
+        public void onNext(VideoListPojo videoListPojo) {
+            addToListView(videoListPojo);
+        }
     }
 }

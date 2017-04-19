@@ -14,16 +14,18 @@ import rx.Observable;
 
 public class UpdateTestUseCase extends UseCase {
 
+    private String token;
     private RequestBody body;
 
-    public UpdateTestUseCase(RequestBody body) {
+    public UpdateTestUseCase(String token, RequestBody body) {
+        this.token = token;
         this.body = body;
     }
 
     @Override
     protected Observable<Void> buildUseCaseObservable() {
         EssentialRepository repo = EssentialDataRepository.getInstance();
-        return repo.updateTest(body).first();
+        return repo.updateTest(token, body).first();
     }
 }
 

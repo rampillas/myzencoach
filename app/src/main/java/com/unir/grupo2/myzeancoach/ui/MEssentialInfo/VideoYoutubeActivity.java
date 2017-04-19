@@ -13,6 +13,8 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MEssentialInfo.UpdateVideoUseCase;
+import com.unir.grupo2.myzeancoach.domain.utils.Constants;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -114,7 +116,7 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
                 RequestBody body =
                         RequestBody.create(MediaType.parse("text/plain"), text);
 
-                new UpdateVideoUseCase(body).execute(new UpdateVideoSubscriber());
+                new UpdateVideoUseCase(Constants.PRE_TOKEN + Utils.getTokenFromPreference(getBaseContext()), body).execute(new UpdateVideoSubscriber());
             }else{
                 setReturnData();
                 finish();

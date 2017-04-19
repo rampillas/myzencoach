@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PUT;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -19,11 +20,15 @@ import rx.Observable;
 
 public interface EssentialAPIService {
 
-    @GET("essential_information/videos")
-    Observable<VideoListPojo> getVideos(@Header("Authorization") String token);
+    @GET()
+    Observable<VideoListPojo> getVideos
+            (@Url String url,
+             @Header("Authorization") String token);
 
-    @GET("essential_information/survey")
-    Observable<TestListPojo> getTest(@Header("Authorization") String token);
+    @GET()
+    Observable<TestListPojo> getTest
+            (@Url String url,
+             @Header("Authorization") String token);
 
     @PUT("/essential_information/survey/")
     Observable<Void> putTest(@Header("Content-Type") String contentType,
