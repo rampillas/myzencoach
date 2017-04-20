@@ -18,10 +18,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.unir.grupo2.myzeancoach.Foreground;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.Tracking.ConnectionUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
@@ -72,12 +72,13 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
+    private boolean fromLogin = false;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        launchConnectionUseCase();
-        setLanguage();
 
+        setLanguage();
         Pushy.listen(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -94,11 +95,16 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         fragmentTransaction = fragmentManager.beginTransaction();
 
         Intent intent = getIntent();
-        if (intent != null && intent.getBooleanExtra("GO_TO_PROFILE",false)){
-            //Once the app language has been changed, mainActivity is Refreshed and ProfilFragment is launched
-            fragmentTransaction.replace(R.id.container_view, new ProfilFragment()).commit();
-        }else{
-            fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+        if (intent != null){
+            //Check if the previous activity was LoginActivity to count one connection or not (traking)
+            fromLogin = intent.getBooleanExtra("FROM_LOGIN", false);
+
+            if (intent.getBooleanExtra("GO_TO_PROFILE",false)){
+                //Once the app language has been changed, mainActivity is Refreshed and ProfilFragment is launched
+                fragmentTransaction.replace(R.id.container_view, new ProfilFragment()).commit();
+            }else{
+                fragmentTransaction.replace(R.id.container_view, new MCustomizeFragment()).commit();
+            }
         }
 
         //Setup click events on the Navigation View Items.
@@ -178,6 +184,25 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
 
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if (isNewConnection()){
+            launchConnectionUseCase();
+        }
+    }
+
+    private boolean isNewConnection(){
+        if (Foreground.get().isForeground() && !fromLogin){
+            return false;
+        }else {
+            if (fromLogin){
+                fromLogin = false;
+            }
+            return true;
+        }
+    }
+
     private void launchConnectionUseCase() {
 
         String userName = Utils.getUserFromPreference(this);
@@ -190,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         RequestBody body =
                 RequestBody.create(MediaType.parse("text/plain"), text);
 
-        new ConnectionUseCase(token, body).execute(new ConnectionSubscriber());
+        new ConnectionUseCase(token, body).execute(new StartAppSubscriber());
     }
 
     private void setLanguage(){
@@ -352,7 +377,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         //xfragmentTransaction.replace(R.id.container_view, new MCustomize()).commit();
     }
 
-    private final class ConnectionSubscriber extends Subscriber<Void> {
+    private final class StartAppSubscriber extends Subscriber<Void> {
         //3 callbacks
 
         //Show the listView
@@ -364,13 +389,11 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         //Show the error
         @Override
         public void onError(Throwable e) {
-            Toast.makeText(getBaseContext(), "mal", Toast.LENGTH_LONG).show();
         }
 
         //Update listview datas
         @Override
         public void onNext(Void aVoid) {
-            Toast.makeText(getBaseContext(), "bien", Toast.LENGTH_LONG).show();
         }
     }
 

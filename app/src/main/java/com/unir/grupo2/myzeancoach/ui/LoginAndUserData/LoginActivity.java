@@ -175,6 +175,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void launchMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("FROM_LOGIN", true);
         startActivity(intent);
         finish();
     }
