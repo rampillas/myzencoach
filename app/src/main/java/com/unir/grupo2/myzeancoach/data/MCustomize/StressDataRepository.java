@@ -43,6 +43,7 @@ public class StressDataRepository implements StressRepository {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL_SERVER)
+
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient)

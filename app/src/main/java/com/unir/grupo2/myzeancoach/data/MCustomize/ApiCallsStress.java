@@ -13,13 +13,16 @@ import retrofit2.http.Path;
 import retrofit2.http.Url;
 import rx.Observable;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.BASE_URL_CUSTOMIZE_FOLLOWUP;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.BASE_URL_CUSTOMIZE_STRESS;
+
 /**
  * Created by andres on 28/03/2017.
  */
 
 public interface ApiCallsStress {
     @Headers("Content-Type: application/json")
-    @POST("personalization/stress/")
+    @POST(BASE_URL_CUSTOMIZE_STRESS)
     Observable<Void> setQuestion(@Header("Authorization") String token, @Body RequestBody body);
 
     @Headers("Content-Type: application/json")
@@ -27,12 +30,12 @@ public interface ApiCallsStress {
     Observable<StressQuestionsListPojo> getQuestions(@Url String url, @Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
-    @POST("personalization/stress/{username}/registerAnswerUser/")
+    @POST(BASE_URL_CUSTOMIZE_STRESS+"{username}/registerAnswerUser/")
     Observable<Void> setAnswer(@Path("username") String user,
                                      @Header("Authorization") String token, @Body RequestBody rb);
 
     @Headers("Content-Type: application/json")
-    @GET("personalization/followup/")
+    @GET(BASE_URL_CUSTOMIZE_FOLLOWUP)
     Observable<StressCoachResponsePojo> getCoachResponse(@Header("Authorization") String token);
 
 }

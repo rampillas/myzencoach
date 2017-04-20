@@ -16,6 +16,10 @@ public class Constants {
     public static final String PRE_TOKEN = "Bearer ";
     public static final String BASE_URL_WELFARE_ALL_PLANS = "/minfulness/plans/";
     public static final String BASE_URL_VIDEOS = "/essential_information/videos/";
+    public static final String BASE_URL_CUSTOMIZE_REMAINDERS = "personalization/reminders/";
+    public static final String BASE_URL_CUSTOMIZE_REWARDS = "personalization/rewards/";
+    public static final String BASE_URL_CUSTOMIZE_STRESS = "personalization/stress/";
+    public static final String BASE_URL_CUSTOMIZE_FOLLOWUP = "personalization/followup/";
     public static final String BASE_URL_TESTS_VIDEOS = "essential_information/survey";
 
     //API

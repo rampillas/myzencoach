@@ -22,17 +22,13 @@ public interface ApiCallsForLogin {
 
     @Headers("Content-Type: application/json")
     @POST("login/")
-        // se ha creado un objeto register body para que la informacion del cuerpo pueda viajar ademas de quitar la etiqueta @FormUrlEncoded
+    // se ha creado un objeto register body para que la informacion del cuerpo pueda viajar ademas de quitar la etiqueta @FormUrlEncoded
     Observable<Token> loginUser(@Body RegisterBody rb);
-
-
     //recuperar usuario
     @Headers("Content-Type: application/json")
     @GET("users/{username}")
     // se ha creado un objeto register body para que la informacion del cuerpo pueda viajar ademas de quitar la etiqueta @FormUrlEncoded
     Observable<User> userData(@Path("username") String user, @Header("Authorization") String access_token);
-    //Observable<Token> loginUser(@Body RequestBody body);
-
     @Headers("Content-Type: application/json")
     @POST("/password-recovery/")
     Observable<Void> forgetPass(@Body RecoveryPasswordObject rpo);
