@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.Tracking.ConnectionUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
 import com.unir.grupo2.myzeancoach.domain.utils.Constants;
@@ -52,6 +53,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.pushy.sdk.Pushy;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity implements VideosFragment.UpdateDataEsentialInfoListener,
         InterestsFragment.UpdateEventsListener, HomepageFragment.UpdateDilemmaListener, RemaindersFragment.OnPostListener,
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
+        launchConnectionUseCase();
         setLanguage();
 
         Pushy.listen(this);
@@ -174,10 +178,19 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
 
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+    private void launchConnectionUseCase() {
+
+        String userName = Utils.getUserFromPreference(this);
+        String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(this);
+
+        String text = "{\n" +
+                "\"user\": \"" + userName + "\"\n" +
+                "}";
+
+        RequestBody body =
+                RequestBody.create(MediaType.parse("text/plain"), text);
+
+        new ConnectionUseCase(token, body).execute(new ConnectionSubscriber());
     }
 
     private void setLanguage(){
@@ -337,6 +350,28 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
         //xfragmentTransaction.replace(R.id.container_view, new MCustomize()).commit();
+    }
+
+    private final class ConnectionSubscriber extends Subscriber<Void> {
+        //3 callbacks
+
+        //Show the listView
+        @Override
+        public void onCompleted() {
+
+        }
+
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+            Toast.makeText(getBaseContext(), "mal", Toast.LENGTH_LONG).show();
+        }
+
+        //Update listview datas
+        @Override
+        public void onNext(Void aVoid) {
+            Toast.makeText(getBaseContext(), "bien", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

@@ -35,6 +35,7 @@
                 android:layout_marginTop="6dp"
                 android:hint="@string/solution_hint"
                 android:inputType="textMultiLine"
+                android:maxHeight="100dp"
                 android:textSize="@dimen/letra_menos_grande"/>
 
         </LinearLayout>
@@ -62,6 +63,7 @@
                 android:hint="@string/pros_hint"
                 android:inputType="textMultiLine"
                 android:textColor="@color/greenApp"
+                android:maxHeight="100dp"
                 android:textSize="@dimen/letra_menos_grande"/>
 
         </LinearLayout>
@@ -89,6 +91,7 @@
                 android:hint="@string/cons_hint"
                 android:inputType="textMultiLine"
                 android:textColor="@color/redApp"
+                android:maxHeight="100dp"
                 android:textSize="@dimen/letra_menos_grande"/>
 
         </LinearLayout>

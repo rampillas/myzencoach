@@ -28,6 +28,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="@dimen/letra_mediana"/>
 
     <View
