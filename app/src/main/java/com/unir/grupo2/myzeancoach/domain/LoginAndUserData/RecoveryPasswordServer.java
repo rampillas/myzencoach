@@ -21,12 +21,13 @@ import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
 public class RecoveryPasswordServer {
     RetrofitClient apiRetrofitConexion = new RetrofitClient();
     Retrofit retrofit = apiRetrofitConexion.getClient(URL_SERVER);
-    ApiCallsForLogin apiConexion =retrofit.create(ApiCallsForLogin.class);
+    ApiCallsForLogin apiConexion = retrofit.create(ApiCallsForLogin.class);
+
     public void recoveryPass(String usuario, final RecoveryPasswordActivity recoveryPasswordActivity) {
 
         recoveryPasswordActivity.showLoading();
         // RxJava
-        RecoveryPasswordObject recoveryPasswordObject =new RecoveryPasswordObject(usuario);
+        RecoveryPasswordObject recoveryPasswordObject = new RecoveryPasswordObject(usuario);
         apiConexion.forgetPass(recoveryPasswordObject).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<Void>() {
                     @Override
@@ -36,7 +37,7 @@ public class RecoveryPasswordServer {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("Login process", "error "+e);
+                        Log.d("Login process", "error " + e);
                         recoveryPasswordActivity.showContent();
                         recoveryPasswordActivity.userNotExits();
                     }

@@ -1,8 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +15,7 @@ import android.widget.Toast;
 
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.SetPersonalQuestionUseCase;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MainActivity;
 
 import butterknife.BindView;
@@ -64,10 +63,8 @@ public class AddStressQuestionActivity extends AppCompatActivity {
     @Nullable
     @OnClick(R.id.okButton)
     public void addReminder() {
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+        String token = Utils.getTokenFromPreference(getApplicationContext());
+        String user = Utils.getUserFromPreference(getApplicationContext());
         //get the options and create the request body
         if (!stressTitle.getText().toString().isEmpty() && !option1.getText().toString().isEmpty()
                 && !option2.getText().toString().isEmpty() && !option3.getText().toString().isEmpty()
@@ -119,7 +116,6 @@ public class AddStressQuestionActivity extends AppCompatActivity {
         @Override
         public void onNext(Void aVoid) {
             //volvemos al fragment de los remainders
-
         }
     }
 

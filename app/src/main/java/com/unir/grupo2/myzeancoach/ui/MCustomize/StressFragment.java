@@ -2,7 +2,6 @@ package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +26,7 @@ import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Stress.UpdateQue
 import com.unir.grupo2.myzeancoach.domain.model.StressCoachResponse;
 import com.unir.grupo2.myzeancoach.domain.model.StressQuestion;
 import com.unir.grupo2.myzeancoach.domain.model.StressQuestionsListPojo;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList.StressListAdapter;
 import com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList.StressQuestionObject;
 
@@ -39,6 +39,9 @@ import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
+
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.BASE_URL_CUSTOMIZE_STRESS;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
 
 /**
  * Created by Cesar on 22/02/2017.
@@ -63,25 +66,20 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
     @Nullable
     @BindView(R.id.noplan)
     LinearLayout noPlan;
-    static String tokenActivo = "";
-    static StressQuestionObject stressQuestionObjectInUse = null;
     //elements from database
     List<StressQuestion> stressQuestionsList;
     //local elements for view holder
     private List<StressQuestionObject> stressQuestionObjectList;
-
     // Variables for scroll listener
     private boolean userScrolled = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
     private String nextData = null;
     StressListAdapter stressListAdapter;
-
     StressQuestionsListPojo stressQuestionsListPojo = null;
     //local elements for view holder
     private List<StressQuestionObject> stressQuestions;
     List<StressQuestion> stressQuestionList = null;
     LinearLayoutManager layoutManager;
-
     StressFragment.OnPostListener postListener;
     StressQuestionObject stressQuestionActive = null;
     String personal_question_answer;
@@ -97,11 +95,8 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         //call and send the data
         this.stressQuestionActive = stressQuestionObject;
         this.personal_question_answer = answer;
-        String question_description = "";
-        SharedPreferences sharedPref = getContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+        String token = Utils.getTokenFromPreference(getContext());
+        String user = Utils.getUserFromPreference(getContext());
         //get the options and create the request body
         String bodyString = "{\n" +
                 "\t\"description\": \"" + stressQuestionActive.getDescription() + "\", \n" +
@@ -116,10 +111,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
     @Override
     public void OnFinalButtonSelected() {
         showLoading();
-        SharedPreferences sharedPref = getContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+        String token = Utils.getTokenFromPreference(getContext());
         new GetCoachResponseUseCase("Bearer " + token).execute(new StressFragment.CoachResponseSubscriber());
 
     }
@@ -152,7 +144,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         View view = inflater.inflate(R.layout.stress_layout, null);
         ButterKnife.bind(this, view);
         Log.d("StressFragment:", " created");
-        updatedata("http://demendezr.pythonanywhere.com/personalization/stress/");
+        updatedata(URL_SERVER + BASE_URL_CUSTOMIZE_STRESS);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -161,10 +153,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
 
     private void updatedata(String url) {
         showLoading();
-        Context context = getActivity();
-        SharedPreferences sharedPref = context.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
+        String token = Utils.getTokenFromPreference(getContext());
         Log.d("Stress token: ", token);
         new UpdateQuestionsListUseCase(url, "Bearer " + token).execute(new StressFragment.QuestionsSubscriber());
 
@@ -347,9 +336,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
                         // true
                         if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                             userScrolled = true;
-
                         }
-
                     }
 
                     @Override
@@ -380,27 +367,6 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
                 });
     }
 
-    private void updateList2(List<StressQuestion> stressQuestions) {
-        Log.d("updateList", "updateList1");
-        this.stressQuestionsList = stressQuestions;
-
-        stressQuestionObjectList = new ArrayList<StressQuestionObject>();
-        if (stressQuestions != null && stressQuestions.size() > 0) {
-            for (int i = 0; i < this.stressQuestionsList.size(); i++) {
-                StressQuestion stressQuestionItem = stressQuestions.get(i);
-                StressQuestionObject stressQuestionObject = new StressQuestionObject(stressQuestionItem.getDescription(), stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
-                stressQuestionObjectList.add(stressQuestionObject);
-                if (i == this.stressQuestionsList.size() - 1) {
-                    StressQuestionObject lastStressQuestionObject = new StressQuestionObject("ENDELEMENT", stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
-                    stressQuestionObjectList.add(lastStressQuestionObject);
-                }
-            }
-        }
-        // use a linear layout manager
-        stressListAdapter = new StressListAdapter(getContext(), stressQuestionObjectList, this);
-        recyclerView.setAdapter(stressListAdapter);
-        showContent();
-    }
 
     /**
      * Method used to show error view

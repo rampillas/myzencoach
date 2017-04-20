@@ -23,6 +23,6 @@ public class SetPersonalQuestionUseCase extends UseCase {
     @Override
     protected Observable buildUseCaseObservable() {
         StressRepository repo = StressDataRepository.getInstance();
-        return repo.addQuestions(body,token);
+        return repo.addQuestions(body, token);
     }
 }

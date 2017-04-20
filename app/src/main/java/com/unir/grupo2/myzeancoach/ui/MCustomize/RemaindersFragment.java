@@ -1,7 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,6 +40,9 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.BASE_URL_CUSTOMIZE_REMAINDERS;
+import static com.unir.grupo2.myzeancoach.domain.utils.Constants.URL_SERVER;
+
 /**
  * Created by Cesar on 22/02/2017.
  */
@@ -71,12 +73,6 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     private boolean userScrolled = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
     private String nextData = null;
-
-    @OnClick(R.id.floatingActionButton)
-    public void openNewRemainder() {
-        postListener.onAddRemainderSelected();
-    }
-
     RemaindersListAdapter remaindersListAdapter;
     static String tokenActivo = "";
     static RemainderItemObject remainderItemInUse = null;
@@ -84,10 +80,14 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     RemaindersListPojo remainderItemList = null;
     //local elements for view holder
     private List<RemainderItemObject> remainders;
-    List<RemainderItem> remainderItemsList=null;
+    List<RemainderItem> remainderItemsList = null;
     LinearLayoutManager layoutManager;
-
     RemaindersFragment.OnPostListener postListener;
+
+    @OnClick(R.id.floatingActionButton)
+    public void openNewRemainder() {
+        postListener.onAddRemainderSelected();
+    }
 
     public interface OnPostListener {
         void onItemRemainderSelected(RemainderItemObject remainderItem);
@@ -114,7 +114,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.remainders_layout, null);
         ButterKnife.bind(this, view);
-        updatedata("http://demendezr.pythonanywhere.com/personalization/reminders/", true);
+        updatedata(URL_SERVER + BASE_URL_CUSTOMIZE_REMAINDERS, true);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -123,22 +123,13 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
 
     private void setrewards() {
         showLoading();
-        Context context = getActivity();
-        SharedPreferences sharedPref = context.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-        Log.d("Access TOKEN: ", token);
+        String token = Utils.getTokenFromPreference(getContext());
         new GetRewardsUseCase("Bearer " + token).execute(new RemaindersFragment.AwardsSuscriber());
     }
 
     private void updatedata(String url, boolean isFirstTime) {
         showLoading();
-        Context context = getActivity();
-        SharedPreferences sharedPref = context.getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-        Log.d("Access TOKEN: ", token);
-
+        String token = Utils.getTokenFromPreference(getContext());
         new UpdateListUseCase(url, "Bearer " + token).execute(new RemaindersFragment.RemaindersSubscriber());
 
     }
@@ -154,7 +145,6 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         //Show the error
         @Override
         public void onError(Throwable e) {
-            e.printStackTrace();
             Log.e("ERROR REMINDERS ", e.toString());
             showError();
         }
@@ -255,9 +245,9 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
                 remainderItemsList = listNoFinished;
 
                 if (!remainderItemsList.isEmpty()) {
-                    remainders=new ArrayList<RemainderItemObject>();
-                    for(RemainderItem item : remainderItemsList){
-                        RemainderItemObject rio = new RemainderItemObject(item.getTitle(),item.getDescription(),item.isFinished(), Utils.getUserFromPreference(getContext()));
+                    remainders = new ArrayList<RemainderItemObject>();
+                    for (RemainderItem item : remainderItemsList) {
+                        RemainderItemObject rio = new RemainderItemObject(item.getTitle(), item.getDescription(), item.isFinished(), Utils.getUserFromPreference(getContext()));
                         remainders.add(rio);
                     }
                     remaindersListAdapter = new RemaindersListAdapter(getContext(), remainders, this);
@@ -271,7 +261,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
             } else {
                 for (RemainderItem item : listNoFinished) {
                     remainderItemsList.add(item);
-                    RemainderItemObject rio = new RemainderItemObject(item.getTitle(),item.getDescription(),item.isFinished(), Utils.getUserFromPreference(getContext()));
+                    RemainderItemObject rio = new RemainderItemObject(item.getTitle(), item.getDescription(), item.isFinished(), Utils.getUserFromPreference(getContext()));
                     remainders.add(rio);
                 }
                 remaindersListAdapter.notifyDataSetChanged();
@@ -332,7 +322,6 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         for (int i = 0; i < rewardsItemList.size(); i++) {
             totalPoints += Integer.valueOf(rewardsItemList.get(i).getPoints());
         }
-        Log.d("PUNTOS", String.valueOf(totalPoints));
         int level = (totalPoints / 10) + 1;
         int progressPoints = totalPoints % 10;
         progressBar.setProgress(progressPoints * 10);
@@ -403,10 +392,8 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
                 "\t\"is_finished\": true \n" +
                 "}";
         RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);
-        SharedPreferences sharedPref = getContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+        String token = Utils.getTokenFromPreference(getContext());
+        String user = Utils.getUserFromPreference(getContext());
         tokenActivo = token;
         remainderItemInUse = remainderItem;
         new SetRemainderFinishedUseCase(user, "Bearer " + token, rb).execute(new RemaindersFragment.FinishedSuscriber());

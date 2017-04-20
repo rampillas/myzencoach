@@ -2,15 +2,11 @@ package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +21,7 @@ import android.widget.Toast;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders.NewRemainderUserCase;
 import com.unir.grupo2.myzeancoach.domain.model.RemainderItem;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.MainActivity;
 
 import butterknife.BindView;
@@ -35,7 +32,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
-public class AddRemainderActivity extends AppCompatActivity  {
+public class AddRemainderActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.remainderTitle)
     EditText remainderTitle;
@@ -60,11 +57,8 @@ public class AddRemainderActivity extends AppCompatActivity  {
     @Nullable
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
-    Intent intent;
-
     DatePickerDialog elegirFecha = null;
+
     @Optional
     @Nullable
     @OnClick(R.id.datePickerText)
@@ -82,6 +76,7 @@ public class AddRemainderActivity extends AppCompatActivity  {
     };
 
     TimePickerDialog elegirHora = null;
+
     @Optional
     @Nullable
     @OnClick(R.id.datePickerTextHour)
@@ -97,14 +92,13 @@ public class AddRemainderActivity extends AppCompatActivity  {
             elegirHora.dismiss();
         }
     };
+
     @Optional
     @Nullable
     @OnClick(R.id.okButton)
     public void addReminder() {
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        String token = sharedPref.getString(getString(R.string.PREFERENCES_TOKEN), null);
-        String user = sharedPref.getString(getString(R.string.PREFERENCES_USER), null);
+        String token = Utils.getTokenFromPreference(getApplicationContext());
+        String user = Utils.getUserFromPreference(getApplicationContext());
         if (!remainderTitle.getText().toString().isEmpty() && !description.getText().toString().isEmpty()
                 && !datePickerText.getText().toString().isEmpty() && !datePickerTextHour.getText().toString().isEmpty()) {
             String bodyString = "{\n" +
@@ -119,10 +113,10 @@ public class AddRemainderActivity extends AppCompatActivity  {
                     "\t\"is_observations_enabled\": false,\n" +
                     "\t\"frequency\": \"everyday\"\n" +
                     "}";
-            RequestBody rb = RequestBody.create(MediaType.parse("text/plain"),bodyString);
+            RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);
             RemainderItem body = new RemainderItem();
             body.setType("\"\"");
-            body.setTitle(remainderTitle.getText().toString() );
+            body.setTitle(remainderTitle.getText().toString());
             body.setDescription(description.getText().toString());
             body.setIsPersonal(true);
             body.setDate(datePickerText.getText().toString());
@@ -135,8 +129,6 @@ public class AddRemainderActivity extends AppCompatActivity  {
         }
 
     }
-
-
 
     private final class AddRemainderSubscriber extends Subscriber<Void> {
         //3 callbacks
@@ -163,7 +155,7 @@ public class AddRemainderActivity extends AppCompatActivity  {
     }
 
     private void startMain() {
-        Intent mainActivity= new Intent(this, MainActivity.class);
+        Intent mainActivity = new Intent(this, MainActivity.class);
         startActivity(mainActivity);
     }
 

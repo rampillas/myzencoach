@@ -32,7 +32,6 @@ import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.CreateUserServer;
-import com.unir.grupo2.myzeancoach.domain.model.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +43,7 @@ import me.pushy.sdk.Pushy;
  * Created by Cesar on 26/03/2017.
  */
 
-public class CreateUserActivity extends AppCompatActivity{
+public class CreateUserActivity extends AppCompatActivity {
 
     String pais = "";
     int estudiosPersona = 0;
@@ -262,7 +261,6 @@ public class CreateUserActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_user);
         ButterKnife.bind(this);
-
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.SIGNUP_STUDY_LEVELS, android.R.layout.simple_spinner_item);
@@ -273,7 +271,7 @@ public class CreateUserActivity extends AppCompatActivity{
 
     }
 
-    private void sendUserData(String token){
+    private void sendUserData(String token) {
         deviceToken = token;
         CreateUserServer registerUser = new CreateUserServer();
 
@@ -281,7 +279,9 @@ public class CreateUserActivity extends AppCompatActivity{
                 nacimientoValor, sexoValor, paisValor, ciudadValor, "empleado", zonaValor, siNoValor, estudiosValor, deviceToken, this);
     }
 
-    public void showFieldsIntoCases(User userObject) {
+   /* USER EDITION IS NOT ALLOWED IN THIS VERSION */
+
+   /*public void showFieldsIntoCases(User userObject) {
         nombre.setText(userObject.getFirstName());
         apellido.setText(userObject.getLastName());
         usuario.setText(userObject.getUsername());
@@ -323,7 +323,7 @@ public class CreateUserActivity extends AppCompatActivity{
         }
         editar = "Si";
 
-    }
+    }*/
 
     /**
      * Method used to show error view
@@ -353,13 +353,14 @@ public class CreateUserActivity extends AppCompatActivity{
     }
 
 
-    public void finishCreateUser(String userName){
+    public void finishCreateUser(String userName) {
         Toast.makeText(this, getString(R.string.user_created), Toast.LENGTH_LONG).show();
         Intent intent = new Intent();
         intent.putExtra("USER_NAME", userName);
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
+
 
     // ------------------------ Push Notifications -------------------------- //
     private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Wrapper> {
@@ -372,8 +373,7 @@ public class CreateUserActivity extends AppCompatActivity{
                 // Log it for debugging purposes
                 Log.d("MyApp", "Pushy device token: " + deviceToken);
 
-            }
-            catch (Exception exc) {
+            } catch (Exception exc) {
                 // Return exc to onPostExecute
                 wrapper.deviceToken = null;
                 wrapper.exception = exc;
@@ -393,7 +393,7 @@ public class CreateUserActivity extends AppCompatActivity{
                 Log.e("Notifications error: ", wrapper.toString());
                 showError();
                 return;
-            }else{
+            } else {
                 sendUserData(wrapper.deviceToken);
             }
         }

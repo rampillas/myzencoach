@@ -32,7 +32,7 @@ public class GetCoachResponseUseCase extends UseCase {
 
                 List<StressCoachResponse> stressCoachResponses = new ArrayList<>();
 
-                for(int i = 0; i < stressCoachResponsePojo.getCount(); i++){
+                for (int i = 0; i < stressCoachResponsePojo.getCount(); i++) {
                     stressCoachResponses.add(stressCoachResponsePojo.getResults().get(i));
                 }
                 return stressCoachResponses;

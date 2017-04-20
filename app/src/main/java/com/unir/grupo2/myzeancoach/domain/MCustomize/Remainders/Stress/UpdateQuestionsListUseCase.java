@@ -14,7 +14,7 @@ public class UpdateQuestionsListUseCase extends UseCase {
     String token;
     String url;
 
-    public UpdateQuestionsListUseCase(String url,String token) {
+    public UpdateQuestionsListUseCase(String url, String token) {
         this.url = url;
         this.token = token;
     }

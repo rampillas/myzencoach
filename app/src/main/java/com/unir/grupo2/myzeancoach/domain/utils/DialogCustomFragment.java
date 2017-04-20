@@ -20,9 +20,12 @@ import butterknife.OnClick;
  */
 
 public class DialogCustomFragment extends android.support.v4.app.DialogFragment {
-    @BindView(R.id.ok_button) Button okButton;
-    @BindView(R.id.title_textView) TextView titleTextView;
-    @BindView(R.id.description_textView) TextView descriptionTextView;
+    @BindView(R.id.ok_button)
+    Button okButton;
+    @BindView(R.id.title_textView)
+    TextView titleTextView;
+    @BindView(R.id.description_textView)
+    TextView descriptionTextView;
 
     private String description;
     private String title;
@@ -64,10 +67,10 @@ public class DialogCustomFragment extends android.support.v4.app.DialogFragment 
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            if (title != null && !title.equals("")){
+            if (title != null && !title.equals("")) {
                 titleTextView.setText(title);
             }
-            if (description != null && !description.equals("")){
+            if (description != null && !description.equals("")) {
                 descriptionTextView.setText(description);
             }
         }

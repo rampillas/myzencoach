@@ -68,7 +68,7 @@ public class StressItemViewHolder extends RecyclerView.ViewHolder {
 
     @Optional
     @OnClick(R.id.buttonFinal)
-    public void finalButtonPressed(){
+    public void finalButtonPressed() {
         listener.OnFinalButtonSelected();
     }
 
@@ -107,7 +107,7 @@ public class StressItemViewHolder extends RecyclerView.ViewHolder {
             answer3_radio.setTextColor(getColor(questionsStress.getElementos().get(2).getColor()));
             answer4_radio.setText(questionsStress.getElementos().get(3).getDescription());
             answer4_radio.setTextColor(getColor(questionsStress.getElementos().get(3).getColor()));
-        }else {
+        } else {
             normalCard.setVisibility(View.GONE);
             lastCard.setVisibility(View.VISIBLE);
         }

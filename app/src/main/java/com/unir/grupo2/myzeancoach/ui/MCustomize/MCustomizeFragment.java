@@ -20,8 +20,7 @@ public class MCustomizeFragment extends Fragment {
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
-    public static int int_items = 2 ;
-
+    public static int int_items = 2;
     private int positionViewPager = -1;
 
     @Nullable
@@ -30,7 +29,7 @@ public class MCustomizeFragment extends Fragment {
         /**
          *Inflate tab_layout and setup Views.
          */
-        View x =  inflater.inflate(R.layout.tab_layout,null);
+        View x = inflater.inflate(R.layout.tab_layout, null);
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
 
@@ -56,12 +55,10 @@ public class MCustomizeFragment extends Fragment {
             }
         });
 
-        if (positionViewPager != -1){
+        if (positionViewPager != -1) {
             viewPager.setCurrentItem(positionViewPager);
         }
-
         return x;
-
     }
 
     class MyAdapter extends FragmentPagerAdapter {
@@ -74,11 +71,12 @@ public class MCustomizeFragment extends Fragment {
          * Return fragment with respect to Position .
          */
         @Override
-        public Fragment getItem(int position)
-        {
-            switch (position){
-                case 0 : return new RemaindersFragment();
-                case 1 : return new StressFragment();
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new RemaindersFragment();
+                case 1:
+                    return new StressFragment();
             }
             return null;
         }
@@ -97,10 +95,10 @@ public class MCustomizeFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            switch (position){
-                case 0 :
+            switch (position) {
+                case 0:
                     return getString(R.string.reminders);
-                case 1 :
+                case 1:
                     return getString(R.string.stress_detection);
             }
             return null;

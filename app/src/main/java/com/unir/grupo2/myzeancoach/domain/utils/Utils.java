@@ -21,7 +21,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class Utils {
 
-    public static void saveUserInPreference(Context context, String token, String username){
+    public static void saveUserInPreference(Context context, String token, String username) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -30,21 +30,21 @@ public class Utils {
         editor.commit();
     }
 
-    public static String getUserFromPreference(Context context){
+    public static String getUserFromPreference(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        return sharedPref.getString(context.getString(R.string.PREFERENCES_USER),null);
+        return sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null);
     }
 
-    public static String getTokenFromPreference(Context context){
+    public static String getTokenFromPreference(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        return sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN),null);
+        return sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN), null);
     }
 
-    public static void saveLanguagePreference(String language, Context context){
+    public static void saveLanguagePreference(String language, Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
@@ -53,19 +53,19 @@ public class Utils {
         editor.commit();
     }
 
-    public static String getLanguageFromPreference(Context context){
+    public static String getLanguageFromPreference(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        return sharedPref.getString(context.getString(R.string.PREFERENCES_LANGUAGE),null);
+        return sharedPref.getString(context.getString(R.string.PREFERENCES_LANGUAGE), null);
     }
 
-    public static String dateFormat(String dateString){
-        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    public static String dateFormat(String dateString) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         SimpleDateFormat output = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         try {
-            Date date = sdf .parse(dateString);
+            Date date = sdf.parse(dateString);
             dateString = output.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -73,8 +73,8 @@ public class Utils {
         return dateString;
     }
 
-    public static String dateNowForBackend(){
-        SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd");
+    public static String dateNowForBackend() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date dateNow = new Date();
         return sdf.format(dateNow);
     }
@@ -87,13 +87,13 @@ public class Utils {
         }
     }
 
-    public static String covertUserNameBackend(String userName){
+    public static String covertUserNameBackend(String userName) {
         String[] parts = userName.trim().split("users/");
         return parts[1].substring(0, parts[1].length() - 1);
     }
 
-    public static String getCategoryEvent(Context context, String category){
-        switch (category){
+    public static String getCategoryEvent(Context context, String category) {
+        switch (category) {
             case "viajes":
                 return context.getString(R.string.array_category_trip);
             case "tecnologia":

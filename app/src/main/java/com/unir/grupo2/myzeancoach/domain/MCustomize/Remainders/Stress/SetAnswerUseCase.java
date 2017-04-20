@@ -25,6 +25,6 @@ public class SetAnswerUseCase extends UseCase {
     @Override
     protected Observable buildUseCaseObservable() {
         StressRepository repo = StressDataRepository.getInstance();
-        return repo.setAnswers(username, body,token);
+        return repo.setAnswers(username, body, token);
     }
 }

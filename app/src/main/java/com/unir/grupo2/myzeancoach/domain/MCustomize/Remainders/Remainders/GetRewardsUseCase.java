@@ -3,7 +3,6 @@ package com.unir.grupo2.myzeancoach.domain.MCustomize.Remainders.Remainders;
 import com.unir.grupo2.myzeancoach.data.MCustomize.RemaindersDataRepository;
 import com.unir.grupo2.myzeancoach.data.MCustomize.RemaindersRepository;
 import com.unir.grupo2.myzeancoach.domain.UseCase;
-import com.unir.grupo2.myzeancoach.domain.model.ResultsItem;
 import com.unir.grupo2.myzeancoach.domain.model.RewardsItem;
 import com.unir.grupo2.myzeancoach.domain.model.RewardsListPojo;
 
@@ -33,7 +32,7 @@ public class GetRewardsUseCase extends UseCase {
 
                 List<RewardsItem> rewardsItemList = new ArrayList<RewardsItem>();
 
-                for(int i = 0; i < rewardsListPojo.getCount(); i++){
+                for (int i = 0; i < rewardsListPojo.getCount(); i++) {
                     rewardsItemList.add(rewardsListPojo.getResults().get(i));
                 }
                 return rewardsItemList;

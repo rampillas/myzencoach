@@ -23,6 +23,6 @@ public class UpdateListUseCase extends UseCase {
     @Override
     protected Observable buildUseCaseObservable() {
         RemaindersRepository repo = RemaindersDataRepository.getInstance();
-        return repo.allRemainders(url,token);
+        return repo.allRemainders(url, token);
     }
 }
