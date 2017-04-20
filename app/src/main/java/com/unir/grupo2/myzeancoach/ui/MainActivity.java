@@ -18,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Toast.makeText(this, "onCreate", Toast.LENGTH_SHORT).show();
         setLanguage();
 
         Pushy.listen(this);
@@ -176,6 +177,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     @Override
     protected void onResume(){
         super.onResume();
+        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
     }
 
     private void setLanguage(){
