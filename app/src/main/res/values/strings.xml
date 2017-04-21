@@ -57,6 +57,9 @@
     <string name="title_activity_add_remainder">AddRemainderActivity</string>
     <string name="REMAINDERS_NO_REMAINDER">We\'re sorry, new reminders aren\'t available yet</string>
     <string name="REMAINDERS_ADD_COMENT">Add Observations</string>
+    <string name="title_activity_add_observations">AddObservations</string>
+    <string name="remainders_add_observations">Add observations</string>
+    <string name="REMAINDERS_OBSERVATIONS">Observations</string>
 
     <!---MODULE 2 : Essential information -->
     <string name="score_info">%1$d Mark</string>
@@ -242,9 +245,7 @@
     <string name="PREFERENCES_CURRENT_PLAN_WELFARE">current_plan_welfare(no traducir)</string>
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
     <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
-    <string name="title_activity_add_observations">AddObservations</string>
-    <string name="remainders_add_observations">Add observations</string>
-    <string name="REMAINDERS_OBSERVATIONS">Observations</string>
+
 
 
 </resources>

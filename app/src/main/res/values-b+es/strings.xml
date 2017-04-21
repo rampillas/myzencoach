@@ -57,6 +57,9 @@
     <string name="title_activity_add_remainder">AddRemainderActivity</string>
     <string name="REMAINDERS_NO_REMAINDER">Lo sentimos, aún no hay recordatorios para mostrar</string>
     <string name="REMAINDERS_ADD_COMENT">Añadir Observaciones</string>
+    <string name="title_activity_add_observations">AñadirObservaciones</string>
+    <string name="remainders_add_observations">Añadir Observaciones</string>
+    <string name="REMAINDERS_OBSERVATIONS">Observaciones</string>
 
 
     <!---MODULE 2 : Essential information -->

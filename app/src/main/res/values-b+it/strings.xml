@@ -57,6 +57,9 @@
     <string name="title_activity_add_remainder">AddRemainderActivity</string>
     <string name="REMAINDERS_NO_REMAINDER">Ci dispiace, non sono ancora disponibili nuovi promemoria</string>
     <string name="REMAINDERS_ADD_COMENT">Aggiungere commenti</string>
+    <string name="title_activity_add_observations">AñadirObservaciones</string>
+    <string name="remainders_add_observations">Aggiungere commenti</string>
+    <string name="REMAINDERS_OBSERVATIONS">Commenti</string>
 
 
     <!---MODULE 2 : Essential information -->
