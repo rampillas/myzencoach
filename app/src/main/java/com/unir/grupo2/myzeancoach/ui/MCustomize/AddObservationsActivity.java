@@ -131,6 +131,8 @@ public class AddObservationsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         remainderTitle= intent.getStringExtra("REMAINDERTITLE");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         showContent();
 
     }

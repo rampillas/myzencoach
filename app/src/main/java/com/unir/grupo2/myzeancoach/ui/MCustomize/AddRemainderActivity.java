@@ -3,10 +3,8 @@ package com.unir.grupo2.myzeancoach.ui.MCustomize;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -188,7 +186,7 @@ public class AddRemainderActivity extends AppCompatActivity {
         errorLayout.setVisibility(View.GONE);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Nullable
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -196,6 +194,10 @@ public class AddRemainderActivity extends AppCompatActivity {
         setContentView(R.layout.remainders_add_layout);
         ButterKnife.bind(this);
         showContent();
+       // Toolbar t = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(t);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
     }
 

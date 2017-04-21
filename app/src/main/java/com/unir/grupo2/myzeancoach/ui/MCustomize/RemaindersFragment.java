@@ -1,6 +1,7 @@
 package com.unir.grupo2.myzeancoach.ui.MCustomize;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -86,7 +87,9 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
 
     @OnClick(R.id.floatingActionButton)
     public void openNewRemainder() {
-        postListener.onAddRemainderSelected();
+        Intent intent = new Intent(getActivity(), AddRemainderActivity.class);
+        startActivity(intent);
+        //postListener.onAddRemainderSelected();
     }
 
     public interface OnPostListener {
