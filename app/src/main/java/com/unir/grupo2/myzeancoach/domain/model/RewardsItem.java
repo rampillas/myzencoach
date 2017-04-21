@@ -6,25 +6,25 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class RewardsItem{
+public class RewardsItem {
 
-	@SerializedName("points")
-	@Expose
-	private int points;
+    @SerializedName("points")
+    @Expose
+    private int points;
 
-	public void setPoints(int points){
-		this.points = points;
-	}
+    public void setPoints(int points) {
+        this.points = points;
+    }
 
-	public int getPoints(){
-		return points;
-	}
+    public int getPoints() {
+        return points;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"RewardsItem{" + 
-			"points = '" + points + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return
+                "RewardsItem{" +
+                        "points = '" + points + '\'' +
+                        "}";
+    }
 }

@@ -6,15 +6,15 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeNoActionBar"
-        android:name="MyApplication">
+        android:theme="@style/AppThemeNoActionBar">
         <activity
             android:name=".ui.LoginAndUserData.LoginActivity"
             android:screenOrientation="portrait"
@@ -28,61 +28,65 @@
         <activity
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.MEssentialInfo.TestActivity"
-            android:theme="@style/AppThemeActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.MEssentialInfo.VideoYoutubeActivity"
-            android:theme="@style/AppThemeActionBar"
-        android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.MLeisure.AddPostActivity"
-            android:theme="@style/AppThemeActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.MLeisure.CommentActivity"
-            android:theme="@style/AppThemeActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.MCooperativeSol.DilemmaCommentActivity"
-            android:theme="@style/AppThemeActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.MCooperativeSol.AmendDilemmaActivity"
-            android:theme="@style/AppThemeActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.MCooperativeSol.AddDilemmaActivity"
-            android:theme="@style/AppThemeActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.MCooperativeSol.AddCommentActivity"
-            android:theme="@style/AppThemeActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.LoginAndUserData.CreateUserActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".ui.LoginAndUserData.RecoveryPasswordActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name=".ui.MWelfare.MainExerciseActivity"
-            android:theme="@style/AppThemeActionBar"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.LoginAndUserData.RecoveryPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MWelfare.MainExerciseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar" />
+        <activity
             android:name=".ui.MCustomize.AddRemainderActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MCustomize.AddStressQuestionActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <!-- Pushy Declarations -->
+
 
         <!-- Pushy Notification Receiver -->
         <!-- Incoming push notifications will invoke the following BroadcastReceiver -->
-        <receiver android:name=".ui.PushReceiver" android:exported="false">
+        <receiver
+            android:name=".ui.PushReceiver"
+            android:exported="false">
             <intent-filter>
+
                 <!-- Do not modify this -->
                 <action android:name="pushy.me" />
             </intent-filter>
@@ -90,29 +94,39 @@
 
         <!-- Pushy Update Receiver -->
         <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
-        <receiver android:name="me.pushy.sdk.receivers.PushyUpdateReceiver" android:exported="false">
+        <receiver
+            android:name="me.pushy.sdk.receivers.PushyUpdateReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
 
         <!-- Pushy Boot Receiver -->
         <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
-        <receiver android:name="me.pushy.sdk.receivers.PushyBootReceiver" android:exported="false">
+        <receiver
+            android:name="me.pushy.sdk.receivers.PushyBootReceiver"
+            android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <!-- Pushy Socket Service -->
         <!-- Do not modify - internal socket service -->
-        <service android:name="me.pushy.sdk.services.PushySocketService"/>
+        <service android:name="me.pushy.sdk.services.PushySocketService" />
 
         <!-- End Pushy Declarations -->
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="f8f5d4ebe8121c78cf7f90f6605303e431ee5174" />
+
+        <activity
+            android:name=".ui.MCustomize.AddObservationsActivity"
+            android:label="@string/title_activity_add_observations"
+            android:theme="@style/AppThemeNoActionBar"></activity>
     </application>
 
 </manifest>

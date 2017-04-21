@@ -1,5 +1,6 @@
 package com.unir.grupo2.myzeancoach.ui.MCustomize.remaindersList;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,9 @@ public class RemaindersItemViewHolder extends RecyclerView.ViewHolder {
     TextView remainderObservations;
     @BindView(R.id.complete_button)
     Button remainderComplete;
+    @Nullable
+    @BindView(R.id.addComent)
+    Button addComent;
     RemaindersListAdapter.OnItemClickListener listener = null;
     RemainderItemObject remainderItem = null;
 
@@ -45,8 +49,16 @@ public class RemaindersItemViewHolder extends RecyclerView.ViewHolder {
         } else {
             remainderComplete.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.checked_no, 0, 0, 0);
         }
+        if (remainderItemObject.isObservationsEnabled) {
+            addComent.setVisibility(View.VISIBLE);
+        }
 
 
+    }
+
+    @OnClick(R.id.addComent)
+    public void addObservations() {
+        listener.onAddObservations(remainderItem);
     }
 
     @OnClick(R.id.complete_button)

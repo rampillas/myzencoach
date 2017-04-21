@@ -8,64 +8,64 @@ import java.util.List;
 import javax.annotation.Generated;
 
 @Generated("com.robohorse.robopojogenerator")
-public class RewardsListPojo{
+public class RewardsListPojo {
 
-	@SerializedName("next")
-	@Expose
-	private Object next;
+    @SerializedName("next")
+    @Expose
+    private Object next;
 
-	@SerializedName("previous")
-	@Expose
-	private Object previous;
+    @SerializedName("previous")
+    @Expose
+    private Object previous;
 
-	@SerializedName("count")
-	@Expose
-	private int count;
+    @SerializedName("count")
+    @Expose
+    private int count;
 
-	@SerializedName("results")
-	@Expose
-	private List<RewardsItem> results;
+    @SerializedName("results")
+    @Expose
+    private List<RewardsItem> results;
 
-	public void setNext(Object next){
-		this.next = next;
-	}
+    public void setNext(Object next) {
+        this.next = next;
+    }
 
-	public Object getNext(){
-		return next;
-	}
+    public Object getNext() {
+        return next;
+    }
 
-	public void setPrevious(Object previous){
-		this.previous = previous;
-	}
+    public void setPrevious(Object previous) {
+        this.previous = previous;
+    }
 
-	public Object getPrevious(){
-		return previous;
-	}
+    public Object getPrevious() {
+        return previous;
+    }
 
-	public void setCount(int count){
-		this.count = count;
-	}
+    public void setCount(int count) {
+        this.count = count;
+    }
 
-	public int getCount(){
-		return count;
-	}
+    public int getCount() {
+        return count;
+    }
 
-	public void setResults(List<RewardsItem> results){
-		this.results = results;
-	}
+    public void setResults(List<RewardsItem> results) {
+        this.results = results;
+    }
 
-	public List<RewardsItem> getResults(){
-		return results;
-	}
+    public List<RewardsItem> getResults() {
+        return results;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"RewardsListPojo{" + 
-			"next = '" + next + '\'' + 
-			",previous = '" + previous + '\'' + 
-			",count = '" + count + '\'' + 
-			",results = '" + results + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return
+                "RewardsListPojo{" +
+                        "next = '" + next + '\'' +
+                        ",previous = '" + previous + '\'' +
+                        ",count = '" + count + '\'' +
+                        ",results = '" + results + '\'' +
+                        "}";
+    }
 }

@@ -25,6 +25,8 @@ public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemVi
         public void onCompleteClick(RemainderItemObject remainderItem);
 
         public void onAddClick(RemainderItemObject remainderItem);
+
+        public void onAddObservations(RemainderItemObject remainderItem);
     }
 
     private final OnItemClickListener listener;

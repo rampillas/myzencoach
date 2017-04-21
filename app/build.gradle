@@ -60,12 +60,26 @@ dependencies {
 
     //email
 
+    //pushy
+    // Pushy SDK Dependency -Jackson
+    compile(
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.2.3'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.2.3'],
+            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.2.3']
+    )
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
+        transitive = true;
+    }
+    compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.6@aar') {
+        transitive = true;
+    }
+
+
     compile 'com.github.mukeshsolanki:country-picker-android:1.1.7'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
-
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'io.reactivex:rxjava:1.1.6'
@@ -82,29 +96,12 @@ dependencies {
     compile 'com.danialgoodwin.android:email-input-view:1.0'
     compile 'com.shootr:user-validator:1.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.google.android.exoplayer:exoplayer:r1.5.3'
+    compile 'me.pushy:sdk:1.0.25'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     provided 'javax.annotation:jsr250-api:1.0'
-
-    compile 'com.google.android.exoplayer:exoplayer:r1.5.3'
-
-    //pushy
-    compile 'me.pushy:sdk:1.0.25'
-    // Pushy SDK Dependency - Jackson
-    compile (
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.2.3'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.2.3'],
-            [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.2.3']
-    )
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
-        transitive = true;
-    }
-    compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.6@aar') {
-        transitive = true;
-    }
-
-
 }
 
 crashlytics {

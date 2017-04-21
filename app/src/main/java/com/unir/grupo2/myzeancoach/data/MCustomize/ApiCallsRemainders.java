@@ -45,7 +45,7 @@ public interface ApiCallsRemainders {
                                   @Body RequestBody body);
 
     @Headers("Content-Type: application/json")
-    @POST(BASE_URL_CUSTOMIZE_REMAINDERS+"{username}/addObservation/{username}/")
+    @POST(BASE_URL_CUSTOMIZE_REMAINDERS+"{username}/addObservation/")
     Observable<Void> addObservations(@Path("username") String user,
                                      @Header("Authorization") String token,
                                      @Body RequestBody body);

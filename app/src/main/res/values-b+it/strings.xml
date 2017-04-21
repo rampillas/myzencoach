@@ -56,6 +56,8 @@
     <string name="SAVE">Salvare</string>
     <string name="title_activity_add_remainder">AddRemainderActivity</string>
     <string name="REMAINDERS_NO_REMAINDER">Ci dispiace, non sono ancora disponibili nuovi promemoria</string>
+    <string name="REMAINDERS_ADD_COMENT">Aggiungere commenti</string>
+
 
     <!---MODULE 2 : Essential information -->
     <string name="score_info">%1$d punti</string>

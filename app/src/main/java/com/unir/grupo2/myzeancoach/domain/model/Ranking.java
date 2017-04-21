@@ -7,7 +7,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Ranking implements Parcelable{
+public class Ranking implements Parcelable {
 
     @SerializedName("username")
     @Expose

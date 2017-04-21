@@ -96,6 +96,8 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
 
         void onCompletedRemainderSelected(RemainderItemObject remainderItem);
 
+        void onAddObservations(RemainderItemObject remainderItem);
+
     }
 
     @Override
@@ -247,7 +249,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
                 if (!remainderItemsList.isEmpty()) {
                     remainders = new ArrayList<RemainderItemObject>();
                     for (RemainderItem item : remainderItemsList) {
-                        RemainderItemObject rio = new RemainderItemObject(item.getTitle(), item.getDescription(), item.isFinished(), Utils.getUserFromPreference(getContext()));
+                        RemainderItemObject rio = new RemainderItemObject(item.getTitle(), item.getDescription(), item.isFinished(), Utils.getUserFromPreference(getContext()),item.isObservationsEnabled());
                         remainders.add(rio);
                     }
                     remaindersListAdapter = new RemaindersListAdapter(getContext(), remainders, this);
@@ -261,7 +263,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
             } else {
                 for (RemainderItem item : listNoFinished) {
                     remainderItemsList.add(item);
-                    RemainderItemObject rio = new RemainderItemObject(item.getTitle(), item.getDescription(), item.isFinished(), Utils.getUserFromPreference(getContext()));
+                    RemainderItemObject rio = new RemainderItemObject(item.getTitle(), item.getDescription(), item.isFinished(), Utils.getUserFromPreference(getContext()), item.isObservationsEnabled());
                     remainders.add(rio);
                 }
                 remaindersListAdapter.notifyDataSetChanged();
@@ -403,5 +405,10 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     @Override
     public void onAddClick(RemainderItemObject remainderItem) {
         postListener.onAddRemainderSelected();
+    }
+
+    @Override
+    public void onAddObservations(RemainderItemObject remainderItem) {
+        postListener.onAddObservations(remainderItem);
     }
 }
