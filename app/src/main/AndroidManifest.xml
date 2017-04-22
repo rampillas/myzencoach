@@ -21,7 +21,6 @@
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -73,10 +72,14 @@
             android:theme="@style/AppThemeActionBar" />
         <activity
             android:name=".ui.MCustomize.AddRemainderActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar"
+            android:parentActivityName="com.unir.grupo2.myzeancoach.ui.MainActivity"/>
         <activity
             android:name=".ui.MCustomize.AddStressQuestionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeActionBar"
+            android:parentActivityName="com.unir.grupo2.myzeancoach.ui.MainActivity"/>
         <!-- Pushy Declarations -->
 
 
@@ -126,7 +129,8 @@
         <activity
             android:name=".ui.MCustomize.AddObservationsActivity"
             android:label="@string/title_activity_add_observations"
-            android:theme="@style/AppThemeNoActionBar"></activity>
+            android:theme="@style/AppThemeActionBar"
+            android:parentActivityName="com.unir.grupo2.myzeancoach.ui.MainActivity"></activity>
     </application>
 
 </manifest>

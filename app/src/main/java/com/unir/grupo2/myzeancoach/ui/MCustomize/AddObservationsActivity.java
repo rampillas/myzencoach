@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -133,6 +134,9 @@ public class AddObservationsActivity extends AppCompatActivity {
         remainderTitle= intent.getStringExtra("REMAINDERTITLE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        ActionBar toolbar =  getSupportActionBar();
+        //setSupportActionBar(toolbar);
+        toolbar.setDisplayHomeAsUpEnabled(true);
         showContent();
 
     }
