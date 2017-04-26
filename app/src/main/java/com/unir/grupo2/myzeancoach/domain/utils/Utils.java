@@ -7,11 +7,16 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.unir.grupo2.myzeancoach.Foreground;
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.Tracking.ConnectionUseCase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -112,6 +117,29 @@ public class Utils {
                 throw new IllegalArgumentException("Invalid category");
         }
 
+    }
+
+    public static void launchConnectionUseCase(Context context) {
+
+        String userName = Utils.getUserFromPreference(context);
+        String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(context);
+
+        String text = "{\n" +
+                "\"user\": \"" + userName + "\"\n" +
+                "}";
+
+        RequestBody body =
+                RequestBody.create(MediaType.parse("text/plain"), text);
+
+        new ConnectionUseCase(token, body).execute(new ConnectSubscriber());
+    }
+
+    public static boolean isNewConnection(){
+        if (Foreground.get().isForeground()){
+            return false;
+        }else {
+            return true;
+        }
     }
 
 }

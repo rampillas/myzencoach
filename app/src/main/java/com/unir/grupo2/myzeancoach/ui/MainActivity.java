@@ -21,12 +21,9 @@ import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.unir.grupo2.myzeancoach.Foreground;
 import com.unir.grupo2.myzeancoach.R;
-import com.unir.grupo2.myzeancoach.domain.Tracking.ConnectionUseCase;
 import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 import com.unir.grupo2.myzeancoach.domain.model.PlanWelfare;
-import com.unir.grupo2.myzeancoach.domain.utils.ConnectSubscriber;
 import com.unir.grupo2.myzeancoach.domain.utils.Constants;
 import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
@@ -55,8 +52,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.pushy.sdk.Pushy;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
+import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity implements VideosFragment.UpdateDataEsentialInfoListener,
         InterestsFragment.UpdateEventsListener, HomepageFragment.UpdateDilemmaListener, RemaindersFragment.OnPostListener,
@@ -189,12 +185,12 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     protected void onStart(){
         super.onStart();
         if (isNewConnection()){
-            launchConnectionUseCase();
+            Utils.launchConnectionUseCase(this);
         }
     }
 
     private boolean isNewConnection(){
-        if (Foreground.get().isForeground() && !fromLogin){
+        if (Utils.isNewConnection() && !fromLogin){
             return false;
         }else {
             if (fromLogin){
@@ -204,20 +200,6 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         }
     }
 
-    private void launchConnectionUseCase() {
-
-        String userName = Utils.getUserFromPreference(this);
-        String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(this);
-
-        String text = "{\n" +
-                "\"user\": \"" + userName + "\"\n" +
-                "}";
-
-        RequestBody body =
-                RequestBody.create(MediaType.parse("text/plain"), text);
-
-        new ConnectionUseCase(token, body).execute(new ConnectSubscriber());
-    }
 
     private void setLanguage(){
 
@@ -256,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         startActivity(intent);
     }
 
-    /*****Module Essential Info**/
+    /**Module Essential Info*/
     @Override
     public void updateDataEsentialInfo(int positionViewPager) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
@@ -268,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     }
 
 
-    /*****Module Leisure******/
+    /**Module Leisure***/
     @Override
     public void updateEvents(int positionViewPager) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
@@ -279,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         xfragmentTransaction.replace(R.id.container_view, fragment).commit();
     }
 
-    /******Module Welfare*********/
+    /***Module Welfare****/
     private void launchMainExerciseActivity(ExerciseWelfare exerciseWelfare) {
         Intent intent = new Intent(this, MainExerciseActivity.class);
         intent.putExtra("EXERCISE", exerciseWelfare);
@@ -306,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         launchCurrentPlanFragment(plan);
     }
 
-    /*******Module cooperative solutions **********/
+    /****Module cooperative solutions *****/
     @Override
     public void updateDilemma(int position) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
@@ -317,11 +299,11 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         xfragmentTransaction.replace(R.id.container_view, fragment).commit();
     }
 
-    /*******All modules ********/
+    /****All modules ***/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /******Module Welfare*****/
+        /***Module Welfare**/
         if (requestCode == PLAN_EXERCISE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
@@ -341,7 +323,7 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
         }
     }
 
-    /*****Module Customize Fragment******/
+    /**Module Customize Fragment***/
     @Override
     public void onItemRemainderSelected(RemainderItemObject remainderItem) {
         FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
@@ -383,6 +365,26 @@ public class MainActivity extends AppCompatActivity implements VideosFragment.Up
     public void onSendItemSelected(String answer, StressQuestionObject stressQuestionObject) {
         //FragmentTransaction xfragmentTransaction = fragmentManager.beginTransaction();
         //xfragmentTransaction.replace(R.id.container_view, new MCustomize()).commit();
+    }
+
+    private final class StartAppSubscriber extends Subscriber<Void> {
+        //3 callbacks
+
+        //Show the listView
+        @Override
+        public void onCompleted() {
+
+        }
+
+        //Show the error
+        @Override
+        public void onError(Throwable e) {
+        }
+
+        //Update listview datas
+        @Override
+        public void onNext(Void aVoid) {
+        }
     }
 
 }

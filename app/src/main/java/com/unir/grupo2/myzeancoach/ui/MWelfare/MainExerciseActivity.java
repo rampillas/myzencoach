@@ -13,6 +13,8 @@ import com.unir.grupo2.myzeancoach.domain.model.ExerciseWelfare;
 
 import butterknife.ButterKnife;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Utils.isNewConnection;
+
 /**
  * Created by Cesar on 19/03/2017.
  */
@@ -47,6 +49,14 @@ public class MainExerciseActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if (isNewConnection()){
+            Utils.launchConnectionUseCase(this);
+        }
     }
 
     @Override

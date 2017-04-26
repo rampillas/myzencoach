@@ -39,6 +39,8 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Utils.isNewConnection;
+
 
 public class AddPostActivity extends AppCompatActivity {
 
@@ -80,6 +82,14 @@ public class AddPostActivity extends AppCompatActivity {
             rb[i].setText(Utils.getCategoryEvent(this, categories[i]));
             rb[i].setId(i);
             categoryRadioGroup.addView(rb[i]);
+        }
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if (isNewConnection()){
+            Utils.launchConnectionUseCase(this);
         }
     }
 

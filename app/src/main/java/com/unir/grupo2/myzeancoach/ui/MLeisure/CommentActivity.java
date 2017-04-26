@@ -30,6 +30,8 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Utils.isNewConnection;
+
 /**
  * Created by Cesar on 13/03/2017.
  */
@@ -103,6 +105,14 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if (isNewConnection()){
+            Utils.launchConnectionUseCase(this);
+        }
     }
 
     @Override

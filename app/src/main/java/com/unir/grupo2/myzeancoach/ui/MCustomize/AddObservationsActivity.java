@@ -28,6 +28,8 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Utils.isNewConnection;
+
 public class AddObservationsActivity extends AppCompatActivity {
     @Nullable
     @BindView(R.id.remainderTitle)
@@ -141,4 +143,11 @@ public class AddObservationsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if (isNewConnection()){
+            Utils.launchConnectionUseCase(this);
+        }
+    }
 }

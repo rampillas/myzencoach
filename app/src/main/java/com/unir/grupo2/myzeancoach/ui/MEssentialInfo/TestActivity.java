@@ -29,6 +29,8 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
 
+import static com.unir.grupo2.myzeancoach.domain.utils.Utils.isNewConnection;
+
 public class TestActivity extends AppCompatActivity implements QuestionListAdapter.OnButtonClickListener,
         QuestionTestCompletedDialog.OnStopLister{
 
@@ -62,6 +64,14 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         recyclerView.setAdapter(questionListAdapter);
 
         showContent();
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        if (isNewConnection()){
+            Utils.launchConnectionUseCase(this);
+        }
     }
 
     @Override
