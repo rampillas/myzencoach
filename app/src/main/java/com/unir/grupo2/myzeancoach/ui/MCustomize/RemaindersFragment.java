@@ -60,13 +60,10 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     @Nullable
     @BindView(R.id.remainTaskNextLevel)
     TextView remainTaskNextLevel;
-    @Nullable
     @BindView(R.id.loading_layout)
     LinearLayout loadingLayout;
-    @Nullable
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
-    @Nullable
     @BindView(R.id.noplan)
     LinearLayout noPlan;
 
@@ -84,6 +81,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     List<RemainderItem> remainderItemsList = null;
     LinearLayoutManager layoutManager;
     RemaindersFragment.OnPostListener postListener;
+    Boolean isContentMoreThanOneItem=false;
 
     @OnClick(R.id.floatingActionButton)
     public void openNewRemainder() {
@@ -233,7 +231,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
             showNoPlan();
 
         } else {
-
+            isContentMoreThanOneItem=true;
             nextData = remainderItemList.getNext();
 
             List<RemainderItem> remainderItems = remainderItemList.getRemainderItems();
@@ -261,7 +259,9 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
                     recyclerView.setAdapter(remaindersListAdapter);
                     implementScrollListener();
                     showContent();
+                    isContentMoreThanOneItem=true;
                 } else {
+                    isContentMoreThanOneItem=false;
                     showNoPlan();
                 }
                 //No first time
@@ -334,7 +334,13 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         progressBar.setProgress(progressPoints * 10);
         String texto = remainTaskNextLevel.getText().toString();
         remainTaskNextLevel.setText(getResources().getString(R.string.REMAINDERS_LEVEL) + " " + String.valueOf(level + "\n " + (10 - progressPoints)) + " " + texto);
-        showContent();
+        if(isContentMoreThanOneItem){
+            showContent();
+        }else
+        {
+            showNoPlan();
+        }
+
     }
 
     private static void setUserPoints() {

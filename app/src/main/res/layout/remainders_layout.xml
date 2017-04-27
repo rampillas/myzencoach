@@ -105,8 +105,10 @@
                 android:layout_gravity="center" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 android:layout_marginTop="4dp"
                 android:text="@string/loading_message" />
         </LinearLayout>
@@ -132,6 +134,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 android:layout_marginTop="4dp"
                 android:text="@string/error_message"
                 android:textSize="16sp"
@@ -158,6 +162,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 android:layout_marginTop="4dp"
                 android:text="@string/REMAINDERS_NO_REMAINDER"
                 android:textSize="16sp"

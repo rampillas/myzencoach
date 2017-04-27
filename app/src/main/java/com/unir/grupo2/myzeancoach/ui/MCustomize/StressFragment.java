@@ -229,6 +229,9 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         for (int i = 0; i < stressCoachResponses.size(); i++) {
             if (stressCoachResponses.get(i).getActive() == 1)
                 mensaje = mensaje + stressCoachResponses.get(i).getDescription() + "\r\n";
+            if (mensaje.equalsIgnoreCase("")) {
+                mensaje = getString(R.string.STRESS_NORESPONSE);
+            }
         }
         new AlertDialog.Builder(getContext())
                 .setTitle("Coach response")
@@ -249,6 +252,9 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         for (int i = 0; i < stressQuestionActive.getElementos().size(); i++) {
             if (stressQuestionActive.getElementos().get(i).getDescription().equalsIgnoreCase(personal_question_answer))
                 mensage = stressQuestionActive.getElementos().get(i).getPopupMessage();
+            if (mensage.equalsIgnoreCase("")) {
+                mensage = getString(R.string.STRESS_NORESPONSE);
+            }
         }
 
         new AlertDialog.Builder(getContext())

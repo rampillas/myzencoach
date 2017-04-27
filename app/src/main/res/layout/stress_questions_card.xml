@@ -24,7 +24,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@color/colorAccent"
-            android:text="@string/send"
+            android:text="@string/STRESS_GETCOACHRESPONSE"
             android:textColor="@color/white" />
 
     </LinearLayout>

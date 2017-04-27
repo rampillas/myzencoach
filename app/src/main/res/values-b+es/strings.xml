@@ -60,6 +60,10 @@
     <string name="title_activity_add_observations">AñadirObservaciones</string>
     <string name="remainders_add_observations">Añadir Observaciones</string>
     <string name="REMAINDERS_OBSERVATIONS">Observaciones</string>
+    <string name="STRESS_GETCOACHRESPONSE">Obtener respuesta del coach</string>
+    <string name="STRESS_NORESPONSE">El coach no ha definido respuesta aún</string>
+
+
 
 
     <!---MODULE 2 : Essential information -->
