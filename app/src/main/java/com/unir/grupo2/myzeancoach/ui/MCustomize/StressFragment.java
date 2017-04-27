@@ -298,7 +298,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
                         StressQuestion stressQuestionItem = listNoFinished.get(i);
                         StressQuestionObject stressQuestionObject = new StressQuestionObject(stressQuestionItem.getDescription(), stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
                         stressQuestionObjectList.add(stressQuestionObject);
-                        if (i == this.stressQuestions.size() - 1) {
+                        if (i == listNoFinished.size() - 1) {
                             StressQuestionObject lastStressQuestionObject = new StressQuestionObject("ENDELEMENT", stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
                             stressQuestionObjectList.add(lastStressQuestionObject);
                         }
@@ -375,6 +375,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         content.setVisibility(View.GONE);
         loadingLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.VISIBLE);
+
     }
 
     /**
