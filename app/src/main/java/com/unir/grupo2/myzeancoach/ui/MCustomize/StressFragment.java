@@ -267,8 +267,6 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
     private void updateList(StressQuestionsListPojo stressQuestionsListPojo) {
         Log.d("updateList", "updateList1");
         this.stressQuestionsListPojo = stressQuestionsListPojo;
-
-
         // use a linear layout manager
 
         if (stressQuestionsListPojo == null || stressQuestionsListPojo.getCount() <= 0) {
@@ -368,7 +366,6 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
 
                 });
     }
-
 
     /**
      * Method used to show error view
