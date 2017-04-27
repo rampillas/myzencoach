@@ -272,7 +272,9 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         // use a linear layout manager
 
         if (stressQuestionsListPojo == null || stressQuestionsListPojo.getCount() <= 0) {
+
             showNoPlan();
+
         } else {
 
             nextData = stressQuestionsListPojo.getNext();

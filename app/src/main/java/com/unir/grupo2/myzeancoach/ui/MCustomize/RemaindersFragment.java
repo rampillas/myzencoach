@@ -229,7 +229,9 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         // use a linear layout manager
 
         if (remainderItemList == null || remainderItemList.getCount() <= 0) {
+
             showNoPlan();
+
         } else {
 
             nextData = remainderItemList.getNext();
@@ -252,7 +254,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
                 if (!remainderItemsList.isEmpty()) {
                     remainders = new ArrayList<RemainderItemObject>();
                     for (RemainderItem item : remainderItemsList) {
-                        RemainderItemObject rio = new RemainderItemObject(item.getTitle(), item.getDescription(), item.isFinished(), Utils.getUserFromPreference(getContext()),item.isObservationsEnabled());
+                        RemainderItemObject rio = new RemainderItemObject(item.getTitle(), item.getDescription(), item.isFinished(), Utils.getUserFromPreference(getContext()), item.isObservationsEnabled());
                         remainders.add(rio);
                     }
                     remaindersListAdapter = new RemaindersListAdapter(getContext(), remainders, this);
