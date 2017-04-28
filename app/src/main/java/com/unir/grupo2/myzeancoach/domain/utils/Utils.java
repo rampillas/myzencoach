@@ -33,6 +33,9 @@ public class Utils {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(context.getString(R.string.PREFERENCES_TOKEN), encrypt(token));
         editor.putString(context.getString(R.string.PREFERENCES_USER), encrypt(username));
+        long time = System.currentTimeMillis();
+        long expiration_time = time + 604800000;
+        editor.putString(context.getString(R.string.PREFERENCES_EXPIRATION), encrypt(String.valueOf(expiration_time)));
         editor.commit();
     }
 
@@ -41,6 +44,13 @@ public class Utils {
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         return decrypt(sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null));
+    }
+
+    public static String getExpirationTime(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        return decrypt(sharedPref.getString(context.getString(R.string.PREFERENCES_EXPIRATION), null));
     }
 
     public static String getTokenFromPreference(Context context) {
@@ -135,13 +145,14 @@ public class Utils {
         new ConnectionUseCase(token, body).execute(new ConnectSubscriber());
     }
 
-    public static boolean isNewConnection(){
-        if (Foreground.get().isForeground()){
+    public static boolean isNewConnection() {
+        if (Foreground.get().isForeground()) {
             return false;
-        }else {
+        } else {
             return true;
         }
     }
+
     public static String encrypt(String input) {
         // Simple encryption, not very strong!
         return Base64.encodeToString(input.getBytes(), Base64.DEFAULT);

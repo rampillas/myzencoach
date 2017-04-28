@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.ndk.CrashlyticsNdk;
@@ -75,10 +76,23 @@ public class LoginActivity extends AppCompatActivity {
         // sino mostrar la pantalla de login
         String token = Utils.getTokenFromPreference(getApplicationContext());
         String user = Utils.getUserFromPreference(getApplicationContext());
-
+        long time = System.currentTimeMillis();
+        long timeToExpiration = -1;
         if (token != null) {
-            //Show mainActiviy directly
-            launchMainActivity();
+            try {
+                timeToExpiration = Long.parseLong(Utils.getExpirationTime(getApplicationContext())) - time;
+            } catch (Exception e) {
+                timeToExpiration = -1;
+                e.printStackTrace();
+            }
+            if (timeToExpiration > 0) {
+                //Show mainActiviy directly
+                launchMainActivity();
+            } else {
+                usuarioLogin.setText(user);
+                Toast.makeText(getApplicationContext(), getString(R.string.LOGIN_EXPIRED_TOKEN), Toast.LENGTH_LONG).show();
+            }
+
         }
     }
 

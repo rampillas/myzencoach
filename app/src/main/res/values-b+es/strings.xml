@@ -64,8 +64,6 @@
     <string name="STRESS_NORESPONSE">El coach no ha definido respuesta aún</string>
 
 
-
-
     <!---MODULE 2 : Essential information -->
     <string name="score_info">%1$d puntos</string>
     <string name="completed">Completado</string>
@@ -192,6 +190,8 @@
     <string name="LOGIN_ERROR_SERVER">Error al conectar con el servidor :(</string>
     <string name="user_created">Se ha registrado correctamente. Ya puede iniciar sesión</string>
     <string name="send">Enviar</string>
+    <string name="LOGIN_EXPIRED_TOKEN">Ayudanos a proteger tu cuenta, por favor introduce la clave de nuevo.</string>
+
 
     <!-- SIGNUP -->
     <string name="SIGNUP_INCORRECT_DATA">Faltan valores por añadir o son incorrectos, por favor reviselos.</string>
@@ -250,5 +250,6 @@
     <string name="PREFERENCES_CURRENT_PLAN_WELFARE">current_plan_welfare(no traducir)</string>
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
     <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
+    <string name="PREFERENCES_EXPIRATION">valor de expiracion de claves</string>
 
 </resources>
