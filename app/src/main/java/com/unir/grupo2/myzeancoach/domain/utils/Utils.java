@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -30,8 +31,8 @@ public class Utils {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(context.getString(R.string.PREFERENCES_TOKEN), token);
-        editor.putString(context.getString(R.string.PREFERENCES_USER), username);
+        editor.putString(context.getString(R.string.PREFERENCES_TOKEN), encrypt(token));
+        editor.putString(context.getString(R.string.PREFERENCES_USER), encrypt(username));
         editor.commit();
     }
 
@@ -39,14 +40,14 @@ public class Utils {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        return sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null);
+        return decrypt(sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null));
     }
 
     public static String getTokenFromPreference(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        return sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN), null);
+        return decrypt(sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN), null));
     }
 
     public static void saveLanguagePreference(String language, Context context) {
@@ -140,6 +141,14 @@ public class Utils {
         }else {
             return true;
         }
+    }
+    public static String encrypt(String input) {
+        // Simple encryption, not very strong!
+        return Base64.encodeToString(input.getBytes(), Base64.DEFAULT);
+    }
+
+    public static String decrypt(String input) {
+        return new String(Base64.decode(input, Base64.DEFAULT));
     }
 
 }
