@@ -32,7 +32,7 @@ public class GetRewardsUseCase extends UseCase {
 
                 List<RewardsItem> rewardsItemList = new ArrayList<RewardsItem>();
 
-                for (int i = 0; i < rewardsListPojo.getCount(); i++) {
+                for (int i = 0; i < rewardsListPojo.getResults().size(); i++) {
                     rewardsItemList.add(rewardsListPojo.getResults().get(i));
                 }
                 return rewardsItemList;

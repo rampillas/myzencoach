@@ -43,7 +43,13 @@ public class Utils {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        return decrypt(sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null));
+        String user = sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null);
+
+        if (user != null){
+            return decrypt(user);
+        }else{
+            return null;
+        }
     }
 
     public static String getExpirationTime(Context context) {
@@ -57,7 +63,13 @@ public class Utils {
         SharedPreferences sharedPref = context.getSharedPreferences(
                 context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
-        return decrypt(sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN), null));
+        String token = sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN), null);
+
+        if (token != null){
+            return decrypt(token);
+        }else{
+            return null;
+        }
     }
 
     public static void saveLanguagePreference(String language, Context context) {
