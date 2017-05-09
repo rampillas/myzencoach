@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.domain.utils.FooterSpaceViewHolder;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by andres on 16/03/2017.
  */
 
-public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemViewHolder> {
+public class RemaindersListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<RemainderItemObject> remaindersItemList;
     private RemaindersListAdapter thisAdapter = this;
@@ -31,6 +32,11 @@ public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemVi
 
     private final OnItemClickListener listener;
 
+    private class VIEWS_TYPES {
+        public static final int Normal = 0;
+        public static final int Footer = 1;
+    }
+
     public RemaindersListAdapter(Context context, List<RemainderItemObject> remaindersItemList, RemaindersListAdapter.OnItemClickListener listener) {
         this.context = context;
         this.remaindersItemList = remaindersItemList;
@@ -39,23 +45,48 @@ public class RemaindersListAdapter extends RecyclerView.Adapter<RemaindersItemVi
 
     //We create the viewHolder
     @Override
-    public RemaindersItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.remainders_layout_item, parent, false);
-        final RemaindersItemViewHolder remaindersItemViewHolder = new RemaindersItemViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return remaindersItemViewHolder;
+        if (viewType == VIEWS_TYPES.Footer) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer_space_for_floating_button_layout, parent, false);
+            return new FooterSpaceViewHolder(view);
+        }else{
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.remainders_layout_item, parent, false);
+            final RemaindersItemViewHolder remaindersItemViewHolder = new RemaindersItemViewHolder(view);
+            return remaindersItemViewHolder;
+        }
     }
-
 
     @Override
-    public void onBindViewHolder(RemaindersItemViewHolder remaindersItemViewHolder, int position) {
-        final RemainderItemObject remainderItemObject = remaindersItemList.get(position);
-        remaindersItemViewHolder.bind(remaindersItemList.get(position), listener);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if (holder instanceof RemaindersItemViewHolder){
+            final RemainderItemObject remainderItemObject = remaindersItemList.get(position);
+            ((RemaindersItemViewHolder) holder).bind(remaindersItemList.get(position), listener);
+        }else{
+
+        }
+
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (isPositionFooter(position)) {
+            return VIEWS_TYPES.Footer;
+        }
+        return VIEWS_TYPES.Normal;
+    }
+
+    private boolean isPositionFooter (int position) {
+        if (position == remaindersItemList.size()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     @Override
     public int getItemCount() {
-        return remaindersItemList.size();
+        return remaindersItemList.size() + 1;
     }
 }

@@ -3,7 +3,7 @@
     android:id="@+id/question_item_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
+    android:layout_marginBottom="6dp"
     android:layout_marginLeft="7dp"
     android:layout_marginRight="7dp">
 
@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@color/colorAccent"
             android:text="@string/STRESS_GETCOACHRESPONSE"
             android:textColor="@color/white" />
@@ -85,7 +84,7 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="left"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@color/colorAccent"
             android:text="@string/send"

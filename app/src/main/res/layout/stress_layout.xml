@@ -14,20 +14,10 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
-        <View
-            android:id="@+id/space"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/textView"
-            android:layout_marginTop="10dp"
-            android:background="@color/grey" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/estress_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/floatingActionButton"
-            android:layout_below="@+id/space"
             android:layout_marginTop="@dimen/activity_vertical_margin" />
 
         <android.support.design.widget.FloatingActionButton
