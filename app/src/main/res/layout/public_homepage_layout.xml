@@ -85,7 +85,7 @@
     </LinearLayout>
 
     <!--
-Un Floating Action Button.
+ Floating Action Button.
 -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floating_action_button"

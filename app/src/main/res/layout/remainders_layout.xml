@@ -76,12 +76,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="13dp"
-            android:layout_marginEnd="15dp"
+            android:layout_margin="16dp"
             android:clickable="true"
-            app:fabSize="mini"
-            app:srcCompat="@drawable/ic_action_new" />
-
+            app:srcCompat="@drawable/ic_action_new"
+            app:elevation="6dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/taskList"
@@ -91,6 +89,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:orientation="vertical" />
+
         <LinearLayout
             android:id="@+id/loading_layout"
             android:layout_width="match_parent"

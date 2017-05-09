@@ -80,6 +80,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeActionBar"
             android:parentActivityName="com.unir.grupo2.myzeancoach.ui.MainActivity"/>
+        <activity
+            android:name=".ui.MCustomize.AddObservationsActivity"
+            android:theme="@style/AppThemeActionBar"
+            android:parentActivityName="com.unir.grupo2.myzeancoach.ui.MainActivity"></activity>
         <!-- Pushy Declarations -->
 
 
@@ -125,12 +129,6 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="f8f5d4ebe8121c78cf7f90f6605303e431ee5174" />
-
-        <activity
-            android:name=".ui.MCustomize.AddObservationsActivity"
-            android:label="@string/title_activity_add_observations"
-            android:theme="@style/AppThemeActionBar"
-            android:parentActivityName="com.unir.grupo2.myzeancoach.ui.MainActivity"></activity>
     </application>
 
 </manifest>
