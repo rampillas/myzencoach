@@ -32,6 +32,7 @@ import com.mukesh.countrypicker.fragments.CountryPicker;
 import com.mukesh.countrypicker.interfaces.CountryPickerListener;
 import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.LoginAndUserData.CreateUserServer;
+import com.unir.grupo2.myzeancoach.domain.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -358,6 +359,7 @@ public class CreateUserActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra("USER_NAME", userName);
         setResult(Activity.RESULT_OK, intent);
+        Utils.closeSoftKeyboard(CreateUserActivity.this);
         finish();
     }
 

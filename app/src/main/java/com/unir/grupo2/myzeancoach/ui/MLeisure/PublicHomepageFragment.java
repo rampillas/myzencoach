@@ -149,6 +149,15 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
         postListAdapter.notifyDataSetChanged();
     }
 
+    private Event addCommentsToEvent(Event event){
+        for (int i = 0; i < eventItemList.size(); i++){
+           if (event.getTitle().equals(eventItemList.get(i).getTitle())){
+               event.setComments(eventItemList.get(i).getComments());
+           }
+        }
+        return event;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -187,6 +196,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
             }
         }
     }
+
 
     /**
      * Method used to show error view
@@ -269,7 +279,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
         //Update listview datas
         @Override
         public void onNext(Event event) {
-            uploadListLike(true, event);
+            uploadListLike(true, addCommentsToEvent(event));
         }
     }
 
@@ -291,7 +301,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
         //Update listview datas
         @Override
         public void onNext(Event event) {
-            uploadListLike(false, event);
+            uploadListLike(false, addCommentsToEvent(event));
         }
     }
 
