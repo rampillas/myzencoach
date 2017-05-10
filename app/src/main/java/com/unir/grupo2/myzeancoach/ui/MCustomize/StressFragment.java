@@ -324,6 +324,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
                     this.stressQuestions.add(rio);
                 }
                 stressListAdapter.notifyDataSetChanged();
+                showContent();
             }
         }
     }
