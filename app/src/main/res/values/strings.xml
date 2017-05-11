@@ -78,6 +78,8 @@
     <string name="dialog_massage_no_youtube_url_video">Video URLs are supported in a YouTube URL format only</string>
     <string name="message_no_video">No coach-recommended videos are available yet</string>
     <string name="message_no_ranking">Ranking not available</string>
+    <string name="message_title_no_answer">Coach´s error found</string>
+    <string name="message_description_no_answer">Every question must have 3 possible answers. Please, contact your coach to solve this issue. We apologise for any inconvenience</string>
 
     <!-- MOUDLE 3 : Cooperative Solution -->
     <string name="write_feedback">Please leave feedback on your preferred solution</string>

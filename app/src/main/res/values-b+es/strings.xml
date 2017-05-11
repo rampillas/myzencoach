@@ -14,7 +14,7 @@
     <string name="customize">Personalización</string>
     <string name="essential_information">Información esencial</string>
     <string name="cooperative_solutions">Soluciones cooperativas</string>
-    <string name="welfare">Bienestar/Minfulness</string>
+    <string name="welfare">Bienestar/Mindfulness</string>
     <string name="leisure">Ocio y tiempo libre</string>
     <string name="stress_detection">Detección de estrés</string>
     <string name="reminders">Recordatorios</string>
@@ -77,6 +77,8 @@
     <string name="dialog_massage_no_youtube_url_video">La URL del video debe ser de Youtube</string>
     <string name="message_no_video">Aún no hay ningún video que el coach le sugiera ver</string>
     <string name="message_no_ranking">El Ranking no esta disponible</string>
+    <string name="message_title_no_answer">Error por parte del coach</string>
+    <string name="message_description_no_answer">Cada pregunta debe de tener 3 posibles respuestas. Por favor, póngase en contacto con su coach para solucionarlo. Le pedimos disculpas por ello.</string>
 
     <!-- MOUDLE 3 : Cooperative Solution -->
     <string name="write_feedback">Proporciona un feedback a la solución elegida</string>
