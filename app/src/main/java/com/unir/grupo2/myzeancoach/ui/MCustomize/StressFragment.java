@@ -234,7 +234,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
             }
         }
         new AlertDialog.Builder(getContext())
-                .setTitle("Coach response")
+                .setTitle(getContext().getString(R.string.coach_response))
                 .setMessage(mensaje)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -258,7 +258,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         }
 
         new AlertDialog.Builder(getContext())
-                .setTitle("Coach response")
+                .setTitle(getContext().getString(R.string.coach_response))
                 .setMessage(mensage)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {

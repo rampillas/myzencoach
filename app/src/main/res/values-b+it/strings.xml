@@ -62,6 +62,7 @@
     <string name="REMAINDERS_OBSERVATIONS">Commenti</string>
     <string name="STRESS_GETCOACHRESPONSE">Ottenere risposta del coach</string>
     <string name="STRESS_NORESPONSE">Il messaggio di risposta non è ancora stato definito dall\'allenatore</string>
+    <string name="coach_response">Risposta del coach</string>
 
 
     <!---MODULE 2 : Essential information -->
