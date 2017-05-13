@@ -70,7 +70,7 @@ public class AddRemainderActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener datePickerDialog = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int i, int i1, int i2) {
-            datePickerText.setText(i + "-" + i1 + "-" + i2);
+            datePickerText.setText(i + "-" + i1 + 1 + "-" + i2);
             elegirFecha.dismiss();
         }
     };
@@ -196,17 +196,17 @@ public class AddRemainderActivity extends AppCompatActivity {
         setContentView(R.layout.remainders_add_layout);
         ButterKnife.bind(this);
         showContent();
-       // Toolbar t = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(t);
+        // Toolbar t = (Toolbar) findViewById(R.id.toolbar);
+        // setSupportActionBar(t);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-        if (isNewConnection()){
+        if (isNewConnection()) {
             Utils.launchConnectionUseCase(this);
         }
     }

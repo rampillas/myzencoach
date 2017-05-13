@@ -81,7 +81,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     List<RemainderItem> remainderItemsList = null;
     LinearLayoutManager layoutManager;
     RemaindersFragment.OnPostListener postListener;
-    Boolean isContentMoreThanOneItem=false;
+    Boolean isContentMoreThanOneItem = false;
 
     @OnClick(R.id.floatingActionButton)
     public void openNewRemainder() {
@@ -231,7 +231,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
             showNoPlan();
 
         } else {
-            isContentMoreThanOneItem=true;
+            isContentMoreThanOneItem = true;
             nextData = remainderItemList.getNext();
 
             List<RemainderItem> remainderItems = remainderItemList.getRemainderItems();
@@ -259,9 +259,9 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
                     recyclerView.setAdapter(remaindersListAdapter);
                     implementScrollListener();
                     showContent();
-                    isContentMoreThanOneItem=true;
+                    isContentMoreThanOneItem = true;
                 } else {
-                    isContentMoreThanOneItem=false;
+                    isContentMoreThanOneItem = false;
                     showNoPlan();
                 }
                 //No first time
@@ -334,10 +334,9 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
         progressBar.setProgress(progressPoints * 10);
         String texto = remainTaskNextLevel.getText().toString();
         remainTaskNextLevel.setText(getResources().getString(R.string.REMAINDERS_LEVEL) + " " + String.valueOf(level + "\n " + (10 - progressPoints)) + " " + texto);
-        if(isContentMoreThanOneItem){
+        if (isContentMoreThanOneItem) {
             showContent();
-        }else
-        {
+        } else {
             showNoPlan();
         }
 

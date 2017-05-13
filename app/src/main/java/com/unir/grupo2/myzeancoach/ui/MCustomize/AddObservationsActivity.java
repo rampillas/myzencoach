@@ -133,10 +133,10 @@ public class AddObservationsActivity extends AppCompatActivity {
         setContentView(R.layout.remainder_add_observations);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        remainderTitle= intent.getStringExtra("REMAINDERTITLE");
+        remainderTitle = intent.getStringExtra("REMAINDERTITLE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        ActionBar toolbar =  getSupportActionBar();
+        ActionBar toolbar = getSupportActionBar();
         //setSupportActionBar(toolbar);
         toolbar.setDisplayHomeAsUpEnabled(true);
         showContent();
@@ -144,9 +144,9 @@ public class AddObservationsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-        if (isNewConnection()){
+        if (isNewConnection()) {
             Utils.launchConnectionUseCase(this);
         }
     }

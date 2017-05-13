@@ -168,9 +168,9 @@ public class AddStressQuestionActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-        if (isNewConnection()){
+        if (isNewConnection()) {
             Utils.launchConnectionUseCase(this);
         }
     }

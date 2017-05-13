@@ -318,14 +318,14 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
                 }
                 //No first time
             } else {
-                stressQuestionObjectList.remove(stressQuestionObjectList.size()-1);
+                stressQuestionObjectList.remove(stressQuestionObjectList.size() - 1);
                 stressListAdapter.notifyItemRemoved(stressQuestionObjectList.size());
                 StressQuestion question2 = null;
                 for (StressQuestion question : listNoFinished) {
                     stressQuestionList.add(question);
                     StressQuestionObject rio = new StressQuestionObject(question.getDescription(), question.getUserAnswer(), question.getQuestions());
                     this.stressQuestionObjectList.add(rio);
-                    question2=question;
+                    question2 = question;
                 }
                 StressQuestionObject lastStressQuestionObject = new StressQuestionObject("ENDELEMENT", question2.getUserAnswer(), question2.getQuestions());
                 stressQuestionObjectList.add(lastStressQuestionObject);
