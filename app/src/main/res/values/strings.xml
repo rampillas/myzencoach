@@ -18,7 +18,7 @@
     <string name="leisure">Leisure</string>
     <string name="stress_detection">Stress detector</string>
     <string name="reminders">Reminders</string>
-    <string name="puntuaction">Mark</string>
+    <string name="puntuaction">Your mark is:</string>
     <string name="login">Login</string>
     <string name="interests">Interests</string>
     <string name="videos">Videos</string>
@@ -140,7 +140,7 @@
     <string name="alert_check_fields_empty">Please answer to every question</string>
     <string name="dialog_title_url_no_valid">The URL is not valid</string>
     <string name="dialog_massage_no_youtube_url_audio">Audio URLs are supported in a YouTube URL format only</string>
-    <string name="dialog_message_no_plans_available">There aren\'t  available plans at the moment.\nPlease wait until further plans will be available for use. We\'re sorry for the inconvenience</string>
+    <string name="dialog_message_no_plans_available">There aren\'t  available plans at the moment.\nPlease wait until further plans will be available for use. We\'re sorry for any inconvenience</string>
     <string name="alert_error_audio">Error in loading this audio</string>
 
     <!--MODULE 5 : Leisure -->

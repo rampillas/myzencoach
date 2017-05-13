@@ -18,7 +18,7 @@
     <string name="leisure">Riposo e tempo libero</string>
     <string name="stress_detection">Sensore di stress</string>
     <string name="reminders">Promemoria</string>
-    <string name="puntuaction">Punteggio</string>
+    <string name="puntuaction">Il suo punteggio è:</string>
     <string name="login">Login</string>
     <string name="interests">Interessi</string>
     <string name="videos">Video</string>
@@ -206,7 +206,7 @@
     <string name="SIGNUP_SEXO">Genere</string>
     <string name="SIGNUP_COUNTRY">Paese</string>
     <string name="SIGNUP_CITY">Città</string>
-    <string name="SIGNUP_URBAN_RURAL">Zona de Residenza</string>
+    <string name="SIGNUP_URBAN_RURAL">Zona di Residenza</string>
     <string name="SIGNUP_CHANGE_COUNTRY">Si è trasferito in un altro paese negli ultimi 5 anni?</string>
     <string name="SIGNUP_ESTUDIOS">Livello d\'istruzione raggiunto</string>
     <string name="SIGNUP_MAN">Maschio</string>
