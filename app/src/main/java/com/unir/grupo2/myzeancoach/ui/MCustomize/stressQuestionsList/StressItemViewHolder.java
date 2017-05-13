@@ -2,6 +2,7 @@ package com.unir.grupo2.myzeancoach.ui.MCustomize.stressQuestionsList;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -10,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.unir.grupo2.myzeancoach.R;
+import com.unir.grupo2.myzeancoach.ui.LoginAndUserData.LoginActivity;
 
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -95,21 +97,28 @@ public class StressItemViewHolder extends RecyclerView.ViewHolder {
         this.stressQuestionObject = questionsStress;
         this.listener = listener;
         //separamos la ultima tarjeta
-        if (!questionsStress.getDescription().equalsIgnoreCase("ENDELEMENT")) {
-            normalCard.setVisibility(View.VISIBLE);
-            lastCard.setVisibility(View.GONE);
-            questionTitle.setText(questionsStress.getDescription());
-            answer1_radio.setText(questionsStress.getElementos().get(0).getDescription());
-            answer1_radio.setTextColor(getColor(questionsStress.getElementos().get(0).getColor()));
-            answer2_radio.setText(questionsStress.getElementos().get(1).getDescription());
-            answer2_radio.setTextColor(getColor(questionsStress.getElementos().get(1).getColor()));
-            answer3_radio.setText(questionsStress.getElementos().get(2).getDescription());
-            answer3_radio.setTextColor(getColor(questionsStress.getElementos().get(2).getColor()));
-            answer4_radio.setText(questionsStress.getElementos().get(3).getDescription());
-            answer4_radio.setTextColor(getColor(questionsStress.getElementos().get(3).getColor()));
-        } else {
-            normalCard.setVisibility(View.GONE);
-            lastCard.setVisibility(View.VISIBLE);
+        try {
+            if (!questionsStress.getDescription().equalsIgnoreCase("ENDELEMENT")) {
+                normalCard.setVisibility(View.VISIBLE);
+                lastCard.setVisibility(View.GONE);
+                Log.d("question: ", questionsStress.getDescription());
+                questionTitle.setText(questionsStress.getDescription());
+                answer1_radio.setText(questionsStress.getElementos().get(0).getDescription());
+                Log.d("question1: ", questionsStress.getElementos().get(0).getDescription());
+                answer1_radio.setTextColor(getColor(questionsStress.getElementos().get(0).getColor()));
+                answer2_radio.setText(questionsStress.getElementos().get(1).getDescription());
+                Log.d("question2: ", questionsStress.getElementos().get(1).getDescription());
+                answer2_radio.setTextColor(getColor(questionsStress.getElementos().get(1).getColor()));
+                answer3_radio.setText(questionsStress.getElementos().get(2).getDescription());
+                answer3_radio.setTextColor(getColor(questionsStress.getElementos().get(2).getColor()));
+                answer4_radio.setText(questionsStress.getElementos().get(3).getDescription());
+                answer4_radio.setTextColor(getColor(questionsStress.getElementos().get(3).getColor()));
+            } else {
+                normalCard.setVisibility(View.GONE);
+                lastCard.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception e) {
+
         }
 
     }
