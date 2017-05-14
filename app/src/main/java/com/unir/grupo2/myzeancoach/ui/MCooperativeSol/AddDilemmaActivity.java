@@ -99,8 +99,8 @@ public class AddDilemmaActivity extends AppCompatActivity implements DialogCusto
         String text = "{\n" +
                 "    \"username\": \"" + userName + "\",\n" +
                 "    \"date\": \"" + Utils.dateNowForBackend() + "\",\n" +
-                "    \"title\": \"" + titleEditText.getText().toString() + "\",\n" +
-                "    \"description\": \"" + descriptionEditText.getText().toString() + "\",\n" +
+                "    \"title\": \"" + titleEditText.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
+                "    \"description\": \"" + descriptionEditText.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                 "    \"type\": \"dilema\",\n" +
                 "    \"state\": \"waitingForAnswer\"\n" +
                 "}\n";

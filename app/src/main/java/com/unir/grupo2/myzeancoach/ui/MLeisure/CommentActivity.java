@@ -167,7 +167,7 @@ public class CommentActivity extends AppCompatActivity {
                 "\t\"user_owner\": \"" + event.getUser() + "\",\n" +
                 "\t\"title\": \"" + event.getTitle() + "\",\n" +
                 "\t\"date\": \"" + updateDate + "\",\n" +
-                "\t\"description\": \"" + comment + "\"\n" +
+                "\t\"description\": \"" + comment.replaceAll("\"","\\\\\"") + "\"\n" +
                 "}\n";
 
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"), text);

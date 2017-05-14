@@ -175,7 +175,7 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
         String feedbackText = "{\n" +
                 "\t\"username\": \"" + userName + "\",\n" +
                 "\t\"title\": \"" + dilemma.getTitle() + "\",\n" +
-                "\t\"description\": \"" + commentFeedback.getDescription() + "\",\n" +
+                "\t\"description\": \"" + commentFeedback.getDescription().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"comment\": {\n" +
                 "\t\t\"feedback\": \"" + feedback + "\",\n" +
                 "\t\t\"date_feedback\": \"" + dateUpdate + "\"\n" +

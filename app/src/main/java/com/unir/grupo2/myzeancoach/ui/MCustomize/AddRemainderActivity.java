@@ -104,9 +104,9 @@ public class AddRemainderActivity extends AppCompatActivity {
             String bodyString = "{\n" +
                     "\t\"type\": \"individual\", \n" +
                     "\t\"user\": \"" + user + "\",\n" +
-                    "\t\"title\": \"" + remainderTitle.getText().toString() + "\",\n" +
+                    "\t\"title\": \"" + remainderTitle.getText().toString().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"subtitle\":  \"\", \n" +
-                    "\t\"description\": \"" + description.getText().toString() + "\",\n" +
+                    "\t\"description\": \"" + description.getText().toString().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"is_personal\": true,\n" +
                     "\t\"date\": \"" + datePickerText.getText().toString() + "\",\n" +
                     "\t\"time\": \"" + datePickerTextHour.getText().toString() + "\",\n" +

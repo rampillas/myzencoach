@@ -116,8 +116,8 @@ public class RatePlanFragment extends Fragment implements RatePlanListAdapter.On
             response = exerciseAmended.getQuestionExercises().get(i).getResponse();
 
             questionsString = questionsString +
-                    "\t\t\t\"question\": \"" + question + "\",\n" +
-                    "\t\t\t\"response\": \"" + response + "\"\n";
+                    "\t\t\t\"question\": \"" + question.replaceAll("\"","\\\\\"") + "\",\n" +
+                    "\t\t\t\"response\": \"" + response.replaceAll("\"","\\\\\"") + "\"\n";
 
             if (i != exerciseAmended.getQuestionExercises().size() - 1) {
                 questionsString = questionsString + middle;
@@ -127,11 +127,11 @@ public class RatePlanFragment extends Fragment implements RatePlanListAdapter.On
         }
 
         String text = "{\n" +
-                "\t\"description_plan\": \"" + planAmended.getDescription() + "\",\n" +
+                "\t\"description_plan\": \"" + planAmended.getDescription().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"exercises\": [{\n" +
-                "\t\t\"description\": \"" + exerciseAmended.getDescription() + "\",\n" +
-                "\t\t\"feedback\": \"" + exerciseAmended.getFeedback() + "\",\n" +
-                "\t\t\"appreciation\": \"" + exerciseAmended.getAppreciation() + "\",\n" +
+                "\t\t\"description\": \"" + exerciseAmended.getDescription().replaceAll("\"","\\\\\"") + "\",\n" +
+                "\t\t\"feedback\": \"" + exerciseAmended.getFeedback().replaceAll("\"","\\\\\"") + "\",\n" +
+                "\t\t\"appreciation\": \"" + exerciseAmended.getAppreciation().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\t\"questions\": [{\n" +
                 questionsString +
                 "\t}]\n" +

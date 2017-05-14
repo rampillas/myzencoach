@@ -119,7 +119,7 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
                 "\t\"comment\": {\n" +
                 "\t\t\"nick_user\": \"" + Utils.getUserFromPreference(this) + "\",\n" +
                 "\t\t\"date\": \"" + commentDate + "\",\n" +
-                "\t\t\"description\": \"" + solutionEditText.getText().toString().trim() + "\",\n" +
+                "\t\t\"description\": \"" + solutionEditText.getText().toString().trim().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\t\"like\": false,\n" +
                 "\t\t\"feedback\": \"\",\n" +
                 "\t\t\"date_feedback\": \"\"\n" +
