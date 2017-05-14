@@ -213,7 +213,11 @@ public class MCooperativeSolFragment extends Fragment {
                         muroDilemmas.add(allDilemmas.get(i));
                     }
                 } else {
-                    muroDilemmas.add(allDilemmas.get(i));
+                    if (!(allDilemmas.get(i).getState().equals("waitingForAnswer")) &&
+                            !(allDilemmas.get(i).getState().equals("refused"))){
+                        muroDilemmas.add(allDilemmas.get(i));
+                    }
+
                 }
             }
             startViewPager();

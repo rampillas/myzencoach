@@ -24,8 +24,8 @@
     <string name="videos">Videos</string>
     <string name="tests">Tests</string>
     <string name="ranking">Ranking</string>
-    <string name="my_dilemmas">My dilemmas</string>
-    <string name="homepage">Homepage</string>
+    <string name="my_dilemmas">My dilemmas - posted</string>
+    <string name="homepage">All dilemmas</string>
     <string name="coach">Coach</string>
     <string name="weekly_exercise">Weekly excercise</string>
     <string name="rate">Rating</string>
@@ -76,7 +76,7 @@
     <string name="no_available_test">There are no available tests for this video. Please finish watching this video to have access to its correspondent test.</string>
     <string name="error_update_video">Could not update video settings</string>
     <string name="test_completed_dialog">Your test has been saved and submitted. You can retake this test as many times as you wish</string>
-    <string name="dialog_massage_no_youtube_url_video">Video URLs are supported in a YouTube URL format only</string>
+    <string name="dialog_massage_no_youtube_url_video">Video URLs are supported in a YouTube URL format only. Please, contact your coach to solve this issue. We apologise for any inconvenience</string>
     <string name="message_no_video">No coach-recommended videos are available yet</string>
     <string name="message_no_ranking">Ranking not available</string>
     <string name="message_title_no_answer">Coach´s error found</string>
@@ -139,7 +139,7 @@
     <string name="error_update_survey">Error on saving survey</string>
     <string name="alert_check_fields_empty">Please answer to every question</string>
     <string name="dialog_title_url_no_valid">The URL is not valid</string>
-    <string name="dialog_massage_no_youtube_url_audio">Audio URLs are supported in a YouTube URL format only</string>
+    <string name="dialog_massage_no_youtube_url_audio">Audio URLs are supported in a YouTube URL format only. Please, contact your coach to solve this issue. We apologise for any inconvenience</string>
     <string name="dialog_message_no_plans_available">There aren\'t  available plans at the moment.\nPlease wait until further plans will be available for use. We\'re sorry for any inconvenience</string>
     <string name="alert_error_audio">Error in loading this audio</string>
 

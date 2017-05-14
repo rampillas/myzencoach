@@ -24,8 +24,8 @@
     <string name="videos">Video</string>
     <string name="tests">Test</string>
     <string name="ranking">Classifica</string>
-    <string name="my_dilemmas">I miei dilemmi</string>
-    <string name="homepage">Pagina principale</string>
+    <string name="my_dilemmas">I miei dilemmi condivisi</string>
+    <string name="homepage">Dilemmi condivisi</string>
     <string name="coach">Coach</string>
     <string name="weekly_exercise">Esercizio della settimana</string>
     <string name="rate">Punteggio</string>
@@ -75,7 +75,7 @@
     <string name="no_available_test">Non ci sono test disponibili. Per avere accesso al test di un video, deve prima completare la visualizzazione dee video corrispondente.</string>
     <string name="error_update_video">Errore nell\'aggiornamento di stato del video</string>
     <string name="test_completed_dialog">Il test è stato salvato e inviato correttamente. Potrà rifare il test quante volte desidera</string>
-    <string name="dialog_massage_no_youtube_url_video">Gli URL dei video sono supportati solo in formato YouTube URL</string>
+    <string name="dialog_massage_no_youtube_url_video">Gli URL dei video sono supportati solo in formato YouTube URL. La invitiamo a mettersi in contatto con il coach per trovare una soluzione. Ci scusiamo per il disagio</string>
     <string name="message_no_video">Al momento non sono disponibili video consigliati dal coach</string>
     <string name="message_no_ranking">La classifica non è disponibile</string>
     <string name="message_title_no_answer">Errore del coach</string>
@@ -138,7 +138,7 @@
     <string name="error_update_survey">Il feedback non è stato salvato correttamente</string>
     <string name="alert_check_fields_empty">Risponda a tutte le domande per favore</string>
     <string name="dialog_title_url_no_valid">URL non valido</string>
-    <string name="dialog_massage_no_youtube_url_audio">Gli URL degli audio sono supportati solo in formato YouTube URL</string>
+    <string name="dialog_massage_no_youtube_url_audio">Gli URL degli audio sono supportati solo in formato YouTube URL. La invitiamo a mettersi in contatto con il coach per trovare una soluzione. Ci scusiamo per il disagio</string>
     <string name="dialog_message_no_plans_available">Non ci sono piani disponibili al momento.\nLa invitiamo ad attendere l\'arrivo di nuovi piani disponibili. Ci scusiamo per l\'inconveniente</string>
     <string name="alert_error_audio">Errore caricamento file audio</string>
 

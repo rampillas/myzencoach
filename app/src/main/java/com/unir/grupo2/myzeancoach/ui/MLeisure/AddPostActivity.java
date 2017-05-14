@@ -109,6 +109,7 @@ public class AddPostActivity extends AppCompatActivity {
     public void addEvent(View view) {
 
         int radioButtonID = categoryRadioGroup.getCheckedRadioButtonId();
+        Utils.closeSoftKeyboard(AddPostActivity.this);
 
         if (titleEditText.getText().toString().trim().length() == 0 ||
                 descriptionEditText.getText().toString().trim().length() == 0 ||
