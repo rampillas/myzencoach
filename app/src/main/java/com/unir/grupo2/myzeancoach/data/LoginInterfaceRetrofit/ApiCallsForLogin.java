@@ -50,4 +50,5 @@ public interface ApiCallsForLogin {
                                 @Field("level_studies") String Estudios,
                                 @Field("notification_token") String notificationToken);
 
+
 }

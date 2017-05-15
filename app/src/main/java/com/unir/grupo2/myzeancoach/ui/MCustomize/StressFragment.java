@@ -148,6 +148,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
         return view;
     }
 
@@ -234,7 +235,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
             }
         }
         new AlertDialog.Builder(getContext())
-                .setTitle("Coach response")
+                .setTitle(getContext().getString(R.string.coach_response))
                 .setMessage(mensaje)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -258,7 +259,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         }
 
         new AlertDialog.Builder(getContext())
-                .setTitle("Coach response")
+                .setTitle(getContext().getString(R.string.coach_response))
                 .setMessage(mensage)
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -282,57 +283,30 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         } else {
 
             nextData = stressQuestionsListPojo.getNext();
-
             List<StressQuestion> stressQuestions = stressQuestionsListPojo.getResults();
             Log.d("NUMBER Stress: ", String.valueOf(stressQuestions.size()));
             //Check if there some plan has already been finished
-            List<StressQuestion> listNoFinished = new ArrayList<>();
-            for (StressQuestion question : stressQuestions) {
-                //se añaden todos
-                if (true) {
-                    listNoFinished.add(question);
-                    Log.d("AÑADIDO", question.getDescription());
-                }
+            List<StressQuestionObject> listShowData = new ArrayList<>();
+            StressQuestion question2=null;
+            for (int i = 0; i < stressQuestions.size(); i++) {
+                StressQuestionObject sqo = new StressQuestionObject(stressQuestions.get(i).getDescription(), stressQuestions.get(i).getUserAnswer(), stressQuestions.get(i).getQuestions());
+                listShowData.add(sqo);
+                question2=stressQuestions.get(i);
             }
-            //First time data are requested
-            if (stressQuestionList == null) {
-                stressQuestionList = listNoFinished;
-                stressQuestionObjectList = new ArrayList<>();
-                if (!listNoFinished.isEmpty()) {
-                    this.stressQuestions = new ArrayList<StressQuestionObject>();
-                    for (int i = 0; i < listNoFinished.size(); i++) {
-                        StressQuestion stressQuestionItem = listNoFinished.get(i);
-                        StressQuestionObject stressQuestionObject = new StressQuestionObject(stressQuestionItem.getDescription(), stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
-                        stressQuestionObjectList.add(stressQuestionObject);
-                        if (i == listNoFinished.size() - 1) {
-                            StressQuestionObject lastStressQuestionObject = new StressQuestionObject("ENDELEMENT", stressQuestionItem.getUserAnswer(), stressQuestionItem.getQuestions());
-                            stressQuestionObjectList.add(lastStressQuestionObject);
-                        }
-                    }
-                    stressListAdapter = new StressListAdapter(getContext(), stressQuestionObjectList, this);
-                    recyclerView.setAdapter(stressListAdapter);
-                    showContent();
-                    implementScrollListener();
-                } else {
-                    showNoPlan();
-                }
-                //No first time
-            } else {
-                stressQuestionObjectList.remove(stressQuestionObjectList.size()-1);
-                stressListAdapter.notifyItemRemoved(stressQuestionObjectList.size());
-                StressQuestion question2 = null;
-                for (StressQuestion question : listNoFinished) {
-                    stressQuestionList.add(question);
-                    StressQuestionObject rio = new StressQuestionObject(question.getDescription(), question.getUserAnswer(), question.getQuestions());
-                    this.stressQuestionObjectList.add(rio);
-                    question2=question;
-                }
-                StressQuestionObject lastStressQuestionObject = new StressQuestionObject("ENDELEMENT", question2.getUserAnswer(), question2.getQuestions());
-                stressQuestionObjectList.add(lastStressQuestionObject);
+            if(question2==null){
+                showError();
+            }else {
+                StressQuestionObject sqo = new StressQuestionObject("ENDELEMENT", question2.getUserAnswer(), question2.getQuestions());
+                listShowData.add(sqo);
+                stressListAdapter = new StressListAdapter(getContext(), listShowData, this);
+                recyclerView.setAdapter(stressListAdapter);
                 stressListAdapter.notifyDataSetChanged();
                 showContent();
+                implementScrollListener();
             }
+
         }
+
     }
 
     private void implementScrollListener() {

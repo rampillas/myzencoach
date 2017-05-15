@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:textSize="@dimen/letra_grande"
+        android:textSize="@dimen/letra_menos_grande"
         android:textColor="@color/colorAccent"/>
 
 </RelativeLayout>

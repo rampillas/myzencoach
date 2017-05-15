@@ -52,10 +52,14 @@ public class DilemmaPostItemViewHolder extends RecyclerView.ViewHolder {
             }else{
                 solutionsNumberTextView.setText(context.getString(R.string.number_solutions_plural, dilemmaPostItem.getComments().size()));
             }
+        }else{
+            solutionsNumberTextView.setVisibility(View.GONE);
         }
 
         if (fromMyDilemma){
             nickTextView.setVisibility(View.GONE);
+        }else{
+            nickTextView.setVisibility(View.VISIBLE);
         }
 
         dateTextView.setText(Utils.dateFormat(dilemmaPostItem.getDate()));

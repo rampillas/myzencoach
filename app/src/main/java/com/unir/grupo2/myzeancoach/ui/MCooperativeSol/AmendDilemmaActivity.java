@@ -127,8 +127,8 @@ public class AmendDilemmaActivity extends AppCompatActivity implements DialogCus
                 "\t\"username\": \"" + userName + "\",\n" +
                 "\t\"title\": \"" + dilemma.getTitle() + "\",\n" +
                 "\t\"date\": \"" + Utils.dateNowForBackend() + "\",\n" +
-                "\t\"new_title\": \"" + titleEditText.getText().toString() + "\",\n" +
-                "\t\"description\": \"" + descriptionEditText.getText().toString() + "\",\n" +
+                "\t\"new_title\": \"" + titleEditText.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
+                "\t\"description\": \"" + descriptionEditText.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"state\": \"waitingForAnswer\"\n" +
                 "}\n";
 

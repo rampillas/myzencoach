@@ -152,6 +152,7 @@ public class CreateUserActivity extends AppCompatActivity {
     public void addAcount() {
         if (usuario.getText().length() > 0 && password.getText().length() > 0 && email.getText().length() > 0 && nombre.getText().length() > 0 && nacimiento.getText().length() > 0
                 && pais.length() > 0 && ciudad.getText().length() > 0 && estudiosPersona > 0) {
+            Utils.closeSoftKeyboard(CreateUserActivity.this);
             UserValidator validator = UserValidator.builder().build();
             usuarioValor = usuario.getText().toString();
             //encriptar la clave

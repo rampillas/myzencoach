@@ -58,7 +58,7 @@ public class AddObservationsActivity extends AppCompatActivity {
         if (!remainderObservations.getText().toString().isEmpty()) {
             String bodyString = "{\n" +
                     "\t\"title\": \"" + remainderTitle + "\",\n" +
-                    "\t\"observations\": \"" + remainderObservations.getText().toString() + "\"\n" +
+                    "\t\"observations\": \"" + remainderObservations.getText().toString().toString().replaceAll("\"","\\\\\"") + "\"\n" +
                     "}";
             RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);
             showLoading();
@@ -133,10 +133,10 @@ public class AddObservationsActivity extends AppCompatActivity {
         setContentView(R.layout.remainder_add_observations);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        remainderTitle= intent.getStringExtra("REMAINDERTITLE");
+        remainderTitle = intent.getStringExtra("REMAINDERTITLE");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        ActionBar toolbar =  getSupportActionBar();
+        ActionBar toolbar = getSupportActionBar();
         //setSupportActionBar(toolbar);
         toolbar.setDisplayHomeAsUpEnabled(true);
         showContent();
@@ -144,9 +144,9 @@ public class AddObservationsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-        if (isNewConnection()){
+        if (isNewConnection()) {
             Utils.launchConnectionUseCase(this);
         }
     }

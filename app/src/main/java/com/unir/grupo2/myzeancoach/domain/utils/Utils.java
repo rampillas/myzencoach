@@ -45,9 +45,9 @@ public class Utils {
 
         String user = sharedPref.getString(context.getString(R.string.PREFERENCES_USER), null);
 
-        if (user != null){
+        if (user != null) {
             return decrypt(user);
-        }else{
+        } else {
             return null;
         }
     }
@@ -65,9 +65,9 @@ public class Utils {
 
         String token = sharedPref.getString(context.getString(R.string.PREFERENCES_TOKEN), null);
 
-        if (token != null){
+        if (token != null) {
             return decrypt(token);
-        }else{
+        } else {
             return null;
         }
     }

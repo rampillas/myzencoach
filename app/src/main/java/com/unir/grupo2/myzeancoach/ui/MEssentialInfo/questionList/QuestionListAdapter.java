@@ -1,6 +1,8 @@
 package com.unir.grupo2.myzeancoach.ui.MEssentialInfo.questionList;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import com.unir.grupo2.myzeancoach.R;
 import com.unir.grupo2.myzeancoach.domain.model.Question;
 
 import java.util.List;
+
+import static com.unir.grupo2.myzeancoach.R.id.answer2_radio;
 
 /**
  * Created by Cesar on 26/02/2017.
@@ -83,7 +87,7 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
         } else if(holder instanceof QuestionItemViewHolder) {
             final Question questionItem = questionItemList.get(position - 1);
-            QuestionItemViewHolder itemHolder = (QuestionItemViewHolder) holder;
+            final QuestionItemViewHolder itemHolder = (QuestionItemViewHolder) holder;
             itemHolder.questionNumberTextView.setText(String.format(context.getString(R.string.question_number),
                     position, questionItemList.size()));
             itemHolder.questionTextView.setText(questionItem.getDescription());
@@ -99,12 +103,29 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             itemHolder.answerRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                    //if (userAnswers[position - 1] )
                     if (checkedId == R.id.answer1_radio){
-                        userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(0).getIsRight();
-                    }else if (checkedId == R.id.answer2_radio){
-                        userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(1).getIsRight();
+                        if (questionItemList.get(position - 1).getAnswers().size() >= 1){
+                            userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(0).getIsRight();
+                        }else{
+                            showDialogNoAnswer();
+                            itemHolder.answer1Radio.setChecked(false);
+                        }
+                    }else if (checkedId == answer2_radio){
+                        if (questionItemList.get(position - 1).getAnswers().size() >= 2){
+                            userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(1).getIsRight();
+                        }else{
+                            showDialogNoAnswer();
+                            itemHolder.answer2Radio.setChecked(false);
+                        }
+
                     }else if (checkedId == R.id.answer3_radio){
-                        userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(2).getIsRight();
+                        if (questionItemList.get(position - 1).getAnswers().size() >= 3){
+                            userAnswers[position - 1] = questionItemList.get(position - 1).getAnswers().get(2).getIsRight();
+                        }else{
+                            showDialogNoAnswer();
+                            itemHolder.answer3Radio.setChecked(false);
+                        }
                     }
                 }
             });
@@ -142,6 +163,19 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }else{
             return false;
         }
+    }
+
+    private void showDialogNoAnswer() {
+        new AlertDialog.Builder(context)
+                .setTitle(context.getString(R.string.message_title_no_answer))
+                .setMessage(context.getString(R.string.message_description_no_answer))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
     }
 
 }

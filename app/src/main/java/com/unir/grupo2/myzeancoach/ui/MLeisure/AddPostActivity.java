@@ -109,6 +109,7 @@ public class AddPostActivity extends AppCompatActivity {
     public void addEvent(View view) {
 
         int radioButtonID = categoryRadioGroup.getCheckedRadioButtonId();
+        Utils.closeSoftKeyboard(AddPostActivity.this);
 
         if (titleEditText.getText().toString().trim().length() == 0 ||
                 descriptionEditText.getText().toString().trim().length() == 0 ||
@@ -125,8 +126,8 @@ public class AddPostActivity extends AppCompatActivity {
 
             String eventText = "{\n" +
                     "    \"date\": \"" + eventDate + "\",\n" +
-                    "    \"title\": \"" + titleEditText.getText().toString().trim() + "\",\n" +
-                    "    \"description\": \"" + descriptionEditText.getText().toString().trim() + "\",\n" +
+                    "    \"title\": \"" + titleEditText.getText().toString().trim().replaceAll("\"","\\\\\"") + "\",\n" +
+                    "    \"description\": \"" + descriptionEditText.getText().toString().trim().replaceAll("\"","\\\\\"") + "\",\n" +
                     "    \"category\": \"" + categories[radioButtonID] + "\"\n" +
                     "}\n";
 

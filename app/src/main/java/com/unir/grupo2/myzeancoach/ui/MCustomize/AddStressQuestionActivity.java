@@ -72,20 +72,20 @@ public class AddStressQuestionActivity extends AppCompatActivity {
                 && !option2.getText().toString().isEmpty() && !option3.getText().toString().isEmpty()
                 && !option4.getText().toString().isEmpty()) {
             String bodyString = "{\n" +
-                    "\t\"description\": \"" + stressTitle.getText().toString() + "\",\n" +
+                    "\t\"description\": \"" + stressTitle.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"possible_amswers\": 4 ,\n" +
                     "\t\"is_personal_question\": true ,\n" +
                     "\t\"answers\":  [{ \n" +
-                    "\t\"description\": \"" + option1.getText().toString() + "\",\n" +
+                    "\t\"description\": \"" + option1.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"color\": \"azul\",\n" +
                     "\t\"popup_message\": \"\"},{\n" +
-                    "\t\"description\": \"" + option2.getText().toString() + "\",\n" +
+                    "\t\"description\": \"" + option2.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"color\": \"amarillo\",\n" +
                     "\t\"popup_message\": \"\"},{\n" +
-                    "\t\"description\": \"" + option3.getText().toString() + "\",\n" +
+                    "\t\"description\": \"" + option3.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"color\": \"rojo\",\n" +
                     "\t\"popup_message\": \"\"},{\n" +
-                    "\t\"description\": \"" + option4.getText().toString() + "\",\n" +
+                    "\t\"description\": \"" + option4.getText().toString().replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"color\": \"naranja\",\n" +
                     "\t\"popup_message\": \"\"}]\n" +
                     "}";
@@ -168,9 +168,9 @@ public class AddStressQuestionActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
-        if (isNewConnection()){
+        if (isNewConnection()) {
             Utils.launchConnectionUseCase(this);
         }
     }
