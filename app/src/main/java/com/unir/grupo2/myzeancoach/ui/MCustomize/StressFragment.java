@@ -55,6 +55,9 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
     @BindView(R.id.floatingActionButton)
     FloatingActionButton floatingActionButton;
     @Nullable
+    @BindView(R.id.floatingActionButton2)
+    FloatingActionButton floatingActionButton2;
+    @Nullable
     @BindView(R.id.content)
     RelativeLayout content;
     @Nullable
@@ -86,6 +89,11 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
 
     @OnClick(R.id.floatingActionButton)
     public void openNewQuestion() {
+        //call to open the new fragment
+        postListener.onNewQuestionSelected();
+    }
+    @OnClick(R.id.floatingActionButton2)
+    public void openNewQuestion2() {
         //call to open the new fragment
         postListener.onNewQuestionSelected();
     }
