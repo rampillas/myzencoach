@@ -65,7 +65,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
     LinearLayout errorLayout;
     @Nullable
     @BindView(R.id.noplan)
-    LinearLayout noPlan;
+    RelativeLayout noPlan;
     //elements from database
     List<StressQuestion> stressQuestionsList;
     //local elements for view holder

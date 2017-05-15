@@ -62,6 +62,7 @@
     <string name="REMAINDERS_OBSERVATIONS">Observations</string>
     <string name="STRESS_GETCOACHRESPONSE">Get coach response</string>
     <string name="STRESS_NORESPONSE">Response message has not been defined by the coach yet</string>
+    <string name="REMAINDERS_NO_Stress">Sorry new stress questions aren´t avalible yet</string>
 
 
 
@@ -252,6 +253,7 @@
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
     <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
     <string name="PREFERENCES_EXPIRATION">valor de expiracion de claves</string>
+
 
 
 </resources>
