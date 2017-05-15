@@ -65,7 +65,6 @@
     <string name="REMAINDERS_NO_Stress">Sorry new stress questions aren´t avalible yet</string>
 
 
-
     <!---MODULE 2 : Essential information -->
     <string name="score_info">%1$d Mark</string>
     <string name="completed">Completed</string>
@@ -253,7 +252,9 @@
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
     <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
     <string name="PREFERENCES_EXPIRATION">valor de expiracion de claves</string>
-
+    <string name="coach_response">Coach response</string>
+    <string name="message_title_no_answer">No answer is avalible</string>
+    <string name="message_description_no_answer">Please enter the answer</string>
 
 
 </resources>

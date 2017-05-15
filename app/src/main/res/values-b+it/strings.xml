@@ -252,5 +252,9 @@
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
     <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
     <string name="PREFERENCES_EXPIRATION">valor de expiracion de claves</string>
+    <string name="coach_response">Risposta del coach</string>
+    <string name="message_title_no_answer">Nessuna risposta è disponibile</string>
+    <string name="message_description_no_answer">Si prega di inserire la risposta</string>
+
 
 </resources>
