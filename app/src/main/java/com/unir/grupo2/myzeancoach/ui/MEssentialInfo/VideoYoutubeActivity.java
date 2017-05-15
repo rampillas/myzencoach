@@ -120,7 +120,7 @@ public class VideoYoutubeActivity extends YouTubeBaseActivity {
         public void onVideoEnded() {
             if (!isWatched){
                 String text = "{\n" +
-                        "\t\"name\": \""+ videoName + "\",\n" +
+                        "\t\"name\": \""+ videoName.replaceAll("\"","\\\\\"") + "\",\n" +
                         "\t\"is_watched\": true\n" +
                         "}";
                 RequestBody body =

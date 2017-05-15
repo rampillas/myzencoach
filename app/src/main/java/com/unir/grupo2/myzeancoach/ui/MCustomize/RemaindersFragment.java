@@ -344,7 +344,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
 
     private static void setUserPoints() {
         String bodyString = "{\n" +
-                "\t\"title\": \"" + remainderItemInUse.getTitle() + "\",\n" +
+                "\t\"title\": \"" + remainderItemInUse.getTitle().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"points\": 1 \n" +
                 "}";
         RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);
@@ -400,7 +400,7 @@ public class RemaindersFragment extends Fragment implements RemaindersListAdapte
     public void onCompleteClick(RemainderItemObject remainderItem) {
         showLoading();
         String bodyString = "{\n" +
-                "\t\"title\": \"" + remainderItem.getTitle() + "\",\n" +
+                "\t\"title\": \"" + remainderItem.getTitle().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"is_finished\": true \n" +
                 "}";
         RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);

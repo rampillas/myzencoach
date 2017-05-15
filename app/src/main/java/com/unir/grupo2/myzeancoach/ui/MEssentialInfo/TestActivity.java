@@ -92,7 +92,7 @@ public class TestActivity extends AppCompatActivity implements QuestionListAdapt
         showLoading();
 
         String text = "{\n" +
-                "\t\"description\":\""+ test.getDescription() +"\",\n" +
+                "\t\"description\":\""+ test.getDescription().replaceAll("\"","\\\\\"") +"\",\n" +
                 "\"score\":" + score +"\n" +
                 "}\n";
 
