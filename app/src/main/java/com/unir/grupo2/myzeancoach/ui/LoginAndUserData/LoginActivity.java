@@ -89,8 +89,11 @@ public class LoginActivity extends AppCompatActivity {
                 //Show mainActiviy directly
                 launchMainActivity();
             } else {
-                usuarioLogin.setText(user);
-                Toast.makeText(getApplicationContext(), getString(R.string.LOGIN_EXPIRED_TOKEN), Toast.LENGTH_LONG).show();
+                if (!user.equals("q�")){
+                    usuarioLogin.setText(user);
+                    Toast.makeText(getApplicationContext(), getString(R.string.LOGIN_EXPIRED_TOKEN), Toast.LENGTH_LONG).show();
+                }
+
             }
 
         }
