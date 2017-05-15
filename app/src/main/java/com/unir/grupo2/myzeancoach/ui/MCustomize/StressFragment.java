@@ -107,7 +107,7 @@ public class StressFragment extends Fragment implements StressListAdapter.OnItem
         String user = Utils.getUserFromPreference(getContext());
         //get the options and create the request body
         String bodyString = "{\n" +
-                "\t\"description\": \"" + stressQuestionActive.getDescription() + "\", \n" +
+                "\t\"description\": \"" + stressQuestionActive.getDescription().replaceAll("\"","\\\\\"") + "\", \n" +
                 "\t\"user_answer\": \"" + answer + "\"\n" +
                 "}";
         RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);

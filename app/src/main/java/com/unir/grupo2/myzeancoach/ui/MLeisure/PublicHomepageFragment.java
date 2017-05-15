@@ -113,7 +113,7 @@ public class PublicHomepageFragment extends Fragment implements EventListAdapter
 
         String text = "{\n" +
                 "\t\"user_owner\": \"" + event.getUser() + "\",\n" +
-                "\t\"title\": \"" + event.getTitle() + "\"\n" +
+                "\t\"title\": \"" + event.getTitle().replaceAll("\"","\\\\\"") + "\"\n" +
                 "}\n";
 
         RequestBody body;

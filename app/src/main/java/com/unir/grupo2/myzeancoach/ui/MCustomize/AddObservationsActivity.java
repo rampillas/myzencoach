@@ -57,7 +57,7 @@ public class AddObservationsActivity extends AppCompatActivity {
         String user = Utils.getUserFromPreference(getApplicationContext());
         if (!remainderObservations.getText().toString().isEmpty()) {
             String bodyString = "{\n" +
-                    "\t\"title\": \"" + remainderTitle + "\",\n" +
+                    "\t\"title\": \"" + remainderTitle.replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"observations\": \"" + remainderObservations.getText().toString().toString().replaceAll("\"","\\\\\"") + "\"\n" +
                     "}";
             RequestBody rb = RequestBody.create(MediaType.parse("text/plain"), bodyString);

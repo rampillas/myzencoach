@@ -167,8 +167,8 @@ public class QuestionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void showDialogNoAnswer() {
         new AlertDialog.Builder(context)
-                .setTitle(context.getString(R.string.message_title_no_answer))
-                .setMessage(context.getString(R.string.message_description_no_answer))
+                .setTitle(context.getString(R.string.message_title_no_answer_video))
+                .setMessage(context.getString(R.string.message_description_no_answer_video))
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 

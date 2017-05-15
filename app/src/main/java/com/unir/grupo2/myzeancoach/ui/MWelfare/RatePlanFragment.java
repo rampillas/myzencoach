@@ -217,7 +217,7 @@ public class RatePlanFragment extends Fragment implements RatePlanListAdapter.On
         String token = Constants.PRE_TOKEN + Utils.getTokenFromPreference(getActivity());
 
         String text = "{\n" +
-                "\t\"description_plan\": \"" + planAmended.getDescription() + "\"\n" +
+                "\t\"description_plan\": \"" + planAmended.getDescription().replaceAll("\"","\\\\\"") + "\"\n" +
                 "}\n";
 
         RequestBody body =

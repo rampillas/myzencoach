@@ -138,17 +138,17 @@ public class AddCommentActivity  extends AppCompatActivity implements DialogCust
 
         String prosText = "{\n" +
                 "\t\"nick_user\": \"" + Utils.getUserFromPreference(this) + "\",\n" +
-                "\t\"description\": \"" + solutionEditText.getText().toString().trim() + "\",\n" +
+                "\t\"description\": \"" + solutionEditText.getText().toString().trim().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"pro\": {\n" +
-                "\t\t\"description\": \"" + prosEditText.getText().toString().trim() + "\"\n" +
+                "\t\t\"description\": \"" + prosEditText.getText().toString().trim().replaceAll("\"","\\\\\"") + "\"\n" +
                 "\t}\n" +
                 "}\n";
 
         String consText = "{\n" +
                 "\t\"nick_user\": \"" + Utils.getUserFromPreference(this) + "\",\n" +
-                "\t\"description\": \"" + solutionEditText.getText().toString().trim() + "\",\n" +
+                "\t\"description\": \"" + solutionEditText.getText().toString().trim().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"con\": {\n" +
-                "\t\t\"description\": \"" + consEditText.getText().toString().trim() + "\"\n" +
+                "\t\t\"description\": \"" + consEditText.getText().toString().trim().replaceAll("\"","\\\\\"") + "\"\n" +
                 "\t}\n" +
                 "}\n";
 

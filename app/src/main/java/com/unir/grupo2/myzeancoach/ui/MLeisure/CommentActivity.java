@@ -165,7 +165,7 @@ public class CommentActivity extends AppCompatActivity {
 
         String text = "{\n" +
                 "\t\"user_owner\": \"" + event.getUser() + "\",\n" +
-                "\t\"title\": \"" + event.getTitle() + "\",\n" +
+                "\t\"title\": \"" + event.getTitle().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"date\": \"" + updateDate + "\",\n" +
                 "\t\"description\": \"" + comment.replaceAll("\"","\\\\\"") + "\"\n" +
                 "}\n";

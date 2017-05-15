@@ -135,8 +135,8 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
         dateUpdate = Utils.dateNowForBackend();
 
         String likeText = "{\n" +
-                "\t\"title\": \"" + dilemma.getTitle() + "\",\n" +
-                "\t\"description\": \"" + commentLiked.getDescription() + "\",\n" +
+                "\t\"title\": \"" + dilemma.getTitle().replaceAll("\"","\\\\\"") + "\",\n" +
+                "\t\"description\": \"" + commentLiked.getDescription().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\"date\": \"" + dateUpdate + "\"\n" +
                 "}\n";
 
@@ -146,7 +146,7 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
 
             String statusText = "{\n" +
                     "\t\"username\": \"" + userName + "\",\n" +
-                    "\t\"title\": \"" + dilemma.getTitle() + "\",\n" +
+                    "\t\"title\": \"" + dilemma.getTitle().replaceAll("\"","\\\\\"") + "\",\n" +
                     "\t\"state\": \"feedback\"\n" +
                     "}\n";
 
@@ -174,10 +174,10 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
 
         String feedbackText = "{\n" +
                 "\t\"username\": \"" + userName + "\",\n" +
-                "\t\"title\": \"" + dilemma.getTitle() + "\",\n" +
+                "\t\"title\": \"" + dilemma.getTitle().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"description\": \"" + commentFeedback.getDescription().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"comment\": {\n" +
-                "\t\t\"feedback\": \"" + feedback + "\",\n" +
+                "\t\t\"feedback\": \"" + feedback.replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\t\"date_feedback\": \"" + dateUpdate + "\"\n" +
                 "\t}\n" +
                 "}\n";
@@ -197,7 +197,7 @@ public class DilemmaCommentActivity extends AppCompatActivity implements Dilemma
     private RequestBody getStatusRequestBody(String userName, String status){
         String statusText = "{\n" +
                 "\t\"username\": \"" + userName + "\",\n" +
-                "\t\"title\": \"" + dilemma.getTitle() + "\",\n" +
+                "\t\"title\": \"" + dilemma.getTitle().replaceAll("\"","\\\\\"") + "\",\n" +
                 "\t\"state\": \"" + status + "\"\n" +
                 "}\n";
 

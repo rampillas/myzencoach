@@ -18,14 +18,14 @@
     <string name="leisure">Leisure</string>
     <string name="stress_detection">Stress detector</string>
     <string name="reminders">Reminders</string>
-    <string name="puntuaction">Mark</string>
+    <string name="puntuaction">Your mark is:</string>
     <string name="login">Login</string>
     <string name="interests">Interests</string>
     <string name="videos">Videos</string>
     <string name="tests">Tests</string>
     <string name="ranking">Ranking</string>
-    <string name="my_dilemmas">My dilemmas</string>
-    <string name="homepage">Homepage</string>
+    <string name="my_dilemmas">My dilemmas - posted</string>
+    <string name="homepage">All dilemmas</string>
     <string name="coach">Coach</string>
     <string name="weekly_exercise">Weekly excercise</string>
     <string name="rate">Rating</string>
@@ -62,7 +62,7 @@
     <string name="REMAINDERS_OBSERVATIONS">Observations</string>
     <string name="STRESS_GETCOACHRESPONSE">Get coach response</string>
     <string name="STRESS_NORESPONSE">Response message has not been defined by the coach yet</string>
-    <string name="REMAINDERS_NO_Stress">Sorry new stress questions aren´t avalible yet</string>
+    <string name="REMAINDERS_NO_Stress">We\'re sorry but there are currently no questions</string>
 
 
     <!---MODULE 2 : Essential information -->
@@ -75,9 +75,12 @@
     <string name="no_available_test">There are no available tests for this video. Please finish watching this video to have access to its correspondent test.</string>
     <string name="error_update_video">Could not update video settings</string>
     <string name="test_completed_dialog">Your test has been saved and submitted. You can retake this test as many times as you wish</string>
-    <string name="dialog_massage_no_youtube_url_video">Video URLs are supported in a YouTube URL format only</string>
+    <string name="dialog_massage_no_youtube_url_video">Video URLs are supported in a YouTube URL format only. Please, contact your coach to solve this issue. We apologise for any inconvenience</string>
     <string name="message_no_video">No coach-recommended videos are available yet</string>
     <string name="message_no_ranking">Ranking not available</string>
+    <string name="message_title_no_answer_video">Coach´s error found</string>
+    <string name="message_description_no_answer_video">Every question must have 3 possible answers. Please, contact your coach to solve this issue. We apologise for any inconvenience</string>
+
 
     <!-- MOUDLE 3 : Cooperative Solution -->
     <string name="write_feedback">Please leave feedback on your preferred solution</string>
@@ -136,8 +139,8 @@
     <string name="error_update_survey">Error on saving survey</string>
     <string name="alert_check_fields_empty">Please answer to every question</string>
     <string name="dialog_title_url_no_valid">The URL is not valid</string>
-    <string name="dialog_massage_no_youtube_url_audio">Audio URLs are supported in a YouTube URL format only</string>
-    <string name="dialog_message_no_plans_available">There aren\'t  available plans at the moment.\nPlease wait until further plans will be available for use. We\'re sorry for the inconvenience</string>
+    <string name="dialog_massage_no_youtube_url_audio">Audio URLs are supported in a YouTube URL format only. Please, contact your coach to solve this issue. We apologise for any inconvenience</string>
+    <string name="dialog_message_no_plans_available">There aren\'t  available plans at the moment.\nPlease wait until further plans will be available for use. We\'re sorry for any inconvenience</string>
     <string name="alert_error_audio">Error in loading this audio</string>
 
     <!--MODULE 5 : Leisure -->
@@ -252,7 +255,7 @@
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
     <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
     <string name="PREFERENCES_EXPIRATION">valor de expiracion de claves</string>
-    <string name="coach_response">Coach response</string>
+    <string name="coach_response">Your coach´s answer:</string>
     <string name="message_title_no_answer">No answer is avalible</string>
     <string name="message_description_no_answer">Please enter the answer</string>
 

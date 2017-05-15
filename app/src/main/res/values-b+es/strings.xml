@@ -14,17 +14,17 @@
     <string name="customize">Personalización</string>
     <string name="essential_information">Información esencial</string>
     <string name="cooperative_solutions">Soluciones cooperativas</string>
-    <string name="welfare">Bienestar/Minfulness</string>
+    <string name="welfare">Bienestar/Mindfulness</string>
     <string name="leisure">Ocio y tiempo libre</string>
     <string name="stress_detection">Detección de estrés</string>
     <string name="reminders">Recordatorios</string>
-    <string name="puntuaction">Puntuación</string>
+    <string name="puntuaction">Su puntuación es la siguiente:</string>
     <string name="login">Login</string>
     <string name="interests">Intereses</string>
     <string name="videos">Videos</string>
     <string name="tests">Tests</string>
     <string name="ranking">Ranking</string>
-    <string name="my_dilemmas">Mis dilemas</string>
+    <string name="my_dilemmas">Mis dilemas publicados</string>
     <string name="homepage">Muro</string>
     <string name="coach">Coach</string>
     <string name="weekly_exercise">Ejercicio semanal</string>
@@ -62,7 +62,7 @@
     <string name="REMAINDERS_OBSERVATIONS">Observaciones</string>
     <string name="STRESS_GETCOACHRESPONSE">Obtener respuesta del coach</string>
     <string name="STRESS_NORESPONSE">El coach no ha definido respuesta aún</string>
-    <string name="REMAINDERS_NO_Stress">Disculpa, aún no hay nuevas preguntas</string>
+    <string name="REMAINDERS_NO_Stress">Disculpe, aún no hay nuevas preguntas</string>
 
 
     <!---MODULE 2 : Essential information -->
@@ -75,9 +75,11 @@
     <string name="no_available_test">No hay ningún test disponible. Para acceder al test de un video, debe ver el video correspondiente por completo.</string>
     <string name="error_update_video">Error al actualizar el video</string>
     <string name="test_completed_dialog">El test se ha guardado y enviado correctamente. Recuerde que podrá volver a realizar el test tantas veces como desee</string>
-    <string name="dialog_massage_no_youtube_url_video">La URL del video debe ser de Youtube</string>
+    <string name="dialog_massage_no_youtube_url_video">La URL del video debe ser de Youtube. Por favor, póngase en contacto con su coach para solucionarlo. Le pedimos disculpas por ello.</string>
     <string name="message_no_video">Aún no hay ningún video que el coach le sugiera ver</string>
     <string name="message_no_ranking">El Ranking no esta disponible</string>
+    <string name="message_title_no_answer_video">Error por parte del coach</string>
+    <string name="message_description_no_answer_video">Cada pregunta debe de tener 3 posibles respuestas. Por favor, póngase en contacto con su coach para solucionarlo. Le pedimos disculpas por ello.</string>
 
     <!-- MOUDLE 3 : Cooperative Solution -->
     <string name="write_feedback">Proporciona un feedback a la solución elegida</string>
@@ -136,7 +138,7 @@
     <string name="error_update_survey">Error al guardar su valoración</string>
     <string name="alert_check_fields_empty">Responda a todas las preguntas por favor.</string>
     <string name="dialog_title_url_no_valid">URL no válida</string>
-    <string name="dialog_massage_no_youtube_url_audio">La URL del audio debe ser de Youtube</string>
+    <string name="dialog_massage_no_youtube_url_audio">La URL del audio debe ser de Youtube. Por favor, póngase en contacto con su coach para solucionarlo. Le pedimos disculpas por ello.</string>
     <string name="dialog_message_no_plans_available">No hay planes disponibles.\nLe sugerimos esperar hasta que haya un plan disponible para usted. Perdone las molestias</string>
     <string name="alert_error_audio">Error al cargar el audio</string>
 
@@ -252,7 +254,7 @@
     <string name="PREFERENCES_INTERESTS_LEISURE">interests(no traducir)</string>
     <string name="PREFERENCES_LANGUAGE">language_app(no traducir)</string>
     <string name="PREFERENCES_EXPIRATION">valor de expiracion de claves</string>
-    <string name="coach_response">Respuesta del coach</string>
+    <string name="coach_response">Respuesta de su coach:</string>
     <string name="message_title_no_answer">No hay respuesta</string>
     <string name="message_description_no_answer">Por favor introduce la respuesta</string>
 
